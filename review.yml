@@ -1,0 +1,115 @@
+aid: vantage-sh
+name: Vantage
+review:
+  question: Does Vantage expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Vantage's public API is a
+    request/response REST API over HTTPS (base https://api.vantage.sh/v2)
+    described by a published OpenAPI 3.0.1 specification. There is no
+    server-push transport (WebSocket or SSE) on Vantage's own API to model.
+    Vantage delivers asynchronous notifications (cost alerts, anomaly alerts,
+    budget alerts, report notifications) by pushing to external channels the
+    user configures - email, Slack, Microsoft Teams, PagerDuty, and webhooks -
+    which carry their own protocols and are out of scope for a Vantage
+    AsyncAPI document.
+findings:
+  summary: |
+    Vantage does not publish a documented public WebSocket API. Vantage is a
+    cloud cost management and FinOps platform. Its public interface is a REST
+    API (base https://api.vantage.sh/v2, API version 2.0.0) documented with a
+    published OpenAPI 3.0.1 specification (also available as OAS/Swagger 2.0).
+    The API is pure request/response REST over HTTPS, authenticated with an
+    OAuth2 client-credentials bearer token scoped read and write. It covers
+    Costs and Cost Reports, Resources, Recommendations, Budgets, Cost Alerts,
+    Anomaly Alerts, Segments, Dashboards, Financial Commitments, Integrations,
+    Invoices, and more. Asynchronous cost/anomaly/budget notifications are
+    delivered to external destinations (email, Slack, Teams, PagerDuty,
+    webhooks), not over a Vantage WebSocket. No realtime, bidirectional, or
+    streaming WebSocket (ws:// or wss://) endpoint is documented on Vantage's
+    own API as of the review date.
+  openSource: |
+    Vantage the platform is a commercial hosted SaaS and is not open source.
+    Vantage does publish open-source API client libraries on GitHub
+    (github.com/vantage-sh) - including vantage-python and vantage-js - plus a
+    public Terraform provider and the community "Cloud Cost Handbook." The
+    machine-readable API contract is published openly as an OpenAPI 3.0.1
+    document at https://api.vantage.sh/v2/oas_v3.json (and Swagger 2.0 at
+    https://api.vantage.sh/v2/swagger.json).
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.vantage.sh/v2
+      documented: true
+      note: Full public REST API described by a published OpenAPI 3.0.1 specification.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Alert and report notifications can POST to a configured HTTP endpoint (and to Slack/Teams/PagerDuty/email). Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint appears anywhere in Vantage's OpenAPI specification or API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.vantage.sh/v2/costs
+    - POST   https://api.vantage.sh/v2/costs/data_exports
+    - GET    https://api.vantage.sh/v2/cost_reports
+    - POST   https://api.vantage.sh/v2/cost_reports
+    - GET    https://api.vantage.sh/v2/cost_reports/{cost_report_token}
+    - GET    https://api.vantage.sh/v2/cost_reports/{cost_report_token}/forecasted_costs
+    - GET    https://api.vantage.sh/v2/resources
+    - GET    https://api.vantage.sh/v2/resources/{resource_token}
+    - GET    https://api.vantage.sh/v2/recommendations
+    - GET    https://api.vantage.sh/v2/recommendations/{recommendation_token}
+    - GET    https://api.vantage.sh/v2/budgets
+    - POST   https://api.vantage.sh/v2/budgets
+    - GET    https://api.vantage.sh/v2/budget_alerts
+    - GET    https://api.vantage.sh/v2/cost_alerts
+    - POST   https://api.vantage.sh/v2/cost_alerts
+    - GET    https://api.vantage.sh/v2/cost_alerts/{cost_alert_token}/events
+    - GET    https://api.vantage.sh/v2/anomaly_alerts
+    - GET    https://api.vantage.sh/v2/anomaly_notifications
+    - GET    https://api.vantage.sh/v2/segments
+    - POST   https://api.vantage.sh/v2/segments
+    - GET    https://api.vantage.sh/v2/dashboards
+    - POST   https://api.vantage.sh/v2/dashboards
+    - GET    https://api.vantage.sh/v2/financial_commitments
+    - GET    https://api.vantage.sh/v2/financial_commitment_reports
+    - GET    https://api.vantage.sh/v2/folders
+    - GET    https://api.vantage.sh/v2/saved_filters
+    - GET    https://api.vantage.sh/v2/unit_costs
+    - GET    https://api.vantage.sh/v2/tags
+    - GET    https://api.vantage.sh/v2/ping
+    - GET    https://api.vantage.sh/v2/me
+sources:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+    note: Vantage API landing page; documents base URL https://api.vantage.sh/v2 and OpenAPI/Swagger spec locations.
+  - url: https://vantage.readme.io/reference/general
+    type: APIReference
+    note: Interactive API reference (ReadMe). All documented operations are HTTPS REST.
+  - url: https://vantage.readme.io/reference/authentication
+    type: Documentation
+    note: OAuth2 client-credentials bearer token; read and write scopes.
+  - url: https://api.vantage.sh/v2/oas_v3.json
+    type: OpenAPI
+    note: Published OpenAPI 3.0.1 specification, 110 paths, single https server https://api.vantage.sh/v2. No WebSocket channels.
+  - url: https://api.vantage.sh/v2/swagger.json
+    type: OpenAPI
+    note: Swagger/OAS 2.0 rendering of the same contract.
+  - url: https://github.com/vantage-sh
+    type: SourceCode
+    note: Open-source API clients (vantage-python, vantage-js) and Terraform provider; the platform itself is commercial SaaS.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Vantage's own public API is
+    request/response REST described by a published OpenAPI 3.0.1 document,
+    with no server-push transport (WebSocket or SSE) to model. Asynchronous
+    notifications are delivered to external channels (email, Slack, Teams,
+    PagerDuty, webhooks) that carry their own protocols, so no AsyncAPI
+    document was created.

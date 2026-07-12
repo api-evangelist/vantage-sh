@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Vantage
+providerId: vantage-sh
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Cloud Cost
+- FinOps
+- Cost Management
+- Rate Limiting
+- Quotas
+description: >-
+  Vantage applies per-token rate limiting to the public REST API and returns
+  HTTP 429 when a client exceeds its allowance. Exact published numeric limits
+  are not reconciled here; clients should read the standard rate-limit response
+  headers Vantage returns and back off accordingly. Bulk cost retrieval is also
+  bounded by pagination - the GET /costs endpoint returns a maximum of 5000
+  results per request and is paged via the limit and page parameters.
+notes: >-
+  Verify current numeric per-token limits against Vantage's API documentation
+  during reconciliation. For large cost pulls, prefer the data-export endpoints
+  (POST /costs/data_exports, POST /unit_costs/data_exports) over deep pagination.
+sources:
+- https://docs.vantage.sh/api
+- https://vantage.readme.io/reference/general
+- https://api.vantage.sh/v2/oas_v3.json
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: token
+  metric: requests
+  limit: not published (per-token; 429 on exceed)
+  notes: Vantage rate limits API requests per token and returns HTTP 429 when exceeded.
+- name: Costs Query Page Size
+  scope: request
+  metric: results
+  limit: 5000
+  notes: GET /costs returns at most 5000 results per request; page through with limit and page.
+- name: Cost Data Export
+  scope: account
+  metric: exports
+  limit: configurable
+  notes: For large extracts use POST /costs/data_exports rather than paginating the costs endpoint.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor any Retry-After header on 429 responses.
+- name: Pagination
+  description: List endpoints are paginated; iterate with page and limit rather than requesting unbounded result sets.
+- name: Bulk Export
+  description: Prefer the data-export endpoints for large cost datasets to avoid rate-limit pressure from deep pagination.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

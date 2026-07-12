@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/vantage-sh-openapi.yml
+summary:
+  types:
+  - oauth2
+schemes:
+- name: oauth2
+  type: oauth2
+  flow: clientCredentials
+  tokenUrl: https://console.vantage.sh/account/profile
+  scopes:
+    read: Grants read access
+    write: Grants write access
+  description: 'Vantage authenticates with an OAuth2 client-credentials bearer token.
+    Generate or copy a token from the Vantage console under Account / Profile
+    (console.vantage.sh/account/profile) and pass it as `Authorization: Bearer
+    YOUR_API_TOKEN`. Tokens carry read and/or write scopes.'
+  sources:
+  - openapi/vantage-sh-openapi.yml
+  - https://vantage.readme.io/reference/authentication

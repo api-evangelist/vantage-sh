@@ -1,0 +1,147 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Vantage
+providerId: vantage-sh
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Cloud Cost
+- FinOps
+- Cost Management
+- Cloud Optimization
+- Plans
+description: >-
+  Vantage sells its cloud cost management platform on simple, fixed monthly
+  tiers scaled by the amount of tracked cloud spend, rather than a percentage of
+  the bill. A free Starter tier covers small footprints, and paid Pro and
+  Business tiers add more tracked spend, users, and data retention. Enterprise
+  is custom. Vantage's optimization automation (Autopilot) is billed separately
+  at a percentage of the savings it generates. The public REST API is available
+  across tiers and does not carry a separate per-call fee.
+notes: >-
+  Fixed-rate tiers and dollar figures below reflect Vantage's public pricing
+  page at the time of review and should be re-verified during reconciliation.
+  Tracked-spend thresholds and user counts are the primary tier drivers; the
+  Autopilot 5%-of-savings fee is additive and only applies when optimization
+  automation is enabled.
+sources:
+- https://www.vantage.sh/pricing
+- https://docs.vantage.sh/api
+- https://vantage.readme.io/reference/general
+plans:
+- id: vantage-starter
+  name: Starter
+  type: free
+  description: >-
+    Free tier for small cloud footprints. Includes cost reporting, the public
+    API, and core visibility features.
+  entries:
+  - label: Tracked Cloud Spend
+    name: starter_tracked_spend
+    type: usage
+    metric: tracked_spend_usd
+    limit: 2500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0/month up to $2,500 tracked monthly cloud spend
+    userMultiplied: false
+  elements:
+  - name: Up to 3 Users
+  - name: 6-Month Data Retention
+  - name: Public REST API Access
+  - name: Cost Reports and Dashboards
+- id: vantage-pro
+  name: Pro
+  type: paid
+  description: >-
+    Fixed monthly plan for growing cloud footprints, adding more tracked spend
+    and users and unlocking Autopilot optimization automation.
+  entries:
+  - label: Subscription
+    name: pro_subscription
+    type: flat
+    metric: subscription
+    limit: 7500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $30/month up to $7,500 tracked monthly cloud spend (14-day free trial)
+    userMultiplied: false
+  elements:
+  - name: Up to 5 Users
+  - name: 6-Month Data Retention
+  - name: Autopilot Optimization (5% of savings)
+  - name: Public REST API Access
+- id: vantage-business
+  name: Business
+  type: paid
+  description: >-
+    Fixed monthly plan for larger footprints with longer retention and more
+    users.
+  entries:
+  - label: Subscription
+    name: business_subscription
+    type: flat
+    metric: subscription
+    limit: 20000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $200/month up to $20,000 tracked monthly cloud spend (14-day free trial)
+    userMultiplied: false
+  elements:
+  - name: Up to 10 Users
+  - name: 12-Month Data Retention
+  - name: Autopilot Optimization (5% of savings)
+  - name: Public REST API Access
+- id: vantage-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom plan for large or high-spend organizations - unlimited tracked spend,
+    unlimited users and retention, RBAC, SSO, premium support, and Autopilot.
+    Contact Vantage for over $20,000 monthly cloud spend.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: custom (contact support@vantage.sh)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Tracked Spend
+  - name: Unlimited Users and Retention
+  - name: RBAC and SSO
+  - name: Premium Support
+  - name: Autopilot Optimization (5% of savings)
+- id: vantage-autopilot
+  name: Autopilot Optimization
+  type: usage
+  description: >-
+    Optional optimization automation billed as a percentage of the cloud savings
+    it generates, additive to the subscription tier. Available on Pro, Business,
+    and Enterprise.
+  entries:
+  - label: Percent of Savings
+    name: autopilot_pct_savings
+    type: usage
+    metric: savings_usd
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 5% of realized savings
+    userMultiplied: false
+  elements:
+  - name: Automated Cost Optimization
+  - name: Savings-Based Billing
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

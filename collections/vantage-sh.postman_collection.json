@@ -1,0 +1,2079 @@
+{
+  "info": {
+    "name": "Vantage API",
+    "description": "Programmatic access to the Vantage cloud cost management and FinOps platform. Base URL: https://api.vantage.sh/v2. Authenticate with an OAuth2 client-credentials bearer token from console.vantage.sh/account/profile passed as Authorization: Bearer YOUR_API_TOKEN.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.vantage.sh/v2",
+      "type": "string"
+    },
+    {
+      "key": "bearerToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Costs & Cost Reports",
+      "item": [
+        {
+          "name": "Get all cost reports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports"
+              ]
+            },
+            "description": "Return all CostReports."
+          }
+        },
+        {
+          "name": "Create cost report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports"
+              ]
+            },
+            "description": "Create a CostReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get cost report by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports/:cost_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ]
+            },
+            "description": "Return a CostReport."
+          }
+        },
+        {
+          "name": "Update cost report",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports/:cost_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ]
+            },
+            "description": "Update a CostReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete cost report",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports/:cost_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ]
+            },
+            "description": "Delete a CostReport."
+          }
+        },
+        {
+          "name": "Get forecasted costs for a cost report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_reports/:cost_report_token/forecasted_costs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_reports",
+                ":cost_report_token",
+                "forecasted_costs"
+              ]
+            },
+            "description": "Return all ForecastedCosts."
+          }
+        },
+        {
+          "name": "Generate cost data export",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/costs/data_exports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "costs",
+                "data_exports"
+              ]
+            },
+            "description": "Generate a DataExport of costs.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get costs for cost report or VQL filter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/costs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "costs"
+              ]
+            },
+            "description": "Return all Costs for a CostReport or VQL filter."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resource Reports",
+      "item": [
+        {
+          "name": "Get resource report columns",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports/columns",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports",
+                "columns"
+              ]
+            },
+            "description": "List available columns for a resource type."
+          }
+        },
+        {
+          "name": "Get all resource reports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports"
+              ]
+            },
+            "description": "Return all ResourceReports."
+          }
+        },
+        {
+          "name": "Create resource report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports"
+              ]
+            },
+            "description": "Create a ResourceReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get resource report by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports/:resource_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports",
+                ":resource_report_token"
+              ]
+            },
+            "description": "Return a ResourceReport."
+          }
+        },
+        {
+          "name": "Update resource report",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports/:resource_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports",
+                ":resource_report_token"
+              ]
+            },
+            "description": "Update a ResourceReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete resource report",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resource_reports/:resource_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resource_reports",
+                ":resource_report_token"
+              ]
+            },
+            "description": "Delete a ResourceReport."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "Get resources",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resources"
+              ]
+            },
+            "description": "Return Resources contained in a ResourceReport"
+          }
+        },
+        {
+          "name": "Get resource by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/resources/:resource_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resources",
+                ":resource_token"
+              ]
+            },
+            "description": "Return a single Resource"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Get all recommendations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendations"
+              ]
+            },
+            "description": "Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing)."
+          }
+        },
+        {
+          "name": "Get recommendation by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/:recommendation_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendations",
+                ":recommendation_token"
+              ]
+            },
+            "description": "Return a Recommendation."
+          }
+        },
+        {
+          "name": "Get all resources for a recommendation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/:recommendation_token/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendations",
+                ":recommendation_token",
+                "resources"
+              ]
+            },
+            "description": "Return all Active Resources, including Recommendation Actions, referenced in this Recommendation."
+          }
+        },
+        {
+          "name": "Get specific resource for a recommendation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/:recommendation_token/resources/:resource_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendations",
+                ":recommendation_token",
+                "resources",
+                ":resource_token"
+              ]
+            },
+            "description": "Return an Active Resource, including Recommendation Actions, referenced in this Recommendation."
+          }
+        },
+        {
+          "name": "Get all resources for a recommendation type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/by_type/:type/resources",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendations",
+                "by_type",
+                ":type",
+                "resources"
+              ]
+            },
+            "description": "Return all Active Resources associated with recommendations of the specified type."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendation Views",
+      "item": [
+        {
+          "name": "Get all recommendation views",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendation_views",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendation_views"
+              ]
+            },
+            "description": "Return all RecommendationViews."
+          }
+        },
+        {
+          "name": "Create recommendation view",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recommendation_views",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendation_views"
+              ]
+            },
+            "description": "Create a RecommendationView.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get recommendation view by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendation_views/:recommendation_view_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ]
+            },
+            "description": "Return a specific RecommendationView."
+          }
+        },
+        {
+          "name": "Update recommendation view",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recommendation_views/:recommendation_view_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ]
+            },
+            "description": "Update a RecommendationView.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete recommendation view",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendation_views/:recommendation_view_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ]
+            },
+            "description": "Delete a RecommendationView."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Budgets",
+      "item": [
+        {
+          "name": "Get all budgets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budgets"
+              ]
+            },
+            "description": "Return all Budgets."
+          }
+        },
+        {
+          "name": "Create budget",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budgets"
+              ]
+            },
+            "description": "Create a Budget.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get budget by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budgets/:budget_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budgets",
+                ":budget_token"
+              ]
+            },
+            "description": "Return a Budget."
+          }
+        },
+        {
+          "name": "Update budget",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/budgets/:budget_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budgets",
+                ":budget_token"
+              ]
+            },
+            "description": "Update a Budget.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete budget",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budgets/:budget_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budgets",
+                ":budget_token"
+              ]
+            },
+            "description": "Delete a Budget."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Budget Alerts",
+      "item": [
+        {
+          "name": "Get all budget alerts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budget_alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budget_alerts"
+              ]
+            },
+            "description": "Return all BudgetAlerts."
+          }
+        },
+        {
+          "name": "Create budget alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/budget_alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budget_alerts"
+              ]
+            },
+            "description": "Create a Budget Alert.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get budget alert by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budget_alerts/:budget_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ]
+            },
+            "description": "Return a BudgetAlert."
+          }
+        },
+        {
+          "name": "Update budget alert",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/budget_alerts/:budget_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ]
+            },
+            "description": "Updates an existing BudgetAlert.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete budget alert",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/budget_alerts/:budget_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ]
+            },
+            "description": "Delete a BudgetAlert."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cost Alerts",
+      "item": [
+        {
+          "name": "Get all cost alerts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts"
+              ]
+            },
+            "description": "List all Cost Alerts"
+          }
+        },
+        {
+          "name": "Create cost alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts"
+              ]
+            },
+            "description": "Create a new Cost Alert",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get cost alert by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts/:cost_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ]
+            },
+            "description": "Get a Cost Alert"
+          }
+        },
+        {
+          "name": "Update cost alert",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts/:cost_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ]
+            },
+            "description": "Update a Cost Alert",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete cost alert",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts/:cost_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ]
+            },
+            "description": "Delete a Cost Alert"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cost Alert Events",
+      "item": [
+        {
+          "name": "Get all cost alert events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts/:cost_alert_token/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token",
+                "events"
+              ]
+            },
+            "description": "Get all CostAlertEvents"
+          }
+        },
+        {
+          "name": "Get cost alert event by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cost_alerts/:cost_alert_token/events/:event_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token",
+                "events",
+                ":event_token"
+              ]
+            },
+            "description": "Get a CostAlertEvent"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Anomaly Alerts",
+      "item": [
+        {
+          "name": "Get all anomaly alerts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_alerts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_alerts"
+              ]
+            },
+            "description": "Return all Anomaly Alerts that the current API token has access to."
+          }
+        },
+        {
+          "name": "Get anomaly alert by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_alerts/:anomaly_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_alerts",
+                ":anomaly_alert_token"
+              ]
+            },
+            "description": "Return an AnomalyAlert that the current API token has access to."
+          }
+        },
+        {
+          "name": "Update anomaly alert",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_alerts/:anomaly_alert_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_alerts",
+                ":anomaly_alert_token"
+              ]
+            },
+            "description": "Update an AnomalyAlert.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Anomaly Notifications",
+      "item": [
+        {
+          "name": "Get all anomaly notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_notifications"
+              ]
+            },
+            "description": "Return all Anomaly Notifications."
+          }
+        },
+        {
+          "name": "Create anomaly notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_notifications"
+              ]
+            },
+            "description": "Create an Anomaly Notification for a Cost Report.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get anomaly notification by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_notifications/:anomaly_notification_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_notifications",
+                ":anomaly_notification_token"
+              ]
+            },
+            "description": "Return an Anomaly Notification that the current API token has access to."
+          }
+        },
+        {
+          "name": "Update anomaly notification",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_notifications/:anomaly_notification_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_notifications",
+                ":anomaly_notification_token"
+              ]
+            },
+            "description": "Update an Anomaly Notification.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete anomaly notification",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/anomaly_notifications/:anomaly_notification_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anomaly_notifications",
+                ":anomaly_notification_token"
+              ]
+            },
+            "description": "Delete an Anomaly Notification."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Segments",
+      "item": [
+        {
+          "name": "Get all segments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/segments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments"
+              ]
+            },
+            "description": "Return all Segments."
+          }
+        },
+        {
+          "name": "Create segment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/segments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments"
+              ]
+            },
+            "description": "Create a Segment.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get segment by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/segments/:segment_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments",
+                ":segment_token"
+              ]
+            },
+            "description": "Return a Segment."
+          }
+        },
+        {
+          "name": "Update segment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/segments/:segment_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments",
+                ":segment_token"
+              ]
+            },
+            "description": "Update a Segment.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete segment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/segments/:segment_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "segments",
+                ":segment_token"
+              ]
+            },
+            "description": "Delete a Segment."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboards",
+      "item": [
+        {
+          "name": "Get all dashboards",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards"
+              ]
+            },
+            "description": "Return all Dashboards."
+          }
+        },
+        {
+          "name": "Create dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards"
+              ]
+            },
+            "description": "Create a Dashboard.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get dashboard by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards/:dashboard_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ]
+            },
+            "description": "Return a specific Dashboard."
+          }
+        },
+        {
+          "name": "Update dashboard",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards/:dashboard_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ]
+            },
+            "description": "Update a Dashboard.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete dashboard",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards/:dashboard_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ]
+            },
+            "description": "Delete a Dashboard."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Folders",
+      "item": [
+        {
+          "name": "Get all folders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/folders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "folders"
+              ]
+            },
+            "description": "Return all Folders for CostReports."
+          }
+        },
+        {
+          "name": "Create folder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/folders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "folders"
+              ]
+            },
+            "description": "Create a Folder for CostReports.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get folder by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/folders/:folder_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "folders",
+                ":folder_token"
+              ]
+            },
+            "description": "Return a specific Folder for CostReports."
+          }
+        },
+        {
+          "name": "Update folder",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/folders/:folder_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "folders",
+                ":folder_token"
+              ]
+            },
+            "description": "Update a Folder for CostReports.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete folder",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/folders/:folder_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "folders",
+                ":folder_token"
+              ]
+            },
+            "description": "Delete a Folder for CostReports."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Saved Filters",
+      "item": [
+        {
+          "name": "Get all saved filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/saved_filters",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "saved_filters"
+              ]
+            },
+            "description": "Return all SavedFilters that can be applied to a CostReport."
+          }
+        },
+        {
+          "name": "Create saved filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/saved_filters",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "saved_filters"
+              ]
+            },
+            "description": "Create a SavedFilter for CostReports.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get saved filter by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/saved_filters/:saved_filter_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "saved_filters",
+                ":saved_filter_token"
+              ]
+            },
+            "description": "Return a specific SavedFilter."
+          }
+        },
+        {
+          "name": "Update saved filter",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/saved_filters/:saved_filter_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "saved_filters",
+                ":saved_filter_token"
+              ]
+            },
+            "description": "Update a SavedFilter for CostReports.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete saved filter",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/saved_filters/:saved_filter_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "saved_filters",
+                ":saved_filter_token"
+              ]
+            },
+            "description": "Delete a SavedFilter for CostReports."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Financial Commitments",
+      "item": [
+        {
+          "name": "Get all financial commitments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitments"
+              ]
+            },
+            "description": "Return all FinancialCommitments."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Financial Commitment Reports",
+      "item": [
+        {
+          "name": "Get all financial commitment reports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitment_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitment_reports"
+              ]
+            },
+            "description": "Return all FinancialCommitmentReports."
+          }
+        },
+        {
+          "name": "Create financial commitment report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitment_reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitment_reports"
+              ]
+            },
+            "description": "Create a FinancialCommitmentReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get financial commitment report by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitment_reports/:financial_commitment_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ]
+            },
+            "description": "Return a FinancialCommitmentReport."
+          }
+        },
+        {
+          "name": "Update financial commitment report",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitment_reports/:financial_commitment_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ]
+            },
+            "description": "Update a FinancialCommitmentReport.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete financial commitment report",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/financial_commitment_reports/:financial_commitment_report_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ]
+            },
+            "description": "Delete a FinancialCommitmentReport."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unit Costs",
+      "item": [
+        {
+          "name": "Generate data export of unit costs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/unit_costs/data_exports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "unit_costs",
+                "data_exports"
+              ]
+            },
+            "description": "Generate a DataExport of unit costs.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get all unit costs for a cost report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/unit_costs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "unit_costs"
+              ]
+            },
+            "description": "Return all UnitCosts for a CostReport."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Virtual Tags",
+      "item": [
+        {
+          "name": "Get all virtual tag configs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs"
+              ]
+            },
+            "description": "Return all VirtualTagConfigs that the current API token has access to."
+          }
+        },
+        {
+          "name": "Create virtual tag config",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs"
+              ]
+            },
+            "description": "Create a new VirtualTagConfig.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get virtual tag config by token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/:token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ]
+            },
+            "description": "Return a specific VirtualTagConfig."
+          }
+        },
+        {
+          "name": "Update virtual tag config",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/:token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ]
+            },
+            "description": "Updates an existing VirtualTagConfig.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete virtual tag config",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/:token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ]
+            },
+            "description": "Deletes an existing VirtualTagConfig."
+          }
+        },
+        {
+          "name": "Get virtual tag config processing status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/:token/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                ":token",
+                "status"
+              ]
+            },
+            "description": "Return the processing status of a specific VirtualTagConfig."
+          }
+        },
+        {
+          "name": "Update virtual tag config asynchronously",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/:token/async",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                ":token",
+                "async"
+              ]
+            },
+            "description": "Asynchronously updates an existing VirtualTagConfig.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get async virtual tag config update status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/virtual_tag_configs/async/:request_id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "virtual_tag_configs",
+                "async",
+                ":request_id"
+              ]
+            },
+            "description": "Check the status of an async VirtualTagConfig update."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "item": [
+        {
+          "name": "Get all tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tags",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags"
+              ]
+            },
+            "description": "Return all Tags that the current API token has access to."
+          }
+        },
+        {
+          "name": "Update tag",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tags",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags"
+              ]
+            },
+            "description": "Updates an existing Tag.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get tag values",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tags/:key/values",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags",
+                ":key",
+                "values"
+              ]
+            },
+            "description": "Returns corresponding TagValues for a given Tag."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Me",
+      "item": [
+        {
+          "name": "Get authenticated user info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "Get information about the authenticated BearerToken."
+          }
+        },
+        {
+          "name": "Update authenticated user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "Update the authenticated User.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ping",
+      "item": [
+        {
+          "name": "GET /ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            },
+            "description": "This is a health check endpoint that can be used to determine Vantage API healthiness. It will return 200 if everything is running smoothly."
+          }
+        }
+      ]
+    }
+  ]
+}

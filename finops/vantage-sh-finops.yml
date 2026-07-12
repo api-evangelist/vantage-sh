@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Vantage
+providerId: vantage-sh
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Cloud Cost
+- FinOps
+- Cost Management
+- Cloud Optimization
+- FOCUS
+- Cost Visibility
+description: >-
+  Vantage is itself a FinOps platform, so this view has two sides. First,
+  Vantage is a tool teams adopt to practice FinOps - its API is a primary
+  programmatic surface for cloud cost visibility, allocation, and optimization
+  across AWS, Azure, GCP, Kubernetes, and other providers, and it ingests and
+  normalizes provider billing data (including FOCUS-aligned datasets). Second,
+  Vantage's own cost to a customer is a fixed monthly subscription scaled by
+  tracked cloud spend, plus an optional Autopilot optimization fee billed at 5%
+  of realized savings. A free Starter tier exists for small footprints.
+notes: >-
+  Vantage supports the FinOps Foundation's FOCUS billing-data standard for
+  normalizing multi-cloud cost data; treat its API's Costs and Cost Reports
+  surfaces as the machine-readable feed for a FinOps practice. Subscription and
+  savings-fee figures should be re-verified during reconciliation.
+sources:
+- https://www.vantage.sh/
+- https://www.vantage.sh/pricing
+- https://docs.vantage.sh/api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Vantage
+serviceCategory: Cloud Cost Management and FinOps
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Vantage
+  ServiceCategory: Cloud Cost Management and FinOps
+  ProviderName: Vantage
+  PublisherName: Vantage
+  InvoiceIssuerName: Vantage
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: tracked_cloud_spend
+  description: Monthly cloud spend Vantage tracks for the account; the primary driver of the subscription tier.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+  - provider
+- name: subscription_fee
+  description: Fixed monthly subscription fee for the selected Vantage tier.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: autopilot_savings_fee
+  description: Optional Autopilot optimization fee, billed at 5% of realized cloud savings.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+- name: api_requests
+  description: Public REST API requests; no separate per-call fee, but subject to per-token rate limits.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - token
+principles:
+- name: Visibility
+  description: Use the Costs and Cost Reports APIs to pull normalized multi-cloud spend, and Resources/Recommendations to see per-resource cost and savings opportunities.
+- name: Allocation
+  description: Use Segments, Folders, Saved Filters, and Virtual Tags to map cloud cost to teams, products, and cost centers for showback and chargeback.
+- name: Optimization
+  description: Act on Recommendations and Financial Commitments (RIs, Savings Plans, CUDs); enable Autopilot to automate optimization, priced at 5% of realized savings.
+- name: Accountability
+  description: Wire Budgets, Budget Alerts, Cost Alerts, and Anomaly Alerts into your own tooling so owners are notified as spend approaches limits or behaves abnormally.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

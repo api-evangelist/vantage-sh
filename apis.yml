@@ -1,0 +1,228 @@
+aid: vantage-sh
+url: https://raw.githubusercontent.com/api-evangelist/vantage-sh/refs/heads/main/apis.yml
+name: Vantage
+kind: company
+description: Vantage is a cloud cost management and FinOps platform that gives engineering
+  and finance teams visibility into and control over cloud spend across AWS, Azure,
+  GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other providers. Its public REST
+  API (base https://api.vantage.sh/v2) exposes Costs and Cost Reports, Resources,
+  Recommendations, Budgets, Cost and Anomaly Alerts, Segments, Dashboards, Financial
+  Commitments, and more, so teams can query normalized cost data, automate cost
+  reporting, and wire cloud optimization into their own tooling. Vantage publishes a
+  full OpenAPI specification and authenticates with OAuth2 (client-credentials bearer
+  tokens) scoped for read and write.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Cloud Cost
+- FinOps
+- Cost Management
+- Cloud Optimization
+- Cost Visibility
+- Cloud Spend
+- Multi-Cloud
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: vantage-sh:vantage-sh-costs-api
+  name: Vantage Costs API
+  tags:
+  - Cloud Cost
+  - Costs
+  - Cost Reporting
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: https://vantage.readme.io/reference/general
+    type: APIReference
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Query normalized cloud cost data across providers. Retrieve costs by
+    cost report or VQL filter, grouped and date-binned, with credits and refunds
+    settings - the core surface for the "cloud cost" use case. Base endpoint GET
+    /costs plus data-export support at POST /costs/data_exports.
+- aid: vantage-sh:vantage-sh-cost-reports-api
+  name: Vantage Cost Reports API
+  tags:
+  - Cost Management
+  - Cost Reports
+  - Forecasting
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: https://vantage.readme.io/reference/general
+    type: APIReference
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Create, list, get, update, and delete Cost Reports - saved, filtered
+    views of cloud spend - and retrieve forecasted costs for a report. CRUD under
+    /cost_reports with GET /cost_reports/{cost_report_token}/forecasted_costs.
+- aid: vantage-sh:vantage-sh-resources-api
+  name: Vantage Resources API
+  tags:
+  - Cloud Optimization
+  - Resources
+  - Inventory
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: List and inspect the active cloud resources Vantage tracks across
+    connected accounts, with per-resource cost attribution. GET /resources and GET
+    /resources/{resource_token}, plus Resource Reports for saved resource views.
+- aid: vantage-sh:vantage-sh-recommendations-api
+  name: Vantage Recommendations API
+  tags:
+  - Cloud Optimization
+  - Recommendations
+  - Savings
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Retrieve cost-optimization recommendations and the resources they
+    apply to. GET /recommendations, GET /recommendations/{recommendation_token},
+    /resources subpaths, and recommendations by type - the programmatic feed behind
+    cloud cost optimization.
+- aid: vantage-sh:vantage-sh-budgets-api
+  name: Vantage Budgets API
+  tags:
+  - FinOps
+  - Budgets
+  - Cost Governance
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Create and manage cloud spend budgets and their alerts. CRUD under
+    /budgets and /budget_alerts so teams can codify spend limits and get notified as
+    actual and forecasted costs approach them.
+- aid: vantage-sh:vantage-sh-cost-alerts-api
+  name: Vantage Cost Alerts API
+  tags:
+  - FinOps
+  - Cost Alerts
+  - Monitoring
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Define and manage cost alerts and inspect the events they fire. CRUD
+    under /cost_alerts with GET /cost_alerts/{cost_alert_token}/events for the
+    triggered-alert history.
+- aid: vantage-sh:vantage-sh-anomaly-alerts-api
+  name: Vantage Anomaly Alerts API
+  tags:
+  - Cost Management
+  - Anomaly Detection
+  - Alerts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Retrieve and manage cost anomaly alerts and their notification
+    configurations. GET/PUT under /anomaly_alerts and CRUD under
+    /anomaly_notifications for automated detection of abnormal cloud spend.
+- aid: vantage-sh:vantage-sh-segments-api
+  name: Vantage Segments API
+  tags:
+  - FinOps
+  - Segments
+  - Cost Allocation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Create and manage Segments - allocation groupings that slice cloud
+    cost by team, product, or cost center. CRUD under /segments, the backbone of
+    cost allocation and showback/chargeback in Vantage.
+- aid: vantage-sh:vantage-sh-financial-commitments-api
+  name: Vantage Financial Commitments API
+  tags:
+  - Cloud Cost
+  - Commitments
+  - Reserved Instances
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Track Reserved Instances, Savings Plans, and Committed Use Discounts.
+    GET /financial_commitments and CRUD under /financial_commitment_reports for
+    commitment coverage and utilization reporting.
+- aid: vantage-sh:vantage-sh-dashboards-api
+  name: Vantage Dashboards API
+  tags:
+  - Cost Visibility
+  - Dashboards
+  - Reporting
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  properties:
+  - url: https://docs.vantage.sh/api
+    type: Documentation
+  - url: openapi/vantage-sh-openapi.yml
+    type: OpenAPI
+  description: Assemble Cost Reports and other widgets into shareable dashboards.
+    CRUD under /dashboards, plus Folders and Saved Filters for organizing cost
+    visibility across the organization.
+common:
+- type: DomainSecurity
+  url: security/vantage-sh-domain-security.yml
+- type: Authentication
+  url: authentication/vantage-sh-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/vantage-sh
+- type: LinkedIn
+  url: https://www.linkedin.com/company/vantage-sh
+- type: Website
+  url: https://www.vantage.sh
+- type: Documentation
+  url: https://docs.vantage.sh/api
+- type: Plans
+  url: plans/vantage-sh-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/vantage-sh-rate-limits.yml
+- type: FinOps
+  url: finops/vantage-sh-finops.yml
+- url: https://www.vantage.sh/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
