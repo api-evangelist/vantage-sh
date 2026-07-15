@@ -203,6 +203,8 @@ apis:
     CRUD under /dashboards, plus Folders and Saved Filters for organizing cost
     visibility across the organization.
 common:
+- type: AgenticAccess
+  url: agentic-access/vantage-sh-agentic-access.yml
 - type: DomainSecurity
   url: security/vantage-sh-domain-security.yml
 - type: Authentication
