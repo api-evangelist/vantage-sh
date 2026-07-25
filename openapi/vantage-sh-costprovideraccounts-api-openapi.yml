@@ -1,0 +1,180 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants CostProviderAccounts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: CostProviderAccounts
+  description: Operations about CostProviderAccounts
+paths:
+  /cost_provider_accounts:
+    get:
+      tags:
+      - CostProviderAccounts
+      summary: Get all cost provider accounts
+      description: List CostProviderAccounts available in a given Workspace.
+      operationId: getCostProviderAccounts
+      parameters:
+      - name: workspace_token
+        in: query
+        description: The token of the Workspace to list CostProviderAccounts for. Required if the API token is associated with multiple Workspaces.
+        schema:
+          type: string
+      - name: provider
+        in: query
+        description: Filter by provider type.
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+      - name: account_id
+        in: query
+        description: Filter by provider account identifier.
+        schema:
+          type: string
+      - name: account_name
+        in: query
+        description: Filter by account name (exact match).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of provider accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostProviderAccounts'
+              example:
+                cost_provider_accounts:
+                - title: Azure Development Account
+                  account_id: azure-subscription-id
+                  provider_uuid: azure-subscription-uuid
+                  provider: azure
+                - title: AWS Test Account
+                  account_id: '999888777666'
+                  provider_uuid: arn:aws:organizations::999888777666:account/o-test123456/999888777666
+                  provider: aws
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    CostProviderAccount:
+      required:
+      - account_id
+      - provider
+      - provider_uuid
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The display name of the provider account.
+          nullable: false
+          example: Production Account
+        account_id:
+          type: string
+          description: The provider account identifier (e.g., AWS account ID, Azure subscription ID).
+          nullable: false
+          example: '123456789012'
+        provider_uuid:
+          type: string
+          description: The provider-specific unique identifier.
+          nullable: false
+          example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
+        provider:
+          type: string
+          description: The provider type (aws, azure, gcp, etc.).
+          nullable: false
+          example: aws
+    CostProviderAccounts:
+      required:
+      - cost_provider_accounts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_provider_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostProviderAccount'
+      description: CostProviderAccounts model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

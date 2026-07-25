@@ -1,0 +1,364 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants AnomalyNotifications API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: AnomalyNotifications
+  description: Operations about AnomalyNotifications
+paths:
+  /anomaly_notifications:
+    get:
+      tags:
+      - AnomalyNotifications
+      summary: Get all anomaly notifications
+      description: Return all Anomaly Notifications.
+      operationId: getAnomalyNotifications
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyNotifications'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/anomaly_notifications
+                  first: https://api.vantage.sh/v2/anomaly_notifications?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/anomaly_notifications?page=1
+                  prev: null
+                anomaly_notifications:
+                - token: rprt_alrt_ecb76d8d2825762f
+                  cost_report_token: rprt_45fe4d4c1779ce7e
+                  created_at: '2024-04-09T15:05:37Z'
+                  updated_at: '2024-04-09T15:05:37Z'
+                  threshold: 10
+                  user_tokens:
+                  - usr_13477ee1b1eb81ba
+                  recipient_channels: []
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - AnomalyNotifications
+      summary: Create anomaly notification
+      description: Create an Anomaly Notification for a Cost Report.
+      operationId: createAnomalyNotification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAnomalyNotification'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyNotification'
+              example:
+                token: rprt_alrt_9b22edfa0a175609
+                cost_report_token: rprt_4c9e5f72ae27bc24
+                created_at: '2024-04-09T15:05:37Z'
+                updated_at: '2024-04-09T15:05:37Z'
+                threshold: 1
+                user_tokens:
+                - usr_3773d590e84f6f12
+                recipient_channels:
+                - channel1
+                - channel2
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createAnomalyNotification
+  /anomaly_notifications/{anomaly_notification_token}:
+    get:
+      tags:
+      - AnomalyNotifications
+      summary: Get anomaly notification by token
+      description: Return an Anomaly Notification that the current API token has access to.
+      operationId: getAnomalyNotification
+      parameters:
+      - name: anomaly_notification_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyNotification'
+              example:
+                token: rprt_alrt_5af901100951705b
+                cost_report_token: rprt_0d88354748562c26
+                created_at: '2024-04-09T15:05:37Z'
+                updated_at: '2024-04-09T15:05:37Z'
+                threshold: 10
+                user_tokens:
+                - usr_e163fcb7aeb41f3b
+                recipient_channels: []
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - AnomalyNotifications
+      summary: Update anomaly notification
+      description: Update an Anomaly Notification.
+      operationId: updateAnomalyNotification
+      parameters:
+      - name: anomaly_notification_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAnomalyNotification'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyNotification'
+              example:
+                token: rprt_alrt_15da34156dca939d
+                cost_report_token: rprt_82320a9c1a608f0f
+                created_at: '2024-04-09T15:05:37Z'
+                updated_at: '2024-04-09T15:05:37Z'
+                threshold: 2
+                user_tokens:
+                - usr_dff5de2b6aecf042
+                recipient_channels:
+                - channel3
+                - channel4
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateAnomalyNotification
+    delete:
+      tags:
+      - AnomalyNotifications
+      summary: Delete anomaly notification
+      description: Delete an Anomaly Notification.
+      operationId: deleteAnomalyNotification
+      parameters:
+      - name: anomaly_notification_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyNotification'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    AnomalyNotification:
+      required:
+      - cost_report_token
+      - created_at
+      - recipient_channels
+      - threshold
+      - token
+      - updated_at
+      - user_tokens
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        cost_report_token:
+          type: string
+          description: The token for the CostReport the AnomalyNotification is associated with.
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyNotification was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyNotification was last updated at. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the notification to fire.
+          format: int32
+          nullable: false
+        user_tokens:
+          type: array
+          description: The tokens of the users that receive the notification.
+          nullable: false
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The channels that the notification is sent to.
+          nullable: false
+          items:
+            type: string
+      description: AnomalyNotification model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    updateAnomalyNotification:
+      type: object
+      properties:
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the notification to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack/MS Teams channels that receive the notification.
+          items:
+            type: string
+      description: Update an Anomaly Notification.
+    createAnomalyNotification:
+      required:
+      - cost_report_token
+      type: object
+      properties:
+        cost_report_token:
+          type: string
+          description: The token of the Cost Report that has the notification.
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the notification to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack/MS Teams channels that receive the notification.
+          items:
+            type: string
+      description: Create an Anomaly Notification for a Cost Report.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    AnomalyNotifications:
+      required:
+      - anomaly_notifications
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyNotification'
+      description: AnomalyNotifications model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

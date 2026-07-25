@@ -1,0 +1,628 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants KubernetesEfficiencyReports API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: KubernetesEfficiencyReports
+  description: Operations about KubernetesEfficiencyReports
+paths:
+  /kubernetes_efficiency_reports:
+    get:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Get all Kubernetes efficiency reports
+      description: Return all KubernetesEfficiencyReports.
+      operationId: getKubernetesEfficiencyReports
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesEfficiencyReports'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/kubernetes_efficiency_reports
+                  first: https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1
+                  prev: null
+                kubernetes_efficiency_reports:
+                - token: kbnts_eff_rprt_f8d610afacc7e6c6
+                  title: Cluster Idle Costs
+                  default: false
+                  created_at: '2024-10-25T21:20:43Z'
+                  workspace_token: wrkspc_64768b29bebf9dfe
+                  user_token: null
+                  start_date: '2024-10-01'
+                  end_date: '2024-10-31'
+                  date_interval: this_month
+                  date_bucket: day
+                  aggregated_by: idle_cost
+                  groupings: cluster_id
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Create Kubernetes efficiency report
+      description: Create a KubernetesEfficiencyReport.
+      operationId: createKubernetesEfficiencyReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createKubernetesEfficiencyReport'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesEfficiencyReport'
+              example:
+                token: kbnts_eff_rprt_b5c0eedc83b259be
+                title: title
+                default: false
+                created_at: '2024-11-05T20:32:30Z'
+                workspace_token: wrkspc_71e915f9671fa270
+                user_token: null
+                start_date: '2024-11-01'
+                end_date: '2024-11-30'
+                date_interval: this_month
+                date_bucket: day
+                aggregated_by: idle_cost
+                groupings: cluster_id
+                filter: kubernetes.cluster_id   =   'cluster-1'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createKubernetesEfficiencyReport
+  /kubernetes_efficiency_reports/data_exports:
+    post:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Generate Kubernetes efficiency data export
+      description: Generate a DataExport of Kubernetes efficiency data.
+      operationId: createKubernetesEfficiencyReportExport
+      parameters:
+      - name: groupings
+        in: query
+        description: 'Group the results by specific field(s). Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createKubernetesEfficiencyReportExport'
+        required: true
+      responses:
+        '202':
+          description: The data export has been queued and will be available at the location specified in the Location header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExport'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+      x-codegen-request-body-name: createKubernetesEfficiencyReportExport
+  /kubernetes_efficiency_reports/{kubernetes_efficiency_report_token}:
+    get:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Get Kubernetes efficiency report by token
+      description: Return a KubernetesEfficiencyReport.
+      operationId: getKubernetesEfficiencyReport
+      parameters:
+      - name: kubernetes_efficiency_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesEfficiencyReport'
+              example:
+                token: kbnts_eff_rprt_8f8b9caaffee230b
+                title: +1 disrupt.
+                default: false
+                created_at: '2024-10-25T21:20:43Z'
+                workspace_token: wrkspc_d6ab5f555d9bd0b5
+                user_token: null
+                start_date: '2024-10-01'
+                end_date: '2024-10-31'
+                date_interval: this_month
+                date_bucket: day
+                aggregated_by: idle_cost
+                groupings: cluster_id
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Update Kubernetes efficiency report
+      description: Update a KubernetesEfficiencyReport.
+      operationId: updateKubernetesEfficiencyReport
+      parameters:
+      - name: kubernetes_efficiency_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateKubernetesEfficiencyReport'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesEfficiencyReport'
+              example:
+                token: kbnts_eff_rprt_f9ee5fadf5e1a6e6
+                title: new title
+                default: false
+                created_at: '2024-10-25T21:20:42Z'
+                workspace_token: wrkspc_303c3228e22ccb6f
+                user_token: null
+                start_date: '2024-10-01'
+                end_date: '2024-10-31'
+                date_interval: this_month
+                date_bucket: day
+                aggregated_by: idle_cost
+                groupings: cluster_id
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateKubernetesEfficiencyReport
+    delete:
+      tags:
+      - KubernetesEfficiencyReports
+      summary: Delete Kubernetes efficiency report
+      description: Delete a KubernetesEfficiencyReport.
+      operationId: deleteKubernetesEfficiencyReport
+      parameters:
+      - name: kubernetes_efficiency_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesEfficiencyReport'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    KubernetesEfficiencyReport:
+      required:
+      - aggregated_by
+      - created_at
+      - date_bucket
+      - date_interval
+      - default
+      - end_date
+      - filter
+      - groupings
+      - start_date
+      - title
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the KubernetesEfficiencyReport.
+          nullable: false
+          example: Acme123 Kubernetes Efficiency Metrics
+        default:
+          type: boolean
+          description: Indicates whether the KubernetesEfficiencyReport is the default report.
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the KubernetesEfficiencyReport is a part of.
+          nullable: false
+        user_token:
+          type: string
+          description: The token for the User who created this KubernetesEfficiencyReport.
+          nullable: true
+        start_date:
+          type: string
+          description: The start date for the KubernetesEfficiencyReport. Only set for custom date ranges. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-03-01'
+        end_date:
+          type: string
+          description: The end date for the KubernetesEfficiencyReport. Only set for custom date ranges. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-03-20'
+        date_interval:
+          type: string
+          description: The date range for the KubernetesEfficiencyReport. Only present if a custom date range is not specified.
+          nullable: true
+          example: last_month
+        date_bucket:
+          type: string
+          description: 'How costs are grouped and displayed in the KubernetesEfficiencyReport. Possible values: day, week, month.'
+          nullable: false
+          example: month
+        aggregated_by:
+          type: string
+          description: 'How costs are aggregated by. Possible values: idle_cost, amount, cost_efficiency.'
+          nullable: false
+        groupings:
+          type: string
+          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+          nullable: true
+          example: cluster_id, namespace
+        filter:
+          type: string
+          description: The filter applied to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+      description: KubernetesEfficiencyReport model
+    updateKubernetesEfficiencyReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the KubernetesEfficiencyReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        aggregated_by:
+          type: string
+          description: The column by which the costs are aggregated.
+          enum:
+          - idle_cost
+          - amount
+          - cost_efficiency
+        date_bucket:
+          type: string
+          description: The date bucket of the KubernetesEfficiencyReport.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+          items:
+            type: string
+      description: Update a KubernetesEfficiencyReport.
+    createKubernetesEfficiencyReport:
+      required:
+      - title
+      - workspace_token
+      type: object
+      properties:
+        workspace_token:
+          type: string
+          description: The Workspace in which the KubernetesEfficiencyReport will be created.
+        title:
+          type: string
+          description: The title of the KubernetesEfficiencyReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        aggregated_by:
+          type: string
+          description: The column by which the costs are aggregated.
+          enum:
+          - idle_cost
+          - amount
+          - cost_efficiency
+        date_bucket:
+          type: string
+          description: The date bucket of the KubernetesEfficiencyReport.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+          items:
+            type: string
+      description: Create a KubernetesEfficiencyReport.
+    DataExport:
+      required:
+      - attributes
+      - created_at
+      - export_type
+      - manifest
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+          example: dta_xprt_abcd1234567890
+        status:
+          type: string
+          nullable: false
+          example: pending
+        created_at:
+          type: string
+          nullable: false
+          example: '2025-03-20T12:00:00Z'
+        export_type:
+          type: string
+          nullable: false
+          example: cost_report
+        manifest:
+          $ref: '#/components/schemas/DataExportManifest'
+        attributes:
+          type: object
+          properties: {}
+          nullable: false
+      description: DataExport model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    DataExportManifest:
+      required:
+      - completed_at
+      - files
+      - valid_until
+      type: object
+      properties:
+        files:
+          type: array
+          nullable: false
+          items:
+            type: string
+            example: ''
+        completed_at:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+        valid_until:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+    createKubernetesEfficiencyReportExport:
+      type: object
+      properties:
+        kubernetes_efficiency_report_token:
+          type: string
+          description: The KubernetesEfficiencyReport token. If not provided, the default report for the workspace will be used.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to export data from. Ignored if 'kubernetes_efficiency_report_token' is set. Required if the API token is associated with multiple Workspaces.
+        start_date:
+          type: string
+          description: First date you would like to filter data from. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: Last date you would like to filter data to. ISO 8601 formatted.
+        date_bin:
+          type: string
+          description: The date bin of the data. Defaults to the report's default or day.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+      description: Generate a DataExport of Kubernetes efficiency data.
+    KubernetesEfficiencyReports:
+      required:
+      - kubernetes_efficiency_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        kubernetes_efficiency_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/KubernetesEfficiencyReport'
+      description: KubernetesEfficiencyReports model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

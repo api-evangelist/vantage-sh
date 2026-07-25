@@ -1,0 +1,377 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants UnitCosts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: UnitCosts
+  description: Operations about UnitCosts
+paths:
+  /unit_costs/data_exports:
+    post:
+      tags:
+      - UnitCosts
+      summary: Generate data export of unit costs
+      description: Generate a DataExport of unit costs.
+      operationId: createUnitCostsExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUnitCostsExport'
+        required: true
+      responses:
+        '202':
+          description: The data export has been queued and will be available at the location specified in the Location header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExport'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+      x-codegen-request-body-name: createUnitCostsExport
+  /unit_costs:
+    get:
+      tags:
+      - UnitCosts
+      summary: Get all unit costs for a cost report
+      description: Return all UnitCosts for a CostReport.
+      operationId: getUnitCosts
+      parameters:
+      - name: cost_report_token
+        in: query
+        description: The CostReport token.
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.
+        schema:
+          type: string
+      - name: date_bin
+        in: query
+        description: The date bin of the unit costs. Defaults to the report's default or day.
+        schema:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+      - name: order
+        in: query
+        description: Whether to order unit costs by date in an ascending or descending manner.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitCosts'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/unit_costs?cost_report_token=rprt_ea7dbb4f5783d677
+                  first: https://api.vantage.sh/v2/unit_costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1
+                  next: null
+                  last: null
+                  prev: null
+                unit_costs:
+                - business_metric_token: bsnss_mtrc_3080a050c04104ff
+                  business_metric_title: Biz Metric
+                  unit_cost_amount: '21.7'
+                  business_metric_amount: '3.71'
+                  scale: '1.0'
+                  date: '2023-06-05'
+                - business_metric_token: bsnss_mtrc_4999b969d95095ef
+                  business_metric_title: Different Biz Metric
+                  unit_cost_amount: '101.11'
+                  business_metric_amount: '43.21'
+                  scale: '1.0'
+                  date: '2023-06-05'
+                - business_metric_token: bsnss_mtrc_3080a050c04104ff
+                  business_metric_title: Biz Metric
+                  unit_cost_amount: '18.9'
+                  business_metric_amount: '3.71'
+                  scale: '1.0'
+                  date: '2023-06-06'
+                - business_metric_token: bsnss_mtrc_4999b969d95095ef
+                  business_metric_title: Different Biz Metric
+                  unit_cost_amount: '121.12'
+                  business_metric_amount: '38.1'
+                  scale: '1.0'
+                  date: '2023-06-06'
+                - business_metric_token: bsnss_mtrc_3080a050c04104ff
+                  business_metric_title: Biz Metric
+                  unit_cost_amount: '21.2'
+                  business_metric_amount: '3.51'
+                  scale: '1.0'
+                  date: '2023-06-07'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    UnitCost:
+      required:
+      - business_metric_amount
+      - business_metric_title
+      - business_metric_token
+      - date
+      - scale
+      - unit_cost_amount
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        business_metric_token:
+          type: string
+          description: The token of the BusinessMetric for which the unit cost was calculated.
+          nullable: false
+          example: bsnss_mtrc_1234
+        business_metric_title:
+          type: string
+          description: The title of the BusinessMetric for which the unit cost was calculated.
+          nullable: false
+          example: Total Revenue
+        calculation_type:
+          type: string
+          description: The calculation type applied to produce this result.
+          nullable: true
+          example: unit_cost
+          enum:
+          - unit_cost
+          - gross_margin
+          - usage_unit_cost
+          - raw_business_metric
+        unit_cost_amount:
+          type: string
+          description: The amount of the unit cost. For raw_business_metric types, this equals the business_metric_amount.
+          nullable: false
+          example: '4.25'
+        business_metric_amount:
+          type: string
+          description: The amount of the business metric.
+          nullable: false
+          example: '0.371'
+        scale:
+          type: number
+          description: The scale of the BusinessMetric's values within a particular CostReport.
+          format: float
+          nullable: false
+          example: 1.0
+        date:
+          type: string
+          description: The date for which the unit cost was calculated. ISO 8601 Formatted.
+          nullable: false
+          example: 2023-09-05+00:00
+    DataExport:
+      required:
+      - attributes
+      - created_at
+      - export_type
+      - manifest
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+          example: dta_xprt_abcd1234567890
+        status:
+          type: string
+          nullable: false
+          example: pending
+        created_at:
+          type: string
+          nullable: false
+          example: '2025-03-20T12:00:00Z'
+        export_type:
+          type: string
+          nullable: false
+          example: cost_report
+        manifest:
+          $ref: '#/components/schemas/DataExportManifest'
+        attributes:
+          type: object
+          properties: {}
+          nullable: false
+      description: DataExport model
+    createUnitCostsExport:
+      required:
+      - cost_report_token
+      type: object
+      properties:
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.
+        start_date:
+          type: string
+          description: First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.
+        date_bin:
+          type: string
+          description: The date bin of the unit costs. Defaults to the report's default or day.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+      description: Generate a DataExport of unit costs.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    UnitCosts:
+      required:
+      - unit_costs
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        unit_costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnitCost'
+      description: UnitCosts model
+    DataExportManifest:
+      required:
+      - completed_at
+      - files
+      - valid_until
+      type: object
+      properties:
+        files:
+          type: array
+          nullable: false
+          items:
+            type: string
+            example: ''
+        completed_at:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+        valid_until:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

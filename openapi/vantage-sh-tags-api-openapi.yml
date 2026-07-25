@@ -1,0 +1,445 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Tags API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Tags
+  description: Operations about Tags
+paths:
+  /tags:
+    get:
+      tags:
+      - Tags
+      summary: Get all tags
+      description: Return all Tags that the current API token has access to.
+      operationId: getTags
+      parameters:
+      - name: providers
+        in: query
+        description: An array of providers to scope Tags by.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - aws
+            - azure
+            - gcp
+            - snowflake
+            - databricks
+            - mongo
+            - datadog
+            - fastly
+            - new_relic
+            - opencost
+            - open_ai
+            - oracle
+            - confluent
+            - planetscale
+            - coralogix
+            - kubernetes
+            - custom_provider
+            - github
+            - linode
+            - grafana
+            - clickhouse
+            - temporal
+            - twilio
+            - azure_csp
+            - kubernetes_agent
+            - anthropic
+            - anyscale
+            - cursor
+            - elastic
+            - vercel
+            - redis_cloud
+            - circle_ci
+            - modal
+            - eleven_labs
+            - baseten
+            - cloudflare
+            - fireworks_ai
+      - name: search_query
+        in: query
+        description: A search query to filter Tags by tag key.
+        schema:
+          type: string
+      - name: sort_direction
+        in: query
+        description: The direction in which you would like to sort the data by. Defaults to 'asc'.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: limit
+        in: query
+        description: The number of results to return per page. Defaults to 100. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/tags
+                  first: https://api.vantage.sh/v2/tags?page=1
+                  next: null
+                  last: null
+                  prev: null
+                tags:
+                - tag_key: app
+                  hidden: false
+                  preferred: false
+                  providers:
+                  - aws
+                  - azure
+                  - custom_provider:accss_crdntl_ef89becbcf119a74
+                - tag_key: environment
+                  hidden: false
+                  preferred: false
+                  providers:
+                  - aws
+                  - azure
+                  - custom_provider:accss_crdntl_ef89becbcf119a74
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Tags
+      summary: Update tag
+      description: Updates an existing Tag.
+      operationId: updateTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTag'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+              example:
+                tags:
+                - tag_key: app
+                  hidden: true
+                  preferred: false
+                  providers:
+                  - aws
+                  - azure
+                  - custom_provider:accss_crdntl_6d2b7b71244943a1
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateTag
+  /tags/{key}/values:
+    get:
+      tags:
+      - Tags
+      summary: Get tag values
+      description: Returns corresponding TagValues for a given Tag.
+      operationId: getTagValues
+      parameters:
+      - name: key
+        in: path
+        description: The key of the Tag for which you would like to retrieve TagValues.
+        required: true
+        schema:
+          type: string
+      - name: providers
+        in: query
+        description: An array of providers to scope TagValues by.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - aws
+            - azure
+            - gcp
+            - snowflake
+            - databricks
+            - mongo
+            - datadog
+            - fastly
+            - new_relic
+            - opencost
+            - open_ai
+            - oracle
+            - confluent
+            - planetscale
+            - coralogix
+            - kubernetes
+            - custom_provider
+            - github
+            - linode
+            - grafana
+            - clickhouse
+            - temporal
+            - twilio
+            - azure_csp
+            - kubernetes_agent
+            - anthropic
+            - anyscale
+            - cursor
+            - elastic
+            - vercel
+            - redis_cloud
+            - circle_ci
+            - modal
+            - eleven_labs
+            - baseten
+            - cloudflare
+            - fireworks_ai
+      - name: sort_direction
+        in: query
+        description: The direction in which to sort the TagValues. Defaults to 'asc'.
+        schema:
+          type: string
+          default: asc
+          enum:
+          - asc
+          - desc
+      - name: search_query
+        in: query
+        description: A search query to filter TagValues by the value name.
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: limit
+        in: query
+        description: The number of results to return per page. Defaults to 100. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+          default: 100
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagValues'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/tags/environment/values?sort_column=tag_value&sort_direction=asc
+                  first: https://api.vantage.sh/v2/tags/environment/values?sort_column=tag_value&sort_direction=asc&page=1
+                  next: null
+                  last: null
+                  prev: null
+                tag_values:
+                - tag_value: production
+                  providers:
+                  - aws
+                  - azure
+                  - custom_provider:accss_crdntl_b180279f14faa5b7
+                - tag_value: staging
+                  providers:
+                  - aws
+                  - azure
+                  - custom_provider:accss_crdntl_b180279f14faa5b7
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Tags:
+      required:
+      - tags
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      description: Tags model
+    Tag:
+      required:
+      - hidden
+      - preferred
+      - providers
+      - tag_key
+      type: object
+      properties:
+        tag_key:
+          type: string
+          description: The Tag key.
+          nullable: false
+          example: aws:createdBy
+        hidden:
+          type: boolean
+          description: Whether the Tag has been hidden from the Vantage UI.
+          nullable: false
+        preferred:
+          type: boolean
+          description: Whether the Tag has been marked as preferred.
+          nullable: false
+        providers:
+          type: array
+          description: The unique providers that are covered by the Tag key.
+          nullable: false
+          items:
+            type: string
+            example: ''
+    TagValue:
+      required:
+      - providers
+      - tag_value
+      type: object
+      properties:
+        tag_value:
+          type: string
+          description: The TagValue.
+          nullable: false
+          example: vantage
+        providers:
+          type: array
+          description: The unique providers that are covered by the TagValue.
+          nullable: false
+          items:
+            type: string
+            example: ''
+    TagValues:
+      required:
+      - tag_values
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        tag_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagValue'
+      description: TagValues model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    updateTag:
+      required:
+      - hidden
+      type: object
+      properties:
+        tag_key:
+          type: string
+        tag_keys:
+          type: array
+          items:
+            type: string
+        hidden:
+          type: boolean
+          description: Whether the Tag is hidden from the Vantage UI.
+      description: Updates an existing Tag.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

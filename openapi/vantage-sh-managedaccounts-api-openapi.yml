@@ -1,0 +1,683 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants ManagedAccounts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: ManagedAccounts
+  description: Operations about ManagedAccounts
+paths:
+  /managed_accounts:
+    get:
+      tags:
+      - ManagedAccounts
+      summary: Get all managed accounts
+      description: Returns a list of managed accounts.
+      operationId: getManagedAccounts
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccounts'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/managed_accounts
+                  first: https://api.vantage.sh/v2/managed_accounts?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/managed_accounts?page=1
+                  prev: null
+                managed_accounts:
+                - token: acct_be30cfd09cf0b3c5
+                  name: Rep. Gavin Berge
+                  contact_email: gavin_berge_rep@orn.net
+                  parent_account_token: acct_f95654a3aefab4b7
+                  access_credential_tokens: []
+                  billing_rule_tokens: []
+                  email_domain: null
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - ManagedAccounts
+      summary: Create managed account
+      description: Create a Managed Account.
+      operationId: createManagedAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createManagedAccount'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+              example:
+                token: acct_ace620fc3d602740
+                name: New Managed Account
+                contact_email: admin@acme.com
+                parent_account_token: acct_e6baa6dcf81b4e20
+                access_credential_tokens:
+                - accss_crdntl_72a8c8ab1d6c9d2c
+                billing_rule_tokens: []
+                email_domain: null
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createManagedAccount
+  /managed_accounts/{managed_account_token}:
+    get:
+      tags:
+      - ManagedAccounts
+      summary: Get managed account by token
+      description: Return a Managed Account.
+      operationId: getManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+              example:
+                token: acct_d3f99e1941a01861
+                name: Tamisha Mohr
+                contact_email: mohr_tamisha@vandervort.io
+                parent_account_token: acct_aaa060a863c2012b
+                access_credential_tokens: []
+                billing_rule_tokens: []
+                email_domain: null
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - ManagedAccounts
+      summary: Update managed account
+      description: Update a Managed Account.
+      operationId: updateManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateManagedAccount'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+              example:
+                token: acct_dd2fdf6564b60319
+                name: New Name
+                contact_email: newguy@acme.com
+                parent_account_token: acct_bb022aecd1125ada
+                access_credential_tokens:
+                - accss_crdntl_686904ffd39a4618
+                billing_rule_tokens: []
+                email_domain: null
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateManagedAccount
+    delete:
+      tags:
+      - ManagedAccounts
+      summary: Delete managed account
+      description: Delete a Managed Account.
+      operationId: deleteManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /managed_accounts/{managed_account_token}/sso_connection:
+    put:
+      tags:
+      - ManagedAccounts
+      summary: Update SSO configuration for managed account
+      description: Update SSO configuration for a Managed Account.
+      operationId: updateSsoConnectionForManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSsoConnectionForManagedAccount'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateSsoConnectionForManagedAccount
+    post:
+      tags:
+      - ManagedAccounts
+      summary: Configure SSO for managed account
+      description: Configure SSO for a Managed Account.
+      operationId: createSsoConnectionForManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSsoConnectionForManagedAccount'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createSsoConnectionForManagedAccount
+    delete:
+      tags:
+      - ManagedAccounts
+      summary: Delete SSO connection for managed account
+      description: Delete SSO connection for a Managed Account.
+      operationId: deleteSsoConnectionForManagedAccount
+      parameters:
+      - name: managed_account_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedAccount'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    createSsoConnectionForManagedAccount:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of SSO connection. Currently supported: saml.'
+          enum:
+          - saml
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider. Required when type is saml.
+        additional_domains:
+          type: array
+          description: Additional email domains to associate with this SSO configuration. The account's SSO domain is always included.
+          items:
+            type: string
+      description: Configure SSO for a Managed Account.
+    updateSsoConnectionForManagedAccount:
+      type: object
+      properties:
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider.
+        additional_domains:
+          type: array
+          description: Additional email domains to associate with this SSO configuration. Replaces existing additional domains. The account's SSO domain is always preserved.
+          items:
+            type: string
+      description: Update SSO configuration for a Managed Account.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    BusinessInformationCustomField:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name
+          nullable: false
+        value:
+          type: string
+          description: Custom field value
+          nullable: true
+    createManagedAccount:
+      required:
+      - contact_email
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Managed Account.
+        contact_email:
+          type: string
+          description: The contact email address for the Managed Account.
+        access_credential_tokens:
+          type: array
+          description: Access Credential (aka Integrations) tokens to assign to the Managed Account.
+          items:
+            type: string
+        billing_rule_tokens:
+          type: array
+          description: 'Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.'
+          items:
+            type: string
+        email_domain:
+          type: string
+          description: Email domain to associate with this Managed Account for SSO.
+      description: Create a Managed Account.
+    ManagedAccount:
+      required:
+      - access_credential_tokens
+      - billing_rule_tokens
+      - contact_email
+      - name
+      - parent_account_token
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        name:
+          type: string
+          nullable: false
+        contact_email:
+          type: string
+          nullable: false
+        parent_account_token:
+          type: string
+          description: The token for the parent Account.
+          nullable: false
+        access_credential_tokens:
+          type: array
+          description: The tokens for the Access Credentials assigned to the Managed Account.
+          nullable: false
+          items:
+            type: string
+        billing_rule_tokens:
+          type: array
+          description: The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data.
+          nullable: false
+          items:
+            type: string
+        email_domain:
+          type: string
+          description: Email domain associated with this Managed Account for SSO.
+          nullable: true
+        msp_billing_profile_token:
+          type: string
+          description: Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
+          nullable: true
+        payment_terms_days:
+          type: integer
+          description: Number of days until payment is due after invoice date (MSP invoicing accounts only)
+          format: int32
+          nullable: true
+        include_managed_account_integrations:
+          type: boolean
+          description: Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only)
+          nullable: true
+        billing_information_attributes:
+          $ref: '#/components/schemas/BillingInformation'
+        business_information_attributes:
+          $ref: '#/components/schemas/BusinessInformation'
+      description: ManagedAccount model
+    BillingInformation:
+      required:
+      - address_line_1
+      - address_line_2
+      - billing_email
+      - city
+      - company_name
+      - country_code
+      - postal_code
+      - state
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        company_name:
+          type: string
+          description: Company name for billing
+          nullable: true
+        country_code:
+          type: string
+          description: ISO country code
+          nullable: true
+        address_line_1:
+          type: string
+          description: First line of billing address
+          nullable: true
+        address_line_2:
+          type: string
+          description: Second line of billing address
+          nullable: true
+        city:
+          type: string
+          description: City for billing address
+          nullable: true
+        state:
+          type: string
+          description: State or province for billing address
+          nullable: true
+        postal_code:
+          type: string
+          description: Postal or ZIP code
+          nullable: true
+        billing_email:
+          type: array
+          description: Array of billing email addresses
+          nullable: true
+          items:
+            type: string
+    BusinessInformationMetadata:
+      type: object
+      properties:
+        custom_fields:
+          type: array
+          description: Array of custom field objects
+          items:
+            $ref: '#/components/schemas/BusinessInformationCustomField'
+    ManagedAccounts:
+      required:
+      - managed_accounts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        managed_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManagedAccount'
+      description: ManagedAccounts model
+    updateManagedAccount:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Managed Account.
+        contact_email:
+          type: string
+          description: The contact email address for the Managed Account.
+        access_credential_tokens:
+          type: array
+          description: Access Credential (aka Integrations) tokens to assign to the Managed Account.
+          items:
+            type: string
+        billing_rule_tokens:
+          type: array
+          description: 'Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.'
+          items:
+            type: string
+        email_domain:
+          type: string
+          description: Email domain to associate with this Managed Account for SSO.
+        msp_billing_profile_token:
+          type: string
+          description: Token of the MSP billing profile to use for this managed account (MSP invoicing accounts only).
+        payment_terms_days:
+          type: integer
+          description: Number of days until payment is due after invoice date (MSP invoicing accounts only). Defaults to 10.
+          format: int32
+        include_managed_account_integrations:
+          type: boolean
+          description: Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only). Defaults to false.
+        billing_information_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            token:
+              type: string
+            company_name:
+              type: string
+              description: Company name for billing
+            country_code:
+              type: string
+              description: ISO country code
+            address_line_1:
+              type: string
+              description: First line of billing address
+            address_line_2:
+              type: string
+              description: Second line of billing address
+            city:
+              type: string
+              description: City for billing address
+            state:
+              type: string
+              description: State or province for billing address
+            postal_code:
+              type: string
+              description: Postal or ZIP code
+            billing_email:
+              type: array
+              description: Array of billing email addresses
+              items:
+                type: string
+          description: Billing address and contact information (MSP invoicing accounts only)
+        business_information_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int32
+            token:
+              type: string
+            metadata:
+              type: object
+              properties:
+                custom_fields:
+                  type: array
+                  description: Array of custom field objects
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Custom field name
+                      value:
+                        type: string
+                        description: Custom field value
+              description: Business metadata including custom fields
+          description: Business information and custom fields (MSP invoicing accounts only)
+      description: Update a Managed Account.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    BusinessInformation:
+      required:
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        metadata:
+          $ref: '#/components/schemas/BusinessInformationMetadata'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

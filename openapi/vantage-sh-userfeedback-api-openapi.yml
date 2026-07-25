@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants UserFeedback API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: UserFeedback
+  description: Operations about UserFeedbacks
+paths:
+  /user_feedback:
+    post:
+      tags:
+      - UserFeedback
+      summary: Submit user feedback
+      description: Provide UserFeedback for our product and features.
+      operationId: createUserFeedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUserFeedback'
+        required: true
+      responses:
+        '201':
+          description: Provide UserFeedback for our product and features.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserFeedback'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+      x-codegen-request-body-name: createUserFeedback
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    createUserFeedback:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: UserFeedback message
+      description: Provide UserFeedback for our product and features.
+    UserFeedback:
+      required:
+      - created_at
+      - message
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token of the feedback
+          nullable: false
+        message:
+          type: string
+          description: User feedback message
+          nullable: false
+        created_by_token:
+          type: string
+          description: Token of the creator of the feedback
+          nullable: true
+        created_at:
+          type: string
+          description: Feedback creation timestamp
+          nullable: false
+          example: '2023-01-01T00:00:00Z'
+      description: UserFeedback model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

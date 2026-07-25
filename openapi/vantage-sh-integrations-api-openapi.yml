@@ -1,0 +1,890 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Integrations API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Integrations
+  description: Operations about Integrations
+paths:
+  /integrations:
+    get:
+      tags:
+      - Integrations
+      summary: Get all integrations
+      description: Return all Integrations.
+      operationId: getIntegrations
+      parameters:
+      - name: provider
+        in: query
+        description: Query by provider name to list all Integrations for a specific provider.
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+      - name: account_identifier
+        in: query
+        description: Query by account identifier to list all Integrations that match a specific account. For Azure, this is the subscription ID. Must include provider when using this parameter.
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integrations'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/integrations
+                  first: https://api.vantage.sh/v2/integrations?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/integrations?page=1
+                  prev: null
+                integrations:
+                - token: accss_crdntl_ac985d1d8bb8bc12
+                  provider: gcp
+                  account_identifier: project_id-3fc92ac0
+                  status: imported
+                  last_updated: '2024-07-30T15:30:22Z'
+                  workspace_tokens:
+                  - wrkspc_838cb4508ead3f6d
+                  created_at: '2024-07-29T21:41:49Z'
+                  managed_account_tokens: []
+      security:
+      - oauth2:
+        - read
+  /integrations/{integration_token}:
+    get:
+      tags:
+      - Integrations
+      summary: Get integration by token
+      description: Return an Integration.
+      operationId: getIntegration
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+              example:
+                token: accss_crdntl_f45057cd18834fc7
+                provider: gcp
+                account_identifier: project_id-4d4c6f0b
+                status: imported
+                last_updated: '2024-07-30T15:30:22Z'
+                workspace_tokens:
+                - wrkspc_d69f96653fb985d6
+                created_at: '2024-07-29T21:41:49Z'
+                managed_account_tokens:
+                - acct_1a2b3c4d5e6f7890
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Integrations
+      summary: Update integration
+      description: Update an Integration.
+      operationId: updateIntegration
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateIntegration'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+              example:
+                token: accss_crdntl_4de527c50afa4fd3
+                provider: gcp
+                account_identifier: project_id-e38a8e02
+                status: imported
+                last_updated: '2024-07-30T15:30:22Z'
+                workspace_tokens:
+                - wrkspc_6bffe31969c9f385
+                created_at: '2024-07-29T21:41:44Z'
+                managed_account_tokens: []
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateIntegration
+    delete:
+      tags:
+      - Integrations
+      summary: Delete integration
+      description: Delete an Integration.
+      operationId: deleteIntegration
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /integrations/custom_provider:
+    post:
+      tags:
+      - Integrations
+      summary: Create custom provider integration
+      description: Create a Custom Provider Integration
+      operationId: createCustomProviderIntegration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomProviderIntegration'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+              example:
+                token: accss_crdntl_35665ec3deb12451
+                provider: custom_provider
+                account_identifier: Custom Provider Integration
+                status: imported
+                last_updated: null
+                workspace_tokens: []
+                created_at: '2024-08-27T22:22:24Z'
+                managed_account_tokens: []
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createCustomProviderIntegration
+  /integrations/{integration_token}/costs.csv:
+    post:
+      tags:
+      - Integrations
+      summary: Upload custom provider costs
+      description: Create UserCostsUpload via CSV for a Custom Provider Integration.
+      operationId: createUserCostsUploadViaCsv
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - csv
+              type: object
+              properties:
+                csv:
+                  type: string
+                  description: CSV file containing custom costs
+                  format: binary
+                auto_transform:
+                  type: boolean
+                  description: Attempt to automatically transform the CSV file to match the FOCUS format.
+                  default: false
+          multipart/form-data:
+            schema:
+              required:
+              - csv
+              type: object
+              properties:
+                csv:
+                  type: string
+                  description: CSV file containing custom costs
+                  format: binary
+                auto_transform:
+                  type: boolean
+                  description: Attempt to automatically transform the CSV file to match the FOCUS format.
+                  default: false
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCostsUpload'
+              example:
+                token: usr_csts_upld_68f53287682faaf8
+                filename: costs.csv20240827-15484-pfxe9o
+                amount: '1000.0'
+                start_date: '2021-01-01'
+                end_date: '2021-02-01'
+                import_status: processing
+                created_by_token: usr_9ad0e852b8c67db5
+                created_at: '2024-08-27T22:44:29.220Z'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /integrations/{integration_token}/costs/{user_costs_upload_token}:
+    delete:
+      tags:
+      - Integrations
+      summary: Delete user costs upload
+      description: Delete a UserCostsUpload.
+      operationId: deleteUserCostsUpload
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_costs_upload_token
+        in: path
+        description: Token of the UserCostsUpload to delete.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cost'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /integrations/{integration_token}/costs:
+    get:
+      tags:
+      - Integrations
+      summary: Get all user costs uploads
+      description: List UserCostUploads.
+      operationId: getUserCostsUploads
+      parameters:
+      - name: integration_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCostsUploads'
+              example:
+                user_costs_uploads:
+                - token: usr_csts_upld_1805b925d993c7f7
+                  filename: costs_0.csv
+                  amount: '1234.56'
+                  start_date: '2021-01-01'
+                  end_date: '2021-03-31'
+                  import_status: complete
+                  created_by_token: usr_72af6fb04ab65f3a
+                  created_at: '2024-08-27T22:44:31.565Z'
+                - token: usr_csts_upld_c3f4d5fbb23f96ce
+                  filename: costs_1.csv
+                  amount: '789.01'
+                  start_date: '2021-04-01'
+                  end_date: '2021-06-30'
+                  import_status: processing
+                  created_by_token: usr_b06d7ed79c48f02e
+                  created_at: '2024-08-27T22:44:31.582Z'
+      security:
+      - oauth2:
+        - read
+  /integrations/gcp:
+    post:
+      tags:
+      - Integrations
+      summary: Create GCP integration
+      description: Create a GCP Integration
+      operationId: createGCPIntegration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createGCPIntegration'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+              example:
+                token: accss_crdntl_c36f82e698677581
+                provider: gcp
+                account_identifier: A11111-B22222-C33333
+                status: imported
+                last_updated: null
+                workspace_tokens: []
+                created_at: '2024-07-29T21:41:46Z'
+                managed_account_tokens: []
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createGCPIntegration
+  /integrations/azure:
+    post:
+      tags:
+      - Integrations
+      summary: Create Azure integration
+      description: Create an Azure Integration
+      operationId: createAzureIntegration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAzureIntegration'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+              example:
+                token: accss_crdntl_6eddcfaa81f7303f
+                provider: azure
+                account_identifier: fake-tenant
+                status: imported
+                last_updated: null
+                workspace_tokens: []
+                created_at: '2024-07-29T21:41:48Z'
+                managed_account_tokens: []
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createAzureIntegration
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    createCustomProviderIntegration:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the Custom Provider Integration.
+        description:
+          type: string
+          description: Description of the Custom Provider Integration.
+      description: Create a Custom Provider Integration
+    Integration:
+      required:
+      - account_identifier
+      - created_at
+      - managed_account_tokens
+      - provider
+      - status
+      - token
+      - workspace_tokens
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        provider:
+          type: string
+          description: The name of the Integration.
+          nullable: false
+          example: AWS
+        account_identifier:
+          type: string
+          description: The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
+          nullable: true
+          example: 011389-EF4C3E-3ED7AE
+        status:
+          type: string
+          description: The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
+          nullable: false
+          example: imported
+          enum:
+          - connected
+          - error
+          - pending
+          - importing
+          - imported
+          - disconnected
+        last_updated:
+          type: string
+          description: The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
+          nullable: true
+          example: '2023-08-04T00:00:00Z'
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the account belongs to.
+          nullable: false
+          items:
+            type: string
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        managed_account_tokens:
+          type: array
+          description: The tokens for any Managed Accounts that are associated with the Integration.
+          nullable: false
+          items:
+            type: string
+      description: Integration model
+    UserCostsUploads:
+      required:
+      - user_costs_uploads
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        user_costs_uploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCostsUpload'
+      description: UserCostsUploads model
+    updateIntegration:
+      type: object
+      properties:
+        workspace_tokens:
+          type: array
+          description: The Workspace tokens to associate to the Integration.
+          items:
+            type: string
+      description: Update an Integration.
+    createAzureIntegration:
+      required:
+      - app_id
+      - password
+      - tenant
+      type: object
+      properties:
+        tenant:
+          type: string
+          description: Azure AD Tenant ID.
+        app_id:
+          type: string
+          description: Service Principal Application ID.
+        password:
+          type: string
+          description: Service Principal Password.
+      description: Create an Azure Integration
+    UserCostsUpload:
+      required:
+      - amount
+      - created_at
+      - created_by_token
+      - end_date
+      - filename
+      - import_status
+      - start_date
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token of the UserCostsUpload.
+          nullable: false
+          example: usr_csts_upld_1234
+        filename:
+          type: string
+          description: The filename of the uploaded costs UserCostsUpload.
+          nullable: false
+          example: usr_csts_upld_1234.parquet
+        amount:
+          type: string
+          description: The total amount of the costs in the UserCostsUpload.
+          nullable: false
+          example: '1234.56'
+        start_date:
+          type: string
+          description: The start date of the costs in the UserCostsUpload.
+          nullable: false
+          example: '2021-01-01'
+        end_date:
+          type: string
+          description: The end date of the costs in the UserCostsUpload.
+          nullable: false
+          example: '2021-01-31'
+        import_status:
+          type: string
+          description: Import status of the UserCostsUpload.
+          nullable: false
+          example: processing
+        created_by_token:
+          type: string
+          description: The token of the Creator of the UserCostsUpload.
+          nullable: false
+          example: usr_1234
+        created_at:
+          type: string
+          description: When the UserCostsUpload was uploaded.
+          nullable: false
+          example: '2021-01-01T00:00:00Z'
+      description: UserCostsUpload model
+    Cost:
+      required:
+      - accrued_at
+      - amount
+      - currency
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        accrued_at:
+          type: string
+          description: The date the cost was accrued. ISO 8601 Formatted.
+          nullable: false
+          example: 2023-09-05+00:00
+        amount:
+          type: string
+          description: The amount of the cost.
+          nullable: false
+          example: '4.25'
+        currency:
+          type: string
+          description: The currency of the cost.
+          nullable: false
+          example: USD
+        usage:
+          type: object
+          properties: {}
+          description: The usage amount and unit incurred by the cost.
+          nullable: true
+        provider:
+          type: string
+          description: The cost provider which incurred the cost.
+          nullable: true
+          example: aws
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+        billing_account_id:
+          type: string
+          description: The cost provider's billing account id that incurred the cost.
+          nullable: true
+          example: '9109237192'
+        account_id:
+          type: string
+          description: The cost provider's account id that incurred the cost.
+          nullable: true
+          example: '9109237192'
+        service:
+          type: string
+          description: The service which incurred the cost.
+          nullable: true
+          example: Amazon Elastic Compute Cloud - Compute
+        region:
+          type: string
+          description: The region which incurred the cost.
+          nullable: true
+          example: us-east-1
+        resource_id:
+          type: string
+          description: The resource id which incurred the cost.
+          nullable: true
+          example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
+        resource_name:
+          type: string
+          description: The human-readable resource name when Vantage can enrich the resource id.
+          nullable: true
+          example: claude_code_key_name
+        tag:
+          type: string
+          description: 'The tag attached to the cost that was incurred.
+
+            DEPRECATED: does not support multiple tags.'
+          nullable: true
+          example: production
+        tags:
+          type: array
+          description: The tag pairs attached to the cost that was incurred.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        cost_category:
+          type: string
+          description: The category for the cost.
+          nullable: true
+          example: Data Transfer
+        cost_subcategory:
+          type: string
+          description: The subcategory for the cost.
+          nullable: true
+          example: DataTransfer-Regional-Bytes
+        segment:
+          type: string
+          description: The segment name for segment report costs.
+          nullable: true
+          example: Engineering
+      description: Cost model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    Integrations:
+      required:
+      - integrations
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Integration'
+      description: Integrations model
+    createGCPIntegration:
+      required:
+      - billing_account_id
+      - dataset_name
+      - project_id
+      type: object
+      properties:
+        billing_account_id:
+          type: string
+          description: GCP billing account ID.
+        project_id:
+          type: string
+          description: GCP project ID.
+        dataset_name:
+          type: string
+          description: BigQuery dataset name.
+      description: Create a GCP Integration
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

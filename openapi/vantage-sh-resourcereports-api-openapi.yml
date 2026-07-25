@@ -1,0 +1,511 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants ResourceReports API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: ResourceReports
+  description: Operations about ResourceReports
+paths:
+  /resource_reports/columns:
+    get:
+      tags:
+      - ResourceReports
+      summary: Get resource report columns
+      description: List available columns for a resource type.
+      operationId: getResourceReportColumns
+      parameters:
+      - name: resource_type
+        in: query
+        description: VQL resource type name (https://docs.vantage.sh/vql_resource_report#costs-by-resource-type)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns array of available column names for the specified resource type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReportColumns'
+              example:
+                columns:
+                - provider
+                - label
+                - accruedCosts
+                - recommendationSavings
+                - resource
+                - type
+                - region
+                - account
+                - provisionedState
+                - maxCpu
+                - maxMemory
+                - maxGpu
+                - maxGpuMemory
+                - maxEbsReadOpsPerSecond
+                - maxEbsWriteOpsPerSecond
+                - maxEbsReadBytesPerSecond
+                - maxEbsWriteBytesPerSecond
+                - maxDiskReadOpsPerSecond
+                - maxDiskWriteOpsPerSecond
+                - maxDiskReadBytesPerSecond
+                - maxDiskWriteBytesPerSecond
+                - maxNetworkInBytesPerSecond
+                - maxNetworkOutBytesPerSecond
+                - maxNetworkPacketsInPerSecond
+                - maxNetworkPacketsOutPerSecond
+                - maxNetworkThroughputDailyByte
+                - maxDatabaseConnections
+                - instanceId
+                - imageId
+                - vpcId
+                - subnetId
+                - publicIpAddress
+                - privateIpAddress
+                - publicDnsName
+                - instanceType
+                - instanceFamily
+                - platform
+                - spotInstanceRequestId
+                - launchTime
+                - instanceLifecycle
+                - state
+                - name
+                - platformType
+                - platformDetails
+                - spotInfo
+                - spotPrice
+                - datadogAgentInstalled
+                - networkInterfaces
+                - tags
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /resource_reports:
+    get:
+      tags:
+      - ResourceReports
+      summary: Get all resource reports
+      description: Return all ResourceReports.
+      operationId: getResourceReports
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReports'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/resource_reports
+                  first: https://api.vantage.sh/v2/resource_reports?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/resource_reports?page=1
+                  prev: null
+                resource_reports:
+                - token: prvdr_rsrc_rprt_955ad21703b22099
+                  title: Resource Report 1274a351
+                  filter: (resources.provider = 'aws')
+                  created_at: '2025-08-14T19:13:30Z'
+                  workspace_token: wrkspc_490ea5f144c3896c
+                  user_token: null
+                  created_by_token: null
+                  columns:
+                  - provider
+                  - label
+                  - accrued_costs
+                  - recommendation_savings
+                  - resource
+                  - type
+                  - region
+                  - account
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - ResourceReports
+      summary: Create resource report
+      description: Create a ResourceReport.
+      operationId: createResourceReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createResourceReport'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReport'
+              example:
+                token: prvdr_rsrc_rprt_d881b5362adab1c2
+                title: EC2 Report
+                filter: resources.provider = 'aws' and resources.type = 'aws_instance'
+                created_at: '2025-08-14T19:13:32Z'
+                workspace_token: wrkspc_e5a36fbae0021598
+                user_token: null
+                created_by_token: team_16f0d31149f3254a
+                columns:
+                - provider
+                - label
+                - accrued_costs
+                - recommendation_savings
+                - resource
+                - type
+                - region
+                - account
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createResourceReport
+  /resource_reports/{resource_report_token}:
+    get:
+      tags:
+      - ResourceReports
+      summary: Get resource report by token
+      description: Return a ResourceReport.
+      operationId: getResourceReport
+      parameters:
+      - name: resource_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReport'
+              example:
+                token: prvdr_rsrc_rprt_5270d2a0708fd74f
+                title: Resource Report 84541657
+                filter: (resources.provider = 'aws')
+                created_at: '2025-08-14T19:13:30Z'
+                workspace_token: wrkspc_2ed2f1a59293a996
+                user_token: null
+                created_by_token: null
+                columns:
+                - provider
+                - label
+                - accrued_costs
+                - recommendation_savings
+                - resource
+                - type
+                - region
+                - account
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - ResourceReports
+      summary: Update resource report
+      description: Update a ResourceReport.
+      operationId: updateResourceReport
+      parameters:
+      - name: resource_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateResourceReport'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReport'
+              example:
+                token: prvdr_rsrc_rprt_79e32da0783a830f
+                title: EC2 Edited Report
+                filter: resources.provider = 'aws' and resources.type = 'aws_ebs_volume'
+                created_at: '2025-08-14T19:13:31Z'
+                workspace_token: wrkspc_485f11dcbe94de26
+                user_token: null
+                created_by_token: null
+                columns:
+                - provider
+                - label
+                - accrued_costs
+                - recommendation_savings
+                - resource
+                - type
+                - region
+                - account
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateResourceReport
+    delete:
+      tags:
+      - ResourceReports
+      summary: Delete resource report
+      description: Delete a ResourceReport.
+      operationId: deleteResourceReport
+      parameters:
+      - name: resource_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceReport'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    ResourceReportColumns:
+      required:
+      - columns
+      type: object
+      properties:
+        columns:
+          type: array
+          description: Array of available column names for the specified resource type.
+          nullable: false
+          items:
+            type: string
+            example: ''
+      description: ResourceReportColumns model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    ResourceReports:
+      required:
+      - resource_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resource_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceReport'
+      description: ResourceReports model
+    createResourceReport:
+      required:
+      - workspace_token
+      type: object
+      properties:
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the ResourceReport to.
+        title:
+          type: string
+          description: The title of the ResourceReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
+        columns:
+          type: array
+          description: Array of column names to display in the table. Column names should match those returned by the /resource_reports/columns endpoint. The order determines the display order. Only available for reports with a single resource type filter.
+          items:
+            type: string
+        folder_token:
+          type: string
+          description: The token of the Folder to add the ResourceReport to.
+      description: Create a ResourceReport.
+    updateResourceReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the ResourceReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
+        columns:
+          type: array
+          description: Array of column names to display in the table. Column names should match those returned by the /resource_reports/columns endpoint. The order determines the display order. Only available for reports with a single resource type filter.
+          items:
+            type: string
+        folder_token:
+          type: string
+          description: The token of the Folder to move the ResourceReport to.
+      description: Update a ResourceReport.
+    ResourceReport:
+      required:
+      - columns
+      - created_at
+      - created_by_token
+      - filter
+      - title
+      - token
+      - user_token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the ResourceReport.
+          nullable: false
+          example: Acme123 Active Resources
+        filter:
+          type: string
+          description: The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the ResourceReport is a part of.
+          nullable: false
+        user_token:
+          type: string
+          description: The token for the User who created this ResourceReport.
+          nullable: true
+        created_by_token:
+          type: string
+          description: The token for the User or Team who created this ResourceReport.
+          nullable: true
+        folder_token:
+          type: string
+          description: The token for the Folder the ResourceReport is a part of.
+          nullable: true
+        columns:
+          type: array
+          description: Array of column names configured for the ResourceReport table display.
+          nullable: false
+          items:
+            type: string
+            example: ''
+      description: ResourceReport model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

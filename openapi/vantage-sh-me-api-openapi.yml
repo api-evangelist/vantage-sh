@@ -1,0 +1,202 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Me API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Me
+  description: Operations about Mes
+paths:
+  /me:
+    get:
+      tags:
+      - Me
+      summary: Get authenticated user info
+      description: Get information about the authenticated BearerToken.
+      operationId: getMe
+      responses:
+        '200':
+          description: General information about the user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Me
+      summary: Update authenticated user
+      description: Update the authenticated User.
+      operationId: updateMe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMe'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateMe
+components:
+  schemas:
+    BearerToken:
+      required:
+      - created_at
+      - description
+      - scope
+      type: object
+      properties:
+        description:
+          type: string
+          description: The user supplied description of this BearerToken
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the BearerToken was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        scope:
+          type: array
+          description: The scopes applied to the BearerToken used to authenticate this request.
+          nullable: false
+          items:
+            type: string
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Me:
+      required:
+      - bearer_token
+      - default_workspace_token
+      - workspaces
+      type: object
+      properties:
+        default_workspace_token:
+          type: string
+          nullable: true
+        default_dashboard_token:
+          type: string
+          description: The token of the default Dashboard for the User.
+          nullable: true
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+        bearer_token:
+          $ref: '#/components/schemas/BearerToken'
+      description: Me model
+    updateMe:
+      type: object
+      properties:
+        default_dashboard_token:
+          type: string
+          description: The token of a Dashboard to set as the User default. Send null to clear.
+          nullable: true
+          x-omitempty: false
+      description: Update the authenticated User.
+    Workspace:
+      required:
+      - created_at
+      - currency
+      - enable_currency_conversion
+      - exchange_rate_date
+      - name
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        name:
+          type: string
+          description: The name of the Workspace.
+          nullable: false
+          example: Acme Corp.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        enable_currency_conversion:
+          type: boolean
+          description: Whether or not currency conversion is enabled for the Workspace.
+          nullable: false
+        currency:
+          type: string
+          description: The currency code for the Workspace that will be used for currency conversion.
+          nullable: false
+          example: USD
+        exchange_rate_date:
+          type: string
+          description: The exchange rate date that will be used to convert currency for your cost data.
+          nullable: false
+      description: Workspace model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

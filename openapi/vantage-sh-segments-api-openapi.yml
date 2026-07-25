@@ -1,0 +1,485 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Segments API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Segments
+  description: Operations about Segments
+paths:
+  /segments:
+    get:
+      tags:
+      - Segments
+      summary: Get all segments
+      description: Return all Segments.
+      operationId: getSegments
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segments'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/segments
+                  first: https://api.vantage.sh/v2/segments?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/segments?page=1
+                  prev: null
+                segments:
+                - token: fltr_sgmt_79b0b8ef658d6bba
+                  title: Business Units
+                  parent_segment_token: null
+                  description: Segmented by business unit.
+                  track_unallocated: false
+                  report_settings:
+                    include_credits: false
+                    include_refunds: false
+                    include_discounts: true
+                    include_tax: true
+                    amortize: true
+                  priority: 100
+                  filter: (costs.provider = 'aws')
+                  created_at: '2024-05-14T14:34:22Z'
+                  workspace_token: wrkspc_21f36c4ad272fb7b
+                  report_token: rprt_8dd4e1fe3b88c821
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Segments
+      summary: Create segment
+      description: Create a Segment.
+      operationId: createSegment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSegment'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+              example:
+                token: fltr_sgmt_a22e3e52e9a93a75
+                title: New Segment
+                parent_segment_token: fltr_sgmt_7f1af73e92e5e156
+                description: I'm a Segment.
+                track_unallocated: false
+                priority: 100
+                filter: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
+                created_at: '2024-05-14T14:34:24Z'
+                workspace_token: wrkspc_f75aec7671a72dd3
+                report_token: null
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createSegment
+  /segments/{segment_token}:
+    get:
+      tags:
+      - Segments
+      summary: Get segment by token
+      description: Return a Segment.
+      operationId: getSegment
+      parameters:
+      - name: segment_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+              example:
+                token: fltr_sgmt_e528df30fe4c9da4
+                title: Function-based
+                parent_segment_token: null
+                description: Segmented by function.
+                track_unallocated: false
+                report_settings:
+                  include_credits: false
+                  include_refunds: false
+                  include_discounts: true
+                  include_tax: true
+                  amortize: true
+                priority: 100
+                filter: (costs.provider = 'aws')
+                created_at: '2024-05-14T14:34:18Z'
+                workspace_token: wrkspc_eb7573db105407df
+                report_token: rprt_f7828113036f5fce
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Segments
+      summary: Update segment
+      description: Update a Segment.
+      operationId: updateSegment
+      parameters:
+      - name: segment_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSegment'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+              example:
+                token: fltr_sgmt_1550eb291314035c
+                title: Updated Segment
+                parent_segment_token: fltr_sgmt_a39cf865967ed4d8
+                description: This segment is updated.
+                track_unallocated: false
+                priority: 42
+                filter: costs.provider = 'azure'
+                created_at: '2024-05-14T14:34:23Z'
+                workspace_token: wrkspc_1be9d0445f94db0b
+                report_token: rprt_3e460438ae115013
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateSegment
+    delete:
+      tags:
+      - Segments
+      summary: Delete segment
+      description: Delete a Segment.
+      operationId: deleteSegment
+      parameters:
+      - name: segment_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    updateSegment:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Segment.
+        description:
+          type: string
+          description: The description of the Segment.
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          default: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Reports created under this Segment will include credits.
+              nullable: true
+            include_refunds:
+              type: boolean
+              description: Reports created under this Segment will include refunds.
+              nullable: true
+            include_discounts:
+              type: boolean
+              description: Reports created under this Segment will include discounts.
+              nullable: true
+            include_tax:
+              type: boolean
+              description: Reports created under this Segment will include tax.
+              nullable: true
+            amortize:
+              type: boolean
+              description: Reports created under this Segment will amortize.
+              nullable: true
+          description: Report settings configurable on top-level Segments.
+        filter:
+          type: string
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Update a Segment.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Segment:
+      required:
+      - created_at
+      - description
+      - filter
+      - parent_segment_token
+      - priority
+      - report_token
+      - title
+      - token
+      - track_unallocated
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the Segment.
+          nullable: false
+          example: OPEX
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment of this Segment.
+          nullable: true
+        description:
+          type: string
+          description: The description of the Segment.
+          nullable: false
+          example: Operating expenses
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          nullable: false
+          example: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              nullable: true
+            include_refunds:
+              type: boolean
+              nullable: true
+            include_discounts:
+              type: boolean
+              nullable: true
+            include_tax:
+              type: boolean
+              nullable: true
+            amortize:
+              type: boolean
+              nullable: true
+          description: Report settings configurable on top-level Segments.
+        priority:
+          type: integer
+          description: Costs are assigned in priority order across all Segments with assigned filters.
+          format: int32
+          nullable: false
+          example: 100
+        filter:
+          type: string
+          description: The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2021-07-09T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Segment is a part of.
+          nullable: false
+        report_token:
+          type: string
+          description: The token for the Report the Segment has generated.
+          nullable: true
+      description: Segment model
+    Segments:
+      required:
+      - segments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment'
+      description: Segments model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    createSegment:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Segment.
+        description:
+          type: string
+          description: The description of the Segment.
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          default: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Reports created under this Segment will include credits.
+              nullable: true
+            include_refunds:
+              type: boolean
+              description: Reports created under this Segment will include refunds.
+              nullable: true
+            include_discounts:
+              type: boolean
+              description: Reports created under this Segment will include discounts.
+              nullable: true
+            include_tax:
+              type: boolean
+              description: Reports created under this Segment will include tax.
+              nullable: true
+            amortize:
+              type: boolean
+              description: Reports created under this Segment will amortize.
+              nullable: true
+          description: Report settings configurable on top-level Segments.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces.
+        filter:
+          type: string
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Create a Segment.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

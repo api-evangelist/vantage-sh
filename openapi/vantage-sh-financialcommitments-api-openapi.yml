@@ -1,0 +1,206 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants FinancialCommitments API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: FinancialCommitments
+  description: Operations about FinancialCommitments
+paths:
+  /financial_commitments:
+    get:
+      tags:
+      - FinancialCommitments
+      summary: Get all financial commitments
+      description: Return all FinancialCommitments.
+      operationId: getFinancialCommitments
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialCommitments'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/financial_commitments
+                  first: https://api.vantage.sh/v2/financial_commitments?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/financial_commitments?page=1
+                  prev: null
+                financial_commitments:
+                - commitment_type: aws_savings_plan
+                  service: Compute
+                  account: '153271892032'
+                  type: 3 Year Compute Savings Plan
+                  instance_count: null
+                  term: 1 Year
+                  payment_type: No upfront
+                  region: null
+                  purchase_date: '2024-04-15'
+                  expiration_date: '2025-04-15'
+                  commitment: $1.00
+                  status: active
+                  created_at: '2024-04-15T19:51:27Z'
+                  workspace_token: wrkspc_8c897c3d73b69279
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    FinancialCommitments:
+      required:
+      - financial_commitments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        financial_commitments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancialCommitment'
+      description: FinancialCommitments model
+    FinancialCommitment:
+      required:
+      - account
+      - amount
+      - commitment
+      - commitment_type
+      - created_at
+      - expiration_date
+      - payment_type
+      - purchase_date
+      - region
+      - service
+      - status
+      - term
+      - type
+      - workspace_token
+      type: object
+      properties:
+        commitment_type:
+          type: string
+          description: The commitment type (eg Savings Plan or Reserved Instance).
+          nullable: false
+          example: Savings Plan
+        service:
+          type: string
+          description: The service this commitment applies towards.
+          nullable: false
+          example: Compute
+        account:
+          type: string
+          description: The account for this financial commitment.
+          nullable: false
+          example: '113074892135'
+        type:
+          type: string
+          description: The type of financial commitment.
+          nullable: false
+          example: m5.large
+        amount:
+          type: integer
+          description: The number of instances for the financial commitment.
+          format: int32
+          nullable: true
+          example: 4
+        term:
+          type: string
+          description: The duration in years of the financial commitment.
+          nullable: true
+          example: 3 Year
+        payment_type:
+          type: string
+          description: The type of payment for the financial commitment.
+          nullable: true
+          example: No upfront
+        region:
+          type: string
+          description: The region for the financial commitment.
+          nullable: true
+          example: us-east-1
+        purchase_date:
+          type: string
+          description: The purchase date of the financial commitment. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-30'
+        expiration_date:
+          type: string
+          description: The expiration date of the financial commitment. ISO 8601 Formatted.
+          nullable: false
+          example: '2026-08-30'
+        commitment:
+          type: string
+          description: The amount of the financial commitment.
+          nullable: false
+          example: $2.18
+        status:
+          type: string
+          description: The status of the financial commitment (e.g. active vs expired).
+          nullable: true
+          example: active
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Financial Commitment was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the FinancialCommitment is a part of.
+          nullable: false
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

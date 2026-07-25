@@ -1,0 +1,364 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants BudgetAlerts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: BudgetAlerts
+  description: Operations about BudgetAlerts
+paths:
+  /budget_alerts:
+    get:
+      tags:
+      - BudgetAlerts
+      summary: Get all budget alerts
+      description: Return all BudgetAlerts.
+      operationId: getBudgetAlerts
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlerts'
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - BudgetAlerts
+      summary: Create budget alert
+      description: Create a Budget Alert.
+      operationId: createBudgetAlert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBudgetAlert'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createBudgetAlert
+  /budget_alerts/{budget_alert_token}:
+    get:
+      tags:
+      - BudgetAlerts
+      summary: Get budget alert by token
+      description: Return a BudgetAlert.
+      operationId: getBudgetAlert
+      parameters:
+      - name: budget_alert_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - BudgetAlerts
+      summary: Update budget alert
+      description: Updates an existing BudgetAlert.
+      operationId: updateBudgetAlert
+      parameters:
+      - name: budget_alert_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBudgetAlert'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateBudgetAlert
+    delete:
+      tags:
+      - BudgetAlerts
+      summary: Delete budget alert
+      description: Delete a BudgetAlert.
+      operationId: deleteBudgetAlert
+      parameters:
+      - name: budget_alert_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    BudgetAlert:
+      required:
+      - budget_tokens
+      - created_at
+      - duration_in_days
+      - period_to_track
+      - recipient_channels
+      - threshold
+      - token
+      - user_tokens
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        budget_tokens:
+          type: array
+          description: The tokens for the Budgets that the Budget Alert is monitoring to trigger alerts on.
+          nullable: false
+          items:
+            type: string
+            example: ''
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Budget Alert was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the ResourceReport is a part of.
+          nullable: true
+        user_token:
+          type: string
+          description: The token for the User who created this BudgetAlert.
+          nullable: true
+        user_tokens:
+          type: array
+          description: The Users that receive the alert.
+          nullable: false
+          items:
+            type: string
+            example: ''
+        duration_in_days:
+          type: integer
+          description: The number of days from the start or end of the month to trigger the alert if the threshold is reached.
+          format: int32
+          nullable: true
+        threshold:
+          type: integer
+          description: Alerts only send if they reach this number (as a percentage). When threshold is 100, that means alerts are triggered once costs reach 100% of the budget.
+          format: int32
+          nullable: false
+          example: 75
+        period_to_track:
+          type: string
+          description: 'The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Possible values: start_of_the_month, end_of_the_month.'
+          nullable: true
+          example: start_of_the_month
+        integration_provider:
+          type: string
+          description: 'The provider used for sending alerts. This must be configured in the console. Possible values are: slack, microsoft_graph.'
+          nullable: true
+          example: slack
+        recipient_channels:
+          type: array
+          description: The channels receiving the alerts. Requires an integration provider to be connected.
+          nullable: true
+          items:
+            type: string
+            example: ''
+      description: BudgetAlert model
+    BudgetAlerts:
+      required:
+      - budget_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        budget_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BudgetAlert'
+      description: BudgetAlerts model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    updateBudgetAlert:
+      type: object
+      properties:
+        budget_tokens:
+          type: array
+          description: The tokens of the Budget that has the alert.
+          items:
+            type: string
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the alert to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the users that receive the alert.
+          items:
+            type: string
+        duration_in_days:
+          type: string
+          description: The number of days from the start or end of the month to trigger the alert if the threshold is reached. For the full month, pass an empty value.
+        period_to_track:
+          type: string
+          description: 'The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Defaults to start_of_the_month if not passed. Possible values: start_of_the_month, end_of_the_month.'
+        recipient_channels:
+          type: array
+          description: The channels receiving the alerts. Requires an integration provider to be connected.
+          items:
+            type: string
+      description: Updates an existing BudgetAlert.
+    createBudgetAlert:
+      required:
+      - budget_tokens
+      - duration_in_days
+      - threshold
+      type: object
+      properties:
+        budget_tokens:
+          type: array
+          description: The tokens of the Budget that has the alert.
+          items:
+            type: string
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the alert to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the users that receive the alert.
+          items:
+            type: string
+        duration_in_days:
+          type: string
+          description: The number of days from the start or end of the month to trigger the alert if the threshold is reached.  For the full month, pass an empty value.
+        period_to_track:
+          type: string
+          description: 'The period tracked on the alert. Used with duration_in_days to determine the time window of the alert. Defaults to start_of_the_month if not passed. Possible values: start_of_the_month, end_of_the_month.'
+        recipient_channels:
+          type: array
+          description: The channels receiving the alerts. Requires an integration provider to be connected.
+          items:
+            type: string
+      description: Create a Budget Alert.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

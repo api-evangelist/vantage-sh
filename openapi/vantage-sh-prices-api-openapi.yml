@@ -1,0 +1,410 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Prices API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Prices
+  description: Operations about Prices
+paths:
+  /products/{product_id}/prices:
+    get:
+      tags:
+      - Prices
+      summary: Get prices for a product
+      description: Return available Prices across all Regions for a Product.
+      operationId: getPrices
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prices'
+              example:
+                links:
+                  self: https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices
+                  first: https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1
+                  next: null
+                  last: https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1
+                  prev: null
+                prices:
+                - id: aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise
+                  unit: hour
+                  region: eu-central-1
+                  rate_type: compute
+                  currency: USD
+                  amount: 27.328
+                  details:
+                    platform: linux-enterprise
+                    lifecycle: on-demand
+                - id: aws-ec2-m5d_16xlarge-us_east_1-on_demand-linux_enterprise
+                  unit: hour
+                  region: us-east-1
+                  rate_type: compute
+                  currency: USD
+                  amount: 3.616
+                  details:
+                    platform: linux-enterprise
+                    lifecycle: on-demand
+                - id: aws-ec2-m5d_16xlarge-us_east_1-on_demand-rhel
+                  unit: hour
+                  region: us-east-1
+                  rate_type: compute
+                  currency: USD
+                  amount: 3.746
+                  details:
+                    platform: rhel
+                    lifecycle: on-demand
+      security:
+      - oauth2:
+        - read
+  /products/{product_id}/prices/{id}:
+    get:
+      tags:
+      - Prices
+      summary: Get price by ID
+      description: Returns a price
+      operationId: getPrice
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+              example:
+                id: aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise
+                unit: hour
+                region: eu-central-1
+                rate_type: compute
+                currency: USD
+                amount: 27.328
+                details:
+                  platform: linux-enterprise
+                  lifecycle: on-demand
+      security:
+      - oauth2:
+        - read
+  /products:
+    get:
+      tags:
+      - Prices
+      summary: Get all products
+      description: Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.
+      operationId: getProducts
+      parameters:
+      - name: provider_id
+        in: query
+        description: Query by Provider to list all Products across all Services for a Provider. e.g. aws
+        schema:
+          type: string
+      - name: service_id
+        in: query
+        description: Query by Service to list all Products for a specific provider service. e.g. aws-ec2
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Query by name of the Product to see a list of products which match that name. e.g. m5a.16xlarge
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+              example:
+                links:
+                  self: https://api.vantage.sh/v1/products
+                  first: https://api.vantage.sh/v1/products?page=1
+                  next: null
+                  last: https://api.vantage.sh/v1/products?page=1
+                  prev: null
+                products:
+                - id: aws-ec2-m5d_16xlarge
+                  category: compute
+                  name: m5d.16xlarge
+                  service_id: aws-ec2
+                  provider_id: aws
+                  details:
+                    gpu: 0
+                    name: M5 General Purpose 16xlarge
+                    vcpu: 64
+                    memory: 256
+                    clock_speed_ghz: 3.1
+                    physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
+                    network_performance_description: 20 Gigabit
+                - id: aws-ec2-c5a_8xlarge
+                  category: compute
+                  name: c5a.8xlarge
+                  service_id: aws-ec2
+                  provider_id: aws
+                  details:
+                    gpu: 0
+                    name: C5A 8xlarge
+                    vcpu: 64
+                    memory: 256
+                - id: aws-ec2-c5a_4large
+                  category: compute
+                  name: c5a.4large
+                  service_id: aws-ec2
+                  provider_id: aws
+                  details:
+                    gpu: 0
+                    name: C5A 4large
+                    vcpu: 64
+                    memory: 4
+                - id: aws-s3-standard
+                  category: object_storage
+                  name: standard
+                  service_id: aws-s3
+                  provider_id: aws
+                  details: {}
+      security:
+      - oauth2:
+        - read
+  /products/{id}:
+    get:
+      tags:
+      - Prices
+      summary: Get product by ID
+      description: Return a product
+      operationId: getProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example:
+                id: aws-ec2-m5d_16xlarge
+                category: compute
+                name: m5d.16xlarge
+                service_id: aws-ec2
+                provider_id: aws
+                details:
+                  gpu: 0
+                  name: M5 General Purpose 16xlarge
+                  vcpu: 64
+                  memory: 256
+                  clock_speed_ghz: 3.1
+                  physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
+                  network_performance_description: 20 Gigabit
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Product:
+      required:
+      - category
+      - details
+      - id
+      - name
+      - provider_id
+      - service_id
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: false
+        category:
+          type: string
+          description: The category of the cloud product
+          nullable: false
+          example: compute
+        name:
+          type: string
+          description: The common name of the product.
+          nullable: false
+          example: EC2
+        service_id:
+          type: string
+          description: A unique slug for the service the product belongs to.
+          nullable: false
+          example: aws-ec2
+        provider_id:
+          type: string
+          description: A unique slug for the provider the product belongs to.
+          nullable: false
+          example: aws
+        details:
+          type: object
+          properties: {}
+          description: An object of metadata about the product.
+          nullable: false
+          example:
+            gpu: 0
+            name: M5 General Purpose 16xlarge
+            vcpu: 64
+            memory: 256
+            clock_speed_ghz: 3.1
+            physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
+            network_performance_description: 20 Gigabit
+      description: Product model
+    Prices:
+      required:
+      - prices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+      description: Prices model
+    Products:
+      required:
+      - products
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      description: Products model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    Price:
+      required:
+      - amount
+      - currency
+      - details
+      - id
+      - rate_type
+      - region
+      - unit
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: false
+        unit:
+          type: string
+          description: The unit in which the amount is billed.
+          nullable: false
+          example: hour
+        region:
+          type: string
+          description: The region the price is specific to.
+          nullable: false
+          example: us-east-1
+        rate_type:
+          type: string
+          description: The part of the product the price applies to. (compute, transfer, etc..)
+          nullable: false
+          example: compute
+        currency:
+          type: string
+          description: The currency of the amount.
+          nullable: false
+          example: USD
+        amount:
+          type: number
+          description: The amount of money this specific product price costs.
+          nullable: false
+          example: 1.324
+        details:
+          type: object
+          properties: {}
+          description: Service specific metadata.
+          nullable: false
+          example:
+            platform: linux-enterprise
+            lifecycle: on-demand
+      description: Price model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

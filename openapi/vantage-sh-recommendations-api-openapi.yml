@@ -1,0 +1,726 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Recommendations API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Recommendations
+  description: Operations about Recommendations
+paths:
+  /recommendations:
+    get:
+      tags:
+      - Recommendations
+      summary: Get all recommendations
+      description: 'Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing).'
+      operationId: getRecommendations
+      parameters:
+      - name: provider_ids
+        in: query
+        description: Filter by one or more providers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - aws
+            - gcp
+            - azure
+            - kubernetes
+            - datadog
+      - name: billing_account_ids
+        in: query
+        description: Filter by billing account identifiers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: account_ids
+        in: query
+        description: Filter by account identifiers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: regions
+        in: query
+        description: Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: tag_key
+        in: query
+        description: Filter by tag key (must be used with tag_value). Requires workspace_token.
+        schema:
+          type: string
+      - name: tag_value
+        in: query
+        description: Filter by tag value (requires tag_key). Requires workspace_token.
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token.
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by status.
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+      - name: min_savings
+        in: query
+        description: Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.
+        schema:
+          type: number
+          format: float
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: workspace_token
+        in: query
+        description: Filter by workspace.
+        schema:
+          type: string
+      - name: provider_account_id
+        in: query
+        description: Filter by provider account id (AWS account, Azure subscription id, etc).
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Filter by exact recommendation category. Ignored when type is provided.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing.'
+        schema:
+          type: string
+      - name: provider
+        in: query
+        description: Filter by provider.
+        schema:
+          type: string
+          enum:
+          - aws
+          - gcp
+          - azure
+          - kubernetes
+          - datadog
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendations'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/recommendations
+                  first: https://api.vantage.sh/v2/recommendations?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/recommendations?page=1
+                  prev: null
+                recommendations:
+                - token: rcmmndtn_9bb8fa992d5b876b
+                  type: null
+                  category: ip_unattached
+                  workspace_token: wrkspc_e0e58b3c1ddef29c
+                  provider: aws
+                  provider_account_id: '123456789012'
+                  description: IP address is not attached to an instance.
+                  documentation_url: https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources
+                  potential_savings: '100.0'
+                  service: AWS IP
+                  created_at: '2026-01-28T16:53:32Z'
+                  resources_affected_count: 0
+                  currency_code: USD
+                  currency_symbol: $
+      security:
+      - oauth2:
+        - read
+  /recommendations/{recommendation_token}:
+    get:
+      tags:
+      - Recommendations
+      summary: Get recommendation by token
+      description: Return a Recommendation.
+      operationId: getRecommendation
+      parameters:
+      - name: recommendation_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+              example:
+                token: rcmmndtn_0eea161ff1a4d183
+                type: null
+                category: ip_unattached
+                workspace_token: wrkspc_634a8ca67ed39555
+                provider: aws
+                provider_account_id: '123456789012'
+                description: IP address is not attached to an instance.
+                documentation_url: https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources
+                potential_savings: '100.0'
+                service: AWS IP
+                created_at: '2026-01-28T16:53:23Z'
+                resources_affected_count: 0
+                currency_code: USD
+                currency_symbol: $
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /recommendations/{recommendation_token}/resources:
+    get:
+      tags:
+      - Recommendations
+      summary: Get all resources for a recommendation
+      description: Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.
+      operationId: getRecommendationResources
+      parameters:
+      - name: recommendation_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. Defaults to 25. The maximum is 500.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationProviderResources'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources
+                  first: https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources?page=1
+                  prev: null
+                resources:
+                - token: prvdr_rsrc_8ec00e4b4c410538
+                  resource_id: i-12345
+                  recommendation_actions:
+                  - action: modify
+                    description: 'Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.'
+                    potential_savings: '100.0'
+                    instance_type: c5a.xlarge
+                    remediation_cli_command: 'aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type ''{"Value": "c5a.xlarge"}'''
+      security:
+      - oauth2:
+        - read
+  /recommendations/{recommendation_token}/resources/{resource_token}:
+    get:
+      tags:
+      - Recommendations
+      summary: Get specific resource for a recommendation
+      description: Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.
+      operationId: getRecommendationResource
+      parameters:
+      - name: recommendation_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: resource_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationProviderResource'
+              example:
+                token: prvdr_rsrc_3065ac9b0999c363
+                resource_id: i-12345
+                recommendation_actions:
+                - action: modify
+                  description: 'Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.'
+                  potential_savings: '100.0'
+                  instance_type: c5a.xlarge
+                  remediation_cli_command: 'aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type ''{"Value": "c5a.xlarge"}'''
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /recommendations/by_type/{type}/resources:
+    get:
+      tags:
+      - Recommendations
+      summary: Get all resources for a recommendation type
+      description: Return all Active Resources associated with recommendations of the specified type.
+      operationId: getRecommendationTypeResources
+      parameters:
+      - name: type
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: provider_ids
+        in: query
+        description: Filter by one or more providers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - aws
+            - gcp
+            - azure
+            - kubernetes
+            - datadog
+      - name: billing_account_ids
+        in: query
+        description: Filter by billing account identifiers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: account_ids
+        in: query
+        description: Filter by account identifiers. Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: regions
+        in: query
+        description: Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token.
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: tag_key
+        in: query
+        description: Filter by tag key (must be used with tag_value). Requires workspace_token.
+        schema:
+          type: string
+      - name: tag_value
+        in: query
+        description: Filter by tag value (requires tag_key). Requires workspace_token.
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token.
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by status.
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+      - name: min_savings
+        in: query
+        description: Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token.
+        schema:
+          type: number
+          format: float
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: workspace_token
+        in: query
+        description: The workspace token to filter recommendations by. Required.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationProviderResources'
+              example:
+                resources:
+                - token: pvdr_rsrc_abc123
+                  resource_id: i-1234567890abcdef0
+                  recommendation_actions:
+                  - action: modify
+                    instance_type: c5a.xlarge
+                    description: Migrate to c5a.xlarge for cost savings.
+                    potential_savings: '100.00'
+                links:
+                  first: /v2/recommendations/by_type/aws:ec2:co-rightsizing/resources?workspace_token=wrkspc_abc123&page=1
+                  last: /v2/recommendations/by_type/aws:ec2:co-rightsizing/resources?workspace_token=wrkspc_abc123&page=1
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    RecommendationProviderResources:
+      required:
+      - resources
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationProviderResource'
+      description: RecommendationProviderResources model
+    RecommendationAction:
+      required:
+      - action
+      - description
+      - potential_savings
+      type: object
+      properties:
+        action:
+          type: string
+          nullable: false
+        description:
+          type: string
+          nullable: false
+        potential_savings:
+          type: string
+          description: Potential savings in dollars
+          nullable: false
+          example: '100.00'
+        instance_type:
+          type: string
+          nullable: true
+        containers:
+          type: string
+          nullable: true
+        remediation_cli_command:
+          type: string
+          description: CLI command to remediate this recommendation
+          nullable: true
+          example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+    Recommendation:
+      required:
+      - category
+      - created_at
+      - description
+      - documentation_url
+      - potential_savings
+      - provider
+      - provider_account_id
+      - resources_affected_count
+      - service
+      - token
+      - type
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        type:
+          type: string
+          description: The type of the Recommendation. This is analogous to category, but with a uniform format.
+          nullable: false
+          example: aws:ec2:co-rightsizing
+        category:
+          type: string
+          description: The category of the Recommendation.
+          nullable: false
+          example: ec2_compute_optimizer_recommender
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Recommendation is a part of.
+          nullable: false
+        provider:
+          type: string
+          description: The provider the Recommendation is for.
+          nullable: false
+        provider_account_id:
+          type: string
+          description: The account ID of the provider. For Azure, this is the subscription ID.
+          nullable: true
+        description:
+          type: string
+          nullable: false
+        documentation_url:
+          type: string
+          description: A URL to related documentation if available.
+          nullable: true
+          example: https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering
+        potential_savings:
+          type: string
+          description: The monthly potential savings of the Recommendation, converted to the organization's selected currency.
+          nullable: true
+          example: '100.00'
+        service:
+          type: string
+          description: The service the Recommendation is for.
+          nullable: false
+          example: Amazon EC2
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
+          nullable: false
+        resources_affected_count:
+          type: integer
+          description: The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
+          format: int32
+          nullable: false
+        currency_code:
+          type: string
+          description: The currency code used by the Workspace to which this Recommendation belongs.
+          nullable: true
+          example: EUR
+        currency_symbol:
+          type: string
+          description: The currency symbol used by the Workspace to which this Recommendation belongs.
+          nullable: true
+          example: EUR
+      description: Recommendation model
+    RecommendationProviderResource:
+      required:
+      - account_id
+      - billing_account_id
+      - created_at
+      - label
+      - metadata
+      - provider
+      - region
+      - resource_id
+      - tags
+      - token
+      - type
+      - uuid
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        uuid:
+          type: string
+          description: The unique identifier for the resource.
+          nullable: false
+          example: i-0a1b2c3d4e5f6g7h8
+        type:
+          type: string
+          description: The kind of resource.
+          nullable: false
+          example: aws_instance
+        label:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          properties: {}
+          description: Type-specific attributes of the resource.
+          nullable: true
+        account_id:
+          type: string
+          description: The provider account where the resource is located.
+          nullable: true
+        billing_account_id:
+          type: string
+          description: The provider billing account this resource is charged to.
+          nullable: true
+        provider:
+          type: string
+          description: The provider of the resource.
+          nullable: false
+          example: aws
+        region:
+          type: string
+          description: The region where the resource is located. Region values are specific to each provider.
+          nullable: true
+          example: us-west-2
+        costs:
+          type: array
+          description: The cost of the resource broken down by category.
+          items:
+            $ref: '#/components/schemas/ResourceCost'
+        created_at:
+          type: string
+          description: The date and time when Vantage first observed the resource.
+          nullable: false
+        tags:
+          type: object
+          properties: {}
+          description: Key-value pairs of tags associated with the resource.
+          nullable: false
+        resource_id:
+          type: string
+          description: The unique identifier of the Active Resource.
+          nullable: false
+          example: i-0a1b2c3d4e5f6g7h8
+        recommendation_actions:
+          type: array
+          description: The actions to take to implement the Recommendation.
+          items:
+            $ref: '#/components/schemas/RecommendationAction'
+      description: RecommendationProviderResource model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+          nullable: false
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+          nullable: false
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    Recommendations:
+      required:
+      - recommendations
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recommendation'
+      description: Recommendations model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

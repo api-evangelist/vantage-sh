@@ -1,0 +1,375 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Folders API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Folders
+  description: Operations about Folders
+paths:
+  /folders:
+    get:
+      tags:
+      - Folders
+      summary: Get all folders
+      description: Return all Folders for CostReports.
+      operationId: getFolders
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: type
+        in: query
+        description: Filter by folder type.
+        schema:
+          type: string
+          enum:
+          - CostFolder
+          - ProviderResourceFolder
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folders'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/folders
+                  first: https://api.vantage.sh/v2/folders?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/folders?page=1
+                  prev: null
+                folders:
+                - token: fldr_baf37f32280f5444
+                  title: synergy
+                  parent_folder_token: null
+                  created_at: '2023-09-12T05:06:54Z'
+                  updated_at: '2023-09-12T05:06:54Z'
+                  workspace_token: wrkspc_f583a08beb76f679
+                - token: fldr_625d4591e46f7dfa
+                  title: website
+                  parent_folder_token: fldr_baf37f32280f5444
+                  created_at: '2023-09-12T05:06:54Z'
+                  updated_at: '2023-09-12T05:06:54Z'
+                  workspace_token: wrkspc_f583a08beb76f679
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Folders
+      summary: Create folder
+      description: Create a Folder for CostReports.
+      operationId: createFolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createFolder'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+              example:
+                token: fldr_4aabe6f482c2a9e4
+                title: New Folder
+                parent_folder_token: fldr_4d29cbecf2601266
+                created_at: '2023-09-12T05:06:52Z'
+                updated_at: '2023-09-12T05:06:52Z'
+                workspace_token: wrkspc_510cc77828001f9b
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createFolder
+  /folders/{folder_token}:
+    get:
+      tags:
+      - Folders
+      summary: Get folder by token
+      description: Return a specific Folder for CostReports.
+      operationId: getFolder
+      parameters:
+      - name: folder_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+              example:
+                token: fldr_3653e0f460786b1e
+                title: intermediate
+                parent_folder_token: fldr_b6bf120a1d3a794b
+                created_at: '2023-09-12T05:07:36Z'
+                updated_at: '2023-09-12T05:07:36Z'
+                workspace_token: wrkspc_a707105ff54966c3
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Folders
+      summary: Update folder
+      description: Update a Folder for CostReports.
+      operationId: updateFolder
+      parameters:
+      - name: folder_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateFolder'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+              example:
+                token: fldr_68e18d8d7df0be96
+                title: New Title
+                parent_folder_token: fldr_9aa0c735a6b615c6
+                created_at: '2023-09-12T05:06:53Z'
+                updated_at: '2023-09-12T05:06:53Z'
+                workspace_token: wrkspc_e65a48e5d9684439
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateFolder
+    delete:
+      tags:
+      - Folders
+      summary: Delete folder
+      description: Delete a Folder for CostReports.
+      operationId: deleteFolder
+      parameters:
+      - name: folder_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Folders:
+      required:
+      - folders
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Folder'
+      description: Folders model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Folder:
+      required:
+      - created_at
+      - saved_filter_tokens
+      - title
+      - token
+      - type
+      - updated_at
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the Folder.
+          nullable: true
+          example: Platform Team Reports
+        type:
+          type: string
+          description: The type of the Folder.
+          nullable: false
+        parent_folder_token:
+          type: string
+          description: The token for the parent Folder, if any.
+          nullable: true
+        saved_filter_tokens:
+          type: array
+          description: The tokens for the SavedFilters assigned to the Folder.
+          nullable: false
+          items:
+            type: string
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Folder was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the Folder was last updated at. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Folder is a part of.
+          nullable: false
+      description: Folder model
+    createFolder:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Folder.
+        parent_folder_token:
+          type: string
+          description: The token of the parent Folder.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
+          items:
+            type: string
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
+        type:
+          type: string
+          description: The type of the Folder.
+          default: CostFolder
+          enum:
+          - CostFolder
+          - ProviderResourceFolder
+      description: Create a Folder for CostReports.
+    updateFolder:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Folder.
+        parent_folder_token:
+          type: string
+          description: The token of the parent Folder.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
+          items:
+            type: string
+      description: Update a Folder for CostReports.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

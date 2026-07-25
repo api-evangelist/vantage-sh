@@ -1,0 +1,618 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Dashboards API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Dashboards
+  description: Operations about Dashboards
+paths:
+  /dashboards:
+    get:
+      tags:
+      - Dashboards
+      summary: Get all dashboards
+      description: Return all Dashboards.
+      operationId: getDashboards
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboards'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/dashboards
+                  first: https://api.vantage.sh/v2/dashboards?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/dashboards?page=1
+                  prev: null
+                dashboards:
+                - token: dshbrd_13d78294a06f0f84
+                  title: Executive Overview
+                  widget_tokens:
+                  - rprt_7c3cb814dfb6d881
+                  widgets:
+                  - widgetable_token: rprt_7c3cb814dfb6d881
+                    title: Cost Report
+                    settings:
+                      display_type: chart
+                  saved_filter_tokens:
+                  - svd_fltr_3c6f5eb635cf88de
+                  date_bin: null
+                  date_interval: null
+                  start_date: null
+                  end_date: null
+                  created_at: '2024-12-17T00:44:48Z'
+                  updated_at: '2024-12-17T00:44:48Z'
+                  workspace_token: wrkspc_ea1a7802e5fe06b3
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Dashboards
+      summary: Create dashboard
+      description: Create a Dashboard.
+      operationId: createDashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createDashboard'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                token: dshbrd_7e272e8d3de34719
+                title: New Dashboard
+                widget_tokens:
+                - fncl_cmnt_rprt_d4743c186c130e30
+                - kbnts_eff_rprt_892d1566bd543b67
+                - rprt_750074c1b25b372a
+                widgets:
+                - widgetable_token: fncl_cmnt_rprt_d4743c186c130e30
+                  title: All Financial Commitments
+                  settings:
+                    display_type: chart
+                - widgetable_token: kbnts_eff_rprt_892d1566bd543b67
+                  title: All Kubernetes Nodes Efficiency
+                  settings:
+                    display_type: table
+                - widgetable_token: rprt_750074c1b25b372a
+                  title: Azure Cost Report
+                  settings:
+                    display_type: chart
+                saved_filter_tokens:
+                - svd_fltr_3f45aefa131861ac
+                date_bin: week
+                date_interval: this_month
+                start_date: '2023-08-01'
+                end_date: '2023-08-31'
+                created_at: '2023-08-15T00:00:00Z'
+                updated_at: '2023-08-15T00:00:00Z'
+                workspace_token: wrkspc_08e043cc14ced776
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createDashboard
+  /dashboards/{dashboard_token}:
+    get:
+      tags:
+      - Dashboards
+      summary: Get dashboard by token
+      description: Return a specific Dashboard.
+      operationId: getDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/dashboards
+                  first: https://api.vantage.sh/v2/dashboards?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/dashboards?page=1
+                  prev: null
+                dashboards:
+                - token: dshbrd_e7c5b49d826b6f71
+                  title: Executive Overview
+                  widget_tokens:
+                  - rprt_27e80d7a8d3f34e6
+                  widgets:
+                  - widgetable_token: rprt_27e80d7a8d3f34e6
+                    title: Weekly Sales Report
+                    settings:
+                      display_type: chart
+                  saved_filter_tokens:
+                  - svd_fltr_7bb508e881e7fe5f
+                  date_bin: null
+                  date_interval: null
+                  start_date: null
+                  end_date: null
+                  created_at: '2024-12-17T00:44:48Z'
+                  updated_at: '2024-12-17T00:44:48Z'
+                  workspace_token: wrkspc_245288e3c3a7377f
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Dashboards
+      summary: Update dashboard
+      description: Update a Dashboard.
+      operationId: updateDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDashboard'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                token: dshbrd_2c942eb3a8d3962a
+                title: Updated Dashboard
+                widget_tokens:
+                - fncl_cmnt_rprt_ea316a453acd20c0
+                - kbnts_eff_rprt_e3fc91cb63fd5469
+                - rprt_7b0be9c16c5a6785
+                widgets:
+                - widgetable_token: fncl_cmnt_rprt_ea316a453acd20c0
+                  title: All Financial Commitments
+                  settings:
+                    display_type: chart
+                - widgetable_token: kbnts_eff_rprt_e3fc91cb63fd5469
+                  title: Kubernetes Efficiency Report
+                  settings:
+                    display_type: table
+                - widgetable_token: rprt_7b0be9c16c5a6785
+                  title: Azure Report
+                  settings:
+                    display_type: chart
+                saved_filter_tokens:
+                - svd_fltr_51c106391f7295b7
+                date_bin: week
+                date_interval: this_month
+                start_date: '2023-08-01'
+                end_date: '2023-08-31'
+                created_at: '2024-12-17T00:44:45Z'
+                updated_at: '2023-08-15T00:00:00Z'
+                workspace_token: wrkspc_0e5c381029cdc016
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateDashboard
+    delete:
+      tags:
+      - Dashboards
+      summary: Delete dashboard
+      description: Delete a Dashboard.
+      operationId: deleteDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    createDashboard:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Dashboard.
+        widgets:
+          type: array
+          description: The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
+          items:
+            required:
+            - widgetable_token
+            type: object
+            properties:
+              widgetable_token:
+                type: string
+                description: The token of the represented Resource.
+              title:
+                type: string
+                description: The title of the Widget (defaults to the title of the Resource).
+              settings:
+                required:
+                - display_type
+                type: object
+                properties:
+                  display_type:
+                    type: string
+                    enum:
+                    - table
+                    - chart
+                description: The settings for the DashboardWidget.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        start_date:
+          type: string
+          description: The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Dashboard to. Required if the API token is associated with multiple Workspaces.
+      description: Create a Dashboard.
+    Dashboard:
+      required:
+      - created_at
+      - date_bin
+      - date_interval
+      - saved_filter_tokens
+      - title
+      - token
+      - updated_at
+      - widgets
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+          example: dshbrd_abcd1234567890
+        title:
+          type: string
+          description: The title of the Dashboard.
+          nullable: false
+          example: AWS Dashboard
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWidget'
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          nullable: false
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          nullable: true
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
+          nullable: true
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        start_date:
+          type: string
+          description: The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2023-08-04'
+        end_date:
+          type: string
+          description: The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2023-09-04'
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Dashboard is a part of.
+          nullable: false
+          example: wrkspc_abcd1234567890
+      description: Dashboard model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    DashboardWidgetSettings:
+      required:
+      - display_type
+      type: object
+      properties:
+        display_type:
+          type: string
+          nullable: false
+          enum:
+          - table
+          - chart
+    DashboardWidget:
+      required:
+      - settings
+      - title
+      - widgetable_token
+      type: object
+      properties:
+        widgetable_token:
+          type: string
+          nullable: false
+          example: rprt_a12b3c
+        title:
+          type: string
+          description: The title of the Widget.
+          nullable: false
+          example: My Widget
+        settings:
+          $ref: '#/components/schemas/DashboardWidgetSettings'
+    updateDashboard:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Dashboard.
+        widgets:
+          type: array
+          description: The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
+          items:
+            required:
+            - widgetable_token
+            type: object
+            properties:
+              widgetable_token:
+                type: string
+                description: The token of the represented Resource.
+              title:
+                type: string
+                description: The title of the Widget (defaults to the title of the Resource).
+              settings:
+                required:
+                - display_type
+                type: object
+                properties:
+                  display_type:
+                    type: string
+                    enum:
+                    - table
+                    - chart
+                description: The settings for the DashboardWidget.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+          - ''
+          x-omitempty: false
+        start_date:
+          type: string
+          description: The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        workspace_token:
+          type: string
+          description: The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces.
+      description: Update a Dashboard.
+    Dashboards:
+      required:
+      - dashboards
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+      description: Dashboards model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

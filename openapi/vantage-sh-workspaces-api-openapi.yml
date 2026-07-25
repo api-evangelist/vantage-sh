@@ -1,0 +1,526 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Workspaces API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Workspaces
+  description: Operations about Workspaces
+paths:
+  /workspaces:
+    get:
+      tags:
+      - Workspaces
+      summary: Get all workspaces
+      description: Return all Workspaces that the current API token has access to.
+      operationId: getWorkspaces
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspaces'
+              example:
+                workspaces:
+                - token: wrkspc_5d9752a116e4d28e
+                  name: Gulgowski, Ruecker and Rolfson b7f1c249
+                  created_at: '2024-10-01T01:00:56Z'
+                  enable_currency_conversion: false
+                  currency: USD
+                  exchange_rate_date: daily_rate
+                - token: wrkspc_9a319290712d817d
+                  name: Stokes Inc 2d705dab
+                  created_at: '2024-10-01T01:00:56Z'
+                  enable_currency_conversion: false
+                  currency: USD
+                  exchange_rate_date: daily_rate
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Workspaces
+      summary: Create workspace
+      description: Create a workspace
+      operationId: createWorkspace
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createWorkspace'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+              example:
+                token: wrkspc_c820c203e53de3e1
+                name: Ellingson Mineral Corporation
+                created_at: '2024-10-01T01:00:55Z'
+                enable_currency_conversion: true
+                currency: JPY
+                exchange_rate_date: end_of_billing_period_rate
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createWorkspace
+  /workspaces/{workspace_token}:
+    get:
+      tags:
+      - Workspaces
+      summary: Get workspace by token
+      description: Return a specific Workspace.
+      operationId: getWorkspace
+      parameters:
+      - name: workspace_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+              example:
+                token: wrkspc_ba4878d880507623
+                name: Emard, Lebsack and Schmidt 551b5e11
+                created_at: '2024-10-01T01:00:55Z'
+                enable_currency_conversion: false
+                currency: USD
+                exchange_rate_date: daily_rate
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Workspaces
+      summary: Update workspace
+      description: Update a workspace
+      operationId: updateWorkspace
+      parameters:
+      - name: workspace_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateWorkspace'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+              example:
+                token: wrkspc_a44f83d3e85be91d
+                name: My Workspace (Edited)
+                created_at: '2024-10-01T01:00:56Z'
+                enable_currency_conversion: true
+                currency: EUR
+                exchange_rate_date: daily_rate
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateWorkspace
+    delete:
+      tags:
+      - Workspaces
+      summary: Delete workspace
+      description: Delete a workspace
+      operationId: deleteWorkspace
+      parameters:
+      - name: workspace_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    updateWorkspace:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the workspace.
+        enable_currency_conversion:
+          type: boolean
+          description: Enable currency conversion for the workspace.
+          default: true
+        currency:
+          type: string
+          description: Currency code for the workspace.
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTC
+          - BTN
+          - BWP
+          - BYN
+          - BYR
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LTL
+          - LVL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRO
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STD
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XCD
+          - XDR
+          - XOF
+          - XPF
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+        exchange_rate_date:
+          type: string
+          description: The date to use for currency conversion.
+          default: daily_rate
+          enum:
+          - daily_rate
+          - end_of_billing_period_rate
+      description: Update a workspace
+    Workspaces:
+      required:
+      - workspaces
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+      description: Workspaces model
+    createWorkspace:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the workspace.
+        enable_currency_conversion:
+          type: boolean
+          description: Enable currency conversion for the workspace.
+          default: true
+        currency:
+          type: string
+          description: Currency code for the workspace.
+        exchange_rate_date:
+          type: string
+          description: The date to use for currency conversion.
+          default: daily_rate
+          enum:
+          - daily_rate
+          - end_of_billing_period_rate
+      description: Create a workspace
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    Workspace:
+      required:
+      - created_at
+      - currency
+      - enable_currency_conversion
+      - exchange_rate_date
+      - name
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        name:
+          type: string
+          description: The name of the Workspace.
+          nullable: false
+          example: Acme Corp.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        enable_currency_conversion:
+          type: boolean
+          description: Whether or not currency conversion is enabled for the Workspace.
+          nullable: false
+        currency:
+          type: string
+          description: The currency code for the Workspace that will be used for currency conversion.
+          nullable: false
+          example: USD
+        exchange_rate_date:
+          type: string
+          description: The exchange rate date that will be used to convert currency for your cost data.
+          nullable: false
+      description: Workspace model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

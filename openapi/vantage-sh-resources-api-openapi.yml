@@ -1,0 +1,371 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Resources API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Resources
+  description: Operations about Resources
+paths:
+  /resources:
+    get:
+      tags:
+      - Resources
+      summary: Get resources
+      description: Return Resources contained in a ResourceReport
+      operationId: getReportResources
+      parameters:
+      - name: resource_report_token
+        in: query
+        description: The ResourceReport token.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: The filter query language to apply to the Resources. Additional documentation available at https://docs.vantage.sh/vql.
+        schema:
+          type: string
+      - name: workspace_token
+        in: query
+        description: The Workspace in which the Resources are located.
+        schema:
+          type: string
+      - name: include_cost
+        in: query
+        description: Include cost information in the response.
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        description: The page number for pagination.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of resources to return per page.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resources'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true
+                  first: https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/resources?resource_report_token=prvdr_rsrc_rprt_a92daa2d9d885dcc&include_cost=true&page=1
+                  prev: null
+                resources:
+                - token: prvdr_rsrc_4a1f4a30d86a586f
+                  uuid: 0a997b68-281b-441b-865a-1ce183ae5f51
+                  type: aws_instance
+                  label: Faker::Business
+                  metadata:
+                    instance_id: null
+                    image_id: null
+                    region: null
+                    vpc_id: null
+                    subnet_id: null
+                    public_ip_address: null
+                    private_ip_address: null
+                    public_dns_name: null
+                    instance_type: null
+                    platform: null
+                    spot_instance_request_id: null
+                    launch_time: 1728332095
+                    instance_lifecycle: null
+                    name: null
+                    platform_type: Linux/UNIX
+                    spot_info: null
+                    spot_price: null
+                    datadog_agent_installed: null
+                    network_interfaces: null
+                    tags: null
+                    instance_type_name: t2.micro
+                    lifecycle: normal
+                  account_id: '734912804094'
+                  billing_account_id: '734912804094'
+                  provider: aws
+                  region: us-east-1
+                  cost: 200.0
+                  created_at: '2024-10-06T20:14:55.898Z'
+                - token: prvdr_rsrc_21a16d1b66e134d9
+                  uuid: 0f21a7dc-a466-43fb-81e8-1cc2346482f4
+                  type: aws_instance
+                  label: Faker::Business
+                  metadata:
+                    instance_id: null
+                    image_id: null
+                    region: null
+                    vpc_id: null
+                    subnet_id: null
+                    public_ip_address: null
+                    private_ip_address: null
+                    public_dns_name: null
+                    instance_type: null
+                    platform: null
+                    spot_instance_request_id: null
+                    launch_time: 1728332095
+                    instance_lifecycle: null
+                    name: null
+                    platform_type: Linux/UNIX
+                    spot_info: null
+                    spot_price: null
+                    datadog_agent_installed: null
+                    network_interfaces: null
+                    tags: null
+                    instance_type_name: t2.micro
+                    lifecycle: normal
+                  account_id: '734912804094'
+                  billing_account_id: '734912804094'
+                  provider: aws
+                  region: us-east-1
+                  cost: 100.0
+                  created_at: '2024-10-07T20:14:55.898Z'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /resources/{resource_token}:
+    get:
+      tags:
+      - Resources
+      summary: Get resource by token
+      description: Return a single Resource
+      operationId: getResource
+      parameters:
+      - name: resource_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: include_cost
+        in: query
+        description: Include cost information in the response.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+              example:
+                token: prvdr_rsrc_99a293db073a2e99
+                uuid: e930c92f-5449-4eaf-9ef5-4f714da1ab45
+                type: aws_instance
+                label: Faker::Business
+                metadata:
+                  instance_id: null
+                  image_id: null
+                  region: null
+                  vpc_id: null
+                  subnet_id: null
+                  public_ip_address: null
+                  private_ip_address: null
+                  public_dns_name: null
+                  instance_type: null
+                  platform: null
+                  spot_instance_request_id: null
+                  launch_time: 1728479795
+                  instance_lifecycle: null
+                  name: null
+                  platform_type: Linux/UNIX
+                  spot_info: null
+                  spot_price: null
+                  datadog_agent_installed: null
+                  network_interfaces: null
+                  tags: null
+                  instance_type_name: t2.micro
+                  lifecycle: normal
+                account_id: '565894339657'
+                billing_account_id: '565894339657'
+                provider: aws
+                region: us-east-1
+                costs:
+                - category: Data Transfer
+                  amount: 3.0
+                - category: Compute Instance
+                  amount: 3.0
+                created_at: '2024-10-09T13:16:35.719Z'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Resource:
+      required:
+      - account_id
+      - billing_account_id
+      - created_at
+      - label
+      - metadata
+      - provider
+      - region
+      - tags
+      - token
+      - type
+      - uuid
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        uuid:
+          type: string
+          description: The unique identifier for the resource.
+          nullable: false
+          example: i-0a1b2c3d4e5f6g7h8
+        type:
+          type: string
+          description: The kind of resource.
+          nullable: false
+          example: aws_instance
+        label:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          properties: {}
+          description: Type-specific attributes of the resource.
+          nullable: true
+        account_id:
+          type: string
+          description: The provider account where the resource is located.
+          nullable: true
+        billing_account_id:
+          type: string
+          description: The provider billing account this resource is charged to.
+          nullable: true
+        provider:
+          type: string
+          description: The provider of the resource.
+          nullable: false
+          example: aws
+        region:
+          type: string
+          description: The region where the resource is located. Region values are specific to each provider.
+          nullable: true
+          example: us-west-2
+        costs:
+          type: array
+          description: The cost of the resource broken down by category.
+          items:
+            $ref: '#/components/schemas/ResourceCost'
+        created_at:
+          type: string
+          description: The date and time when Vantage first observed the resource.
+          nullable: false
+        tags:
+          type: object
+          properties: {}
+          description: Key-value pairs of tags associated with the resource.
+          nullable: false
+      description: Resource model
+    Resources:
+      required:
+      - resources
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+      description: Resources model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+          nullable: false
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+          nullable: false
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

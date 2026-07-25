@@ -1,0 +1,180 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants DataExports API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: DataExports
+  description: Operations about DataExports
+paths:
+  /data_exports/{data_export_token}:
+    get:
+      tags:
+      - DataExports
+      summary: Get status of data export
+      description: Get the status of a data export.
+      operationId: getDataExport
+      parameters:
+      - name: data_export_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the completed data export and its manifest. If it is still pending, the response will be a 202 and the caller should check the Location and Retry-After headers to determine where and how long to wait before polling again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExport'
+              example:
+                token: dta_xprt_964b2adb9bff37fb
+                status: completed
+                created_at: '2025-03-27T20:46:31Z'
+                export_type: cost_report
+                manifest:
+                  files:
+                  - https://example.com/file1.csv
+                  completed_at: '2025-03-27T20:46:31Z'
+                  valid_until: '2025-03-28T20:46:31Z'
+                attributes:
+                  report_token: null
+                  start_date: null
+                  end_date: null
+                  groupings: []
+                  vql: null
+                  settings: null
+                  date_bin: null
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    DataExport:
+      required:
+      - attributes
+      - created_at
+      - export_type
+      - manifest
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+          example: dta_xprt_abcd1234567890
+        status:
+          type: string
+          nullable: false
+          example: pending
+        created_at:
+          type: string
+          nullable: false
+          example: '2025-03-20T12:00:00Z'
+        export_type:
+          type: string
+          nullable: false
+          example: cost_report
+        manifest:
+          $ref: '#/components/schemas/DataExportManifest'
+        attributes:
+          type: object
+          properties: {}
+          nullable: false
+      description: DataExport model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    DataExportManifest:
+      required:
+      - completed_at
+      - files
+      - valid_until
+      type: object
+      properties:
+        files:
+          type: array
+          nullable: false
+          items:
+            type: string
+            example: ''
+        completed_at:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+        valid_until:
+          type: string
+          nullable: true
+          example: '2025-03-20T12:00:00Z'
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

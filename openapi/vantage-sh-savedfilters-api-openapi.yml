@@ -1,0 +1,359 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants SavedFilters API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: SavedFilters
+  description: Operations about SavedFilters
+paths:
+  /saved_filters:
+    get:
+      tags:
+      - SavedFilters
+      summary: Get all saved filters
+      description: Return all SavedFilters that can be applied to a CostReport.
+      operationId: getSavedFilters
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFilters'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/saved_filters
+                  first: https://api.vantage.sh/v2/saved_filters?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/saved_filters?page=1
+                  prev: null
+                saved_filters:
+                - token: svd_fltr_3dffc0458f7a2487
+                  title: AWS Account
+                  cost_report_tokens:
+                  - rprt_3d0ae4648f5fd8f7
+                  filter: (costs.provider = 'aws' AND costs.account_id = '30')
+                  created_at: '2024-07-15T16:08:53Z'
+                  created_by: usr_95fac32734bdceab
+                  workspace_token: wrkspc_914dcb0959497507
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - SavedFilters
+      summary: Create saved filter
+      description: Create a SavedFilter for CostReports.
+      operationId: createSavedFilter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSavedFilter'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFilter'
+              example:
+                token: svd_fltr_4de629566ddd68c9
+                title: New Saved Filter
+                cost_report_tokens: []
+                filter: costs.provider = 'datadog'
+                created_at: '2024-07-15T16:08:58Z'
+                created_by: team_e58399e4df1175e9
+                workspace_token: wrkspc_e4cacf2493142e5b
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createSavedFilter
+  /saved_filters/{saved_filter_token}:
+    get:
+      tags:
+      - SavedFilters
+      summary: Get saved filter by token
+      description: Return a specific SavedFilter.
+      operationId: getSavedFilter
+      parameters:
+      - name: saved_filter_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFilter'
+              example:
+                token: svd_fltr_be3f24eb1b5aabf6
+                title: AWS Account
+                cost_report_tokens:
+                - rprt_47023ad2b735f57d
+                filter: (costs.provider = 'aws' AND costs.account_id = '98')
+                created_at: '2024-07-15T16:08:54Z'
+                created_by: team_73f6001f98e9012b
+                workspace_token: wrkspc_be6568a301b1d06c
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - SavedFilters
+      summary: Update saved filter
+      description: Update a SavedFilter for CostReports.
+      operationId: updateSavedFilter
+      parameters:
+      - name: saved_filter_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSavedFilter'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFilter'
+              example:
+                token: svd_fltr_eeabf4c7264f94a8
+                title: Updated Saved Filter
+                cost_report_tokens: []
+                filter: costs.provider = 'azure'
+                created_at: '2024-07-15T16:08:55Z'
+                created_by: usr_240a5fd77d5da076
+                workspace_token: wrkspc_0b7ef373f9c5d485
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateSavedFilter
+    delete:
+      tags:
+      - SavedFilters
+      summary: Delete saved filter
+      description: Delete a SavedFilter for CostReports.
+      operationId: deleteSavedFilter
+      parameters:
+      - name: saved_filter_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFilter'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    createSavedFilter:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the SavedFilter.
+        workspace_token:
+          type: string
+          description: The Workspace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces.
+        filter:
+          type: string
+          description: The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+      description: Create a SavedFilter for CostReports.
+    SavedFilter:
+      required:
+      - cost_report_tokens
+      - created_at
+      - created_by
+      - filter
+      - title
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the SavedFilter.
+          nullable: false
+          example: Platform Team Reports
+        cost_report_tokens:
+          type: array
+          description: The tokens for any CostReports the SavedFilter is applied to.
+          nullable: false
+          items:
+            type: string
+            example: ''
+        filter:
+          type: string
+          description: The SavedFilter's filter, applied to any relevant CostReports. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+          example: costs.provider = 'azure'
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        created_by:
+          type: string
+          description: The token for the Creator of this SavedFilter.
+          nullable: true
+        workspace_token:
+          type: string
+          description: The token for the Workspace the SavedFilter is a part of.
+          nullable: false
+      description: SavedFilter model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    SavedFilters:
+      required:
+      - saved_filters
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        saved_filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedFilter'
+      description: SavedFilters model
+    updateSavedFilter:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the SavedFilter.
+        filter:
+          type: string
+          description: The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+      description: Update a SavedFilter for CostReports.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

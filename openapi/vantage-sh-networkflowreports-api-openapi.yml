@@ -1,0 +1,519 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants NetworkFlowReports API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: NetworkFlowReports
+  description: Operations about NetworkFlowReports
+paths:
+  /network_flow_reports:
+    get:
+      tags:
+      - NetworkFlowReports
+      summary: Get all network flow reports
+      description: Return all NetworkFlowReports.
+      operationId: getNetworkFlowReports
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFlowReports'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/network_flow_reports
+                  first: https://api.vantage.sh/v2/network_flow_reports?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/network_flow_reports?page=1
+                  prev: null
+                network_flow_reports:
+                - token: ntflw_lg_rprt_185dd0e7ecbeefde
+                  title: All Network Flow Logs
+                  default: false
+                  created_at: '2025-01-31T20:40:43Z'
+                  workspace_token: wrkspc_5e659968c5c9381c
+                  created_by_token: null
+                  start_date: '2025-01-24'
+                  end_date: '2025-01-30'
+                  date_interval: last_7_days
+                  groupings: resource_uuid,traffic_category,peer_resource_uuid
+                  flow_direction: null
+                  flow_weight: costs
+                  filter: null
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - NetworkFlowReports
+      summary: Create network flow report
+      description: Create a NetworkFlowReport.
+      operationId: createNetworkFlowReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createNetworkFlowReport'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFlowReport'
+              example:
+                token: ntflw_lg_rprt_c6107e302cb8723e
+                title: title
+                default: false
+                created_at: '2025-01-31T20:40:46Z'
+                workspace_token: wrkspc_0aa4a5d5a5fc2608
+                created_by_token: team_ed7fb90535f87b9f
+                start_date: '2025-01-24'
+                end_date: '2025-01-30'
+                date_interval: last_7_days
+                groupings: resource_uuid,traffic_category,peer_resource_uuid
+                flow_direction: null
+                flow_weight: costs
+                filter: network_flow_logs.traffic_category = 'cross_az'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createNetworkFlowReport
+  /network_flow_reports/{network_flow_report_token}:
+    get:
+      tags:
+      - NetworkFlowReports
+      summary: Get network flow report by token
+      description: Return a NetworkFlowReport.
+      operationId: getNetworkFlowReport
+      parameters:
+      - name: network_flow_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFlowReport'
+              example:
+                token: ntflw_lg_rprt_5a091da3979075e5
+                title: All Network Flow Logs
+                default: false
+                created_at: '2025-01-31T20:40:44Z'
+                workspace_token: wrkspc_5c2f9bd4f7a647e2
+                created_by_token: null
+                start_date: '2025-01-24'
+                end_date: '2025-01-30'
+                date_interval: last_7_days
+                groupings: resource_uuid,traffic_category,peer_resource_uuid
+                flow_direction: null
+                flow_weight: costs
+                filter: null
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - NetworkFlowReports
+      summary: Update network flow report
+      description: Update a NetworkFlowReport.
+      operationId: updateNetworkFlowReport
+      parameters:
+      - name: network_flow_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateNetworkFlowReport'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFlowReport'
+              example:
+                token: ntflw_lg_rprt_a5178e27a1be73a3
+                title: new title
+                default: false
+                created_at: '2025-01-31T20:40:47Z'
+                workspace_token: wrkspc_f8b981b7707ddda5
+                created_by_token: null
+                start_date: '2025-01-24'
+                end_date: '2025-01-30'
+                date_interval: last_7_days
+                groupings: region,vpc_id
+                flow_direction: egress
+                flow_weight: bytes
+                filter: null
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateNetworkFlowReport
+    delete:
+      tags:
+      - NetworkFlowReports
+      summary: Delete network flow report
+      description: Delete a NetworkFlowReport.
+      operationId: deleteNetworkFlowReport
+      parameters:
+      - name: network_flow_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkFlowReport'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    NetworkFlowReports:
+      required:
+      - network_flow_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        network_flow_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkFlowReport'
+      description: NetworkFlowReports model
+    createNetworkFlowReport:
+      required:
+      - title
+      - workspace_token
+      type: object
+      properties:
+        workspace_token:
+          type: string
+          description: The Workspace in which the NetworkFlowReport will be created.
+        title:
+          type: string
+          description: The title of the NetworkFlowReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
+          enum:
+          - last_3_days
+          - last_7_days
+          - custom
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.'
+          items:
+            type: string
+            enum:
+            - account_id
+            - az_id
+            - dstaddr
+            - dsthostname
+            - flow_direction
+            - interface_id
+            - instance_id
+            - peer_resource_uuid
+            - peer_account_id
+            - peer_vpc_id
+            - peer_region
+            - peer_az_id
+            - peer_subnet_id
+            - peer_interface_id
+            - peer_instance_id
+            - region
+            - resource_uuid
+            - srcaddr
+            - srchostname
+            - subnet_id
+            - traffic_category
+            - traffic_path
+            - vpc_id
+        flow_direction:
+          type: string
+          description: The flow direction of the NetworkFlowReport.
+          enum:
+          - ingress
+          - egress
+        flow_weight:
+          type: string
+          description: The dimension by which the logs in the report are sorted. Defaults to costs.
+          enum:
+          - costs
+          - bytes
+      description: Create a NetworkFlowReport.
+    updateNetworkFlowReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the NetworkFlowReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
+          enum:
+          - last_3_days
+          - last_7_days
+          - custom
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.'
+          items:
+            type: string
+            enum:
+            - account_id
+            - az_id
+            - dstaddr
+            - dsthostname
+            - flow_direction
+            - interface_id
+            - instance_id
+            - peer_resource_uuid
+            - peer_account_id
+            - peer_vpc_id
+            - peer_region
+            - peer_az_id
+            - peer_subnet_id
+            - peer_interface_id
+            - peer_instance_id
+            - region
+            - resource_uuid
+            - srcaddr
+            - srchostname
+            - subnet_id
+            - traffic_category
+            - traffic_path
+            - vpc_id
+        flow_direction:
+          type: string
+          description: The flow direction of the NetworkFlowReport.
+          enum:
+          - ingress
+          - egress
+        flow_weight:
+          type: string
+          description: The dimension by which the logs in the report are sorted. Defaults to costs.
+          enum:
+          - costs
+          - bytes
+      description: Update a NetworkFlowReport.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    NetworkFlowReport:
+      required:
+      - created_at
+      - date_interval
+      - default
+      - end_date
+      - filter
+      - flow_direction
+      - flow_weight
+      - groupings
+      - start_date
+      - title
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the NetworkFlowReport.
+          nullable: false
+          example: Public Traffic Destinations
+        default:
+          type: boolean
+          description: Indicates whether the NetworkFlowReport is the default report.
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the NetworkFlowReport is a part of.
+          nullable: false
+        created_by_token:
+          type: string
+          description: The token for the User or Team that created this NetworkFlowReport.
+          nullable: true
+        start_date:
+          type: string
+          description: The start date for the NetworkFlowReport. Only set for custom date ranges. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-03-01'
+        end_date:
+          type: string
+          description: The end date for the NetworkFlowReport. Only set for custom date ranges. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-03-20'
+        date_interval:
+          type: string
+          description: The date range for the NetworkFlowReport. Only present if a custom date range is not specified.
+          nullable: true
+          example: last_month
+        groupings:
+          type: string
+          description: The grouping aggregations applied to the filtered data.
+          nullable: true
+          example: cost_type, tag:account
+        flow_direction:
+          type: string
+          description: 'The flow weight of the NetworkFlowReport. Possible values: costs, bytes.'
+          nullable: true
+          example: ingress
+        flow_weight:
+          type: string
+          description: 'The flow weight of the NetworkFlowReport. Possible values: costs, bytes.'
+          nullable: false
+          example: costs
+        filter:
+          type: string
+          description: The filter applied to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+      description: NetworkFlowReport model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

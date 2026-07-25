@@ -1,0 +1,2206 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Costs API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Costs
+  description: Operations about Costs
+paths:
+  /cost_reports:
+    get:
+      tags:
+      - Costs
+      summary: Get all cost reports
+      description: Return all CostReports.
+      operationId: getCostReports
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: folder_token
+        in: query
+        description: The token for the Folder you would like to fetch Reports from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReports'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/cost_reports
+                  first: https://api.vantage.sh/v2/cost_reports?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/cost_reports?page=1
+                  prev: null
+                cost_reports:
+                - token: rprt_6f2c7d330c05636f
+                  title: Untitled
+                  folder_token: null
+                  saved_filter_tokens:
+                  - svd_fltr_9f2aca5e894b432a
+                  business_metric_tokens_with_metadata: []
+                  default_forecast:
+                    kind: baseline
+                  filter: null
+                  groupings: service,provider
+                  settings:
+                    include_credits: false
+                    include_refunds: false
+                    include_discounts: true
+                    include_tax: true
+                    amortize: true
+                    unallocated: false
+                    aggregate_by: cost
+                    show_previous_period: true
+                    complete_period: false
+                  created_at: '2024-07-03T00:00:00Z'
+                  workspace_token: wrkspc_3f4145fd51b19463
+                  previous_period_start_date: null
+                  previous_period_end_date: null
+                  start_date: '2024-07-01'
+                  end_date: '2024-07-31'
+                  date_interval: this_month
+                  chart_type: line
+                  date_bin: cumulative
+                  chart_settings:
+                    y_axis_dimension: cost
+                    x_axis_dimension:
+                    - date
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Costs
+      summary: Create cost report
+      description: Create a CostReport.
+      operationId: createCostReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCostReport'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+              example:
+                token: rprt_299359872859a568
+                title: New Cost Report
+                folder_token: fldr_736175272c30b820
+                saved_filter_tokens:
+                - svd_fltr_3cf17b5bd79e849c
+                business_metric_tokens_with_metadata:
+                - business_metric_token: bsnss_mtrc_b90d5fe5fbff292d
+                  unit_scale: per_thousand
+                  label_filter:
+                  - CBGB
+                  - Roxy
+                  - Studio 54
+                  - ''
+                default_forecast:
+                  kind: baseline
+                filter: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
+                groupings: service,provider
+                settings:
+                  include_credits: false
+                  include_refunds: false
+                  include_discounts: true
+                  include_tax: true
+                  amortize: true
+                  unallocated: false
+                  aggregate_by: cost
+                  show_previous_period: true
+                  complete_period: false
+                created_at: '2024-07-03T00:00:00Z'
+                workspace_token: wrkspc_9e2675148d6275f8
+                previous_period_start_date: null
+                previous_period_end_date: null
+                start_date: '2024-07-01'
+                end_date: '2024-07-31'
+                date_interval: this_month
+                chart_type: bar
+                date_bin: day
+                chart_settings:
+                  y_axis_dimension: cost
+                  x_axis_dimension:
+                  - date
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createCostReport
+  /cost_reports/{cost_report_token}:
+    get:
+      tags:
+      - Costs
+      summary: Get cost report by token
+      description: Return a CostReport.
+      operationId: getCostReport
+      parameters:
+      - name: cost_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+              example:
+                token: rprt_5db7a73cf4d09998
+                title: Untitled
+                folder_token: null
+                saved_filter_tokens:
+                - svd_fltr_e1166df04e1709bf
+                business_metric_tokens_with_metadata: []
+                default_forecast:
+                  kind: baseline
+                filter: null
+                groupings: service,provider
+                settings:
+                  include_credits: false
+                  include_refunds: false
+                  include_discounts: true
+                  include_tax: true
+                  amortize: true
+                  unallocated: false
+                  aggregate_by: cost
+                  show_previous_period: true
+                  complete_period: false
+                created_at: '2024-07-03T00:00:00Z'
+                workspace_token: wrkspc_9c6847147c762f2a
+                previous_period_start_date: null
+                previous_period_end_date: null
+                start_date: '2024-07-01'
+                end_date: '2024-07-31'
+                date_interval: this_month
+                chart_type: line
+                date_bin: cumulative
+                chart_settings:
+                  y_axis_dimension: cost
+                  x_axis_dimension:
+                  - date
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Costs
+      summary: Update cost report
+      description: Update a CostReport.
+      operationId: updateCostReport
+      parameters:
+      - name: cost_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCostReport'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+              example:
+                token: rprt_1e692ea6b3eddf6b
+                title: Updated Cost Report
+                folder_token: fldr_86dec25791dca5ce
+                saved_filter_tokens:
+                - svd_fltr_1977fb9dc5e2b336
+                business_metric_tokens_with_metadata:
+                - business_metric_token: bsnss_mtrc_14dc9a1fb1ce67ce
+                  unit_scale: per_thousand
+                  label_filter:
+                  - CBGB
+                  - Roxy
+                  - Studio 54
+                  - ''
+                - business_metric_token: bsnss_mtrc_ab4227c15f99f995
+                  unit_scale: per_million
+                default_forecast:
+                  kind: baseline
+                filter: costs.provider = 'azure'
+                groupings: account_id,service
+                settings:
+                  include_credits: false
+                  include_refunds: false
+                  include_discounts: true
+                  include_tax: true
+                  amortize: true
+                  unallocated: false
+                  aggregate_by: cost
+                  show_previous_period: true
+                  complete_period: false
+                created_at: '2024-07-03T00:00:00Z'
+                workspace_token: wrkspc_a8fb0662fdca90e0
+                previous_period_start_date: null
+                previous_period_end_date: null
+                start_date: '2024-07-01'
+                end_date: '2024-07-31'
+                date_interval: this_month
+                chart_type: pie
+                date_bin: week
+                chart_settings:
+                  y_axis_dimension: cost
+                  x_axis_dimension:
+                  - date
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateCostReport
+    delete:
+      tags:
+      - Costs
+      summary: Delete cost report
+      description: Delete a CostReport.
+      operationId: deleteCostReport
+      parameters:
+      - name: cost_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /cost_reports/{cost_report_token}/forecasted_costs:
+    get:
+      tags:
+      - Costs
+      summary: Get forecasted costs for a cost report
+      description: Return all ForecastedCosts.
+      operationId: getForecastedCosts
+      parameters:
+      - name: cost_report_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: First date you would like to filter forecasted costs from. ISO 8601 formatted.
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: Last date you would like to filter forecasted costs from. ISO 8601 formatted.
+        schema:
+          type: string
+          format: date
+      - name: provider
+        in: query
+        description: Limit the forecasted costs to a specific provider. 'all' is accepted to filter to overall forecast.
+        schema:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+          - all
+      - name: service
+        in: query
+        description: Limit the forecasted costs to a specific service. 'all' is accepted to filter to overall forecast. e.g. 'Amazon ElastiCache'.
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForecastedCosts'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs
+                  first: https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1
+                  prev: null
+                forecasted_costs:
+                - date: '2024-07-04T00:00:00Z'
+                  amount: '10.0'
+                  provider: all
+                  service: all
+                - date: '2024-07-04T00:00:00Z'
+                  amount: '10.0'
+                  provider: aws
+                  service: Amazon Elastic Compute Cloud - Compute
+                - date: '2024-07-04T00:00:00Z'
+                  amount: '10.0'
+                  provider: azure
+                  service: Virtual Machines
+                - date: '2024-07-05T00:00:00Z'
+                  amount: '10.0'
+                  provider: all
+                  service: all
+                - date: '2024-07-05T00:00:00Z'
+                  amount: '10.0'
+                  provider: aws
+                  service: Amazon Elastic Compute Cloud - Compute
+                - date: '2024-07-05T00:00:00Z'
+                  amount: '10.0'
+                  provider: azure
+                  service: Virtual Machines
+                - date: '2024-07-06T00:00:00Z'
+                  amount: '10.0'
+                  provider: all
+                  service: all
+                - date: '2024-07-06T00:00:00Z'
+                  amount: '10.0'
+                  provider: aws
+                  service: Amazon Elastic Compute Cloud - Compute
+                - date: '2024-07-06T00:00:00Z'
+                  amount: '10.0'
+                  provider: azure
+                  service: Virtual Machines
+                currency: USD
+      security:
+      - oauth2:
+        - read
+  /costs/data_exports:
+    post:
+      tags:
+      - Costs
+      summary: Generate cost data export
+      description: Generate a DataExport of costs.
+      operationId: createCostExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCostExport'
+        required: true
+      responses:
+        '202':
+          description: The data export has been queued and will be available at the location specified in the Location header.
+          content: {}
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+      x-codegen-request-body-name: createCostExport
+  /costs:
+    get:
+      tags:
+      - Costs
+      summary: Get costs for cost report or VQL filter
+      description: Return all Costs for a CostReport or VQL filter.
+      operationId: getCosts
+      parameters:
+      - name: cost_report_token
+        in: query
+        description: The CostReport token.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
+        schema:
+          type: string
+      - name: workspace_token
+        in: query
+        description: The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: First date you would like to filter costs from. ISO 8601 formatted.
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: Last date you would like to filter costs to. ISO 8601 formatted.
+        schema:
+          type: string
+      - name: groupings
+        in: query
+        description: 'Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region'
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: order
+        in: query
+        description: Whether to order costs by date in an ascending or descending manner.
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 5000.
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: date_bin
+        in: query
+        description: The date bin of the costs. Defaults to the report's default or day.
+        schema:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+      - name: settings[include_credits]
+        in: query
+        description: Results will include credits.
+        schema:
+          type: boolean
+          default: false
+      - name: settings[include_refunds]
+        in: query
+        description: Results will include refunds.
+        schema:
+          type: boolean
+          default: false
+      - name: settings[include_discounts]
+        in: query
+        description: Results will include discounts.
+        schema:
+          type: boolean
+          default: true
+      - name: settings[include_tax]
+        in: query
+        description: Results will include tax.
+        schema:
+          type: boolean
+          default: true
+      - name: settings[amortize]
+        in: query
+        description: Results will amortize.
+        schema:
+          type: boolean
+          default: true
+      - name: settings[unallocated]
+        in: query
+        description: Results will show unallocated costs.
+        schema:
+          type: boolean
+          default: false
+      - name: settings[aggregate_by]
+        in: query
+        description: Results will aggregate by cost or usage.
+        schema:
+          type: string
+          default: cost
+      - name: settings[show_previous_period]
+        in: query
+        description: Results will show previous period costs or usage comparison.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Costs'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677
+                  first: https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1
+                  next: null
+                  last: null
+                  prev: null
+                total_cost:
+                  amount: '500.0'
+                  currency: USD
+                costs:
+                - accrued_at: '2023-06-05'
+                  amount: '100.0'
+                  currency: USD
+                  provider: aws
+                  account_id: mock_56789
+                  service: AmazonSNS
+                - accrued_at: '2023-06-04'
+                  amount: '100.0'
+                  currency: USD
+                  provider: aws
+                  account_id: mock_56789
+                  service: AmazonSNS
+                - accrued_at: '2023-06-03'
+                  amount: '100.0'
+                  currency: USD
+                  provider: aws
+                  account_id: mock_56789
+                  service: AmazonSNS
+                - accrued_at: '2023-06-02'
+                  amount: '100.0'
+                  currency: USD
+                  provider: aws
+                  account_id: mock_56789
+                  service: AmazonSNS
+                - accrued_at: '2023-06-01'
+                  amount: '100.0'
+                  currency: USD
+                  provider: aws
+                  account_id: mock_56789
+                  service: AmazonSNS
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '402':
+          description: PaymentRequired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /dashboards:
+    get:
+      tags:
+      - Costs
+      summary: Get all dashboards
+      description: Return all Dashboards.
+      operationId: getDashboards
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboards'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/dashboards
+                  first: https://api.vantage.sh/v2/dashboards?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/dashboards?page=1
+                  prev: null
+                dashboards:
+                - token: dshbrd_13d78294a06f0f84
+                  title: Executive Overview
+                  widget_tokens:
+                  - rprt_7c3cb814dfb6d881
+                  widgets:
+                  - widgetable_token: rprt_7c3cb814dfb6d881
+                    title: Cost Report
+                    settings:
+                      display_type: chart
+                  saved_filter_tokens:
+                  - svd_fltr_3c6f5eb635cf88de
+                  date_bin: null
+                  date_interval: null
+                  start_date: null
+                  end_date: null
+                  created_at: '2024-12-17T00:44:48Z'
+                  updated_at: '2024-12-17T00:44:48Z'
+                  workspace_token: wrkspc_ea1a7802e5fe06b3
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Costs
+      summary: Create dashboard
+      description: Create a Dashboard.
+      operationId: createDashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createDashboard'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                token: dshbrd_7e272e8d3de34719
+                title: New Dashboard
+                widget_tokens:
+                - fncl_cmnt_rprt_d4743c186c130e30
+                - kbnts_eff_rprt_892d1566bd543b67
+                - rprt_750074c1b25b372a
+                widgets:
+                - widgetable_token: fncl_cmnt_rprt_d4743c186c130e30
+                  title: All Financial Commitments
+                  settings:
+                    display_type: chart
+                - widgetable_token: kbnts_eff_rprt_892d1566bd543b67
+                  title: All Kubernetes Nodes Efficiency
+                  settings:
+                    display_type: table
+                - widgetable_token: rprt_750074c1b25b372a
+                  title: Azure Cost Report
+                  settings:
+                    display_type: chart
+                saved_filter_tokens:
+                - svd_fltr_3f45aefa131861ac
+                date_bin: week
+                date_interval: this_month
+                start_date: '2023-08-01'
+                end_date: '2023-08-31'
+                created_at: '2023-08-15T00:00:00Z'
+                updated_at: '2023-08-15T00:00:00Z'
+                workspace_token: wrkspc_08e043cc14ced776
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createDashboard
+  /dashboards/{dashboard_token}:
+    get:
+      tags:
+      - Costs
+      summary: Get dashboard by token
+      description: Return a specific Dashboard.
+      operationId: getDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/dashboards
+                  first: https://api.vantage.sh/v2/dashboards?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/dashboards?page=1
+                  prev: null
+                dashboards:
+                - token: dshbrd_e7c5b49d826b6f71
+                  title: Executive Overview
+                  widget_tokens:
+                  - rprt_27e80d7a8d3f34e6
+                  widgets:
+                  - widgetable_token: rprt_27e80d7a8d3f34e6
+                    title: Weekly Sales Report
+                    settings:
+                      display_type: chart
+                  saved_filter_tokens:
+                  - svd_fltr_7bb508e881e7fe5f
+                  date_bin: null
+                  date_interval: null
+                  start_date: null
+                  end_date: null
+                  created_at: '2024-12-17T00:44:48Z'
+                  updated_at: '2024-12-17T00:44:48Z'
+                  workspace_token: wrkspc_245288e3c3a7377f
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Costs
+      summary: Update dashboard
+      description: Update a Dashboard.
+      operationId: updateDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDashboard'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+              example:
+                token: dshbrd_2c942eb3a8d3962a
+                title: Updated Dashboard
+                widget_tokens:
+                - fncl_cmnt_rprt_ea316a453acd20c0
+                - kbnts_eff_rprt_e3fc91cb63fd5469
+                - rprt_7b0be9c16c5a6785
+                widgets:
+                - widgetable_token: fncl_cmnt_rprt_ea316a453acd20c0
+                  title: All Financial Commitments
+                  settings:
+                    display_type: chart
+                - widgetable_token: kbnts_eff_rprt_e3fc91cb63fd5469
+                  title: Kubernetes Efficiency Report
+                  settings:
+                    display_type: table
+                - widgetable_token: rprt_7b0be9c16c5a6785
+                  title: Azure Report
+                  settings:
+                    display_type: chart
+                saved_filter_tokens:
+                - svd_fltr_51c106391f7295b7
+                date_bin: week
+                date_interval: this_month
+                start_date: '2023-08-01'
+                end_date: '2023-08-31'
+                created_at: '2024-12-17T00:44:45Z'
+                updated_at: '2023-08-15T00:00:00Z'
+                workspace_token: wrkspc_0e5c381029cdc016
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateDashboard
+    delete:
+      tags:
+      - Costs
+      summary: Delete dashboard
+      description: Delete a Dashboard.
+      operationId: deleteDashboard
+      parameters:
+      - name: dashboard_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    CostPartial:
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount of the cost.
+          nullable: false
+          example: '4.25'
+        currency:
+          type: string
+          description: The currency of the cost.
+          nullable: false
+          example: USD
+    createCostExport:
+      type: object
+      properties:
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        filter:
+          type: string
+          description: The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces.
+        start_date:
+          type: string
+          description: First date you would like to filter costs from. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: Last date you would like to filter costs to. ISO 8601 formatted.
+        groupings:
+          type: array
+          description: 'Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region'
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: The date bin of the costs. Defaults to the report's default or day.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+        schema:
+          type: string
+          description: The schema of the data export.
+          default: vntg
+          enum:
+          - vntg
+          - focus
+          - comparison
+        settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Results will include credits.
+              default: false
+            include_refunds:
+              type: boolean
+              description: Results will include refunds.
+              default: false
+            include_discounts:
+              type: boolean
+              description: Results will include discounts.
+              default: true
+            include_tax:
+              type: boolean
+              description: Results will include tax.
+              default: true
+            amortize:
+              type: boolean
+              description: Results will amortize.
+              default: true
+            unallocated:
+              type: boolean
+              description: Results will show unallocated costs.
+              default: false
+            aggregate_by:
+              type: string
+              description: Results will aggregate by cost or usage.
+              default: cost
+            show_previous_period:
+              type: boolean
+              description: Results will show previous period costs or usage comparison.
+              default: true
+          description: Cost-related settings.
+      description: Generate a DataExport of costs.
+    UsagePartial:
+      required:
+      - amount
+      - unit
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The sum of the usage.
+          nullable: false
+          example: '4.25'
+        unit:
+          type: string
+          description: The unit of the usage.
+          nullable: false
+          example: USD
+    CostReport:
+      required:
+      - business_metric_tokens_with_metadata
+      - chart_settings
+      - chart_type
+      - created_at
+      - date_bin
+      - date_interval
+      - default_forecast
+      - filter
+      - title
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the CostReport.
+          nullable: false
+          example: Production Environment
+        folder_token:
+          type: string
+          description: The token for the Folder the CostReport is a part of.
+          nullable: true
+        saved_filter_tokens:
+          type: array
+          description: The tokens for the SavedFilters assigned to the CostReport.
+          nullable: true
+          items:
+            type: string
+        business_metric_tokens_with_metadata:
+          type: array
+          description: The tokens for the BusinessMetrics assigned to the CostReport, the unit scale, and label filter.
+          items:
+            $ref: '#/components/schemas/AttachedBusinessMetricForCostReport'
+        default_forecast:
+          type: object
+          properties: {}
+          description: The default forecast selection for the CostReport.
+          nullable: false
+          example:
+            kind: baseline
+        filter:
+          type: string
+          description: The filter applied to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+          nullable: true
+        groupings:
+          type: string
+          description: The grouping aggregations applied to the filtered data.
+          nullable: true
+          example: provider, service
+        settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Report will include credits.
+              nullable: true
+              default: false
+            include_refunds:
+              type: boolean
+              description: Report will include refunds.
+              nullable: true
+              default: false
+            include_discounts:
+              type: boolean
+              description: Report will include discounts.
+              nullable: true
+              default: true
+            include_tax:
+              type: boolean
+              description: Report will include tax.
+              nullable: true
+              default: true
+            amortize:
+              type: boolean
+              description: Report will amortize.
+              nullable: true
+              default: true
+            unallocated:
+              type: boolean
+              description: Report will show unallocated costs.
+              nullable: true
+              default: false
+            aggregate_by:
+              type: string
+              description: Report will aggregate by cost or usage.
+              nullable: true
+              default: cost
+            show_previous_period:
+              type: boolean
+              description: Report will show previous period costs or usage comparison.
+              nullable: true
+              default: true
+            complete_period:
+              type: boolean
+              description: Report will restrict date ranges to completed periods only.
+              nullable: true
+              default: false
+          description: Report settings.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2021-07-09T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the CostReport is a part of.
+          nullable: false
+        previous_period_start_date:
+          type: string
+          description: The previous period start date of the CostReport. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-06-01'
+        previous_period_end_date:
+          type: string
+          description: The previous period end date of the CostReport. ISO 8601 Formatted.
+          nullable: true
+          example: '2024-06-15'
+        start_date:
+          type: string
+          description: The start date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2024-07-01'
+        end_date:
+          type: string
+          description: The end date of the CostReports. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2024-07-15'
+        date_interval:
+          type: string
+          description: The date interval of the CostReport.
+          nullable: false
+        chart_type:
+          type: string
+          description: The chart type of the CostReport.
+          nullable: false
+        date_bin:
+          type: string
+          description: The date bin of the CostReport.
+          nullable: false
+        chart_settings:
+          $ref: '#/components/schemas/ChartSettings'
+      description: CostReport model
+    CostReports:
+      required:
+      - cost_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostReport'
+      description: CostReports model
+    DashboardWidget:
+      required:
+      - settings
+      - title
+      - widgetable_token
+      type: object
+      properties:
+        widgetable_token:
+          type: string
+          nullable: false
+          example: rprt_a12b3c
+        title:
+          type: string
+          description: The title of the Widget.
+          nullable: false
+          example: My Widget
+        settings:
+          $ref: '#/components/schemas/DashboardWidgetSettings'
+    Costs:
+      required:
+      - costs
+      - total_cost
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        total_cost:
+          $ref: '#/components/schemas/CostPartial'
+        total_usage:
+          type: array
+          description: The sum of all usage for the CostReport for the requested period, rounded to 2 decimal places, grouped by usage unit.
+          items:
+            $ref: '#/components/schemas/UsagePartial'
+        costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+      description: Costs model
+    createCostReport:
+      required:
+      - end_date
+      - previous_period_end_date
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the CostReport.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Cost Report to. Ignored if 'folder_token' is set. Required if the API token is associated with multiple Workspaces.
+        groupings:
+          type: string
+          description: 'Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region'
+        filter:
+          type: string
+          description: The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the SavedFilters to apply to the CostReport.
+          items:
+            type: string
+        business_metric_tokens_with_metadata:
+          type: array
+          description: The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
+          items:
+            required:
+            - business_metric_token
+            type: object
+            properties:
+              business_metric_token:
+                type: string
+                description: The token of the BusinessMetric to attach to the CostReport.
+              unit_scale:
+                type: string
+                description: Determines the scale of the BusinessMetric's values within the CostReport.
+                default: per_unit
+                enum:
+                - per_unit
+                - per_hundred
+                - per_thousand
+                - per_million
+                - per_billion
+              label_filter:
+                type: array
+                description: Include only values with these labels in the CostReport.
+                items:
+                  type: string
+        folder_token:
+          type: string
+          description: The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
+        settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Report will include credits.
+              default: false
+            include_refunds:
+              type: boolean
+              description: Report will include refunds.
+              default: false
+            include_discounts:
+              type: boolean
+              description: Report will include discounts.
+              default: true
+            include_tax:
+              type: boolean
+              description: Report will include tax.
+              default: true
+            amortize:
+              type: boolean
+              description: Report will amortize.
+              default: true
+            unallocated:
+              type: boolean
+              description: Report will show unallocated costs.
+              default: false
+            aggregate_by:
+              type: string
+              description: Report will aggregate by cost or usage.
+              default: cost
+            show_previous_period:
+              type: boolean
+              description: Report will show previous period costs or usage comparison.
+              default: true
+            complete_period:
+              type: boolean
+              description: Report will restrict date ranges to completed periods only.
+              default: false
+          description: Report settings.
+        previous_period_start_date:
+          type: string
+          description: The previous period start date of the CostReport. ISO 8601 Formatted.
+        previous_period_end_date:
+          type: string
+          description: The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
+        start_date:
+          type: string
+          description: The start date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date of the CostReport. ISO 8601 Formatted. Required when start_date is provided. Incompatible with 'date_interval' parameter.
+        date_interval:
+          type: string
+          description: The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        chart_type:
+          type: string
+          description: The chart type of the CostReport.
+          default: line
+          enum:
+          - area
+          - line
+          - pie
+          - bar
+          - multi_bar
+        date_bin:
+          type: string
+          description: The date bin of the CostReport.
+          default: cumulative
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+        chart_settings:
+          type: object
+          properties:
+            x_axis_dimension:
+              type: array
+              description: 'The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to [''date''].'
+              items:
+                type: string
+            y_axis_dimension:
+              type: string
+              description: 'The metric or measure displayed on the chart’s y-axis. Possible values: ''cost'', ''usage''. Defaults to ''cost''.'
+          description: Report chart settings.
+      description: Create a CostReport.
+    createDashboard:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Dashboard.
+        widgets:
+          type: array
+          description: The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
+          items:
+            required:
+            - widgetable_token
+            type: object
+            properties:
+              widgetable_token:
+                type: string
+                description: The token of the represented Resource.
+              title:
+                type: string
+                description: The title of the Widget (defaults to the title of the Resource).
+              settings:
+                required:
+                - display_type
+                type: object
+                properties:
+                  display_type:
+                    type: string
+                    enum:
+                    - table
+                    - chart
+                description: The settings for the DashboardWidget.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        start_date:
+          type: string
+          description: The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Dashboard to. Required if the API token is associated with multiple Workspaces.
+      description: Create a Dashboard.
+    ForecastedCosts:
+      required:
+      - currency
+      - forecasted_costs
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        forecasted_costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastedCost'
+        currency:
+          type: string
+          description: The currency of the forecasted costs.
+          nullable: true
+          example: USD
+      description: ForecastedCosts model
+    updateCostReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the CostReport.
+        groupings:
+          type: string
+          description: 'Grouping values for aggregating costs on the report. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region'
+          x-omitempty: false
+        filter:
+          type: string
+          description: The filter query language to apply to the CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the SavedFilters to apply to the CostReport.
+          items:
+            type: string
+        business_metric_tokens_with_metadata:
+          type: array
+          description: The tokens for any BusinessMetrics to attach to the CostReport, and the unit scale.
+          items:
+            required:
+            - business_metric_token
+            type: object
+            properties:
+              business_metric_token:
+                type: string
+                description: The token of the BusinessMetric to attach to the CostReport.
+              unit_scale:
+                type: string
+                description: Determines the scale of the BusinessMetric's values within the CostReport.
+                default: per_unit
+                enum:
+                - per_unit
+                - per_hundred
+                - per_thousand
+                - per_million
+                - per_billion
+              label_filter:
+                type: array
+                description: Include only values with these labels in the CostReport.
+                items:
+                  type: string
+        folder_token:
+          type: string
+          description: The token of the Folder to add the CostReport to. Determines the Workspace the report is assigned to.
+        default_forecast:
+          required:
+          - kind
+          type: object
+          properties:
+            kind:
+              type: string
+              description: The default forecast selection kind.
+              enum:
+              - baseline
+              - report_forecast
+            report_forecast_token:
+              type: string
+              description: The token for the report forecast to set as default when kind is report_forecast.
+          description: The default forecast selection for the CostReport.
+        settings:
+          type: object
+          properties:
+            include_credits:
+              type: boolean
+              description: Report will include credits.
+              nullable: true
+            include_refunds:
+              type: boolean
+              description: Report will include refunds.
+              nullable: true
+            include_discounts:
+              type: boolean
+              description: Report will include discounts.
+              nullable: true
+            include_tax:
+              type: boolean
+              description: Report will include tax.
+              nullable: true
+            amortize:
+              type: boolean
+              description: Report will amortize.
+              nullable: true
+            unallocated:
+              type: boolean
+              description: Report will show unallocated costs.
+              nullable: true
+            aggregate_by:
+              type: string
+              description: Report will aggregate by cost or usage.
+              nullable: true
+            show_previous_period:
+              type: boolean
+              description: Report will show previous period costs or usage comparison.
+              nullable: true
+            complete_period:
+              type: boolean
+              description: Report will restrict date ranges to completed periods only.
+          description: Report settings.
+        chart_settings:
+          type: object
+          properties:
+            x_axis_dimension:
+              type: array
+              description: 'The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to [''date''].'
+              items:
+                type: string
+            y_axis_dimension:
+              type: string
+              description: 'The metric or measure displayed on the chart’s y-axis. Possible values: ''cost'', ''usage''. Defaults to ''cost''.'
+          description: Report chart settings.
+        previous_period_start_date:
+          type: string
+          description: The previous period start date of the CostReport. ISO 8601 Formatted.
+        previous_period_end_date:
+          type: string
+          description: The previous period end date of the CostReport. ISO 8601 Formatted. Required when previous_period_start_date is provided.
+        start_date:
+          type: string
+          description: The start date of the CostReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date of the CostReport. ISO 8601 Formatted. Required when start_date is provided. Incompatible with 'date_interval' parameter.
+        date_interval:
+          type: string
+          description: The date interval of the CostReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        chart_type:
+          type: string
+          description: The chart type of the CostReport.
+          enum:
+          - area
+          - line
+          - pie
+          - bar
+          - multi_bar
+        date_bin:
+          type: string
+          description: The date bin of the CostReport.
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+      description: Update a CostReport.
+    DashboardWidgetSettings:
+      required:
+      - display_type
+      type: object
+      properties:
+        display_type:
+          type: string
+          nullable: false
+          enum:
+          - table
+          - chart
+    Dashboards:
+      required:
+      - dashboards
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+      description: Dashboards model
+    AttachedBusinessMetricForCostReport:
+      required:
+      - business_metric_token
+      - calculation_type
+      - unit_scale
+      type: object
+      properties:
+        business_metric_token:
+          type: string
+          description: The token of the BusinessMetric that's attached to the CostReport.
+          nullable: false
+          example: bsnss_mtrc_1234
+        unit_scale:
+          type: string
+          description: Determines the scale of the BusinessMetric's values within a particular CostReport.
+          nullable: false
+          example: per_hundred
+          enum:
+          - per_unit
+          - per_hundred
+          - per_thousand
+          - per_million
+          - per_billion
+        calculation_type:
+          type: string
+          description: The calculation type applied when this BusinessMetric is used in the CostReport.
+          nullable: false
+          example: unit_cost
+          enum:
+          - unit_cost
+          - gross_margin
+          - usage_unit_cost
+          - raw_business_metric
+        label_filter:
+          type: array
+          description: The labels that the BusinessMetric is filtered by within a particular CostReport.
+          nullable: true
+          items:
+            type: string
+            example: ''
+          x-omitempty: true
+    Dashboard:
+      required:
+      - created_at
+      - date_bin
+      - date_interval
+      - saved_filter_tokens
+      - title
+      - token
+      - updated_at
+      - widgets
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+          example: dshbrd_abcd1234567890
+        title:
+          type: string
+          description: The title of the Dashboard.
+          nullable: false
+          example: AWS Dashboard
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardWidget'
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          nullable: false
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          nullable: true
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range for Reports in the Dashboard. Guaranteed to be set to 'custom' if 'start_date' and 'end_date' are set.
+          nullable: true
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        start_date:
+          type: string
+          description: The start date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2023-08-04'
+        end_date:
+          type: string
+          description: The end date for the date range for Reports in the Dashboard. ISO 8601 Formatted. Overwrites 'date_interval' if set.
+          nullable: true
+          example: '2023-09-04'
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the Dashboard was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2023-08-04T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Dashboard is a part of.
+          nullable: false
+          example: wrkspc_abcd1234567890
+      description: Dashboard model
+    ForecastedCost:
+      required:
+      - amount
+      - date
+      - provider
+      - service
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        date:
+          type: string
+          description: The date the forecasted cost is projected to accrue. ISO 8601 Formatted.
+          nullable: false
+          example: 2035-09-05+00:00
+        amount:
+          type: string
+          description: The amount of the forecasted cost.
+          nullable: false
+          example: '4.25'
+        provider:
+          type: string
+          description: The cost provider which incurred the cost. Will be 'all' for all combined providers.
+          nullable: false
+          example: aws
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+          - all
+        service:
+          type: string
+          description: The service for the forecasted cost. Will be 'all' for all combined services
+          nullable: false
+          example: Amazon Elastic Compute Cloud - Compute
+    ChartSettings:
+      required:
+      - x_axis_dimension
+      - y_axis_dimension
+      type: object
+      properties:
+        y_axis_dimension:
+          type: string
+          description: 'The metric or measure displayed on the chart’s y-axis. Possible values: ''cost'', ''usage''. Defaults to ''cost''.'
+          nullable: false
+        x_axis_dimension:
+          type: array
+          description: 'The dimension used to group or label data along the x-axis (e.g., by date, region, or service). NOTE: Only one value is allowed at this time. Defaults to [''date''].'
+          nullable: false
+          items:
+            type: string
+    Cost:
+      required:
+      - accrued_at
+      - amount
+      - currency
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        accrued_at:
+          type: string
+          description: The date the cost was accrued. ISO 8601 Formatted.
+          nullable: false
+          example: 2023-09-05+00:00
+        amount:
+          type: string
+          description: The amount of the cost.
+          nullable: false
+          example: '4.25'
+        currency:
+          type: string
+          description: The currency of the cost.
+          nullable: false
+          example: USD
+        usage:
+          type: object
+          properties: {}
+          description: The usage amount and unit incurred by the cost.
+          nullable: true
+        provider:
+          type: string
+          description: The cost provider which incurred the cost.
+          nullable: true
+          example: aws
+          enum:
+          - aws
+          - azure
+          - gcp
+          - snowflake
+          - databricks
+          - mongo
+          - datadog
+          - fastly
+          - new_relic
+          - opencost
+          - open_ai
+          - oracle
+          - confluent
+          - planetscale
+          - coralogix
+          - kubernetes
+          - custom_provider
+          - github
+          - linode
+          - grafana
+          - clickhouse
+          - temporal
+          - twilio
+          - azure_csp
+          - kubernetes_agent
+          - anthropic
+          - anyscale
+          - cursor
+          - elastic
+          - vercel
+          - redis_cloud
+          - circle_ci
+          - modal
+          - eleven_labs
+          - baseten
+          - cloudflare
+          - fireworks_ai
+        billing_account_id:
+          type: string
+          description: The cost provider's billing account id that incurred the cost.
+          nullable: true
+          example: '9109237192'
+        account_id:
+          type: string
+          description: The cost provider's account id that incurred the cost.
+          nullable: true
+          example: '9109237192'
+        service:
+          type: string
+          description: The service which incurred the cost.
+          nullable: true
+          example: Amazon Elastic Compute Cloud - Compute
+        region:
+          type: string
+          description: The region which incurred the cost.
+          nullable: true
+          example: us-east-1
+        resource_id:
+          type: string
+          description: The resource id which incurred the cost.
+          nullable: true
+          example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
+        resource_name:
+          type: string
+          description: The human-readable resource name when Vantage can enrich the resource id.
+          nullable: true
+          example: claude_code_key_name
+        tag:
+          type: string
+          description: 'The tag attached to the cost that was incurred.
+
+            DEPRECATED: does not support multiple tags.'
+          nullable: true
+          example: production
+        tags:
+          type: array
+          description: The tag pairs attached to the cost that was incurred.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        cost_category:
+          type: string
+          description: The category for the cost.
+          nullable: true
+          example: Data Transfer
+        cost_subcategory:
+          type: string
+          description: The subcategory for the cost.
+          nullable: true
+          example: DataTransfer-Regional-Bytes
+        segment:
+          type: string
+          description: The segment name for segment report costs.
+          nullable: true
+          example: Engineering
+      description: Cost model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    updateDashboard:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Dashboard.
+        widgets:
+          type: array
+          description: The widgets to add to the Dashboard. Currently supports CostReport, ResourceReport, KubernetesEfficiencyReport, FinancialCommitmentReport, and RecommendationView.
+          items:
+            required:
+            - widgetable_token
+            type: object
+            properties:
+              widgetable_token:
+                type: string
+                description: The token of the represented Resource.
+              title:
+                type: string
+                description: The title of the Widget (defaults to the title of the Resource).
+              settings:
+                required:
+                - display_type
+                type: object
+                properties:
+                  display_type:
+                    type: string
+                    enum:
+                    - table
+                    - chart
+                description: The settings for the DashboardWidget.
+        saved_filter_tokens:
+          type: array
+          description: The tokens of the Saved Filters used in the Dashboard.
+          items:
+            type: string
+        date_bin:
+          type: string
+          description: Determines how to group costs in the Dashboard.
+          enum:
+          - cumulative
+          - day
+          - week
+          - month
+        date_interval:
+          type: string
+          description: Determines the date range in the Dashboard. Incompatible with 'start_date' and 'end_date' parameters.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+          - ''
+          x-omitempty: false
+        start_date:
+          type: string
+          description: The start date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        end_date:
+          type: string
+          description: The end date for the date range for costs in the Dashboard. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+        workspace_token:
+          type: string
+          description: The token of the Workspace the Dashboard belongs to. Required if the API token is associated with multiple Workspaces.
+      description: Update a Dashboard.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

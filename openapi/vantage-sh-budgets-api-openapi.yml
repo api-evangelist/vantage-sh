@@ -1,0 +1,553 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Budgets API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Budgets
+  description: Operations about Budgets
+paths:
+  /budgets:
+    get:
+      tags:
+      - Budgets
+      summary: Get all budgets
+      description: Return all Budgets.
+      operationId: getBudgets
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The number of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budgets'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/budgets
+                  first: https://api.vantage.sh/v2/budgets?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/budgets?page=1
+                  prev: null
+                budgets:
+                - token: bdgt_0d825e79a0682cc2
+                  name: database
+                  workspace_token: wrkspc_226ab053bd01bb2b
+                  user_token: usr_8e44c17792242852
+                  created_by_token: usr_8e44c17792242852
+                  cost_report_token: rprt_92062240b4ffda91
+                  created_at: '2024-07-11T20:22:49Z'
+                  budget_alert_tokens: []
+                  periods:
+                  - start_at: '2024-07-01'
+                    end_at: '2024-09-30'
+                    amount: '10000.0'
+                  performance:
+                  - date: July, 2024
+                    actual: -100%
+                    amount: '10000.0'
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Budgets
+      summary: Create budget
+      description: Create a Budget.
+      operationId: createBudget
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBudget'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+              example:
+                token: bdgt_ea1eaec89d553e34
+                name: New Budget Name
+                workspace_token: wrkspc_b83e21368ee5fd9d
+                user_token: null
+                created_by_token: team_aea2488160e90528
+                cost_report_token: null
+                created_at: '2024-07-11T20:22:52Z'
+                budget_alert_tokens: []
+                periods:
+                - start_at: '2024-01-01'
+                  end_at: '2024-01-31'
+                  amount: '100.0'
+                - start_at: '2024-02-01'
+                  end_at: '2024-02-29'
+                  amount: '200.0'
+                - start_at: '2024-03-01'
+                  end_at: '2024-04-30'
+                  amount: '300.0'
+                performance:
+                - date: April, 2024
+                  actual: 0%
+                  amount: '300.0'
+                - date: March, 2024
+                  actual: 0%
+                  amount: '300.0'
+                - date: February, 2024
+                  actual: 0%
+                  amount: '200.0'
+                - date: January, 2024
+                  actual: 0%
+                  amount: '100.0'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createBudget
+  /budgets/{budget_token}:
+    get:
+      tags:
+      - Budgets
+      summary: Get budget by token
+      description: Return a Budget.
+      operationId: getBudget
+      parameters:
+      - name: include_performance
+        in: query
+        description: Include performance data.
+        schema:
+          type: boolean
+      - name: budget_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+              example:
+                token: bdgt_24068dbacaaad7fb
+                name: Total
+                workspace_token: wrkspc_545a937d68541448
+                user_token: usr_470d15b368844366
+                created_by_token: usr_470d15b368844366
+                cost_report_token: rprt_9ee9f29893956951
+                created_at: '2024-07-11T20:22:41Z'
+                budget_alert_tokens: []
+                periods:
+                - start_at: '2024-07-01'
+                  end_at: '2024-09-30'
+                  amount: '10000.0'
+                performance:
+                - date: July, 2024
+                  actual: -100%
+                  amount: '10000.0'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Budgets
+      summary: Update budget
+      description: Update a Budget.
+      operationId: updateBudget
+      parameters:
+      - name: budget_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBudget'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+              example:
+                token: bdgt_39ce7f848dff6d54
+                name: New Name New Budget Who Dis
+                workspace_token: wrkspc_949771e4fb8d7bfe
+                user_token: usr_9b375256090d0fda
+                created_by_token: usr_9b375256090d0fda
+                cost_report_token: rprt_07325bc3667263b7
+                created_at: '2024-07-11T20:22:48Z'
+                budget_alert_tokens: []
+                periods:
+                - start_at: '2023-01-01'
+                  end_at: '2023-01-31'
+                  amount: '234.0'
+                - start_at: '2024-01-01'
+                  end_at: '2024-01-31'
+                  amount: '123.0'
+                - start_at: '2024-07-01'
+                  end_at: '2024-09-30'
+                  amount: '10000.0'
+                performance:
+                - date: July, 2024
+                  actual: -100%
+                  amount: '10000.0'
+                - null
+                - null
+                - null
+                - null
+                - null
+                - date: January, 2024
+                  actual: -100%
+                  amount: '123.0'
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - null
+                - date: January, 2023
+                  actual: 1224%
+                  amount: '234.0'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateBudget
+    delete:
+      tags:
+      - Budgets
+      summary: Delete budget
+      description: Delete a Budget.
+      operationId: deleteBudget
+      parameters:
+      - name: budget_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    updateBudget:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Budget.
+        cost_report_token:
+          type: string
+          description: The CostReport token. Ignored for hierarchical Budgets.
+        child_budget_tokens:
+          type: array
+          description: The tokens of any child Budgets when creating a hierarchical Budget.
+          items:
+            type: string
+        periods:
+          type: array
+          description: The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
+          items:
+            required:
+            - amount
+            - start_at
+            type: object
+            properties:
+              start_at:
+                type: string
+                description: The start date of the period.
+                format: date
+              end_at:
+                type: string
+                description: The end date of the period.
+                format: date
+                nullable: true
+              amount:
+                type: number
+                description: The amount of the period.
+                format: double
+      description: Update a Budget.
+    BudgetPeriod:
+      required:
+      - amount
+      - end_at
+      - start_at
+      type: object
+      properties:
+        start_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        end_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        amount:
+          type: string
+          description: The amount of the Budget Period as a string to ensure precision.
+          nullable: false
+          example: '100.00'
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    Budget:
+      required:
+      - budget_alert_tokens
+      - child_budget_tokens
+      - created_at
+      - name
+      - periods
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        name:
+          type: string
+          description: The name of the Budget.
+          nullable: true
+          example: Acme123 Budget
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Budget is a part of.
+          nullable: false
+        user_token:
+          type: string
+          description: The token for the User who created this Budget.
+          nullable: true
+        created_by_token:
+          type: string
+          description: The token of the Creator of the Budget.
+          nullable: true
+        cost_report_token:
+          type: string
+          description: The token of the Report associated with the Budget.
+          nullable: true
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        budget_alert_tokens:
+          type: array
+          description: The tokens of the BudgetAlerts associated with the Budget.
+          nullable: false
+          items:
+            type: string
+            example: ''
+        child_budget_tokens:
+          type: array
+          description: The tokens of the child Budgets associated with the hierarchical Budget.
+          nullable: false
+          items:
+            type: string
+            example: ''
+        periods:
+          type: array
+          description: The budget periods associated with the Budget.
+          items:
+            $ref: '#/components/schemas/BudgetPeriod'
+        performance:
+          type: array
+          description: The historical performance of the Budget.
+          items:
+            $ref: '#/components/schemas/BudgetPerformance'
+      description: Budget model
+    BudgetPerformance:
+      required:
+      - actual
+      - amount
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        actual:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-03-19T00:00:00Z'
+        amount:
+          type: string
+          description: The amount of the Budget Period as a string to ensure precision.
+          nullable: false
+          example: '100.00'
+    Budgets:
+      required:
+      - budgets
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        budgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Budget'
+      description: Budgets model
+    createBudget:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Budget.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Budget to.
+        cost_report_token:
+          type: string
+          description: The CostReport token. Ignored for hierarchical Budgets.
+        child_budget_tokens:
+          type: array
+          description: The tokens of any child Budgets when creating a hierarchical Budget.
+          items:
+            type: string
+        periods:
+          type: array
+          description: The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
+          items:
+            required:
+            - amount
+            - start_at
+            type: object
+            properties:
+              start_at:
+                type: string
+                description: The start date of the period.
+                format: date
+              end_at:
+                type: string
+                description: The end date of the period.
+                format: date
+                nullable: true
+              amount:
+                type: number
+                description: The amount of the period.
+                format: double
+      description: Create a Budget.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

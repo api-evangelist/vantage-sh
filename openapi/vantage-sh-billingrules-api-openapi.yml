@@ -1,0 +1,463 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants BillingRules API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: BillingRules
+  description: Operations about BillingRules
+paths:
+  /billing_rules:
+    get:
+      tags:
+      - BillingRules
+      summary: Get all billing rules
+      description: Returns a list of billing rules.
+      operationId: getBillingRules
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRules'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/billing_rules
+                  first: https://api.vantage.sh/v2/billing_rules?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/billing_rules?page=1
+                  prev: null
+                billing_rules:
+                - token: bllng_rule_ac6852c686e265a1
+                  title: Exclude Reserved Instance Fees
+                  type: Exclusion
+                  created_by_token: usr_018532419bd2e1da
+                  created_at: '2024-07-02T15:26:51Z'
+                  charge_type: Reserved Instance Fees
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - BillingRules
+      summary: Create billing rule
+      description: Create a BillingRule.
+      operationId: createBillingRule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBillingRule'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRule'
+              example:
+                token: bllng_rule_9cc9eab6bb73266b
+                title: Credit for Data Transfer
+                type: Credit
+                created_by_token: usr_ae0b14f6c9108edc
+                created_at: '2024-07-02T15:26:52Z'
+                service: Amazon S3
+                category: Data Transfer
+                sub_category: Outbound
+                start_period: '2024-05-01'
+                amount: '300.0'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createBillingRule
+  /billing_rules/{billing_rule_token}:
+    get:
+      tags:
+      - BillingRules
+      summary: Get billing rule by token
+      description: Return a BillingRule.
+      operationId: getBillingRule
+      parameters:
+      - name: billing_rule_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRule'
+              example:
+                token: bllng_rule_a2708f17b2d3fb0e
+                title: Exclude Reserved Instance Fees
+                type: Exclusion
+                created_by_token: usr_d253a52c80171514
+                created_at: '2024-07-02T15:26:50Z'
+                charge_type: Reserved Instance Fees
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - BillingRules
+      summary: Update billing rule
+      description: Update a BillingRule.
+      operationId: updateBillingRule
+      parameters:
+      - name: billing_rule_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBillingRule'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRule'
+              example:
+                token: bllng_rule_16c2d217f026d23e
+                title: Updated Adjustment
+                type: Adjustment
+                created_by_token: usr_cef510966067477f
+                created_at: '2024-07-02T15:26:52Z'
+                service: Amazon S3
+                category: Data Transfer
+                adjusted_rate: '0.85'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateBillingRule
+    delete:
+      tags:
+      - BillingRules
+      summary: Delete billing rule
+      description: Delete a BillingRule.
+      operationId: deleteBillingRule
+      parameters:
+      - name: billing_rule_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingRule'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    updateBillingRule:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the BillingRule.
+        charge_type:
+          type: string
+          description: The charge type of the BillingRule.
+        percentage:
+          type: number
+          description: 'The percentage of the cost shown. Example value: 75.0'
+          format: double
+        service:
+          type: string
+          description: The service of the BillingRule.
+        category:
+          type: string
+          description: The category of the BillingRule.
+        sub_category:
+          type: string
+          description: The subcategory of the BillingRule.
+        start_period:
+          type: string
+          description: The start period of the BillingRule.
+        amount:
+          type: number
+          description: 'The credit amount for the BillingRule. Example value: 300'
+          format: double
+        start_date:
+          type: string
+          description: The start date of the BillingRule. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: The end date of the BillingRule. ISO 8601 formatted.
+        apply_to_all:
+          type: boolean
+          description: Determines if the BillingRule applies to all current and future managed accounts.
+          x-omitempty: false
+        sql_query:
+          type: string
+          description: The SQL query of the BillingRule.
+      description: Update a BillingRule.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    BillingRules:
+      required:
+      - billing_rules
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        billing_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingRule'
+      description: BillingRules model
+    BillingRule:
+      required:
+      - apply_to_all
+      - created_at
+      - created_by_token
+      - title
+      - token
+      - type
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        title:
+          type: string
+          description: The title of the BillingRule.
+          nullable: false
+          example: Credit for Unused EC2 Instances
+        type:
+          type: string
+          description: The type of the BillingRule.
+          nullable: false
+          example: credit
+        start_date:
+          type: string
+          description: The start date of the BillingRule.
+          nullable: true
+          example: '2024-06-28T00:00:00Z'
+        end_date:
+          type: string
+          description: The end date of the BillingRule.
+          nullable: true
+          example: '2024-06-28T00:00:00Z'
+        apply_to_all:
+          type: boolean
+          description: Whether the BillingRule applies to all future managed accounts.
+          nullable: true
+          example: true
+        created_by_token:
+          type: string
+          description: The token of the Creator of the BillingRule.
+          nullable: false
+          example: usr_1234
+        created_at:
+          type: string
+          description: The date and time, in UTC, the BillingRule was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2024-06-28T00:00:00Z'
+        service:
+          type: string
+          description: The service for the BillingRule (Charge).
+          nullable: true
+          example: AWS Cloudfront
+        category:
+          type: string
+          description: The category for the BillingRule (Charge).
+          nullable: true
+          example: MSP Fee
+        percentage:
+          type: string
+          description: The percentage of the cost shown for the BillingRule (Adjustment).
+          nullable: true
+          example: '75.0'
+        charge_type:
+          type: string
+          description: The charge type for the BillingRule.
+          nullable: true
+          example: RIFee
+        sub_category:
+          type: string
+          description: The subcategory for the BillingRule (Charge).
+          nullable: true
+          example: One-time
+        start_period:
+          type: string
+          description: The start period for the BillingRule (Charge).
+          nullable: true
+          example: '2024-05-01'
+        amount:
+          type: string
+          description: The amount for the BillingRule (Charge).
+          nullable: true
+          example: '5000.25'
+        sql_query:
+          type: string
+          description: The SQL query for the BillingRule (Custom).
+          nullable: true
+          example: UPDATE costs SET costs.amount = costs.amount * 0.95
+      description: BillingRule model
+    createBillingRule:
+      required:
+      - title
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of the BillingRule. Note: the values are case insensitive.'
+          enum:
+          - exclusion
+          - adjustment
+          - credit
+          - charge
+          - custom
+        title:
+          type: string
+          description: The title of the BillingRule.
+        start_period:
+          type: string
+          description: 'The start period of the BillingRule. DEPRECATED: use start_date instead.'
+        start_date:
+          type: string
+          description: The start date of the BillingRule. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: The end date of the BillingRule. ISO 8601 formatted.
+        apply_to_all:
+          type: boolean
+          description: Determines if the BillingRule applies to all current and future managed accounts.
+        charge_type:
+          type: string
+          description: The charge type of the BillingRule. Required for Exclusion rules.
+        percentage:
+          type: number
+          description: 'The percentage of the cost shown. Required for Adjustment rules. Example value: 75.0'
+          format: double
+        service:
+          type: string
+          description: The service of the BillingRule. Required for Charge and Credit rules.
+        category:
+          type: string
+          description: The category of the BillingRule. Required for Charge and Credit rules.
+        sub_category:
+          type: string
+          description: The subcategory of the BillingRule. Required for Charge and Credit rules.
+        amount:
+          type: number
+          description: 'The amount for the BillingRule. Required for Charge and Credit rules. Example value: 300'
+          format: double
+        sql_query:
+          type: string
+          description: 'The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95'
+      description: Create a BillingRule.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

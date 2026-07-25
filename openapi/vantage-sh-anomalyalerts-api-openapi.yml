@@ -1,0 +1,367 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants AnomalyAlerts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: AnomalyAlerts
+  description: Operations about AnomalyAlerts
+paths:
+  /anomaly_alerts:
+    get:
+      tags:
+      - AnomalyAlerts
+      summary: Get all anomaly alerts
+      description: Return all Anomaly Alerts that the current API token has access to.
+      operationId: getAnomalyAlerts
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: start_date
+        in: query
+        description: The start date of the anomalies to return. ISO 8601 formatted.
+        schema:
+          type: string
+          format: date-time
+      - name: end_date
+        in: query
+        description: The end date of the anomalies to return. ISO 8601 formatted.
+        schema:
+          type: string
+          format: date-time
+      - name: provider
+        in: query
+        description: The provider of the anomalies to return.
+        schema:
+          type: string
+      - name: service
+        in: query
+        description: The service of the anomalies to return.
+        schema:
+          type: string
+      - name: cost_category
+        in: query
+        description: The cost category of the anomalies to return.
+        schema:
+          type: string
+      - name: cost_report_token
+        in: query
+        description: The cost report token of the anomalies to return.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyAlerts'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/anomaly_alerts
+                  first: https://api.vantage.sh/v2/anomaly_alerts?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/anomaly_alerts?page=1
+                  prev: null
+                anomaly_alerts:
+                - token: anmly_alrt_e1fb8184ecdf129d
+                  created_at: '2024-04-01T17:14:45Z'
+                  alerted_at: '2024-04-01T17:14:45Z'
+                  category: Compute
+                  service: AmazonEKS
+                  provider: aws
+                  amount: '100.0'
+                  previous_amount: '25.0'
+                  seven_day_average: '10.0'
+                  status: active
+                  feedback: null
+                  resources:
+                  - production-cluster
+                  resource_tokens:
+                  - rsrc_abcd1234efgh5678
+                  cost_report_token: rprt_3d541a4c5160711f
+      security:
+      - oauth2:
+        - read
+  /anomaly_alerts/{anomaly_alert_token}:
+    get:
+      tags:
+      - AnomalyAlerts
+      summary: Get anomaly alert by token
+      description: Return an AnomalyAlert that the current API token has access to.
+      operationId: getAnomalyAlert
+      parameters:
+      - name: anomaly_alert_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyAlert'
+              example:
+                token: anmly_alrt_6056b98225236ece
+                created_at: '2024-04-01T17:14:45Z'
+                alerted_at: '2024-04-01T17:14:45Z'
+                category: Compute
+                service: AmazonEKS
+                provider: aws
+                amount: '100.0'
+                previous_amount: '25.0'
+                seven_day_average: '10.0'
+                status: active
+                feedback: null
+                resources:
+                - production-cluster
+                resource_tokens:
+                - rsrc_abcd1234efgh5678
+                cost_report_token: rprt_bf0a30084fbf52c2
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - AnomalyAlerts
+      summary: Update anomaly alert
+      description: Update an AnomalyAlert.
+      operationId: updateAnomalyAlert
+      parameters:
+      - name: anomaly_alert_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAnomalyAlert'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnomalyAlert'
+              example:
+                token: anmly_alrt_51a2ce4137305fc6
+                created_at: '2024-04-01T17:14:46Z'
+                alerted_at: '2024-04-01T17:14:46Z'
+                category: Compute
+                service: AmazonEKS
+                provider: aws
+                amount: '100.0'
+                previous_amount: '25.0'
+                seven_day_average: '10.0'
+                status: archived
+                feedback: this stinks
+                cost_report_token: rprt_57912c584fdf88f4
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateAnomalyAlert
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    updateAnomalyAlert:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the Anomaly Alert.
+        feedback:
+          type: string
+          description: Optional additional comments for why this alert is ignored.
+      description: Update an AnomalyAlert.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    AnomalyAlert:
+      required:
+      - amount
+      - category
+      - cost_report_token
+      - created_at
+      - previous_amount
+      - provider
+      - resource_tokens
+      - resources
+      - service
+      - seven_day_average
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyAlert was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2021-07-09T00:00:00Z'
+        alerted_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyAlert is sent. ISO 8601 Formatted.
+          nullable: true
+          example: '2021-07-09T00:00:00Z'
+        category:
+          type: string
+          description: The category of the AnomalyAlert.
+          nullable: true
+        service:
+          type: string
+          description: The provider service causing the AnomalyAlert.
+          nullable: false
+        provider:
+          type: string
+          description: The provider of the service causing the AnomalyAlert.
+          nullable: false
+        amount:
+          type: string
+          description: The amount observed.
+          nullable: false
+        previous_amount:
+          type: string
+          description: The previous amount observed.
+          nullable: false
+        seven_day_average:
+          type: string
+          description: The seven day average of the amount observed.
+          nullable: false
+        status:
+          type: string
+          description: The status of the AnomalyAlert.
+          nullable: false
+        feedback:
+          type: string
+          description: The user-provided feedback of why alert was ignored/archived.
+          nullable: true
+        resources:
+          type: array
+          description: The names of the resources the AnomalyAlert was attributed to.
+          nullable: false
+          items:
+            type: string
+        resource_tokens:
+          type: array
+          description: The tokens of the Resources the AnomalyAlert was attributed to.
+          nullable: false
+          items:
+            type: string
+        cost_report_token:
+          type: string
+          description: The token of the Report associated with the AnomalyAlert.
+          nullable: false
+      description: AnomalyAlert model
+    AnomalyAlerts:
+      required:
+      - anomaly_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyAlert'
+      description: AnomalyAlerts model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

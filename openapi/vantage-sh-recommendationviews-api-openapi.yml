@@ -1,0 +1,516 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants RecommendationViews API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: RecommendationViews
+  description: Operations about RecommendationViews
+paths:
+  /recommendation_views:
+    get:
+      tags:
+      - RecommendationViews
+      summary: Get all recommendation views
+      description: Return all RecommendationViews.
+      operationId: getRecommendationViews
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationViews'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/recommendation_views
+                  first: https://api.vantage.sh/v2/recommendation_views?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/recommendation_views?page=1
+                  prev: null
+                recommendation_views:
+                - token: rec_vw_3dffc0458f7a2487
+                  title: Production Recommendations
+                  workspace_token: wrkspc_914dcb0959497507
+                  start_date: '2024-01-01'
+                  end_date: '2024-12-31'
+                  provider_ids:
+                  - aws
+                  - gcp
+                  billing_account_ids: []
+                  account_ids:
+                  - '123456789012'
+                  regions:
+                  - us-east-1
+                  - us-west-2
+                  tag_key: environment
+                  tag_value: production
+                  created_at: '2024-07-15T16:08:53Z'
+                  created_by: usr_95fac32734bdceab
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - RecommendationViews
+      summary: Create recommendation view
+      description: Create a RecommendationView.
+      operationId: createRecommendationView
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRecommendationView'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationView'
+              example:
+                token: rec_vw_a1b2c3d4e5f67890
+                title: Staging Recommendations
+                workspace_token: wrkspc_be6568a301b1d06c
+                start_date: '2024-01-01'
+                end_date: '2024-06-30'
+                provider_ids:
+                - aws
+                billing_account_ids: []
+                account_ids: []
+                regions: []
+                tag_key: environment
+                tag_value: staging
+                created_at: '2024-07-15T16:10:00Z'
+                created_by: usr_95fac32734bdceab
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createRecommendationView
+  /recommendation_views/{recommendation_view_token}:
+    get:
+      tags:
+      - RecommendationViews
+      summary: Get recommendation view by token
+      description: Return a specific RecommendationView.
+      operationId: getRecommendationView
+      parameters:
+      - name: recommendation_view_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationView'
+              example:
+                token: rec_vw_be3f24eb1b5aabf6
+                title: Production Recommendations
+                workspace_token: wrkspc_be6568a301b1d06c
+                start_date: '2024-01-01'
+                end_date: '2024-12-31'
+                provider_ids:
+                - aws
+                - gcp
+                billing_account_ids: []
+                account_ids:
+                - '123456789012'
+                regions:
+                - us-east-1
+                - us-west-2
+                tag_key: environment
+                tag_value: production
+                created_at: '2024-07-15T16:08:54Z'
+                created_by: team_73f6001f98e9012b
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - RecommendationViews
+      summary: Update recommendation view
+      description: Update a RecommendationView.
+      operationId: updateRecommendationView
+      parameters:
+      - name: recommendation_view_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRecommendationView'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationView'
+              example:
+                token: rec_vw_be3f24eb1b5aabf6
+                title: Updated Recommendations View
+                workspace_token: wrkspc_be6568a301b1d06c
+                start_date: '2024-01-01'
+                end_date: '2024-12-31'
+                provider_ids:
+                - aws
+                - gcp
+                - azure
+                billing_account_ids: []
+                account_ids:
+                - '123456789012'
+                - '987654321098'
+                regions:
+                - us-east-1
+                - us-west-2
+                - ap-northeast-2
+                tag_key: environment
+                tag_value: production
+                created_at: '2024-07-15T16:08:54Z'
+                created_by: team_73f6001f98e9012b
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateRecommendationView
+    delete:
+      tags:
+      - RecommendationViews
+      summary: Delete recommendation view
+      description: Delete a RecommendationView.
+      operationId: deleteRecommendationView
+      parameters:
+      - name: recommendation_view_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationView'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    RecommendationViews:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendation_views:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationView'
+      description: RecommendationViews model
+    updateRecommendationView:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the RecommendationView.
+        provider_ids:
+          type: array
+          description: Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
+          items:
+            type: string
+        billing_account_ids:
+          type: array
+          description: Filter by billing account identifiers.
+          items:
+            type: string
+        account_ids:
+          type: array
+          description: Filter by cloud account identifiers.
+          items:
+            type: string
+        regions:
+          type: array
+          description: Filter by region slugs (e.g. us-east-1, eastus, asia-east1).
+          items:
+            type: string
+        types:
+          type: array
+          description: Filter by one or more recommendation type slugs.
+          items:
+            type: string
+        tag_key:
+          type: string
+          description: Filter by tag key (must be used with tag_value).
+        tag_value:
+          type: string
+          description: Filter by tag value (requires tag_key).
+        start_date:
+          type: string
+          description: Filter recommendations created on/after this YYYY-MM-DD date.
+        end_date:
+          type: string
+          description: Filter recommendations created on/before this YYYY-MM-DD date.
+        min_savings:
+          type: number
+          description: Filter recommendations with at least this amount of potential savings.
+          format: float
+      description: Update a RecommendationView.
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    createRecommendationView:
+      required:
+      - title
+      - workspace_token
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the RecommendationView.
+        workspace_token:
+          type: string
+          description: The Workspace to associate the RecommendationView with.
+        provider_ids:
+          type: array
+          description: Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
+          items:
+            type: string
+        billing_account_ids:
+          type: array
+          description: Filter by billing account identifiers.
+          items:
+            type: string
+        account_ids:
+          type: array
+          description: Filter by cloud account identifiers.
+          items:
+            type: string
+        regions:
+          type: array
+          description: Filter by region slugs (e.g. us-east-1, eastus, asia-east1).
+          items:
+            type: string
+        types:
+          type: array
+          description: Filter by one or more recommendation type slugs.
+          items:
+            type: string
+        tag_key:
+          type: string
+          description: Filter by tag key (must be used with tag_value).
+        tag_value:
+          type: string
+          description: Filter by tag value (requires tag_key).
+        start_date:
+          type: string
+          description: Filter recommendations created on/after this YYYY-MM-DD date.
+        end_date:
+          type: string
+          description: Filter recommendations created on/before this YYYY-MM-DD date.
+        min_savings:
+          type: number
+          description: Filter recommendations with at least this amount of potential savings.
+          format: float
+      description: Create a RecommendationView.
+    RecommendationView:
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: true
+        title:
+          type: string
+          description: The title of the RecommendationView.
+          nullable: true
+          example: Production Recommendations
+        workspace_token:
+          type: string
+          description: The token for the Workspace the RecommendationView is a part of.
+          nullable: true
+        start_date:
+          type: string
+          description: Filter recommendations created on/after this YYYY-MM-DD date.
+          nullable: true
+          example: '2024-01-01'
+        end_date:
+          type: string
+          description: Filter recommendations created on/before this YYYY-MM-DD date.
+          nullable: true
+          example: '2024-12-31'
+        provider_ids:
+          type: array
+          description: Filter by one or more providers.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        billing_account_ids:
+          type: array
+          description: Filter by billing account identifiers.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        account_ids:
+          type: array
+          description: Filter by cloud account identifiers.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        regions:
+          type: array
+          description: Filter by region slugs (e.g. us-east-1, eastus, asia-east1).
+          nullable: true
+          items:
+            type: string
+            example: ''
+        types:
+          type: array
+          description: Filter by one or more recommendation type slugs.
+          nullable: true
+          items:
+            type: string
+            example: ''
+        tag_key:
+          type: string
+          description: Filter by tag key (must be used with tag_value).
+          nullable: true
+          example: environment
+        tag_value:
+          type: string
+          description: Filter by tag value (requires tag_key).
+          nullable: true
+          example: production
+        min_savings:
+          type: number
+          description: Filter recommendations with at least this amount of potential savings.
+          format: float
+          nullable: true
+          example: 100.5
+        created_at:
+          type: string
+          description: The date and time, in UTC, the view was created. ISO 8601 Formatted.
+          nullable: true
+          example: '2023-08-04T00:00:00Z'
+        created_by:
+          type: string
+          description: The token for the Creator of this RecommendationView.
+          nullable: true
+      description: RecommendationView model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

@@ -1,0 +1,670 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Teams API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Teams
+  description: Operations about Teams
+paths:
+  /teams:
+    get:
+      tags:
+      - Teams
+      summary: Get all teams
+      description: Return all Teams that the current API token has access to.
+      operationId: getTeams
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teams'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/teams
+                  first: https://api.vantage.sh/v2/teams?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/teams?page=1
+                  prev: null
+                teams:
+                - token: team_2d4733920ec4385e
+                  name: Prod Team
+                  description: Handles all production deployments
+                  workspace_tokens:
+                  - wrkspc_08026aa5fb4c90f8
+                  user_tokens:
+                  - usr_c59398553e838116
+                  default_dashboard_token: null
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Teams
+      summary: Create team
+      description: Create a new Team.
+      operationId: createTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTeam'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                token: team_8467157535a30221
+                name: New Team
+                description: New Team Description
+                workspace_tokens:
+                - wrkspc_52b6e5e663b4cde1
+                user_tokens:
+                - usr_a00e614b5843c234
+                default_dashboard_token: null
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createTeam
+  /teams/{team_token}:
+    get:
+      tags:
+      - Teams
+      summary: Get team by token
+      description: Return a specific Team.
+      operationId: getTeam
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                token: team_081e09bbb812d369
+                name: Prod Team
+                description: Handles all production deployments.
+                workspace_tokens:
+                - wrkspc_ddc003a2f0171bf8
+                user_tokens:
+                - usr_7c309915e847cfc6
+                default_dashboard_token: null
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    put:
+      tags:
+      - Teams
+      summary: Update team
+      description: Update a Team.
+      operationId: updateTeam
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTeam'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                token: team_d617e73dcc6b57c5
+                name: Updated Team
+                description: Updated Team Description
+                workspace_tokens:
+                - wrkspc_efc4284a56772481
+                user_tokens:
+                - usr_d268561e520c7aac
+                default_dashboard_token: null
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: updateTeam
+    delete:
+      tags:
+      - Teams
+      summary: Delete team
+      description: Delete a Team.
+      operationId: deleteTeam
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /teams/{team_token}/members:
+    get:
+      tags:
+      - Teams
+      summary: Get team members
+      description: Return all members of a Team.
+      operationId: getTeamMembers
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMembers'
+              example:
+                links:
+                  self: https://api.vantage.sh/v2/teams/team_081e09bbb812d369/members
+                  first: https://api.vantage.sh/v2/teams/team_081e09bbb812d369/members?page=1
+                  next: null
+                  last: https://api.vantage.sh/v2/teams/team_081e09bbb812d369/members?page=1
+                  prev: null
+                members:
+                - name: John Doe
+                  email: john.doe@acme.com
+                  user_token: usr_7c309915e847cfc6
+                  role: editor
+                - name: Jane Smith
+                  email: jane.smith@acme.com
+                  user_token: usr_a1b2c3d4e5f67890
+                  role: viewer
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Teams
+      summary: Add team member
+      description: Add a member to a Team.
+      operationId: addTeamMember
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addTeamMember'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMember'
+              example:
+                user_email: john.doe@acme.com
+                role: editor
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: UnprocessableEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: addTeamMember
+  /teams/{team_token}/members/{user_token}:
+    delete:
+      tags:
+      - Teams
+      summary: Remove team member
+      description: Remove a member from a Team.
+      operationId: removeTeamMember
+      parameters:
+      - name: team_token
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+          content: {}
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    createTeam:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Team.
+        description:
+          type: string
+          description: The description of the Team.
+        workspace_tokens:
+          type: array
+          description: The Workspace tokens to associate to the Team.
+          items:
+            type: string
+        user_tokens:
+          type: array
+          description: The User tokens to associate to the Team.
+          items:
+            type: string
+        user_emails:
+          type: array
+          description: The User emails to associate to the Team.
+          items:
+            type: string
+        role:
+          type: string
+          description: The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.
+          enum:
+          - owner
+          - editor
+          - viewer
+        default_dashboard_token:
+          type: string
+          description: The token of a Dashboard to set as the Team default. Send null to clear.
+          nullable: true
+          x-omitempty: false
+      description: Create a new Team.
+    Teams:
+      required:
+      - teams
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+      description: Teams model
+    TeamMembers:
+      required:
+      - members
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+      description: TeamMembers model
+    updateTeam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Team.
+        description:
+          type: string
+          description: The description of the Team.
+        workspace_tokens:
+          type: array
+          description: The Workspace tokens to associate to the Team.
+          items:
+            type: string
+        user_tokens:
+          type: array
+          description: The User tokens to associate to the Team.
+          items:
+            type: string
+        user_emails:
+          type: array
+          description: The User emails to associate to the Team.
+          items:
+            type: string
+        role:
+          type: string
+          description: The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.
+          enum:
+          - owner
+          - editor
+          - viewer
+        default_dashboard_token:
+          type: string
+          description: The token of a Dashboard to set as the Team default. Send null to clear.
+          nullable: true
+          x-omitempty: false
+      description: Update a Team.
+    addTeamMember:
+      required:
+      - role
+      - user_email
+      type: object
+      properties:
+        user_email:
+          type: string
+          description: The email address of the user to add to the Team.
+        role:
+          type: string
+          description: The role to assign to the user. Defaults to 'editor'.
+          default: editor
+          enum:
+          - owner
+          - editor
+          - viewer
+          - integration_owner
+      description: Add a member to a Team.
+    Team:
+      required:
+      - default_dashboard_token
+      - description
+      - name
+      - token
+      - user_emails
+      - user_tokens
+      - workspace_tokens
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        name:
+          type: string
+          description: The name of the Team.
+          nullable: false
+          example: Cost Savers
+        description:
+          type: string
+          description: The description of the Team.
+          nullable: true
+          example: The Team that saves costs
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the Team belongs to
+          nullable: false
+          items:
+            type: string
+            example: ''
+        user_emails:
+          type: array
+          description: The email addresses for Users that belong to the Team
+          nullable: false
+          items:
+            type: string
+            example: ''
+        user_tokens:
+          type: array
+          description: The tokens for Users that belong to the Team
+          nullable: false
+          items:
+            type: string
+            example: ''
+        default_dashboard_token:
+          type: string
+          description: The token of the default Dashboard for the Team.
+          nullable: true
+          example: dshbrd_abcd1234
+      description: Team model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+    TeamMember:
+      required:
+      - email
+      - name
+      - role
+      - user_token
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the team member.
+          nullable: false
+          example: John Doe
+        email:
+          type: string
+          description: The email address of the team member.
+          nullable: false
+          example: john@acme.com
+        user_token:
+          type: string
+          description: The token of the team member.
+          nullable: false
+          example: usr_abcd1234
+        role:
+          type: string
+          description: The role of the team member in the team.
+          nullable: false
+          example: editor
+      description: TeamMember model
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

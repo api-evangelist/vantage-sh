@@ -1,0 +1,377 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants AuditLogs API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: AuditLogs
+  description: Operations about AuditLogs
+paths:
+  /audit_logs:
+    get:
+      tags:
+      - AuditLogs
+      summary: Get all audit logs
+      description: Return all AuditLogs.
+      operationId: getAuditLogs
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. Defaults to 100. The maximum is 5000.
+        schema:
+          type: integer
+          format: int32
+      - name: user
+        in: query
+        description: Filter by personal or service API token that performed the action.
+        schema:
+          type: integer
+          format: int32
+      - name: workspace_token
+        in: query
+        description: Filter by workspace token.
+        schema:
+          type: string
+      - name: action
+        in: query
+        description: Filter by action type.
+        schema:
+          type: string
+          enum:
+          - create
+          - update
+          - delete
+      - name: object_name
+        in: query
+        description: Filter by object name.
+        schema:
+          type: string
+      - name: source
+        in: query
+        description: Filter by source.
+        schema:
+          type: string
+          enum:
+          - console
+          - api
+          - finops_agent
+      - name: object_type
+        in: query
+        description: Filter by object type.
+        schema:
+          type: string
+          enum:
+          - virtual_tag
+          - cost_report
+          - recommendation_commitment
+          - segment
+      - name: token
+        in: query
+        description: Filter by audit log token.
+        schema:
+          type: string
+      - name: object_token
+        in: query
+        description: Filter by object token (auditable_token).
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Filter by start date (ISO 8601 format, e.g., 2024-06-01).
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        description: Filter by end date (ISO 8601 format, e.g., 2024-06-01).
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogs'
+              example:
+                audit_logs:
+                - token: adt_lg_1234567890abcdef
+                  object_token: rpt_1234567890abcdef
+                  object_type: Report
+                  object_title: Production Cost Report
+                  event: record_updated
+                  source: api
+                  user: Example User
+                  workspace_title: Production Workspace
+                  workspace_token: wrkspc_5df510e54a48a137
+                  created_at: '2025-07-01T14:30:00Z'
+                  object_changes:
+                    title:
+                    - Old Production Report
+                    - Production Cost Report
+                    updated_at:
+                    - '2025-06-15T10:00:00Z'
+                    - '2025-07-01T14:30:00Z'
+                - token: adt_lg_0987654321fedcba
+                  object_token: rpt_0987654321fedcba
+                  object_type: Report
+                  object_title: Development Cost Report
+                  event: record_created
+                  source: console
+                  user: Example User
+                  workspace_title: Production Workspace
+                  workspace_token: wrkspc_5df510e54a48a137
+                  created_at: '2025-06-25T09:15:00Z'
+                  object_changes:
+                    key:
+                    - null
+                    - api-created-tag-1755150452
+                    token:
+                    - null
+                    - vtag_0497e0c2b571a71d
+                    backfill_until:
+                    - null
+                    - '2025-08-01T00:00:00.000Z'
+                    created_by_type:
+                    - User
+                    - Team
+                    referenced_tag_keys_by_provider:
+                    - '{}'
+                    - '{"aws":[]}'
+                    account:
+                    - null
+                    - Test Account
+                    created_by:
+                    - null
+                    - Example User
+                - token: adt_lg_abcdef1234567890
+                  object_token: bgt_abcdef1234567890
+                  object_type: Budget
+                  object_title: Q3 Marketing Budget
+                  event: record_destroyed
+                  source: api
+                  user: Admin User
+                  workspace_title: Production Workspace
+                  workspace_token: wrkspc_5df510e54a48a137
+                  created_at: '2025-06-20T16:45:00Z'
+                  object_changes:
+                    title:
+                    - test_1
+                    - test_1_updated
+                links:
+                  self: /v2/audit_logs?page=1
+                  first: /v2/audit_logs?page=1
+                  next: /v2/audit_logs?page=2
+                  last: /v2/audit_logs?page=3
+                  prev: null
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /audit_logs/{audit_log_token}:
+    get:
+      tags:
+      - AuditLogs
+      summary: Get audit log by token
+      description: Return a specific AuditLog.
+      operationId: getAuditLog
+      parameters:
+      - name: audit_log_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLog'
+              example:
+                token: adt_lg_1234567890abcdef
+                object_token: rpt_1234567890abcdef
+                object_type: Report
+                object_title: Production Cost Report
+                event: record_updated
+                source: api
+                user: Example User
+                workspace_title: Production Workspace
+                workspace_token: wrkspc_5df510e54a48a137
+                created_at: '2025-07-01T14:30:00Z'
+                object_changes:
+                  title:
+                  - Old Production Report
+                  - Production Cost Report
+                  updated_at:
+                  - '2025-06-15T10:00:00Z'
+                  - '2025-07-01T14:30:00Z'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+components:
+  schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    AuditLogs:
+      required:
+      - audit_logs
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        audit_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+      description: AuditLogs model
+    AuditLog:
+      required:
+      - changed_values
+      - created_at
+      - event
+      - object_title
+      - object_token
+      - object_type
+      - source
+      - token
+      - unchanged_values
+      type: object
+      properties:
+        token:
+          type: string
+          description: The unique token identifying the audit log.
+          nullable: false
+          example: adt_lg_1234567890abcdef
+        object_token:
+          type: string
+          description: The token of the audited object.
+          nullable: true
+          example: rpt_1234567890abcdef
+        object_type:
+          type: string
+          description: The type of the audited object.
+          nullable: false
+          example: Report
+        object_title:
+          type: string
+          description: The title of the audited object.
+          nullable: true
+          example: Production Cost Report
+        event:
+          type: string
+          description: The event type of the audit log.
+          nullable: false
+          example: record_created
+        source:
+          type: string
+          description: The source of the action (console, api, developer).
+          nullable: false
+          example: console
+        user:
+          type: string
+          description: The name of the user who performed the action.
+          nullable: true
+        workspace_title:
+          type: string
+          description: The name of the workspace associated with the audit log.
+          nullable: true
+        workspace_token:
+          type: string
+          description: The token of the workspace associated with the audit log.
+          nullable: true
+          example: wrkspc_1234567890abcdef
+        created_at:
+          type: string
+          description: The date and time, in UTC, the audit log was created. ISO 8601 Formatted.
+          nullable: false
+          example: '2021-07-09T00:00:00Z'
+        changed_values:
+          type: object
+          properties: {}
+          description: The changed values of the object.
+          nullable: false
+        unchanged_values:
+          type: object
+          properties: {}
+          description: The unchanged values of the object.
+          nullable: false
+      description: AuditLog model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'

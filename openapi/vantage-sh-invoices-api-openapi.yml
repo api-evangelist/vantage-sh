@@ -1,0 +1,458 @@
+openapi: 3.0.1
+info:
+  title: Vantage AccessGrants Invoices API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  termsOfService: https://www.vantage.sh/terms-of-use
+  contact:
+    name: Vantage Support
+    url: https://www.vantage.sh
+    email: support@vantage.sh
+  version: 2.0.0
+servers:
+- url: https://api.vantage.sh/v2
+security:
+- oauth2:
+  - read
+tags:
+- name: Invoices
+  description: Operations about Invoices
+paths:
+  /invoices:
+    get:
+      tags:
+      - Invoices
+      summary: Get all invoices
+      description: Returns a list of invoices (MSP invoicing required).
+      operationId: getInvoices
+      parameters:
+      - name: page
+        in: query
+        description: The page of results to return.
+        schema:
+          type: integer
+          format: int32
+      - name: limit
+        in: query
+        description: The amount of results to return. The maximum is 1000.
+        schema:
+          type: integer
+          format: int32
+      - name: managed_account_token
+        in: query
+        description: Filter invoices by managed account token (MSP accounts only)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoices'
+      security:
+      - oauth2:
+        - read
+    post:
+      tags:
+      - Invoices
+      summary: Create invoice
+      description: Create an invoice (MSP accounts only).
+      operationId: createInvoice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createInvoice'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+      x-codegen-request-body-name: createInvoice
+  /invoices/{invoice_token}:
+    get:
+      tags:
+      - Invoices
+      summary: Get invoice by token
+      description: Return an invoice.
+      operationId: getInvoice
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /invoices/{invoice_token}/download:
+    post:
+      tags:
+      - Invoices
+      summary: Get invoice file
+      description: Download invoice file (PDF or CSV).
+      operationId: downloadInvoice
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/downloadInvoice'
+        required: true
+      responses:
+        '200':
+          description: Returns download URL for the invoice file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadInvoice'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+      x-codegen-request-body-name: downloadInvoice
+  /invoices/{invoice_token}/send:
+    post:
+      tags:
+      - Invoices
+      summary: Send invoice
+      description: Send invoice via email.
+      operationId: sendInvoice
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendInvoice'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /invoices/{invoice_token}/send_and_approve:
+    post:
+      tags:
+      - Invoices
+      summary: Send and approve invoice
+      description: Send and approve invoice via email (MSP accounts only).
+      operationId: sendAndApproveInvoice
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice approved and sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendInvoice'
+        '400':
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+  /invoices/{invoice_token}/cost_report:
+    get:
+      tags:
+      - Invoices
+      summary: Get cost report URL
+      description: Get cost report URL for invoice period.
+      operationId: getInvoiceCostReport
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get cost report URL for invoice period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReportUrl'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - read
+  /invoices/{invoice_token}/regenerate:
+    post:
+      tags:
+      - Invoices
+      summary: Regenerate invoice
+      description: Regenerate an existing invoice (MSP accounts only).
+      operationId: regenerateInvoice
+      parameters:
+      - name: invoice_token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice regeneration started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - oauth2:
+        - write
+components:
+  schemas:
+    SendInvoice:
+      required:
+      - recipients
+      type: object
+      properties:
+        recipients:
+          type: array
+          nullable: false
+          items:
+            type: string
+            example: ''
+      description: SendInvoice model
+    downloadInvoice:
+      required:
+      - file_type
+      type: object
+      properties:
+        file_type:
+          type: string
+          description: Type of file to download (pdf or csv)
+          enum:
+          - pdf
+          - csv
+      description: Download invoice file (PDF or CSV).
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          nullable: false
+          items:
+            type: string
+      description: Errors model
+    Invoice:
+      required:
+      - account_name
+      - account_token
+      - billing_period_end
+      - billing_period_start
+      - created_at
+      - invoice_number
+      - msp_account_token
+      - status
+      - token
+      - total
+      - updated_at
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: false
+        invoice_number:
+          type: string
+          description: Sequential invoice number for the MSP account
+          nullable: false
+        total:
+          type: string
+          description: Total amount for the invoice period
+          nullable: true
+        billing_period_start:
+          type: string
+          description: Start date of the billing period. ISO 8601 formatted.
+          nullable: false
+        billing_period_end:
+          type: string
+          description: End date of the billing period. ISO 8601 formatted.
+          nullable: false
+        status:
+          type: string
+          description: Current status of the invoice
+          nullable: false
+        created_at:
+          type: string
+          description: The date and time, in UTC, the invoice was created. ISO 8601 formatted.
+          nullable: false
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the invoice was last updated. ISO 8601 formatted.
+          nullable: false
+        account_token:
+          type: string
+          description: Token of the managed account this invoice belongs to
+          nullable: false
+        account_name:
+          type: string
+          description: Name of the managed account this invoice belongs to
+          nullable: false
+        msp_account_token:
+          type: string
+          description: Token of the MSP account that owns this invoice
+          nullable: false
+      description: Invoice model
+    createInvoice:
+      required:
+      - account_token
+      - billing_period_end
+      - billing_period_start
+      type: object
+      properties:
+        billing_period_start:
+          type: string
+          description: Start date of billing period (YYYY-MM-DD)
+        billing_period_end:
+          type: string
+          description: End date of billing period (YYYY-MM-DD)
+        account_token:
+          type: string
+          description: Token of the managed account to invoice
+      description: Create an invoice (MSP accounts only).
+    DownloadInvoice:
+      required:
+      - download_url
+      type: object
+      properties:
+        download_url:
+          type: string
+          description: The URL to download the invoice file.
+          nullable: false
+          example: https://example.com/invoice.pdf
+      description: DownloadInvoice model
+    CostReportUrl:
+      required:
+      - cost_report_url
+      type: object
+      properties:
+        cost_report_url:
+          type: string
+          description: The URL of the cost report.
+          nullable: false
+          example: https://example.com/cost_report.pdf
+      description: CostReportUrl model
+    Invoices:
+      required:
+      - invoices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+      description: Invoices model
+    Links:
+      type: object
+      properties:
+        self:
+          type: string
+          description: The URL of the current page of results.
+          nullable: true
+        first:
+          type: string
+          description: The URL of the first page of results.
+          nullable: true
+        next:
+          type: string
+          description: The URL of the next page of results, if one exists.
+          nullable: true
+        last:
+          type: string
+          description: The URL of the last page of results, if one exists.
+          nullable: true
+        prev:
+          type: string
+          description: The URL of the previous page of results, if one exists.
+          nullable: true
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://console.vantage.sh/account/profile
+          scopes:
+            read: Grants read access
+            write: Grants write access
+x-original-swagger-version: '2.0'
