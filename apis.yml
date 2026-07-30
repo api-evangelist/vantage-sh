@@ -11,7 +11,20 @@ description: Vantage is a cloud cost management and FinOps platform that gives e
   reporting, and wire cloud optimization into their own tooling. Vantage publishes a
   full OpenAPI specification and authenticates with OAuth2 (client-credentials bearer
   tokens) scoped for read and write.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/vantage-sh.png
 tags:
 - Cloud Cost
 - FinOps
@@ -24,184 +37,710 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: vantage-sh:vantage-sh-costs-api
-  name: Vantage Costs API
-  tags:
-  - Cloud Cost
-  - Costs
-  - Cost Reporting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: vantage-sh:vantage-sh-accessgrants-api
+  name: Vantage AccessGrants API
+  description: Operations about AccessGrants
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: https://vantage.readme.io/reference/general
-    type: APIReference
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Query normalized cloud cost data across providers. Retrieve costs by
-    cost report or VQL filter, grouped and date-binned, with credits and refunds
-    settings - the core surface for the "cloud cost" use case. Base endpoint GET
-    /costs plus data-export support at POST /costs/data_exports.
-- aid: vantage-sh:vantage-sh-cost-reports-api
-  name: Vantage Cost Reports API
   tags:
-  - Cost Management
-  - Cost Reports
-  - Forecasting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - AccessGrants
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-accessgrants-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-anomalyalerts-api
+  name: Vantage AnomalyAlerts API
+  description: Operations about AnomalyAlerts
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: https://vantage.readme.io/reference/general
-    type: APIReference
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Create, list, get, update, and delete Cost Reports - saved, filtered
-    views of cloud spend - and retrieve forecasted costs for a report. CRUD under
-    /cost_reports with GET /cost_reports/{cost_report_token}/forecasted_costs.
-- aid: vantage-sh:vantage-sh-resources-api
-  name: Vantage Resources API
   tags:
-  - Cloud Optimization
-  - Resources
-  - Inventory
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - AnomalyAlerts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-anomalyalerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-anomalynotifications-api
+  name: Vantage AnomalyNotifications API
+  description: Operations about AnomalyNotifications
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: List and inspect the active cloud resources Vantage tracks across
-    connected accounts, with per-resource cost attribution. GET /resources and GET
-    /resources/{resource_token}, plus Resource Reports for saved resource views.
-- aid: vantage-sh:vantage-sh-recommendations-api
-  name: Vantage Recommendations API
   tags:
-  - Cloud Optimization
-  - Recommendations
-  - Savings
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - AnomalyNotifications
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-anomalynotifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-auditlogs-api
+  name: Vantage AuditLogs API
+  description: Operations about AuditLogs
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
+  tags:
+  - AuditLogs
   properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Retrieve cost-optimization recommendations and the resources they
-    apply to. GET /recommendations, GET /recommendations/{recommendation_token},
-    /resources subpaths, and recommendations by type - the programmatic feed behind
-    cloud cost optimization.
+  - type: OpenAPI
+    url: openapi/vantage-sh-auditlogs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-billingprofiles-api
+  name: Vantage BillingProfiles API
+  description: Operations about BillingProfiles
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - BillingProfiles
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-billingprofiles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-billingrules-api
+  name: Vantage BillingRules API
+  description: Operations about BillingRules
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - BillingRules
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-billingrules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-budgetalerts-api
+  name: Vantage BudgetAlerts API
+  description: Operations about BudgetAlerts
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - BudgetAlerts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-budgetalerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
 - aid: vantage-sh:vantage-sh-budgets-api
   name: Vantage Budgets API
+  description: Operations about Budgets
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
   tags:
-  - FinOps
   - Budgets
-  - Cost Governance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-budgets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-businessmetrics-api
+  name: Vantage BusinessMetrics API
+  description: Operations about BusinessMetrics
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Create and manage cloud spend budgets and their alerts. CRUD under
-    /budgets and /budget_alerts so teams can codify spend limits and get notified as
-    actual and forecasted costs approach them.
-- aid: vantage-sh:vantage-sh-cost-alerts-api
-  name: Vantage Cost Alerts API
   tags:
-  - FinOps
-  - Cost Alerts
-  - Monitoring
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - BusinessMetrics
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-businessmetrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-canvases-api
+  name: Vantage Canvases API
+  description: Operations about Canvases
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Define and manage cost alerts and inspect the events they fire. CRUD
-    under /cost_alerts with GET /cost_alerts/{cost_alert_token}/events for the
-    triggered-alert history.
-- aid: vantage-sh:vantage-sh-anomaly-alerts-api
-  name: Vantage Anomaly Alerts API
   tags:
-  - Cost Management
-  - Anomaly Detection
-  - Alerts
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Canvases
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-canvases-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costalertevents-api
+  name: Vantage CostAlertEvents API
+  description: Operations about CostAlertEvents
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Retrieve and manage cost anomaly alerts and their notification
-    configurations. GET/PUT under /anomaly_alerts and CRUD under
-    /anomaly_notifications for automated detection of abnormal cloud spend.
-- aid: vantage-sh:vantage-sh-segments-api
-  name: Vantage Segments API
   tags:
-  - FinOps
-  - Segments
-  - Cost Allocation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - CostAlertEvents
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-costalertevents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costalerts-api
+  name: Vantage CostAlerts API
+  description: Operations about CostAlerts
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
-  properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Create and manage Segments - allocation groupings that slice cloud
-    cost by team, product, or cost center. CRUD under /segments, the backbone of
-    cost allocation and showback/chargeback in Vantage.
-- aid: vantage-sh:vantage-sh-financial-commitments-api
-  name: Vantage Financial Commitments API
   tags:
-  - Cloud Cost
-  - Commitments
-  - Reserved Instances
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - CostAlerts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-costalerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costprovider-api
+  name: Vantage CostProvider API
+  description: Operations about CostProviders
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
+  tags:
+  - CostProvider
   properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Track Reserved Instances, Savings Plans, and Committed Use Discounts.
-    GET /financial_commitments and CRUD under /financial_commitment_reports for
-    commitment coverage and utilization reporting.
+  - type: OpenAPI
+    url: openapi/vantage-sh-costprovider-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costprovideraccounts-api
+  name: Vantage CostProviderAccounts API
+  description: Operations about CostProviderAccounts
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - CostProviderAccounts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-costprovideraccounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costs-api
+  name: Vantage Costs API
+  description: Operations about Costs
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Costs
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-costs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-costservice-api
+  name: Vantage CostService API
+  description: Operations about CostServices
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - CostService
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-costservice-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
 - aid: vantage-sh:vantage-sh-dashboards-api
   name: Vantage Dashboards API
-  tags:
-  - Cost Visibility
-  - Dashboards
-  - Reporting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Operations about Dashboards
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
+  tags:
+  - Dashboards
   properties:
-  - url: https://docs.vantage.sh/api
-    type: Documentation
-  - url: openapi/vantage-sh-openapi.yml
-    type: OpenAPI
-  description: Assemble Cost Reports and other widgets into shareable dashboards.
-    CRUD under /dashboards, plus Folders and Saved Filters for organizing cost
-    visibility across the organization.
+  - type: OpenAPI
+    url: openapi/vantage-sh-dashboards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-dataexports-api
+  name: Vantage DataExports API
+  description: Operations about DataExports
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - DataExports
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-dataexports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-exchangerates-api
+  name: Vantage ExchangeRates API
+  description: Operations about ExchangeRates
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - ExchangeRates
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-exchangerates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-financialcommitmentreports-api
+  name: Vantage FinancialCommitmentReports API
+  description: Operations about FinancialCommitmentReports
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - FinancialCommitmentReports
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-financialcommitmentreports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-financialcommitments-api
+  name: Vantage FinancialCommitments API
+  description: Operations about FinancialCommitments
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - FinancialCommitments
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-financialcommitments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-folders-api
+  name: Vantage Folders API
+  description: Operations about Folders
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-folders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-integrations-api
+  name: Vantage Integrations API
+  description: Operations about Integrations
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-invoices-api
+  name: Vantage Invoices API
+  description: Operations about Invoices
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-kubernetesefficiencyreports-api
+  name: Vantage KubernetesEfficiencyReports API
+  description: Operations about KubernetesEfficiencyReports
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - KubernetesEfficiencyReports
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-kubernetesefficiencyreports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-managedaccounts-api
+  name: Vantage ManagedAccounts API
+  description: Operations about ManagedAccounts
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - ManagedAccounts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-managedaccounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-me-api
+  name: Vantage Me API
+  description: Operations about Mes
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-me-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-networkflowreports-api
+  name: Vantage NetworkFlowReports API
+  description: Operations about NetworkFlowReports
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - NetworkFlowReports
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-networkflowreports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-ping-api
+  name: Vantage Ping API
+  description: Operations about Pings
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Ping
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-ping-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-prices-api
+  name: Vantage Prices API
+  description: Operations about Prices
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-prices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-recommendations-api
+  name: Vantage Recommendations API
+  description: Operations about Recommendations
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Recommendations
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-recommendations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-recommendationviews-api
+  name: Vantage RecommendationViews API
+  description: Operations about RecommendationViews
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - RecommendationViews
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-recommendationviews-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-reportnotifications-api
+  name: Vantage ReportNotifications API
+  description: Operations about ReportNotifications
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - ReportNotifications
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-reportnotifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-resourcereports-api
+  name: Vantage ResourceReports API
+  description: Operations about ResourceReports
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - ResourceReports
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-resourcereports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-resources-api
+  name: Vantage Resources API
+  description: Operations about Resources
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-savedfilters-api
+  name: Vantage SavedFilters API
+  description: Operations about SavedFilters
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - SavedFilters
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-savedfilters-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-segments-api
+  name: Vantage Segments API
+  description: Operations about Segments
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-segments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-tags-api
+  name: Vantage Tags API
+  description: Operations about Tags
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-teams-api
+  name: Vantage Teams API
+  description: Operations about Teams
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-teams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-unitcosts-api
+  name: Vantage UnitCosts API
+  description: Operations about UnitCosts
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - UnitCosts
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-unitcosts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-userfeedback-api
+  name: Vantage UserFeedback API
+  description: Operations about UserFeedbacks
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - UserFeedback
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-userfeedback-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-users-api
+  name: Vantage Users API
+  description: Operations about Users
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-virtualtags-api
+  name: Vantage VirtualTags API
+  description: Operations about VirtualTags
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - VirtualTags
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-virtualtags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
+- aid: vantage-sh:vantage-sh-workspaces-api
+  name: Vantage Workspaces API
+  description: Operations about Workspaces
+  humanURL: https://docs.vantage.sh/api
+  baseURL: https://api.vantage.sh/v2
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/vantage-sh-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.vantage.sh/api
+  - type: APIReference
+    url: https://vantage.readme.io/reference/general
+  - type: Documentation
+    url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
 common:
 - type: AgenticAccess
   url: agentic-access/vantage-sh-agentic-access.yml
