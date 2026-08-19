@@ -1,0 +1,958 @@
+{
+  "item": [
+    {
+      "id": "ac65e8db-9f10-41ef-80d0-046fb75039ad",
+      "name": "ReportNotifications",
+      "description": {
+        "content": "Operations about ReportNotifications",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0a5288b-2b8e-415a-92ce-0ba15bb9f0ed",
+          "name": "Get all report notifications",
+          "request": {
+            "name": "Get all report notifications",
+            "description": {
+              "content": "Return all ReportNotifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report_notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae2ac891-51e5-40c7-95b8-e1e64208b4a5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/report_notifications\",\n    \"first\": \"https://api.vantage.sh/v2/report_notifications?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/report_notifications?page=1\",\n    \"prev\": null\n  },\n  \"report_notifications\": [\n    {\n      \"token\": \"rprt_ntfctn_7c09ca27d07d8d1e\",\n      \"title\": \"Test Notification\",\n      \"cost_report_token\": \"rprt_ba0a5a5201390d72\",\n      \"user_tokens\": [\n        \"usr_27edb13f3beac3cb\"\n      ],\n      \"frequency\": \"weekly\",\n      \"change\": \"percentage\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9aac4863-fab8-4088-915e-a80e715b052b",
+          "name": "Create report notification",
+          "request": {
+            "name": "Create report notification",
+            "description": {
+              "content": "Create a ReportNotification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report_notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"change\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c1792d91-00ec-4e5a-8b08-5768ffdb5f6a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"change\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_ntfctn_8ce31b43a149cd2e\",\n  \"title\": \"New Report Notification\",\n  \"cost_report_token\": \"rprt_933010600676b02f\",\n  \"user_tokens\": [\n    \"usr_45e7d17e9f402226\"\n  ],\n  \"frequency\": \"daily\",\n  \"change\": \"percentage\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59a46c07-d093-4e02-832b-a281d7f175b2",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"change\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6458d612-5db5-4958-ac3b-e4ca867bb74b",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"change\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"frequency\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2321b6b-c629-4f6c-be68-18086b621e35",
+          "name": "Get report notification by token",
+          "request": {
+            "name": "Get report notification by token",
+            "description": {
+              "content": "Return a ReportNotification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report_notifications",
+                ":report_notification_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "report_notification_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "628da207-bfb5-4562-a172-c2cd62c587b5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_ntfctn_21b4287a212406b1\",\n  \"title\": \"Test Notification\",\n  \"cost_report_token\": \"rprt_d084c84455edc606\",\n  \"user_tokens\": [\n    \"usr_56d53f802edba3e6\"\n  ],\n  \"frequency\": \"weekly\",\n  \"change\": \"percentage\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3dd6df2-7c2c-42c3-a430-5c546d681f18",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f787a822-da80-429c-afeb-c639a9e6bae6",
+          "name": "Update report notification",
+          "request": {
+            "name": "Update report notification",
+            "description": {
+              "content": "Update a ReportNotification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report_notifications",
+                ":report_notification_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "report_notification_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frequency\": \"<string>\",\n  \"change\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95d27d74-dfb5-4fa1-b5d5-1235421893ed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frequency\": \"<string>\",\n  \"change\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_ntfctn_b36b208a90ee87f6\",\n  \"title\": \"Updated Report Notification\",\n  \"cost_report_token\": \"rprt_07b88c04aa6bed8c\",\n  \"user_tokens\": [\n    \"usr_35ed19fadcfed8c9\"\n  ],\n  \"frequency\": \"weekly\",\n  \"change\": \"dollars\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "413ef462-ee7b-46f1-91df-c2a6363180e1",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frequency\": \"<string>\",\n  \"change\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "550673be-60e2-4f16-8ef4-6e796c834e7a",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"frequency\": \"<string>\",\n  \"change\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "195f4cc7-bd5b-4aee-ac48-4bf744552508",
+          "name": "Delete report notification",
+          "request": {
+            "name": "Delete report notification",
+            "description": {
+              "content": "Delete a ReportNotification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "report_notifications",
+                ":report_notification_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "report_notification_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "885bd5f0-fb8f-4460-95f1-8b414495c3c5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"change\": \"percentage\",\n  \"cost_report_token\": \"rprt_abcd1234\",\n  \"frequency\": \"weekly\",\n  \"recipient_channels\": [\n    \"\",\n    \"\"\n  ],\n  \"title\": \"Acme Report Notification\",\n  \"token\": \"string\",\n  \"user_tokens\": [\n    \"\",\n    \"\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9167e94b-87a8-4936-8a08-6c3dd3fb83b5",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "report_notifications",
+                    ":report_notification_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "report_notification_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e45ec266-3ae9-4155-a0d5-b1385f5b3484",
+    "name": "Vantage AccessGrants ReportNotifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

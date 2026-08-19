@@ -1,0 +1,2893 @@
+{
+  "item": [
+    {
+      "id": "d038768e-431e-4f18-9001-adeab47d2496",
+      "name": "Costs",
+      "description": {
+        "content": "Operations about Costs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31d78fed-df66-4eb9-a955-e5cc2139aa5c",
+          "name": "Get all cost reports",
+          "request": {
+            "name": "Get all cost reports",
+            "description": {
+              "content": "Return all CostReports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "folder_token",
+                  "value": "<string>",
+                  "description": "The token for the Folder you would like to fetch Reports from."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "301992e0-8060-47af-aa01-89ab8d69988a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "folder_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/cost_reports\",\n    \"first\": \"https://api.vantage.sh/v2/cost_reports?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/cost_reports?page=1\",\n    \"prev\": null\n  },\n  \"cost_reports\": [\n    {\n      \"token\": \"rprt_6f2c7d330c05636f\",\n      \"title\": \"Untitled\",\n      \"folder_token\": null,\n      \"saved_filter_tokens\": [\n        \"svd_fltr_9f2aca5e894b432a\"\n      ],\n      \"business_metric_tokens_with_metadata\": [],\n      \"default_forecast\": {\n        \"kind\": \"baseline\"\n      },\n      \"filter\": null,\n      \"groupings\": \"service,provider\",\n      \"settings\": {\n        \"include_credits\": false,\n        \"include_refunds\": false,\n        \"include_discounts\": true,\n        \"include_tax\": true,\n        \"amortize\": true,\n        \"unallocated\": false,\n        \"aggregate_by\": \"cost\",\n        \"show_previous_period\": true,\n        \"complete_period\": false\n      },\n      \"created_at\": \"2024-07-03T00:00:00Z\",\n      \"workspace_token\": \"wrkspc_3f4145fd51b19463\",\n      \"previous_period_start_date\": null,\n      \"previous_period_end_date\": null,\n      \"start_date\": \"2024-07-01\",\n      \"end_date\": \"2024-07-31\",\n      \"date_interval\": \"this_month\",\n      \"chart_type\": \"line\",\n      \"date_bin\": \"cumulative\",\n      \"chart_settings\": {\n        \"y_axis_dimension\": \"cost\",\n        \"x_axis_dimension\": [\n          \"date\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95339d5b-daad-434a-b9e0-50eea0bed6fc",
+          "name": "Create cost report",
+          "request": {
+            "name": "Create cost report",
+            "description": {
+              "content": "Create a CostReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"end_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"line\",\n  \"date_bin\": \"cumulative\",\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b1a15fa-690f-44ea-8586-c38066f89341",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"line\",\n  \"date_bin\": \"cumulative\",\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_299359872859a568\",\n  \"title\": \"New Cost Report\",\n  \"folder_token\": \"fldr_736175272c30b820\",\n  \"saved_filter_tokens\": [\n    \"svd_fltr_3cf17b5bd79e849c\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"bsnss_mtrc_b90d5fe5fbff292d\",\n      \"unit_scale\": \"per_thousand\",\n      \"label_filter\": [\n        \"CBGB\",\n        \"Roxy\",\n        \"Studio 54\",\n        \"\"\n      ]\n    }\n  ],\n  \"default_forecast\": {\n    \"kind\": \"baseline\"\n  },\n  \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'\",\n  \"groupings\": \"service,provider\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"created_at\": \"2024-07-03T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_9e2675148d6275f8\",\n  \"previous_period_start_date\": null,\n  \"previous_period_end_date\": null,\n  \"start_date\": \"2024-07-01\",\n  \"end_date\": \"2024-07-31\",\n  \"date_interval\": \"this_month\",\n  \"chart_type\": \"bar\",\n  \"date_bin\": \"day\",\n  \"chart_settings\": {\n    \"y_axis_dimension\": \"cost\",\n    \"x_axis_dimension\": [\n      \"date\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d627c2c0-c735-492d-9aea-654b155c4a5e",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"line\",\n  \"date_bin\": \"cumulative\",\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35fccbb3-98a0-4d11-b0d2-5f0a1040fe79",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"line\",\n  \"date_bin\": \"cumulative\",\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c129081-0e37-4d07-828d-1bee4b91d40c",
+          "name": "Get cost report by token",
+          "request": {
+            "name": "Get cost report by token",
+            "description": {
+              "content": "Return a CostReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c2bb7670-5b09-4144-9e30-26c68257568a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_5db7a73cf4d09998\",\n  \"title\": \"Untitled\",\n  \"folder_token\": null,\n  \"saved_filter_tokens\": [\n    \"svd_fltr_e1166df04e1709bf\"\n  ],\n  \"business_metric_tokens_with_metadata\": [],\n  \"default_forecast\": {\n    \"kind\": \"baseline\"\n  },\n  \"filter\": null,\n  \"groupings\": \"service,provider\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"created_at\": \"2024-07-03T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_9c6847147c762f2a\",\n  \"previous_period_start_date\": null,\n  \"previous_period_end_date\": null,\n  \"start_date\": \"2024-07-01\",\n  \"end_date\": \"2024-07-31\",\n  \"date_interval\": \"this_month\",\n  \"chart_type\": \"line\",\n  \"date_bin\": \"cumulative\",\n  \"chart_settings\": {\n    \"y_axis_dimension\": \"cost\",\n    \"x_axis_dimension\": [\n      \"date\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7f03e51-fe45-470b-8508-0509d13365b8",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0192a088-4037-416f-93fb-9f6e8a1e70d7",
+          "name": "Update cost report",
+          "request": {
+            "name": "Update cost report",
+            "description": {
+              "content": "Update a CostReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"default_forecast\": {\n    \"kind\": \"<string>\",\n    \"report_forecast_token\": \"<string>\"\n  },\n  \"settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\",\n    \"unallocated\": \"<boolean>\",\n    \"aggregate_by\": \"<string>\",\n    \"show_previous_period\": \"<boolean>\",\n    \"complete_period\": \"<boolean>\"\n  },\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f33b497-4f67-4ec5-80f4-141c0b78ff4a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"default_forecast\": {\n    \"kind\": \"<string>\",\n    \"report_forecast_token\": \"<string>\"\n  },\n  \"settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\",\n    \"unallocated\": \"<boolean>\",\n    \"aggregate_by\": \"<string>\",\n    \"show_previous_period\": \"<boolean>\",\n    \"complete_period\": \"<boolean>\"\n  },\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rprt_1e692ea6b3eddf6b\",\n  \"title\": \"Updated Cost Report\",\n  \"folder_token\": \"fldr_86dec25791dca5ce\",\n  \"saved_filter_tokens\": [\n    \"svd_fltr_1977fb9dc5e2b336\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"bsnss_mtrc_14dc9a1fb1ce67ce\",\n      \"unit_scale\": \"per_thousand\",\n      \"label_filter\": [\n        \"CBGB\",\n        \"Roxy\",\n        \"Studio 54\",\n        \"\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"bsnss_mtrc_ab4227c15f99f995\",\n      \"unit_scale\": \"per_million\"\n    }\n  ],\n  \"default_forecast\": {\n    \"kind\": \"baseline\"\n  },\n  \"filter\": \"costs.provider = 'azure'\",\n  \"groupings\": \"account_id,service\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"created_at\": \"2024-07-03T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_a8fb0662fdca90e0\",\n  \"previous_period_start_date\": null,\n  \"previous_period_end_date\": null,\n  \"start_date\": \"2024-07-01\",\n  \"end_date\": \"2024-07-31\",\n  \"date_interval\": \"this_month\",\n  \"chart_type\": \"pie\",\n  \"date_bin\": \"week\",\n  \"chart_settings\": {\n    \"y_axis_dimension\": \"cost\",\n    \"x_axis_dimension\": [\n      \"date\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df677dbd-a872-4f44-826a-c845f7131d11",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"default_forecast\": {\n    \"kind\": \"<string>\",\n    \"report_forecast_token\": \"<string>\"\n  },\n  \"settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\",\n    \"unallocated\": \"<boolean>\",\n    \"aggregate_by\": \"<string>\",\n    \"show_previous_period\": \"<boolean>\",\n    \"complete_period\": \"<boolean>\"\n  },\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58c6f20e-58ac-475f-9603-ea593511a757",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"groupings\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"folder_token\": \"<string>\",\n  \"default_forecast\": {\n    \"kind\": \"<string>\",\n    \"report_forecast_token\": \"<string>\"\n  },\n  \"settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\",\n    \"unallocated\": \"<boolean>\",\n    \"aggregate_by\": \"<string>\",\n    \"show_previous_period\": \"<boolean>\",\n    \"complete_period\": \"<boolean>\"\n  },\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"y_axis_dimension\": \"<string>\"\n  },\n  \"previous_period_start_date\": \"<string>\",\n  \"previous_period_end_date\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"chart_type\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5633c52-0720-48a4-a4f1-3dc971aeab09",
+          "name": "Delete cost report",
+          "request": {
+            "name": "Delete cost report",
+            "description": {
+              "content": "Delete a CostReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports",
+                ":cost_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "66a52fdb-a5ee-4e39-a8f6-2d5cd48f738a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_metric_tokens_with_metadata\": [\n    {\n      \"business_metric_token\": \"bsnss_mtrc_1234\",\n      \"calculation_type\": \"unit_cost\",\n      \"unit_scale\": \"per_hundred\",\n      \"label_filter\": [\n        \"\",\n        \"\"\n      ]\n    },\n    {\n      \"business_metric_token\": \"bsnss_mtrc_1234\",\n      \"calculation_type\": \"unit_cost\",\n      \"unit_scale\": \"per_hundred\",\n      \"label_filter\": [\n        \"\",\n        \"\"\n      ]\n    }\n  ],\n  \"chart_settings\": {\n    \"x_axis_dimension\": [\n      \"string\",\n      \"string\"\n    ],\n    \"y_axis_dimension\": \"string\"\n  },\n  \"chart_type\": \"string\",\n  \"created_at\": \"2021-07-09T00:00:00Z\",\n  \"date_bin\": \"string\",\n  \"date_interval\": \"string\",\n  \"default_forecast\": {\n    \"kind\": \"baseline\"\n  },\n  \"filter\": \"string\",\n  \"title\": \"Production Environment\",\n  \"token\": \"string\",\n  \"workspace_token\": \"string\",\n  \"folder_token\": \"string\",\n  \"saved_filter_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"groupings\": \"provider, service\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true,\n    \"complete_period\": false\n  },\n  \"previous_period_start_date\": \"2024-06-01\",\n  \"previous_period_end_date\": \"2024-06-15\",\n  \"start_date\": \"2024-07-01\",\n  \"end_date\": \"2024-07-15\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "837a71d2-9244-4b70-a12d-76e924539eb4",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "adca3ebb-52cd-4f5c-bebc-c92895309000",
+          "name": "Get forecasted costs for a cost report",
+          "request": {
+            "name": "Get forecasted costs for a cost report",
+            "description": {
+              "content": "Return all ForecastedCosts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_reports",
+                ":cost_report_token",
+                "forecasted_costs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "First date you would like to filter forecasted costs from. ISO 8601 formatted."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "Last date you would like to filter forecasted costs from. ISO 8601 formatted."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "Limit the forecasted costs to a specific provider. 'all' is accepted to filter to overall forecast."
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "<string>",
+                  "description": "Limit the forecasted costs to a specific service. 'all' is accepted to filter to overall forecast. e.g. 'Amazon ElastiCache'."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f7ac20a-9327-4bdd-b970-f9c7a8dd6a89",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_reports",
+                    ":cost_report_token",
+                    "forecasted_costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs\",\n    \"first\": \"https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/cost_reports/rprt_106b4bfcc2a03f63/forecasted_costs?page=1\",\n    \"prev\": null\n  },\n  \"forecasted_costs\": [\n    {\n      \"date\": \"2024-07-04T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"all\",\n      \"service\": \"all\"\n    },\n    {\n      \"date\": \"2024-07-04T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"aws\",\n      \"service\": \"Amazon Elastic Compute Cloud - Compute\"\n    },\n    {\n      \"date\": \"2024-07-04T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"azure\",\n      \"service\": \"Virtual Machines\"\n    },\n    {\n      \"date\": \"2024-07-05T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"all\",\n      \"service\": \"all\"\n    },\n    {\n      \"date\": \"2024-07-05T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"aws\",\n      \"service\": \"Amazon Elastic Compute Cloud - Compute\"\n    },\n    {\n      \"date\": \"2024-07-05T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"azure\",\n      \"service\": \"Virtual Machines\"\n    },\n    {\n      \"date\": \"2024-07-06T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"all\",\n      \"service\": \"all\"\n    },\n    {\n      \"date\": \"2024-07-06T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"aws\",\n      \"service\": \"Amazon Elastic Compute Cloud - Compute\"\n    },\n    {\n      \"date\": \"2024-07-06T00:00:00Z\",\n      \"amount\": \"10.0\",\n      \"provider\": \"azure\",\n      \"service\": \"Virtual Machines\"\n    }\n  ],\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a262839e-dde0-48f2-9e43-343f0de478d2",
+          "name": "Generate cost data export",
+          "request": {
+            "name": "Generate cost data export",
+            "description": {
+              "content": "Generate a DataExport of costs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "costs",
+                "data_exports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cost_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"schema\": \"vntg\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "867933cc-c3ed-4401-ba4d-3ff6734c181b",
+              "name": "The data export has been queued and will be available at the location specified in the Location header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cost_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"schema\": \"vntg\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "880b49f9-d038-4764-9634-a73d46208e88",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cost_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"schema\": \"vntg\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d975de0-a55d-45bc-86e9-3417e9ee6208",
+              "name": "PaymentRequired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cost_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"schema\": \"vntg\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b44eccc-9df3-4e97-8a8d-0fb2a50df04e",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cost_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"schema\": \"vntg\",\n  \"settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true,\n    \"unallocated\": false,\n    \"aggregate_by\": \"cost\",\n    \"show_previous_period\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b565bddb-4a00-48f9-bb34-61fdbd697152",
+          "name": "Get costs for cost report or VQL filter",
+          "request": {
+            "name": "Get costs for cost report or VQL filter",
+            "description": {
+              "content": "Return all Costs for a CostReport or VQL filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "costs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cost_report_token",
+                  "value": "<string>",
+                  "description": "The CostReport token."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_token",
+                  "value": "<string>",
+                  "description": "The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "First date you would like to filter costs from. ISO 8601 formatted."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Last date you would like to filter costs to. ISO 8601 formatted."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupings",
+                  "value": "<string>,<string>",
+                  "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Whether to order costs by date in an ascending or descending manner."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 5000."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_bin",
+                  "value": "<string>",
+                  "description": "The date bin of the costs. Defaults to the report's default or day."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[include_credits]",
+                  "value": "false",
+                  "description": "Results will include credits."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[include_refunds]",
+                  "value": "false",
+                  "description": "Results will include refunds."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[include_discounts]",
+                  "value": "true",
+                  "description": "Results will include discounts."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[include_tax]",
+                  "value": "true",
+                  "description": "Results will include tax."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[amortize]",
+                  "value": "true",
+                  "description": "Results will amortize."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[unallocated]",
+                  "value": "false",
+                  "description": "Results will show unallocated costs."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[aggregate_by]",
+                  "value": "cost",
+                  "description": "Results will aggregate by cost or usage."
+                },
+                {
+                  "disabled": false,
+                  "key": "settings[show_previous_period]",
+                  "value": "true",
+                  "description": "Results will show previous period costs or usage comparison."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cdf1f2dc-00ed-41d6-919b-6af5e8e7b25c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cost_report_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "date_bin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settings[include_credits]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_refunds]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_discounts]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[include_tax]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[amortize]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[unallocated]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[aggregate_by]",
+                      "value": "cost"
+                    },
+                    {
+                      "key": "settings[show_previous_period]",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677\",\n    \"first\": \"https://api.vantage.sh/v2/costs?cost_report_token=rprt_ea7dbb4f5783d677&page=1\",\n    \"next\": null,\n    \"last\": null,\n    \"prev\": null\n  },\n  \"total_cost\": {\n    \"amount\": \"500.0\",\n    \"currency\": \"USD\"\n  },\n  \"costs\": [\n    {\n      \"accrued_at\": \"2023-06-05\",\n      \"amount\": \"100.0\",\n      \"currency\": \"USD\",\n      \"provider\": \"aws\",\n      \"account_id\": \"mock_56789\",\n      \"service\": \"AmazonSNS\"\n    },\n    {\n      \"accrued_at\": \"2023-06-04\",\n      \"amount\": \"100.0\",\n      \"currency\": \"USD\",\n      \"provider\": \"aws\",\n      \"account_id\": \"mock_56789\",\n      \"service\": \"AmazonSNS\"\n    },\n    {\n      \"accrued_at\": \"2023-06-03\",\n      \"amount\": \"100.0\",\n      \"currency\": \"USD\",\n      \"provider\": \"aws\",\n      \"account_id\": \"mock_56789\",\n      \"service\": \"AmazonSNS\"\n    },\n    {\n      \"accrued_at\": \"2023-06-02\",\n      \"amount\": \"100.0\",\n      \"currency\": \"USD\",\n      \"provider\": \"aws\",\n      \"account_id\": \"mock_56789\",\n      \"service\": \"AmazonSNS\"\n    },\n    {\n      \"accrued_at\": \"2023-06-01\",\n      \"amount\": \"100.0\",\n      \"currency\": \"USD\",\n      \"provider\": \"aws\",\n      \"account_id\": \"mock_56789\",\n      \"service\": \"AmazonSNS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bd5a9b8-120b-431a-b6e9-646a8e35b8c8",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cost_report_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "date_bin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settings[include_credits]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_refunds]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_discounts]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[include_tax]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[amortize]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[unallocated]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[aggregate_by]",
+                      "value": "cost"
+                    },
+                    {
+                      "key": "settings[show_previous_period]",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "813b5260-eb4f-4af5-adc6-1b69177e2fd9",
+              "name": "PaymentRequired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cost_report_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "date_bin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settings[include_credits]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_refunds]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_discounts]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[include_tax]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[amortize]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[unallocated]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[aggregate_by]",
+                      "value": "cost"
+                    },
+                    {
+                      "key": "settings[show_previous_period]",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b6625f3-31c4-4f18-ab8a-faf4d3eba7ec",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "costs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cost_report_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "date_bin",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settings[include_credits]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_refunds]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[include_discounts]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[include_tax]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[amortize]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "settings[unallocated]",
+                      "value": "false"
+                    },
+                    {
+                      "key": "settings[aggregate_by]",
+                      "value": "cost"
+                    },
+                    {
+                      "key": "settings[show_previous_period]",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73b94f6d-3b93-4e79-8d51-ef1adbc347ed",
+          "name": "Get all dashboards",
+          "request": {
+            "name": "Get all dashboards",
+            "description": {
+              "content": "Return all Dashboards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1ced99a-4a26-423c-8c7b-122523683833",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/dashboards\",\n    \"first\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"prev\": null\n  },\n  \"dashboards\": [\n    {\n      \"token\": \"dshbrd_13d78294a06f0f84\",\n      \"title\": \"Executive Overview\",\n      \"widget_tokens\": [\n        \"rprt_7c3cb814dfb6d881\"\n      ],\n      \"widgets\": [\n        {\n          \"widgetable_token\": \"rprt_7c3cb814dfb6d881\",\n          \"title\": \"Cost Report\",\n          \"settings\": {\n            \"display_type\": \"chart\"\n          }\n        }\n      ],\n      \"saved_filter_tokens\": [\n        \"svd_fltr_3c6f5eb635cf88de\"\n      ],\n      \"date_bin\": null,\n      \"date_interval\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"created_at\": \"2024-12-17T00:44:48Z\",\n      \"updated_at\": \"2024-12-17T00:44:48Z\",\n      \"workspace_token\": \"wrkspc_ea1a7802e5fe06b3\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e805b015-ac63-4016-a372-5433f2979f1f",
+          "name": "Create dashboard",
+          "request": {
+            "name": "Create dashboard",
+            "description": {
+              "content": "Create a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4859dac-d941-4673-a662-9661357c05ba",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"dshbrd_7e272e8d3de34719\",\n  \"title\": \"New Dashboard\",\n  \"widget_tokens\": [\n    \"fncl_cmnt_rprt_d4743c186c130e30\",\n    \"kbnts_eff_rprt_892d1566bd543b67\",\n    \"rprt_750074c1b25b372a\"\n  ],\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"fncl_cmnt_rprt_d4743c186c130e30\",\n      \"title\": \"All Financial Commitments\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    },\n    {\n      \"widgetable_token\": \"kbnts_eff_rprt_892d1566bd543b67\",\n      \"title\": \"All Kubernetes Nodes Efficiency\",\n      \"settings\": {\n        \"display_type\": \"table\"\n      }\n    },\n    {\n      \"widgetable_token\": \"rprt_750074c1b25b372a\",\n      \"title\": \"Azure Cost Report\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"svd_fltr_3f45aefa131861ac\"\n  ],\n  \"date_bin\": \"week\",\n  \"date_interval\": \"this_month\",\n  \"start_date\": \"2023-08-01\",\n  \"end_date\": \"2023-08-31\",\n  \"created_at\": \"2023-08-15T00:00:00Z\",\n  \"updated_at\": \"2023-08-15T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_08e043cc14ced776\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec5a32c8-f517-4059-a85c-933d26a99893",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6126173-530d-4687-8900-50ffa8c8d17c",
+          "name": "Get dashboard by token",
+          "request": {
+            "name": "Get dashboard by token",
+            "description": {
+              "content": "Return a specific Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d462c93c-79f8-4b1c-8cad-f93394558f03",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/dashboards\",\n    \"first\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"prev\": null\n  },\n  \"dashboards\": [\n    {\n      \"token\": \"dshbrd_e7c5b49d826b6f71\",\n      \"title\": \"Executive Overview\",\n      \"widget_tokens\": [\n        \"rprt_27e80d7a8d3f34e6\"\n      ],\n      \"widgets\": [\n        {\n          \"widgetable_token\": \"rprt_27e80d7a8d3f34e6\",\n          \"title\": \"Weekly Sales Report\",\n          \"settings\": {\n            \"display_type\": \"chart\"\n          }\n        }\n      ],\n      \"saved_filter_tokens\": [\n        \"svd_fltr_7bb508e881e7fe5f\"\n      ],\n      \"date_bin\": null,\n      \"date_interval\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"created_at\": \"2024-12-17T00:44:48Z\",\n      \"updated_at\": \"2024-12-17T00:44:48Z\",\n      \"workspace_token\": \"wrkspc_245288e3c3a7377f\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f961bcb5-005f-491a-9ec1-a74463e73184",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5eac364-498d-41a1-8e7f-1a54e1430750",
+          "name": "Update dashboard",
+          "request": {
+            "name": "Update dashboard",
+            "description": {
+              "content": "Update a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fda994bf-19b9-4355-9226-bd5ec123bd0c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"dshbrd_2c942eb3a8d3962a\",\n  \"title\": \"Updated Dashboard\",\n  \"widget_tokens\": [\n    \"fncl_cmnt_rprt_ea316a453acd20c0\",\n    \"kbnts_eff_rprt_e3fc91cb63fd5469\",\n    \"rprt_7b0be9c16c5a6785\"\n  ],\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"fncl_cmnt_rprt_ea316a453acd20c0\",\n      \"title\": \"All Financial Commitments\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    },\n    {\n      \"widgetable_token\": \"kbnts_eff_rprt_e3fc91cb63fd5469\",\n      \"title\": \"Kubernetes Efficiency Report\",\n      \"settings\": {\n        \"display_type\": \"table\"\n      }\n    },\n    {\n      \"widgetable_token\": \"rprt_7b0be9c16c5a6785\",\n      \"title\": \"Azure Report\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"svd_fltr_51c106391f7295b7\"\n  ],\n  \"date_bin\": \"week\",\n  \"date_interval\": \"this_month\",\n  \"start_date\": \"2023-08-01\",\n  \"end_date\": \"2023-08-31\",\n  \"created_at\": \"2024-12-17T00:44:45Z\",\n  \"updated_at\": \"2023-08-15T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_0e5c381029cdc016\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac7321ef-7f94-4d2f-8333-10f6ec995f6a",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd40c28e-c65e-405f-822f-539693bf3ec8",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbd65a0f-924c-419c-a715-f18b60b76915",
+          "name": "Delete dashboard",
+          "request": {
+            "name": "Delete dashboard",
+            "description": {
+              "content": "Delete a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "caea942c-767b-4242-99c7-c9a4938df111",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"date_bin\": \"week\",\n  \"date_interval\": \"custom\",\n  \"saved_filter_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": \"AWS Dashboard\",\n  \"token\": \"dshbrd_abcd1234567890\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"widgets\": [\n    {\n      \"settings\": {\n        \"display_type\": \"chart\"\n      },\n      \"title\": \"My Widget\",\n      \"widgetable_token\": \"rprt_a12b3c\"\n    },\n    {\n      \"settings\": {\n        \"display_type\": \"table\"\n      },\n      \"title\": \"My Widget\",\n      \"widgetable_token\": \"rprt_a12b3c\"\n    }\n  ],\n  \"workspace_token\": \"wrkspc_abcd1234567890\",\n  \"start_date\": \"2023-08-04\",\n  \"end_date\": \"2023-09-04\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2953432c-13f6-4284-8cd6-5cf90dc7945c",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4a350379-71c8-4587-8440-3fb7cb0c1509",
+    "name": "Vantage AccessGrants Costs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1201 @@
+{
+  "item": [
+    {
+      "id": "7ae19874-afe6-4a8c-88ab-cad74fcc5c67",
+      "name": "KubernetesEfficiencyReports",
+      "description": {
+        "content": "Operations about KubernetesEfficiencyReports",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4ca10ed-ac03-4950-a1c5-cacc51ac5d90",
+          "name": "Get all Kubernetes efficiency reports",
+          "request": {
+            "name": "Get all Kubernetes efficiency reports",
+            "description": {
+              "content": "Return all KubernetesEfficiencyReports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d2b6e17a-5fad-4a6c-b6f8-1b900eafae71",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/kubernetes_efficiency_reports\",\n    \"first\": \"https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/kubernetes_efficiency_reports?page=1\",\n    \"prev\": null\n  },\n  \"kubernetes_efficiency_reports\": [\n    {\n      \"token\": \"kbnts_eff_rprt_f8d610afacc7e6c6\",\n      \"title\": \"Cluster Idle Costs\",\n      \"default\": false,\n      \"created_at\": \"2024-10-25T21:20:43Z\",\n      \"workspace_token\": \"wrkspc_64768b29bebf9dfe\",\n      \"user_token\": null,\n      \"start_date\": \"2024-10-01\",\n      \"end_date\": \"2024-10-31\",\n      \"date_interval\": \"this_month\",\n      \"date_bucket\": \"day\",\n      \"aggregated_by\": \"idle_cost\",\n      \"groupings\": \"cluster_id\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40cdb2bf-58d8-4587-b7b5-4252a45a8716",
+          "name": "Create Kubernetes efficiency report",
+          "request": {
+            "name": "Create Kubernetes efficiency report",
+            "description": {
+              "content": "Create a KubernetesEfficiencyReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdd4ed30-2ab8-43cb-a272-5be6a00e9e0d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"kbnts_eff_rprt_b5c0eedc83b259be\",\n  \"title\": \"title\",\n  \"default\": false,\n  \"created_at\": \"2024-11-05T20:32:30Z\",\n  \"workspace_token\": \"wrkspc_71e915f9671fa270\",\n  \"user_token\": null,\n  \"start_date\": \"2024-11-01\",\n  \"end_date\": \"2024-11-30\",\n  \"date_interval\": \"this_month\",\n  \"date_bucket\": \"day\",\n  \"aggregated_by\": \"idle_cost\",\n  \"groupings\": \"cluster_id\",\n  \"filter\": \"kubernetes.cluster_id   =   'cluster-1'\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87f3b6b3-5974-4b44-a3ed-e3ca022549e5",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5077419b-408a-4a56-941b-4c2ed199785d",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24cf8077-864c-4a1a-9238-51027a65ff73",
+          "name": "Generate Kubernetes efficiency data export",
+          "request": {
+            "name": "Generate Kubernetes efficiency data export",
+            "description": {
+              "content": "Generate a DataExport of Kubernetes efficiency data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports",
+                "data_exports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "groupings",
+                  "value": "<string>,<string>",
+                  "description": "Group the results by specific field(s). Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kubernetes_efficiency_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a8dd6f1-e292-43e5-b5ef-bdf776e0cb93",
+              "name": "The data export has been queued and will be available at the location specified in the Location header.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kubernetes_efficiency_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {},\n  \"created_at\": \"2025-03-20T12:00:00Z\",\n  \"export_type\": \"cost_report\",\n  \"manifest\": {\n    \"completed_at\": \"2025-03-20T12:00:00Z\",\n    \"files\": [\n      \"\",\n      \"\"\n    ],\n    \"valid_until\": \"2025-03-20T12:00:00Z\"\n  },\n  \"status\": \"pending\",\n  \"token\": \"dta_xprt_abcd1234567890\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39741cf7-4fa3-426a-b50f-17ddf2ec6788",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kubernetes_efficiency_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec764ec9-a9a1-4403-b1bf-6fdd7fdf007a",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    "data_exports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupings",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kubernetes_efficiency_report_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"date_bin\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36d7a448-03f0-4d6b-899b-5f4ae5e0f3e5",
+          "name": "Get Kubernetes efficiency report by token",
+          "request": {
+            "name": "Get Kubernetes efficiency report by token",
+            "description": {
+              "content": "Return a KubernetesEfficiencyReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports",
+                ":kubernetes_efficiency_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "kubernetes_efficiency_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10f7cee0-3c7e-4bd1-9013-587bc158435f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"kbnts_eff_rprt_8f8b9caaffee230b\",\n  \"title\": \"+1 disrupt.\",\n  \"default\": false,\n  \"created_at\": \"2024-10-25T21:20:43Z\",\n  \"workspace_token\": \"wrkspc_d6ab5f555d9bd0b5\",\n  \"user_token\": null,\n  \"start_date\": \"2024-10-01\",\n  \"end_date\": \"2024-10-31\",\n  \"date_interval\": \"this_month\",\n  \"date_bucket\": \"day\",\n  \"aggregated_by\": \"idle_cost\",\n  \"groupings\": \"cluster_id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "528f2a2e-7b43-4aac-b335-c2874d0a80bc",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11bde8fe-44cd-46a7-a60c-5d17fd59e0a4",
+          "name": "Update Kubernetes efficiency report",
+          "request": {
+            "name": "Update Kubernetes efficiency report",
+            "description": {
+              "content": "Update a KubernetesEfficiencyReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports",
+                ":kubernetes_efficiency_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "kubernetes_efficiency_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "74588d23-eca1-4677-bd5e-b8f048d91c21",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"kbnts_eff_rprt_f9ee5fadf5e1a6e6\",\n  \"title\": \"new title\",\n  \"default\": false,\n  \"created_at\": \"2024-10-25T21:20:42Z\",\n  \"workspace_token\": \"wrkspc_303c3228e22ccb6f\",\n  \"user_token\": null,\n  \"start_date\": \"2024-10-01\",\n  \"end_date\": \"2024-10-31\",\n  \"date_interval\": \"this_month\",\n  \"date_bucket\": \"day\",\n  \"aggregated_by\": \"idle_cost\",\n  \"groupings\": \"cluster_id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16179b69-68d4-470c-b8d4-b96ae1f98b95",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "707a5ea9-7afc-4c6a-9566-6a3a5a8f17fe",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"aggregated_by\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e461e0e2-cb18-464c-9550-fb3fbdf5c367",
+          "name": "Delete Kubernetes efficiency report",
+          "request": {
+            "name": "Delete Kubernetes efficiency report",
+            "description": {
+              "content": "Delete a KubernetesEfficiencyReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kubernetes_efficiency_reports",
+                ":kubernetes_efficiency_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "kubernetes_efficiency_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "15b5413d-0422-4f46-bb74-624187bca834",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aggregated_by\": \"string\",\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"date_bucket\": \"month\",\n  \"date_interval\": \"last_month\",\n  \"default\": false,\n  \"end_date\": \"2024-03-20\",\n  \"filter\": \"string\",\n  \"groupings\": \"cluster_id, namespace\",\n  \"start_date\": \"2024-03-01\",\n  \"title\": \"Acme123 Kubernetes Efficiency Metrics\",\n  \"token\": \"string\",\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6785e34d-9880-4748-9906-5d966b40b7e8",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kubernetes_efficiency_reports",
+                    ":kubernetes_efficiency_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "kubernetes_efficiency_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16dff62f-4963-49d2-8922-658d24850ade",
+    "name": "Vantage AccessGrants KubernetesEfficiencyReports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

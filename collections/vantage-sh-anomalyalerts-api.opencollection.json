@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants AnomalyAlerts API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AnomalyAlerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all anomaly alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/anomaly_alerts",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 1000."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date of the anomalies to return. ISO 8601 formatted."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the anomalies to return. ISO 8601 formatted."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "The provider of the anomalies to return."
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "The service of the anomalies to return."
+              },
+              {
+                "name": "cost_category",
+                "value": "",
+                "type": "query",
+                "description": "The cost category of the anomalies to return."
+              },
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "query",
+                "description": "The cost report token of the anomalies to return."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Anomaly Alerts that the current API token has access to."
+        },
+        {
+          "info": {
+            "name": "Get anomaly alert by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/anomaly_alerts/:anomaly_alert_token",
+            "params": [
+              {
+                "name": "anomaly_alert_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return an AnomalyAlert that the current API token has access to."
+        },
+        {
+          "info": {
+            "name": "Update anomaly alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vantage.sh/v2/anomaly_alerts/:anomaly_alert_token",
+            "params": [
+              {
+                "name": "anomaly_alert_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update an AnomalyAlert."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

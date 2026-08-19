@@ -1,0 +1,1156 @@
+{
+  "item": [
+    {
+      "id": "5c9a83c1-a066-4982-a93b-53eb23107969",
+      "name": "Recommendations",
+      "description": {
+        "content": "Operations about Recommendations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa973dae-1ace-45ff-9d12-c81a3d7c4a65",
+          "name": "Get all recommendations",
+          "request": {
+            "name": "Get all recommendations",
+            "description": {
+              "content": "Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by one or more providers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_account_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by billing account identifiers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by account identifiers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "regions",
+                  "value": "<string>,<string>",
+                  "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_key",
+                  "value": "<string>",
+                  "description": "Filter by tag key (must be used with tag_value). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Filter by tag value (requires tag_key). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_savings",
+                  "value": "<float>",
+                  "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results to return. The maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_token",
+                  "value": "<string>",
+                  "description": "Filter by workspace."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider_account_id",
+                  "value": "<string>",
+                  "description": "Filter by provider account id (AWS account, Azure subscription id, etc)."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter by exact recommendation category. Ignored when type is provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "Filter by provider."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f0f3765-b62b-4245-82ab-99e64ed669ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "billing_account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "tag_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_savings",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider_account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/recommendations\",\n    \"first\": \"https://api.vantage.sh/v2/recommendations?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/recommendations?page=1\",\n    \"prev\": null\n  },\n  \"recommendations\": [\n    {\n      \"token\": \"rcmmndtn_9bb8fa992d5b876b\",\n      \"type\": null,\n      \"category\": \"ip_unattached\",\n      \"workspace_token\": \"wrkspc_e0e58b3c1ddef29c\",\n      \"provider\": \"aws\",\n      \"provider_account_id\": \"123456789012\",\n      \"description\": \"IP address is not attached to an instance.\",\n      \"documentation_url\": \"https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources\",\n      \"potential_savings\": \"100.0\",\n      \"service\": \"AWS IP\",\n      \"created_at\": \"2026-01-28T16:53:32Z\",\n      \"resources_affected_count\": 0,\n      \"currency_code\": \"USD\",\n      \"currency_symbol\": \"$\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4971d34b-917f-4d35-b243-ed8ea2880c8b",
+          "name": "Get recommendation by token",
+          "request": {
+            "name": "Get recommendation by token",
+            "description": {
+              "content": "Return a Recommendation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations",
+                ":recommendation_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9e60c7b-6054-42bf-936e-de153de02a4a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    ":recommendation_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rcmmndtn_0eea161ff1a4d183\",\n  \"type\": null,\n  \"category\": \"ip_unattached\",\n  \"workspace_token\": \"wrkspc_634a8ca67ed39555\",\n  \"provider\": \"aws\",\n  \"provider_account_id\": \"123456789012\",\n  \"description\": \"IP address is not attached to an instance.\",\n  \"documentation_url\": \"https://handbook.vantage.sh/aws/services/ec2-other-pricing/#stranded-resources\",\n  \"potential_savings\": \"100.0\",\n  \"service\": \"AWS IP\",\n  \"created_at\": \"2026-01-28T16:53:23Z\",\n  \"resources_affected_count\": 0,\n  \"currency_code\": \"USD\",\n  \"currency_symbol\": \"$\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b27bfd72-da62-4493-a115-ca1200e7775b",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    ":recommendation_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd17e265-bfd8-4b6e-aa65-1e782cd1eeff",
+          "name": "Get all resources for a recommendation",
+          "request": {
+            "name": "Get all resources for a recommendation",
+            "description": {
+              "content": "Return all Active Resources, including Recommendation Actions, referenced in this Recommendation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations",
+                ":recommendation_token",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results to return. Defaults to 25. The maximum is 500."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "df946c7d-8660-4d12-8c46-55bb9947fe5a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    ":recommendation_token",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources\",\n    \"first\": \"https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/recommendations/rcmmndtn_073dad68f8be41a2/resources?page=1\",\n    \"prev\": null\n  },\n  \"resources\": [\n    {\n      \"token\": \"prvdr_rsrc_8ec00e4b4c410538\",\n      \"resource_id\": \"i-12345\",\n      \"recommendation_actions\": [\n        {\n          \"action\": \"modify\",\n          \"description\": \"Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.\",\n          \"potential_savings\": \"100.0\",\n          \"instance_type\": \"c5a.xlarge\",\n          \"remediation_cli_command\": \"aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type '{\\\"Value\\\": \\\"c5a.xlarge\\\"}'\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9653e34e-871f-4273-868f-5c0485cd40cf",
+          "name": "Get specific resource for a recommendation",
+          "request": {
+            "name": "Get specific resource for a recommendation",
+            "description": {
+              "content": "Return an Active Resource, including Recommendation Actions, referenced in this Recommendation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations",
+                ":recommendation_token",
+                "resources",
+                ":resource_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_token",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4aa55002-ff16-4f79-abc1-219264343f9f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    ":recommendation_token",
+                    "resources",
+                    ":resource_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_token",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"prvdr_rsrc_3065ac9b0999c363\",\n  \"resource_id\": \"i-12345\",\n  \"recommendation_actions\": [\n    {\n      \"action\": \"modify\",\n      \"description\": \"Migrate to c5a.xlarge. Reasons: CPU over-provisioned, EBS IOPS over-provisioned, EBS throughput over-provisioned, Network bandwidth over-provisioned, and Network PPS over-provisioned.\",\n      \"potential_savings\": \"100.0\",\n      \"instance_type\": \"c5a.xlarge\",\n      \"remediation_cli_command\": \"aws ec2 modify-instance-attribute --instance-id i-12345 --instance-type '{\\\"Value\\\": \\\"c5a.xlarge\\\"}'\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b04cd997-eb28-480a-bc43-99f4984a78b4",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    ":recommendation_token",
+                    "resources",
+                    ":resource_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_token",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f4a9136-deba-4e47-b7a0-ba981ab16e02",
+          "name": "Get all resources for a recommendation type",
+          "request": {
+            "name": "Get all resources for a recommendation type",
+            "description": {
+              "content": "Return all Active Resources associated with recommendations of the specified type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations",
+                "by_type",
+                ":type",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by one or more providers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_account_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by billing account identifiers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>,<string>",
+                  "description": "Filter by account identifiers. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "regions",
+                  "value": "<string>,<string>",
+                  "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_key",
+                  "value": "<string>",
+                  "description": "Filter by tag key (must be used with tag_value). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_value",
+                  "value": "<string>",
+                  "description": "Filter by tag value (requires tag_key). Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_savings",
+                  "value": "<float>",
+                  "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results to return. The maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_token",
+                  "value": "<string>",
+                  "description": "(Required) The workspace token to filter recommendations by. Required."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22320e55-c4e9-4685-a1c8-5f8bc7466cb1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    "by_type",
+                    ":type",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "billing_account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "tag_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_savings",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resources\": [\n    {\n      \"token\": \"pvdr_rsrc_abc123\",\n      \"resource_id\": \"i-1234567890abcdef0\",\n      \"recommendation_actions\": [\n        {\n          \"action\": \"modify\",\n          \"instance_type\": \"c5a.xlarge\",\n          \"description\": \"Migrate to c5a.xlarge for cost savings.\",\n          \"potential_savings\": \"100.00\"\n        }\n      ]\n    }\n  ],\n  \"links\": {\n    \"first\": \"/v2/recommendations/by_type/aws:ec2:co-rightsizing/resources?workspace_token=wrkspc_abc123&page=1\",\n    \"last\": \"/v2/recommendations/by_type/aws:ec2:co-rightsizing/resources?workspace_token=wrkspc_abc123&page=1\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13a798dd-8a7b-4a65-8844-0fcd3d98dab3",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    "by_type",
+                    ":type",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "billing_account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "regions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "tag_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_savings",
+                      "value": "<float>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ca6f4df9-a10f-417c-9e37-e1a1de69315a",
+    "name": "Vantage AccessGrants Recommendations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

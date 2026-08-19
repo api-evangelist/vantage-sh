@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants AuditLogs API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AuditLogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/audit_logs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. Defaults to 100. The maximum is 5000."
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "Filter by personal or service API token that performed the action."
+              },
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace token."
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "Filter by action type."
+              },
+              {
+                "name": "object_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by object name."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by source."
+              },
+              {
+                "name": "object_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by object type."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Filter by audit log token."
+              },
+              {
+                "name": "object_token",
+                "value": "",
+                "type": "query",
+                "description": "Filter by object token (auditable_token)."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start date (ISO 8601 format, e.g., 2024-06-01)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end date (ISO 8601 format, e.g., 2024-06-01)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all AuditLogs."
+        },
+        {
+          "info": {
+            "name": "Get audit log by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/audit_logs/:audit_log_token",
+            "params": [
+              {
+                "name": "audit_log_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return a specific AuditLog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

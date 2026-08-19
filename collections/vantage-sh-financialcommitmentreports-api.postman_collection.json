@@ -1,0 +1,958 @@
+{
+  "item": [
+    {
+      "id": "74f5d837-c4c2-4a54-a473-6d0f4601f67c",
+      "name": "FinancialCommitmentReports",
+      "description": {
+        "content": "Operations about FinancialCommitmentReports",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5ad504a-a467-42a5-99c1-2a9e5797ae76",
+          "name": "Get all financial commitment reports",
+          "request": {
+            "name": "Get all financial commitment reports",
+            "description": {
+              "content": "Return all FinancialCommitmentReports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitment_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acf4fa86-a079-4ca6-8682-8b3d4d35ae41",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/financial_commitment_reports\",\n    \"first\": \"https://api.vantage.sh/v2/financial_commitment_reports?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/financial_commitment_reports?page=1\",\n    \"prev\": null\n  },\n  \"financial_commitment_reports\": [\n    {\n      \"token\": \"fncl_cmnt_rprt_28bc840bf137769c\",\n      \"title\": \"All Financial Commitments\",\n      \"default\": false,\n      \"created_at\": \"2025-01-27T21:42:06Z\",\n      \"workspace_token\": \"wrkspc_f8d8bd5e493a734c\",\n      \"user_token\": null,\n      \"start_date\": \"2024-10-01\",\n      \"end_date\": \"2025-01-25\",\n      \"date_interval\": \"last_3_months\",\n      \"date_bucket\": \"month\",\n      \"groupings\": \"cost_type\",\n      \"on_demand_costs_scope\": \"discountable\",\n      \"filter\": \"(financial_commitments.provider = 'aws')\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d08e2cf-ccb7-4736-9c3b-7af9ce7b6155",
+          "name": "Create financial commitment report",
+          "request": {
+            "name": "Create financial commitment report",
+            "description": {
+              "content": "Create a FinancialCommitmentReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitment_reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cdd4a7c-b580-41ba-97dd-c5ec34075a91",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fncl_cmnt_rprt_d0f702a7d0ff20a4\",\n  \"title\": \"title\",\n  \"default\": false,\n  \"created_at\": \"2025-01-27T21:42:07Z\",\n  \"workspace_token\": \"wrkspc_609f0ae3bffb9f37\",\n  \"user_token\": null,\n  \"start_date\": \"2024-10-01\",\n  \"end_date\": \"2025-01-25\",\n  \"date_interval\": \"last_3_months\",\n  \"date_bucket\": \"month\",\n  \"groupings\": \"cost_type\",\n  \"on_demand_costs_scope\": \"discountable\",\n  \"filter\": \"financial_commitments.provider = 'aws'\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2f4d07f-7029-4f01-b8ae-e503713a92cf",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e19519a2-3c0e-4e74-bff3-8873a72204c3",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6961706-96c9-4275-b01e-2936f7833a80",
+          "name": "Get financial commitment report by token",
+          "request": {
+            "name": "Get financial commitment report by token",
+            "description": {
+              "content": "Return a FinancialCommitmentReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "financial_commitment_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c61011c-4ed5-41a7-9372-dfa364e2ade1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fncl_cmnt_rprt_86a93126175f91ed\",\n  \"title\": \"All Financial Commitments\",\n  \"default\": false,\n  \"created_at\": \"2025-01-27T21:42:04Z\",\n  \"workspace_token\": \"wrkspc_0e9408c2a0682914\",\n  \"user_token\": null,\n  \"start_date\": \"2024-10-01\",\n  \"end_date\": \"2025-01-25\",\n  \"date_interval\": \"last_3_months\",\n  \"date_bucket\": \"month\",\n  \"groupings\": \"cost_type\",\n  \"on_demand_costs_scope\": \"discountable\",\n  \"filter\": \"(financial_commitments.provider = 'aws')\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9eea1bf9-add1-4683-ab23-631c93317ee6",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "591ae0a5-c672-443b-890e-854b983a398e",
+          "name": "Update financial commitment report",
+          "request": {
+            "name": "Update financial commitment report",
+            "description": {
+              "content": "Update a FinancialCommitmentReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "financial_commitment_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fffd3b53-1845-4de4-a1c1-8b97e8b7c021",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fncl_cmnt_rprt_38f1d3fcee354f6a\",\n  \"title\": \"new title\",\n  \"default\": false,\n  \"created_at\": \"2025-01-27T21:42:06Z\",\n  \"workspace_token\": \"wrkspc_358df7afe2a742fb\",\n  \"user_token\": null,\n  \"start_date\": \"2024-10-01\",\n  \"end_date\": \"2025-01-25\",\n  \"date_interval\": \"last_3_months\",\n  \"date_bucket\": \"week\",\n  \"groupings\": \"cost_type,commitment_type\",\n  \"on_demand_costs_scope\": \"discountable\",\n  \"filter\": \"(financial_commitments.provider = 'aws')\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d07381c9-651d-4ec4-b7c8-35eca0ae4e8f",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63be483e-9520-4b1e-bd7b-5963483afa32",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"start_date\": \"2024-03-01\",\n  \"end_date\": \"2024-03-01\",\n  \"date_interval\": \"<string>\",\n  \"date_bucket\": \"<string>\",\n  \"on_demand_costs_scope\": \"<string>\",\n  \"groupings\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d76c8c76-0574-4608-967b-40622f95a327",
+          "name": "Delete financial commitment report",
+          "request": {
+            "name": "Delete financial commitment report",
+            "description": {
+              "content": "Delete a FinancialCommitmentReport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitment_reports",
+                ":financial_commitment_report_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "financial_commitment_report_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "30432893-d1e4-40a7-af56-c208b09313b3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"date_bucket\": \"month\",\n  \"date_interval\": \"last_month\",\n  \"default\": false,\n  \"end_date\": \"2024-03-20\",\n  \"filter\": \"string\",\n  \"groupings\": \"cost_type, tag:account\",\n  \"on_demand_costs_scope\": \"discountable\",\n  \"start_date\": \"2024-03-01\",\n  \"title\": \"Acme123 Financial Commitment Report\",\n  \"token\": \"string\",\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "620490ff-8d54-4b2c-8e87-10f92e714830",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitment_reports",
+                    ":financial_commitment_report_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "financial_commitment_report_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9a064948-4056-4cea-96f6-500491251e04",
+    "name": "Vantage AccessGrants FinancialCommitmentReports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

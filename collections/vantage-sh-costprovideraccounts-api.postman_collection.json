@@ -1,0 +1,185 @@
+{
+  "item": [
+    {
+      "id": "42a687cf-ddaa-4326-acfc-01e3144b6816",
+      "name": "CostProviderAccounts",
+      "description": {
+        "content": "Operations about CostProviderAccounts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1228c388-241d-4357-949f-12e8c4802a8c",
+          "name": "Get all cost provider accounts",
+          "request": {
+            "name": "Get all cost provider accounts",
+            "description": {
+              "content": "List CostProviderAccounts available in a given Workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_provider_accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_token",
+                  "value": "<string>",
+                  "description": "The token of the Workspace to list CostProviderAccounts for. Required if the API token is associated with multiple Workspaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "Filter by provider type."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<string>",
+                  "description": "Filter by provider account identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_name",
+                  "value": "<string>",
+                  "description": "Filter by account name (exact match)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e936052c-6d06-4bd7-9bbf-f2d0b4fd7cef",
+              "name": "List of provider accounts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_provider_accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cost_provider_accounts\": [\n    {\n      \"title\": \"Azure Development Account\",\n      \"account_id\": \"azure-subscription-id\",\n      \"provider_uuid\": \"azure-subscription-uuid\",\n      \"provider\": \"azure\"\n    },\n    {\n      \"title\": \"AWS Test Account\",\n      \"account_id\": \"999888777666\",\n      \"provider_uuid\": \"arn:aws:organizations::999888777666:account/o-test123456/999888777666\",\n      \"provider\": \"aws\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20c358ea-2d2d-4a53-b0e7-25369eba597b",
+    "name": "Vantage AccessGrants CostProviderAccounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

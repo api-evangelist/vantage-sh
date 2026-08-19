@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants UnitCosts API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "UnitCosts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate data export of unit costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vantage.sh/v2/unit_costs/data_exports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generate a DataExport of unit costs."
+        },
+        {
+          "info": {
+            "name": "Get all unit costs for a cost report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/unit_costs",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "query",
+                "description": "The CostReport token."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted."
+              },
+              {
+                "name": "date_bin",
+                "value": "",
+                "type": "query",
+                "description": "The date bin of the unit costs. Defaults to the report's default or day."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Whether to order unit costs by date in an ascending or descending manner."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 1000."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all UnitCosts for a CostReport."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

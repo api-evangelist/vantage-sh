@@ -1,0 +1,907 @@
+{
+  "item": [
+    {
+      "id": "a9b16f1c-9f93-4214-b17b-d8fad1fe7027",
+      "name": "BillingRules",
+      "description": {
+        "content": "Operations about BillingRules",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6cc0b8b1-545d-4cd5-8dd8-fd95bda1234a",
+          "name": "Get all billing rules",
+          "request": {
+            "name": "Get all billing rules",
+            "description": {
+              "content": "Returns a list of billing rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "07ed1885-7d12-46b1-bc76-1a21945ff19c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/billing_rules\",\n    \"first\": \"https://api.vantage.sh/v2/billing_rules?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/billing_rules?page=1\",\n    \"prev\": null\n  },\n  \"billing_rules\": [\n    {\n      \"token\": \"bllng_rule_ac6852c686e265a1\",\n      \"title\": \"Exclude Reserved Instance Fees\",\n      \"type\": \"Exclusion\",\n      \"created_by_token\": \"usr_018532419bd2e1da\",\n      \"created_at\": \"2024-07-02T15:26:51Z\",\n      \"charge_type\": \"Reserved Instance Fees\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1959a91-d1c6-44f9-ae85-e809feef3fb3",
+          "name": "Create billing rule",
+          "request": {
+            "name": "Create billing rule",
+            "description": {
+              "content": "Create a BillingRule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"sql_query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d01dd14-7f25-4cb3-9acc-69aa0e313dd2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"sql_query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bllng_rule_9cc9eab6bb73266b\",\n  \"title\": \"Credit for Data Transfer\",\n  \"type\": \"Credit\",\n  \"created_by_token\": \"usr_ae0b14f6c9108edc\",\n  \"created_at\": \"2024-07-02T15:26:52Z\",\n  \"service\": \"Amazon S3\",\n  \"category\": \"Data Transfer\",\n  \"sub_category\": \"Outbound\",\n  \"start_period\": \"2024-05-01\",\n  \"amount\": \"300.0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e948c84e-1cdd-4ce5-9503-2959a4e07bc9",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"sql_query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "221b60a9-08f0-4df8-a76e-d65e60aece67",
+          "name": "Get billing rule by token",
+          "request": {
+            "name": "Get billing rule by token",
+            "description": {
+              "content": "Return a BillingRule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_rules",
+                ":billing_rule_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_rule_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b262a047-1f51-4727-b0b1-25a7b0f21708",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bllng_rule_a2708f17b2d3fb0e\",\n  \"title\": \"Exclude Reserved Instance Fees\",\n  \"type\": \"Exclusion\",\n  \"created_by_token\": \"usr_d253a52c80171514\",\n  \"created_at\": \"2024-07-02T15:26:50Z\",\n  \"charge_type\": \"Reserved Instance Fees\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89519d5c-fbd3-436c-8d91-466549f043d9",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a17f535-fdd4-4dac-bf54-ae787c36b1c8",
+          "name": "Update billing rule",
+          "request": {
+            "name": "Update billing rule",
+            "description": {
+              "content": "Update a BillingRule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_rules",
+                ":billing_rule_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_rule_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"sql_query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfc5f2e0-85c5-4089-9ee6-262e51f73540",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"sql_query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bllng_rule_16c2d217f026d23e\",\n  \"title\": \"Updated Adjustment\",\n  \"type\": \"Adjustment\",\n  \"created_by_token\": \"usr_cef510966067477f\",\n  \"created_at\": \"2024-07-02T15:26:52Z\",\n  \"service\": \"Amazon S3\",\n  \"category\": \"Data Transfer\",\n  \"adjusted_rate\": \"0.85\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b34b4390-e685-4551-9b87-ccbc03bffc69",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"sql_query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ec00da2-67fd-488c-b7e4-6bd0453c546c",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"charge_type\": \"<string>\",\n  \"percentage\": \"<double>\",\n  \"service\": \"<string>\",\n  \"category\": \"<string>\",\n  \"sub_category\": \"<string>\",\n  \"start_period\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"apply_to_all\": \"<boolean>\",\n  \"sql_query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de4ec9e9-676b-4d30-b439-a45ebf8ba929",
+          "name": "Delete billing rule",
+          "request": {
+            "name": "Delete billing rule",
+            "description": {
+              "content": "Delete a BillingRule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_rules",
+                ":billing_rule_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_rule_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e3d526a-749c-44b0-80f5-f599f6bb0982",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apply_to_all\": true,\n  \"created_at\": \"2024-06-28T00:00:00Z\",\n  \"created_by_token\": \"usr_1234\",\n  \"title\": \"Credit for Unused EC2 Instances\",\n  \"token\": \"string\",\n  \"type\": \"credit\",\n  \"start_date\": \"2024-06-28T00:00:00Z\",\n  \"end_date\": \"2024-06-28T00:00:00Z\",\n  \"service\": \"AWS Cloudfront\",\n  \"category\": \"MSP Fee\",\n  \"percentage\": \"75.0\",\n  \"charge_type\": \"RIFee\",\n  \"sub_category\": \"One-time\",\n  \"start_period\": \"2024-05-01\",\n  \"amount\": \"5000.25\",\n  \"sql_query\": \"UPDATE costs SET costs.amount = costs.amount * 0.95\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97b4355a-4530-4a57-862d-5de923b3220e",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_rules",
+                    ":billing_rule_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_rule_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "79da63e2-011a-4fc9-9515-33c84e4b3217",
+    "name": "Vantage AccessGrants BillingRules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1638 @@
+{
+  "item": [
+    {
+      "id": "445ef78a-87fe-4e78-aba3-8a10d26777b3",
+      "name": "ManagedAccounts",
+      "description": {
+        "content": "Operations about ManagedAccounts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "937e8f85-8740-4f78-abab-31f85fc8f02c",
+          "name": "Get all managed accounts",
+          "request": {
+            "name": "Get all managed accounts",
+            "description": {
+              "content": "Returns a list of managed accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f8a4d289-f410-4c64-8848-1c07581aff57",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/managed_accounts\",\n    \"first\": \"https://api.vantage.sh/v2/managed_accounts?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/managed_accounts?page=1\",\n    \"prev\": null\n  },\n  \"managed_accounts\": [\n    {\n      \"token\": \"acct_be30cfd09cf0b3c5\",\n      \"name\": \"Rep. Gavin Berge\",\n      \"contact_email\": \"gavin_berge_rep@orn.net\",\n      \"parent_account_token\": \"acct_f95654a3aefab4b7\",\n      \"access_credential_tokens\": [],\n      \"billing_rule_tokens\": [],\n      \"email_domain\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d8610d4-80e0-4924-b9fd-94a4cebad219",
+          "name": "Create managed account",
+          "request": {
+            "name": "Create managed account",
+            "description": {
+              "content": "Create a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact_email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2f254c3-5116-49f8-b1f0-85283fe3c77f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"acct_ace620fc3d602740\",\n  \"name\": \"New Managed Account\",\n  \"contact_email\": \"admin@acme.com\",\n  \"parent_account_token\": \"acct_e6baa6dcf81b4e20\",\n  \"access_credential_tokens\": [\n    \"accss_crdntl_72a8c8ab1d6c9d2c\"\n  ],\n  \"billing_rule_tokens\": [],\n  \"email_domain\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28e47f9d-a8c4-4fe7-90a6-6e863b379205",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact_email\": \"<string>\",\n  \"name\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "021746d6-45c4-4eda-b075-5f43e2f1ec4d",
+          "name": "Get managed account by token",
+          "request": {
+            "name": "Get managed account by token",
+            "description": {
+              "content": "Return a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d4e800df-9700-4958-97a6-14bac6800f4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"acct_d3f99e1941a01861\",\n  \"name\": \"Tamisha Mohr\",\n  \"contact_email\": \"mohr_tamisha@vandervort.io\",\n  \"parent_account_token\": \"acct_aaa060a863c2012b\",\n  \"access_credential_tokens\": [],\n  \"billing_rule_tokens\": [],\n  \"email_domain\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1a3bd43-386e-465d-adfb-1a097d6d029a",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74e4f9b7-c340-4ba2-a877-508fd37a9490",
+          "name": "Update managed account",
+          "request": {
+            "name": "Update managed account",
+            "description": {
+              "content": "Update a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"contact_email\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\",\n  \"msp_billing_profile_token\": \"<string>\",\n  \"payment_terms_days\": \"<integer>\",\n  \"include_managed_account_integrations\": \"<boolean>\",\n  \"billing_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1acac0a8-fc42-4910-a404-426044d39355",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"contact_email\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\",\n  \"msp_billing_profile_token\": \"<string>\",\n  \"payment_terms_days\": \"<integer>\",\n  \"include_managed_account_integrations\": \"<boolean>\",\n  \"billing_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"acct_dd2fdf6564b60319\",\n  \"name\": \"New Name\",\n  \"contact_email\": \"newguy@acme.com\",\n  \"parent_account_token\": \"acct_bb022aecd1125ada\",\n  \"access_credential_tokens\": [\n    \"accss_crdntl_686904ffd39a4618\"\n  ],\n  \"billing_rule_tokens\": [],\n  \"email_domain\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec1f4376-2266-4057-98c1-9da3af540b7a",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"contact_email\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\",\n  \"msp_billing_profile_token\": \"<string>\",\n  \"payment_terms_days\": \"<integer>\",\n  \"include_managed_account_integrations\": \"<boolean>\",\n  \"billing_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "992aa8b0-099c-4a69-bf6e-b00c0a36b951",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"contact_email\": \"<string>\",\n  \"access_credential_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_rule_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email_domain\": \"<string>\",\n  \"msp_billing_profile_token\": \"<string>\",\n  \"payment_terms_days\": \"<integer>\",\n  \"include_managed_account_integrations\": \"<boolean>\",\n  \"billing_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"id\": \"<integer>\",\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c71c9d2e-c812-4961-b873-eededb139874",
+          "name": "Delete managed account",
+          "request": {
+            "name": "Delete managed account",
+            "description": {
+              "content": "Delete a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9ee6ce67-dfd5-4309-9a1a-7319d519c615",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_credential_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"billing_rule_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"contact_email\": \"string\",\n  \"name\": \"string\",\n  \"parent_account_token\": \"string\",\n  \"token\": \"string\",\n  \"email_domain\": \"string\",\n  \"msp_billing_profile_token\": \"string\",\n  \"payment_terms_days\": 7432,\n  \"include_managed_account_integrations\": false,\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55d5ced7-7b65-4f81-acfb-860fd8137775",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "614ff3c9-bab5-4e3d-9b24-f3090bff6aca",
+          "name": "Update SSO configuration for managed account",
+          "request": {
+            "name": "Update SSO configuration for managed account",
+            "description": {
+              "content": "Update SSO configuration for a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token",
+                "sso_connection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3def8298-1685-4399-9e85-7b6bf6188ee0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_credential_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"billing_rule_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"contact_email\": \"string\",\n  \"name\": \"string\",\n  \"parent_account_token\": \"string\",\n  \"token\": \"string\",\n  \"email_domain\": \"string\",\n  \"msp_billing_profile_token\": \"string\",\n  \"payment_terms_days\": 5146,\n  \"include_managed_account_integrations\": false,\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d65fbcd-70bd-49a4-a969-9c1b08172158",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f8a6472-8c5a-483e-aa57-d78bb6076dd6",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92054271-66f2-422b-8ea1-7350b67f21ec",
+          "name": "Configure SSO for managed account",
+          "request": {
+            "name": "Configure SSO for managed account",
+            "description": {
+              "content": "Configure SSO for a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token",
+                "sso_connection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bebdd63d-b574-4507-988b-3d77494dd1a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_credential_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"billing_rule_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"contact_email\": \"string\",\n  \"name\": \"string\",\n  \"parent_account_token\": \"string\",\n  \"token\": \"string\",\n  \"email_domain\": \"string\",\n  \"msp_billing_profile_token\": \"string\",\n  \"payment_terms_days\": 5146,\n  \"include_managed_account_integrations\": false,\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfa0a498-7df8-4621-b01a-3954304a9e62",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fd62efb-9e85-4e19-b83d-ea48113e0d4f",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"saml_metadata_url\": \"<string>\",\n  \"additional_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2747454-96d3-47ce-a3aa-a7ae71577883",
+          "name": "Delete SSO connection for managed account",
+          "request": {
+            "name": "Delete SSO connection for managed account",
+            "description": {
+              "content": "Delete SSO connection for a Managed Account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managed_accounts",
+                ":managed_account_token",
+                "sso_connection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "managed_account_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67a420f0-6f05-4606-b4dd-4899ba8f5056",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_credential_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"billing_rule_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"contact_email\": \"string\",\n  \"name\": \"string\",\n  \"parent_account_token\": \"string\",\n  \"token\": \"string\",\n  \"email_domain\": \"string\",\n  \"msp_billing_profile_token\": \"string\",\n  \"payment_terms_days\": 5146,\n  \"include_managed_account_integrations\": false,\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2aa11c5b-9752-4338-a1c1-108b59c5f3c0",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e94ebf6-d719-413f-b804-79b8f47e8319",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managed_accounts",
+                    ":managed_account_token",
+                    "sso_connection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "managed_account_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9829f838-9b80-4fb2-8044-d1da2b3961ae",
+    "name": "Vantage AccessGrants ManagedAccounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

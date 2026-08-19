@@ -1,0 +1,908 @@
+{
+  "item": [
+    {
+      "id": "ab37e858-04ca-437b-9efb-93eac23314bb",
+      "name": "BillingProfiles",
+      "description": {
+        "content": "Operations about BillingProfiles",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "252c394c-fbb6-474c-9f39-cbc8b4fbac5b",
+          "name": "Get all billing profiles",
+          "request": {
+            "name": "Get all billing profiles",
+            "description": {
+              "content": "Returns a list of billing profiles (MSP invoicing required).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "52afd0c2-00c3-4955-a7cd-1ebd652f99aa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billing_profiles\": [\n    {\n      \"billing_information_attributes\": {\n        \"address_line_1\": \"string\",\n        \"address_line_2\": \"string\",\n        \"billing_email\": [\n          \"string\",\n          \"string\"\n        ],\n        \"city\": \"string\",\n        \"company_name\": \"string\",\n        \"country_code\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"token\": \"string\"\n      },\n      \"business_information_attributes\": {\n        \"token\": \"string\",\n        \"metadata\": {\n          \"custom_fields\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"created_at\": \"2023-08-04T00:00:00Z\",\n      \"invoice_adjustment_attributes\": {\n        \"adjustment_items\": [\n          {\n            \"adjustment_type\": \"credit\",\n            \"amount\": \"string\",\n            \"calculation_type\": \"percentage\",\n            \"name\": \"string\"\n          },\n          {\n            \"adjustment_type\": \"discount\",\n            \"amount\": \"string\",\n            \"calculation_type\": \"percentage\",\n            \"name\": \"string\"\n          }\n        ],\n        \"token\": \"string\"\n      },\n      \"managed_accounts_count\": \"string\",\n      \"nickname\": \"string\",\n      \"token\": \"string\",\n      \"updated_at\": \"2023-08-04T00:00:00Z\",\n      \"banking_information_attributes\": {\n        \"bank_name\": \"string\",\n        \"beneficiary_name\": \"string\",\n        \"tax_id\": \"string\",\n        \"token\": \"string\",\n        \"secure_data\": {\n          \"account_number\": \"string\",\n          \"iban\": \"string\",\n          \"routing_number\": \"string\",\n          \"swift_bic\": \"string\"\n        }\n      }\n    },\n    {\n      \"billing_information_attributes\": {\n        \"address_line_1\": \"string\",\n        \"address_line_2\": \"string\",\n        \"billing_email\": [\n          \"string\",\n          \"string\"\n        ],\n        \"city\": \"string\",\n        \"company_name\": \"string\",\n        \"country_code\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"token\": \"string\"\n      },\n      \"business_information_attributes\": {\n        \"token\": \"string\",\n        \"metadata\": {\n          \"custom_fields\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"created_at\": \"2023-08-04T00:00:00Z\",\n      \"invoice_adjustment_attributes\": {\n        \"adjustment_items\": [\n          {\n            \"adjustment_type\": \"discount\",\n            \"amount\": \"string\",\n            \"calculation_type\": \"fixed\",\n            \"name\": \"string\"\n          },\n          {\n            \"adjustment_type\": \"charge\",\n            \"amount\": \"string\",\n            \"calculation_type\": \"percentage\",\n            \"name\": \"string\"\n          }\n        ],\n        \"token\": \"string\"\n      },\n      \"managed_accounts_count\": \"string\",\n      \"nickname\": \"string\",\n      \"token\": \"string\",\n      \"updated_at\": \"2023-08-04T00:00:00Z\",\n      \"banking_information_attributes\": {\n        \"bank_name\": \"string\",\n        \"beneficiary_name\": \"string\",\n        \"tax_id\": \"string\",\n        \"token\": \"string\",\n        \"secure_data\": {\n          \"account_number\": \"string\",\n          \"iban\": \"string\",\n          \"routing_number\": \"string\",\n          \"swift_bic\": \"string\"\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0d9ab4b-199d-4b5a-b1c1-3d05c00cd163",
+          "name": "Create billing profile",
+          "request": {
+            "name": "Create billing profile",
+            "description": {
+              "content": "Create a billing profile (MSP invoicing required).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07c26921-1e9e-4305-a2cc-20acbd4e2f89",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  },\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"invoice_adjustment_attributes\": {\n    \"adjustment_items\": [\n      {\n        \"adjustment_type\": \"credit\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      },\n      {\n        \"adjustment_type\": \"discount\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      }\n    ],\n    \"token\": \"string\"\n  },\n  \"managed_accounts_count\": \"string\",\n  \"nickname\": \"string\",\n  \"token\": \"string\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"banking_information_attributes\": {\n    \"bank_name\": \"string\",\n    \"beneficiary_name\": \"string\",\n    \"tax_id\": \"string\",\n    \"token\": \"string\",\n    \"secure_data\": {\n      \"account_number\": \"string\",\n      \"iban\": \"string\",\n      \"routing_number\": \"string\",\n      \"swift_bic\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0bef19c-fb50-4899-bc6f-bc3f3f3999c1",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fce2ef5-5813-4ef7-86c9-bc781c9428bc",
+          "name": "Get billing profile by token",
+          "request": {
+            "name": "Get billing profile by token",
+            "description": {
+              "content": "Requires MSP invoicing to be enabled on the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_profiles",
+                ":billing_profile_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_profile_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c147b46-0bd0-4117-8c5e-a8b8b1279e80",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  },\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"invoice_adjustment_attributes\": {\n    \"adjustment_items\": [\n      {\n        \"adjustment_type\": \"credit\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      },\n      {\n        \"adjustment_type\": \"discount\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      }\n    ],\n    \"token\": \"string\"\n  },\n  \"managed_accounts_count\": \"string\",\n  \"nickname\": \"string\",\n  \"token\": \"string\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"banking_information_attributes\": {\n    \"bank_name\": \"string\",\n    \"beneficiary_name\": \"string\",\n    \"tax_id\": \"string\",\n    \"token\": \"string\",\n    \"secure_data\": {\n      \"account_number\": \"string\",\n      \"iban\": \"string\",\n      \"routing_number\": \"string\",\n      \"swift_bic\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bc16c2b-9c19-49a7-ae1f-9f974db2e264",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c261383-8359-4e2b-8372-ddac9fb96e1a",
+          "name": "Update billing profile",
+          "request": {
+            "name": "Update billing profile",
+            "description": {
+              "content": "Requires MSP invoicing to be enabled on the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_profiles",
+                ":billing_profile_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_profile_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2bef95e-d763-4eb3-b582-8bc3ec827177",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  },\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"invoice_adjustment_attributes\": {\n    \"adjustment_items\": [\n      {\n        \"adjustment_type\": \"credit\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      },\n      {\n        \"adjustment_type\": \"discount\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      }\n    ],\n    \"token\": \"string\"\n  },\n  \"managed_accounts_count\": \"string\",\n  \"nickname\": \"string\",\n  \"token\": \"string\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"banking_information_attributes\": {\n    \"bank_name\": \"string\",\n    \"beneficiary_name\": \"string\",\n    \"tax_id\": \"string\",\n    \"token\": \"string\",\n    \"secure_data\": {\n      \"account_number\": \"string\",\n      \"iban\": \"string\",\n      \"routing_number\": \"string\",\n      \"swift_bic\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ff41b52-a463-48a9-a6db-6e74134e010c",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e094421a-81ef-4e30-9ec9-5514665e223b",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nickname\": \"<string>\",\n  \"billing_information_attributes\": {\n    \"token\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"address_line_1\": \"<string>\",\n    \"address_line_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"billing_email\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"business_information_attributes\": {\n    \"token\": \"<string>\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"banking_information_attributes\": {\n    \"token\": \"<string>\",\n    \"bank_name\": \"<string>\",\n    \"beneficiary_name\": \"<string>\",\n    \"tax_id\": \"<string>\",\n    \"secure_data\": {\n      \"account_number\": \"<string>\",\n      \"routing_number\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"swift_bic\": \"<string>\"\n    }\n  },\n  \"invoice_adjustment_attributes\": {\n    \"token\": \"<string>\",\n    \"adjustment_items\": [\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      },\n      {\n        \"amount\": \"<double>\",\n        \"calculation_type\": \"<string>\",\n        \"name\": \"<string>\",\n        \"adjustment_type\": \"charge\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ba5c3f3-24ce-4990-9f41-a14b8c8ff3db",
+          "name": "Delete billing profile",
+          "request": {
+            "name": "Delete billing profile",
+            "description": {
+              "content": "Requires MSP invoicing to be enabled on the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing_profiles",
+                ":billing_profile_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "billing_profile_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb6bc0c8-db9c-4b8c-8eb3-b2805a7bd67c",
+              "name": "Billing Profile deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"billing_information_attributes\": {\n    \"address_line_1\": \"string\",\n    \"address_line_2\": \"string\",\n    \"billing_email\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": \"string\",\n    \"company_name\": \"string\",\n    \"country_code\": \"string\",\n    \"postal_code\": \"string\",\n    \"state\": \"string\",\n    \"token\": \"string\"\n  },\n  \"business_information_attributes\": {\n    \"token\": \"string\",\n    \"metadata\": {\n      \"custom_fields\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  },\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"invoice_adjustment_attributes\": {\n    \"adjustment_items\": [\n      {\n        \"adjustment_type\": \"credit\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      },\n      {\n        \"adjustment_type\": \"discount\",\n        \"amount\": \"string\",\n        \"calculation_type\": \"percentage\",\n        \"name\": \"string\"\n      }\n    ],\n    \"token\": \"string\"\n  },\n  \"managed_accounts_count\": \"string\",\n  \"nickname\": \"string\",\n  \"token\": \"string\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"banking_information_attributes\": {\n    \"bank_name\": \"string\",\n    \"beneficiary_name\": \"string\",\n    \"tax_id\": \"string\",\n    \"token\": \"string\",\n    \"secure_data\": {\n      \"account_number\": \"string\",\n      \"iban\": \"string\",\n      \"routing_number\": \"string\",\n      \"swift_bic\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18714342-73c1-48af-a28a-0a254fe94d81",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing_profiles",
+                    ":billing_profile_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "billing_profile_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a8b2eef8-80af-4741-9281-037b7b99e5d8",
+    "name": "Vantage AccessGrants BillingProfiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

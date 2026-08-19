@@ -1,0 +1,164 @@
+{
+  "item": [
+    {
+      "id": "0b09a033-9c3e-484c-a7e4-a657794c8263",
+      "name": "FinancialCommitments",
+      "description": {
+        "content": "Operations about FinancialCommitments",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "944fd71d-be0d-4adf-8d83-e95b01d87a9a",
+          "name": "Get all financial commitments",
+          "request": {
+            "name": "Get all financial commitments",
+            "description": {
+              "content": "Return all FinancialCommitments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "financial_commitments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "35b05fa8-2108-4eec-8894-489d46f39ec8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "financial_commitments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/financial_commitments\",\n    \"first\": \"https://api.vantage.sh/v2/financial_commitments?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/financial_commitments?page=1\",\n    \"prev\": null\n  },\n  \"financial_commitments\": [\n    {\n      \"commitment_type\": \"aws_savings_plan\",\n      \"service\": \"Compute\",\n      \"account\": \"153271892032\",\n      \"type\": \"3 Year Compute Savings Plan\",\n      \"instance_count\": null,\n      \"term\": \"1 Year\",\n      \"payment_type\": \"No upfront\",\n      \"region\": null,\n      \"purchase_date\": \"2024-04-15\",\n      \"expiration_date\": \"2025-04-15\",\n      \"commitment\": \"$1.00\",\n      \"status\": \"active\",\n      \"created_at\": \"2024-04-15T19:51:27Z\",\n      \"workspace_token\": \"wrkspc_8c897c3d73b69279\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "65ed7d38-f8b4-4ad1-b206-c6dc800959c6",
+    "name": "Vantage AccessGrants FinancialCommitments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

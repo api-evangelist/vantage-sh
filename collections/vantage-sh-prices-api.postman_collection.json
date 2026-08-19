@@ -1,0 +1,569 @@
+{
+  "item": [
+    {
+      "id": "45f2cec3-babe-401b-ad13-67b9d5edd83a",
+      "name": "Prices",
+      "description": {
+        "content": "Operations about Prices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f461a1e-6f47-40e2-a737-87040a2fa937",
+          "name": "Get prices for a product",
+          "request": {
+            "name": "Get prices for a product",
+            "description": {
+              "content": "Return available Prices across all Regions for a Product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "37d0c7ce-7d80-4561-bc28-41da5fa730a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices\",\n    \"first\": \"https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v1/products/aws-ec2-m5d_16xlarge/prices?page=1\",\n    \"prev\": null\n  },\n  \"prices\": [\n    {\n      \"id\": \"aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise\",\n      \"unit\": \"hour\",\n      \"region\": \"eu-central-1\",\n      \"rate_type\": \"compute\",\n      \"currency\": \"USD\",\n      \"amount\": 27.328,\n      \"details\": {\n        \"platform\": \"linux-enterprise\",\n        \"lifecycle\": \"on-demand\"\n      }\n    },\n    {\n      \"id\": \"aws-ec2-m5d_16xlarge-us_east_1-on_demand-linux_enterprise\",\n      \"unit\": \"hour\",\n      \"region\": \"us-east-1\",\n      \"rate_type\": \"compute\",\n      \"currency\": \"USD\",\n      \"amount\": 3.616,\n      \"details\": {\n        \"platform\": \"linux-enterprise\",\n        \"lifecycle\": \"on-demand\"\n      }\n    },\n    {\n      \"id\": \"aws-ec2-m5d_16xlarge-us_east_1-on_demand-rhel\",\n      \"unit\": \"hour\",\n      \"region\": \"us-east-1\",\n      \"rate_type\": \"compute\",\n      \"currency\": \"USD\",\n      \"amount\": 3.746,\n      \"details\": {\n        \"platform\": \"rhel\",\n        \"lifecycle\": \"on-demand\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06207c3e-6143-4e0e-920e-2ea1b06c154d",
+          "name": "Get price by ID",
+          "request": {
+            "name": "Get price by ID",
+            "description": {
+              "content": "Returns a price",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "prices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a152f947-f3fe-4460-8301-3820b2943f21",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "prices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"aws-ec2-m5d_16xlarge-eu_central_1-on_demand-linux_enterprise\",\n  \"unit\": \"hour\",\n  \"region\": \"eu-central-1\",\n  \"rate_type\": \"compute\",\n  \"currency\": \"USD\",\n  \"amount\": 27.328,\n  \"details\": {\n    \"platform\": \"linux-enterprise\",\n    \"lifecycle\": \"on-demand\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "617b3cb8-5e35-4e37-8b10-2decc1cbdcfe",
+          "name": "Get all products",
+          "request": {
+            "name": "Get all products",
+            "description": {
+              "content": "Return available Products for a Service. For example, with a Provider of AWS and a Service of EC2, Products will be a list of all EC2 Instances. By default, this endpoint returns all Products across all Services and Providers but has optional query parameters for filtering listed below.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "provider_id",
+                  "value": "<string>",
+                  "description": "Query by Provider to list all Products across all Services for a Provider. e.g. aws"
+                },
+                {
+                  "disabled": false,
+                  "key": "service_id",
+                  "value": "<string>",
+                  "description": "Query by Service to list all Products for a specific provider service. e.g. aws-ec2"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Query by name of the Product to see a list of products which match that name. e.g. m5a.16xlarge"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "398dcf1e-f2a1-43b1-bbb4-b492a896e121",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v1/products\",\n    \"first\": \"https://api.vantage.sh/v1/products?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v1/products?page=1\",\n    \"prev\": null\n  },\n  \"products\": [\n    {\n      \"id\": \"aws-ec2-m5d_16xlarge\",\n      \"category\": \"compute\",\n      \"name\": \"m5d.16xlarge\",\n      \"service_id\": \"aws-ec2\",\n      \"provider_id\": \"aws\",\n      \"details\": {\n        \"gpu\": 0,\n        \"name\": \"M5 General Purpose 16xlarge\",\n        \"vcpu\": 64,\n        \"memory\": 256,\n        \"clock_speed_ghz\": 3.1,\n        \"physical_processor_description\": \"Intel Xeon Platinum 8175 (Skylake)\",\n        \"network_performance_description\": \"20 Gigabit\"\n      }\n    },\n    {\n      \"id\": \"aws-ec2-c5a_8xlarge\",\n      \"category\": \"compute\",\n      \"name\": \"c5a.8xlarge\",\n      \"service_id\": \"aws-ec2\",\n      \"provider_id\": \"aws\",\n      \"details\": {\n        \"gpu\": 0,\n        \"name\": \"C5A 8xlarge\",\n        \"vcpu\": 64,\n        \"memory\": 256\n      }\n    },\n    {\n      \"id\": \"aws-ec2-c5a_4large\",\n      \"category\": \"compute\",\n      \"name\": \"c5a.4large\",\n      \"service_id\": \"aws-ec2\",\n      \"provider_id\": \"aws\",\n      \"details\": {\n        \"gpu\": 0,\n        \"name\": \"C5A 4large\",\n        \"vcpu\": 64,\n        \"memory\": 4\n      }\n    },\n    {\n      \"id\": \"aws-s3-standard\",\n      \"category\": \"object_storage\",\n      \"name\": \"standard\",\n      \"service_id\": \"aws-s3\",\n      \"provider_id\": \"aws\",\n      \"details\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19792272-e4e8-49e1-ae05-f922e355a676",
+          "name": "Get product by ID",
+          "request": {
+            "name": "Get product by ID",
+            "description": {
+              "content": "Return a product",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f0c17c3-159a-444a-8dd7-d7901965bdc4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"aws-ec2-m5d_16xlarge\",\n  \"category\": \"compute\",\n  \"name\": \"m5d.16xlarge\",\n  \"service_id\": \"aws-ec2\",\n  \"provider_id\": \"aws\",\n  \"details\": {\n    \"gpu\": 0,\n    \"name\": \"M5 General Purpose 16xlarge\",\n    \"vcpu\": 64,\n    \"memory\": 256,\n    \"clock_speed_ghz\": 3.1,\n    \"physical_processor_description\": \"Intel Xeon Platinum 8175 (Skylake)\",\n    \"network_performance_description\": \"20 Gigabit\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "71c00558-f0fe-4535-9bb1-009c2963287e",
+    "name": "Vantage AccessGrants Prices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants CostProvider API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CostProvider",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get cost providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/cost_providers",
+            "params": [
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "The token of the Workspace to list CostProviders for. Required if the API token is associated with multiple Workspaces."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List CostProviders available to query in a given Workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

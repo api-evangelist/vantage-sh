@@ -1,0 +1,356 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants Recommendations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recommendations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/recommendations",
+            "params": [
+              {
+                "name": "provider_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more providers. Requires workspace_token."
+              },
+              {
+                "name": "billing_account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by billing account identifiers. Requires workspace_token."
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account identifiers. Requires workspace_token."
+              },
+              {
+                "name": "regions",
+                "value": "",
+                "type": "query",
+                "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token."
+              },
+              {
+                "name": "tag_key",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag key (must be used with tag_value). Requires workspace_token."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag value (requires tag_key). Requires workspace_token."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              },
+              {
+                "name": "min_savings",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return. The maximum is 1000."
+              },
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace."
+              },
+              {
+                "name": "provider_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by provider account id (AWS account, Azure subscription id, etc)."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by exact recommendation category. Ignored when type is provided."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Fuzzy filter by recommendation type using a case-insensitive literal substring. Examples: aws, aws:ec2, aws:ec2:rightsizing."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Filter by provider."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Recommendations. Use the `type` query parameter with a fuzzy fragment to filter recommendation type case-insensitively (for example: aws, aws:ec2, aws:ec2:rightsizing)."
+        },
+        {
+          "info": {
+            "name": "Get recommendation by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/recommendations/:recommendation_token",
+            "params": [
+              {
+                "name": "recommendation_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return a Recommendation."
+        },
+        {
+          "info": {
+            "name": "Get all resources for a recommendation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/recommendations/:recommendation_token/resources",
+            "params": [
+              {
+                "name": "recommendation_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return. Defaults to 25. The maximum is 500."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Active Resources, including Recommendation Actions, referenced in this Recommendation."
+        },
+        {
+          "info": {
+            "name": "Get specific resource for a recommendation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/recommendations/:recommendation_token/resources/:resource_token",
+            "params": [
+              {
+                "name": "recommendation_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resource_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return an Active Resource, including Recommendation Actions, referenced in this Recommendation."
+        },
+        {
+          "info": {
+            "name": "Get all resources for a recommendation type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/recommendations/by_type/:type/resources",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "provider_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by one or more providers. Requires workspace_token."
+              },
+              {
+                "name": "billing_account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by billing account identifiers. Requires workspace_token."
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Filter by account identifiers. Requires workspace_token."
+              },
+              {
+                "name": "regions",
+                "value": "",
+                "type": "query",
+                "description": "Filter by region slugs (e.g. us-east-1, eastus, asia-east1). Requires workspace_token."
+              },
+              {
+                "name": "tag_key",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag key (must be used with tag_value). Requires workspace_token."
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag value (requires tag_key). Requires workspace_token."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter recommendations created on/after this YYYY-MM-DD date. Requires workspace_token."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter recommendations created on/before this YYYY-MM-DD date. Requires workspace_token."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              },
+              {
+                "name": "min_savings",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recommendations whose potential savings are greater than or equal to this amount, in the workspace's currency. Requires workspace_token."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return. The maximum is 1000."
+              },
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "The workspace token to filter recommendations by. Required."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Active Resources associated with recommendations of the specified type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

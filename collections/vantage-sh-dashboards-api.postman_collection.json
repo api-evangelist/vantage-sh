@@ -1,0 +1,907 @@
+{
+  "item": [
+    {
+      "id": "1ae81288-2629-49fb-b826-ddf67253ff10",
+      "name": "Dashboards",
+      "description": {
+        "content": "Operations about Dashboards",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7760bc7f-5165-42bc-a3b7-98c9e690ed3b",
+          "name": "Get all dashboards",
+          "request": {
+            "name": "Get all dashboards",
+            "description": {
+              "content": "Return all Dashboards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6038777-5c0e-4f66-8216-00ba34de1908",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/dashboards\",\n    \"first\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"prev\": null\n  },\n  \"dashboards\": [\n    {\n      \"token\": \"dshbrd_13d78294a06f0f84\",\n      \"title\": \"Executive Overview\",\n      \"widget_tokens\": [\n        \"rprt_7c3cb814dfb6d881\"\n      ],\n      \"widgets\": [\n        {\n          \"widgetable_token\": \"rprt_7c3cb814dfb6d881\",\n          \"title\": \"Cost Report\",\n          \"settings\": {\n            \"display_type\": \"chart\"\n          }\n        }\n      ],\n      \"saved_filter_tokens\": [\n        \"svd_fltr_3c6f5eb635cf88de\"\n      ],\n      \"date_bin\": null,\n      \"date_interval\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"created_at\": \"2024-12-17T00:44:48Z\",\n      \"updated_at\": \"2024-12-17T00:44:48Z\",\n      \"workspace_token\": \"wrkspc_ea1a7802e5fe06b3\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6d72bc6-02d3-4db4-bf35-28fb632c5fae",
+          "name": "Create dashboard",
+          "request": {
+            "name": "Create dashboard",
+            "description": {
+              "content": "Create a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f5e5780-a441-4f41-b8f5-ce02634579e7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"dshbrd_7e272e8d3de34719\",\n  \"title\": \"New Dashboard\",\n  \"widget_tokens\": [\n    \"fncl_cmnt_rprt_d4743c186c130e30\",\n    \"kbnts_eff_rprt_892d1566bd543b67\",\n    \"rprt_750074c1b25b372a\"\n  ],\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"fncl_cmnt_rprt_d4743c186c130e30\",\n      \"title\": \"All Financial Commitments\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    },\n    {\n      \"widgetable_token\": \"kbnts_eff_rprt_892d1566bd543b67\",\n      \"title\": \"All Kubernetes Nodes Efficiency\",\n      \"settings\": {\n        \"display_type\": \"table\"\n      }\n    },\n    {\n      \"widgetable_token\": \"rprt_750074c1b25b372a\",\n      \"title\": \"Azure Cost Report\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"svd_fltr_3f45aefa131861ac\"\n  ],\n  \"date_bin\": \"week\",\n  \"date_interval\": \"this_month\",\n  \"start_date\": \"2023-08-01\",\n  \"end_date\": \"2023-08-31\",\n  \"created_at\": \"2023-08-15T00:00:00Z\",\n  \"updated_at\": \"2023-08-15T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_08e043cc14ced776\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10908f4b-0930-46d1-bd2a-b5296c184356",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7339ac62-5407-4614-bc8e-b3fc69d9ee49",
+          "name": "Get dashboard by token",
+          "request": {
+            "name": "Get dashboard by token",
+            "description": {
+              "content": "Return a specific Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac443916-5817-4b53-8231-7a0d89ff5a0a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/dashboards\",\n    \"first\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/dashboards?page=1\",\n    \"prev\": null\n  },\n  \"dashboards\": [\n    {\n      \"token\": \"dshbrd_e7c5b49d826b6f71\",\n      \"title\": \"Executive Overview\",\n      \"widget_tokens\": [\n        \"rprt_27e80d7a8d3f34e6\"\n      ],\n      \"widgets\": [\n        {\n          \"widgetable_token\": \"rprt_27e80d7a8d3f34e6\",\n          \"title\": \"Weekly Sales Report\",\n          \"settings\": {\n            \"display_type\": \"chart\"\n          }\n        }\n      ],\n      \"saved_filter_tokens\": [\n        \"svd_fltr_7bb508e881e7fe5f\"\n      ],\n      \"date_bin\": null,\n      \"date_interval\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"created_at\": \"2024-12-17T00:44:48Z\",\n      \"updated_at\": \"2024-12-17T00:44:48Z\",\n      \"workspace_token\": \"wrkspc_245288e3c3a7377f\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c46d627b-5d67-4093-a1f6-80c387db4506",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb3f7bb7-74b6-49f1-b3e7-b8c7245969bc",
+          "name": "Update dashboard",
+          "request": {
+            "name": "Update dashboard",
+            "description": {
+              "content": "Update a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40bafae4-bd44-4d3e-ba7f-9c0c3829c638",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"dshbrd_2c942eb3a8d3962a\",\n  \"title\": \"Updated Dashboard\",\n  \"widget_tokens\": [\n    \"fncl_cmnt_rprt_ea316a453acd20c0\",\n    \"kbnts_eff_rprt_e3fc91cb63fd5469\",\n    \"rprt_7b0be9c16c5a6785\"\n  ],\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"fncl_cmnt_rprt_ea316a453acd20c0\",\n      \"title\": \"All Financial Commitments\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    },\n    {\n      \"widgetable_token\": \"kbnts_eff_rprt_e3fc91cb63fd5469\",\n      \"title\": \"Kubernetes Efficiency Report\",\n      \"settings\": {\n        \"display_type\": \"table\"\n      }\n    },\n    {\n      \"widgetable_token\": \"rprt_7b0be9c16c5a6785\",\n      \"title\": \"Azure Report\",\n      \"settings\": {\n        \"display_type\": \"chart\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"svd_fltr_51c106391f7295b7\"\n  ],\n  \"date_bin\": \"week\",\n  \"date_interval\": \"this_month\",\n  \"start_date\": \"2023-08-01\",\n  \"end_date\": \"2023-08-31\",\n  \"created_at\": \"2024-12-17T00:44:45Z\",\n  \"updated_at\": \"2023-08-15T00:00:00Z\",\n  \"workspace_token\": \"wrkspc_0e5c381029cdc016\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4bbbbb6-b5d6-429f-9c63-02489e32e60f",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "941c1090-0023-4fba-a421-6e7833b83ca7",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"widgets\": [\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    },\n    {\n      \"widgetable_token\": \"<string>\",\n      \"title\": \"<string>\",\n      \"settings\": {\n        \"display_type\": \"<string>\"\n      }\n    }\n  ],\n  \"saved_filter_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date_bin\": \"<string>\",\n  \"date_interval\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"workspace_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85803439-c998-4add-a04a-a50cefe6c727",
+          "name": "Delete dashboard",
+          "request": {
+            "name": "Delete dashboard",
+            "description": {
+              "content": "Delete a Dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2af6b337-7879-4fca-8a58-c954dca6ec7e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"date_bin\": \"cumulative\",\n  \"date_interval\": \"last_24_months\",\n  \"saved_filter_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": \"AWS Dashboard\",\n  \"token\": \"dshbrd_abcd1234567890\",\n  \"updated_at\": \"2023-08-04T00:00:00Z\",\n  \"widgets\": [\n    {\n      \"settings\": {\n        \"display_type\": \"table\"\n      },\n      \"title\": \"My Widget\",\n      \"widgetable_token\": \"rprt_a12b3c\"\n    },\n    {\n      \"settings\": {\n        \"display_type\": \"chart\"\n      },\n      \"title\": \"My Widget\",\n      \"widgetable_token\": \"rprt_a12b3c\"\n    }\n  ],\n  \"workspace_token\": \"wrkspc_abcd1234567890\",\n  \"start_date\": \"2023-08-04\",\n  \"end_date\": \"2023-09-04\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bfcb9f5-e128-4a81-ac7c-ca5e271d5cc3",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0966e258-1d62-457f-a1fb-da7eba79d9c3",
+    "name": "Vantage AccessGrants Dashboards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

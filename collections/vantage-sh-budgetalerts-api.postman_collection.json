@@ -1,0 +1,847 @@
+{
+  "item": [
+    {
+      "id": "e4ba0600-63f4-4400-b21f-d246af5bbed9",
+      "name": "BudgetAlerts",
+      "description": {
+        "content": "Operations about BudgetAlerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7bc7564-2eb7-4010-9fc9-9036869d0501",
+          "name": "Get all budget alerts",
+          "request": {
+            "name": "Get all budget alerts",
+            "description": {
+              "content": "Return all BudgetAlerts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budget_alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bcf476d2-035a-4fed-89db-6d684a04888a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_alerts\": [\n    {\n      \"budget_tokens\": [\n        \"\",\n        \"\"\n      ],\n      \"created_at\": \"2024-03-19T00:00:00Z\",\n      \"duration_in_days\": 203,\n      \"period_to_track\": \"start_of_the_month\",\n      \"recipient_channels\": [\n        \"\",\n        \"\"\n      ],\n      \"threshold\": 75,\n      \"token\": \"string\",\n      \"user_tokens\": [\n        \"\",\n        \"\"\n      ],\n      \"workspace_token\": \"string\",\n      \"user_token\": \"string\",\n      \"integration_provider\": \"slack\"\n    },\n    {\n      \"budget_tokens\": [\n        \"\",\n        \"\"\n      ],\n      \"created_at\": \"2024-03-19T00:00:00Z\",\n      \"duration_in_days\": 4292,\n      \"period_to_track\": \"start_of_the_month\",\n      \"recipient_channels\": [\n        \"\",\n        \"\"\n      ],\n      \"threshold\": 75,\n      \"token\": \"string\",\n      \"user_tokens\": [\n        \"\",\n        \"\"\n      ],\n      \"workspace_token\": \"string\",\n      \"user_token\": \"string\",\n      \"integration_provider\": \"slack\"\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1075a7be-f1e1-4c08-9c2e-f4d7ae541288",
+          "name": "Create budget alert",
+          "request": {
+            "name": "Create budget alert",
+            "description": {
+              "content": "Create a Budget Alert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budget_alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2e52cf6-25c1-40bd-ab4f-2912d024072a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"duration_in_days\": 6617,\n  \"period_to_track\": \"start_of_the_month\",\n  \"recipient_channels\": [\n    \"\",\n    \"\"\n  ],\n  \"threshold\": 75,\n  \"token\": \"string\",\n  \"user_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\",\n  \"integration_provider\": \"slack\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14e7a253-64d2-45f6-9cf8-ce095b48b9af",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cdf78ae-15fb-4417-be09-7ebcca7b16ab",
+          "name": "Get budget alert by token",
+          "request": {
+            "name": "Get budget alert by token",
+            "description": {
+              "content": "Return a BudgetAlert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_alert_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cc64ec09-aada-4772-b10d-0547c7ac2a36",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"duration_in_days\": 6617,\n  \"period_to_track\": \"start_of_the_month\",\n  \"recipient_channels\": [\n    \"\",\n    \"\"\n  ],\n  \"threshold\": 75,\n  \"token\": \"string\",\n  \"user_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\",\n  \"integration_provider\": \"slack\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b00b062f-f07e-4d9e-a031-56a3bc13ecf0",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60ed342c-25a1-4788-9d19-4a83c9e7249a",
+          "name": "Update budget alert",
+          "request": {
+            "name": "Update budget alert",
+            "description": {
+              "content": "Updates an existing BudgetAlert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_alert_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72596edd-b5a9-40c6-92dd-2b1170f0010a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"duration_in_days\": 6617,\n  \"period_to_track\": \"start_of_the_month\",\n  \"recipient_channels\": [\n    \"\",\n    \"\"\n  ],\n  \"threshold\": 75,\n  \"token\": \"string\",\n  \"user_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\",\n  \"integration_provider\": \"slack\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1b1ef06-b697-4118-bf98-03353e4f030a",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<integer>\",\n  \"user_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"duration_in_days\": \"<string>\",\n  \"period_to_track\": \"<string>\",\n  \"recipient_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb3e43d7-26a8-4a98-92fa-84efb63ff747",
+          "name": "Delete budget alert",
+          "request": {
+            "name": "Delete budget alert",
+            "description": {
+              "content": "Delete a BudgetAlert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budget_alerts",
+                ":budget_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_alert_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e075d4c7-972a-4d0c-8a6e-a12ac7979af3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"duration_in_days\": 6617,\n  \"period_to_track\": \"start_of_the_month\",\n  \"recipient_channels\": [\n    \"\",\n    \"\"\n  ],\n  \"threshold\": 75,\n  \"token\": \"string\",\n  \"user_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\",\n  \"integration_provider\": \"slack\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28a28856-8e52-4536-8c62-5d8b5e2bb456",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_alerts",
+                    ":budget_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_alert_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe22d7ff-d9b6-4fa7-b835-15053dc2efb2",
+    "name": "Vantage AccessGrants BudgetAlerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

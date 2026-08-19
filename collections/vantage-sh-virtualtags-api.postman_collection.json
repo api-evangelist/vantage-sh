@@ -1,0 +1,2044 @@
+{
+  "item": [
+    {
+      "id": "4c61bb2d-5b48-46ce-b26f-8edba73b1374",
+      "name": "VirtualTags",
+      "description": {
+        "content": "Operations about VirtualTags",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a8645f3-5160-419e-b88b-6cc1e4246771",
+          "name": "Get all virtual tag configs",
+          "request": {
+            "name": "Get all virtual tag configs",
+            "description": {
+              "content": "Return all VirtualTagConfigs that the current API token has access to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "A search query to filter VirtualTagConfigs by key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e5bcb79-6afd-4448-8ce9-06ae3139b271",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"virtual_tag_configs\": [\n    {\n      \"token\": \"vtag_eabf584ca1fe7769\",\n      \"created_by_token\": \"usr_d2ad8c75f4fee21e\",\n      \"key\": \"Product Team\",\n      \"overridable\": false,\n      \"backfill_until\": \"2025-12-01\",\n      \"collapsed_tag_keys\": [],\n      \"values\": [\n        {\n          \"filter\": \"(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND costs.account_id IN ('1234', '5678'))\",\n          \"name\": \"Growth\",\n          \"label_transforms\": [],\n          \"percentages\": [],\n          \"date_ranges\": []\n        },\n        {\n          \"filter\": \"(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\",\n          \"name\": \"API\",\n          \"label_transforms\": [],\n          \"percentages\": [],\n          \"date_ranges\": []\n        },\n        {\n          \"filter\": \"(costs.provider = 'aws' AND costs.service = 'AmazonEC2')\",\n          \"business_metric_token\": \"bsnss_mtrc_60e1ffb95a9a00f0\",\n          \"label_transforms\": [],\n          \"percentages\": [],\n          \"date_ranges\": []\n        },\n        {\n          \"filter\": \"(costs.provider = 'aws' AND costs.service != 'Amazon Elastic Compute Cloud')\",\n          \"cost_metric\": {\n            \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud'\",\n            \"aggregation\": {\n              \"tag\": \"aws:CreatedBy\"\n            }\n          },\n          \"label_transforms\": [],\n          \"percentages\": [],\n          \"date_ranges\": []\n        },\n        {\n          \"filter\": \"(costs.provider = 'azure' AND costs.service = 'Azure Compute')\",\n          \"label_transforms\": [],\n          \"percentages\": [\n            {\n              \"value\": \"apples-a\",\n              \"pct\": 50\n            },\n            {\n              \"value\": \"apples-b\",\n              \"pct\": 50\n            }\n          ],\n          \"date_ranges\": []\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1eca167-359d-4b35-bee6-0346589145f2",
+          "name": "Create virtual tag config",
+          "request": {
+            "name": "Create virtual tag config",
+            "description": {
+              "content": "Create a new VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "815bf91b-3001-4bed-8325-f81f560227e8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"vtag_d5503747c5ce9a21\",\n  \"created_by_token\": \"team_7589281b8e354c45\",\n  \"key\": \"Expense Code\",\n  \"overridable\": false,\n  \"backfill_until\": \"2024-07-01\",\n  \"collapsed_tag_keys\": [],\n  \"values\": [\n    {\n      \"filter\": \"costs.provider = 'aws' AND\\ncosts.service = 'Amazon Elastic Compute Cloud' AND\\ncosts.account_id IN ('1234', '5678')\\n\",\n      \"name\": \"EXPC-1234\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"2024-01-01\",\n          \"end_date\": \"2024-12-31\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"(\\n  (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\\n  (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\\n)\\n\",\n      \"name\": \"EXPC-9876\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "733a0795-d41f-4479-b8e7-8c460dc9aafc",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8641d556-ab0b-47de-a9cd-1d15e3812793",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15630784-7adb-4c63-b3e5-cf4ed90c63e8",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5ff6285-b9ae-4d5d-abd1-93fefab64f98",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7ea5285-075b-42d6-a0e6-aeb224497459",
+          "name": "Get virtual tag config by token",
+          "request": {
+            "name": "Get virtual tag config by token",
+            "description": {
+              "content": "Return a specific VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ed28abd-8daa-46f5-bbd9-da6ecc0666e9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"vtag_9cefbbc5f17d06fc\",\n  \"created_by_token\": \"usr_f8c083243325740b\",\n  \"key\": \"Product Team\",\n  \"overridable\": false,\n  \"backfill_until\": \"2024-07-01\",\n  \"collapsed_tag_keys\": [],\n  \"values\": [\n    {\n      \"filter\": \"(costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud') AND (costs.provider = 'aws' AND costs.account_id IN ('1234', '5678'))\",\n      \"name\": \"Growth\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"2024-01-01\",\n          \"end_date\": \"2024-12-31\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"(costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR (costs.provider = 'gcp' AND costs.service = 'Google Compute Engine')\",\n      \"name\": \"API\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37b1036c-f0b5-40cc-8bc0-7871c5f78b4d",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a332f2d-02ed-4d87-985f-6e8cd2514866",
+          "name": "Update virtual tag config",
+          "request": {
+            "name": "Update virtual tag config",
+            "description": {
+              "content": "Updates an existing VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69037bdc-a7f3-4073-abd5-9afd21c58883",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"vtag_4430add8b8552a32\",\n  \"created_by_token\": \"usr_c3dedc15ebe12e03\",\n  \"key\": \"team\",\n  \"overridable\": true,\n  \"backfill_until\": \"2024-07-01\",\n  \"collapsed_tag_keys\": [],\n  \"values\": [\n    {\n      \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Elastic Compute Cloud' AND\\ncosts.account_id IN ('1234', '5678')\\n\",\n      \"name\": \"marketing\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"2024-01-01\",\n          \"end_date\": \"2024-12-31\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"((costs.provider = 'aws' AND costs.account_id IN ('1234', '5678')) OR\\n(costs.provider = 'gcp' AND costs.service = 'Google Compute Engine'))\\n\",\n      \"name\": \"third-party integrations\",\n      \"label_transforms\": [],\n      \"percentages\": [],\n      \"date_ranges\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af7aea55-9910-4fc6-801d-a004fd3192ad",
+              "name": "Request accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"status_url\": \"/v2/virtual_tag_configs/async/550e8400-e29b-41d4-a716-446655440000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59410e19-5afb-4c07-8dc9-2d2f69e06120",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fef6190-af0f-4ec9-84e8-9313d8bfdaa5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d05a428-530b-4d49-b376-f267c9b621fb",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b9eef94-8936-4ebe-beca-e22423d8a723",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5683689-b38b-4a49-b3d1-477ac7e6b75e",
+          "name": "Delete virtual tag config",
+          "request": {
+            "name": "Delete virtual tag config",
+            "description": {
+              "content": "Deletes an existing VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "99d25353-4b61-4eb5-adac-4f9dd381143e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"backfill_until\": \"2026-01-01\",\n  \"collapsed_tag_keys\": [\n    {\n      \"filter\": \"(costs.provider = 'aws') OR (costs.provider = 'gcp')\",\n      \"key\": \"team\",\n      \"providers\": [\n        \"\",\n        \"\"\n      ]\n    },\n    {\n      \"filter\": \"(costs.provider = 'aws') OR (costs.provider = 'gcp')\",\n      \"key\": \"team\",\n      \"providers\": [\n        \"\",\n        \"\"\n      ]\n    }\n  ],\n  \"created_by_token\": \"usr_1234\",\n  \"key\": \"Cost Center\",\n  \"overridable\": true,\n  \"token\": \"vtag_1234\",\n  \"values\": [\n    {\n      \"date_ranges\": [\n        {\n          \"end_date\": \"string\",\n          \"start_date\": \"string\"\n        },\n        {\n          \"end_date\": \"string\",\n          \"start_date\": \"string\"\n        }\n      ],\n      \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'\",\n      \"label_transforms\": [\n        {\n          \"type\": \"format\",\n          \"delimiter\": \"string\",\n          \"index\": 4001,\n          \"template\": \"string\"\n        },\n        {\n          \"type\": \"format\",\n          \"delimiter\": \"string\",\n          \"index\": 2787,\n          \"template\": \"string\"\n        }\n      ],\n      \"percentages\": [\n        {\n          \"pct\": 50,\n          \"value\": \"cost-center-a\"\n        },\n        {\n          \"pct\": 50,\n          \"value\": \"cost-center-a\"\n        }\n      ],\n      \"name\": \"Informatics\",\n      \"business_metric_token\": \"bsnss_mtrc_abc123\",\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"string\"\n        },\n        \"filter\": \"string\"\n      },\n      \"display_name\": \"string\"\n    },\n    {\n      \"date_ranges\": [\n        {\n          \"end_date\": \"string\",\n          \"start_date\": \"string\"\n        },\n        {\n          \"end_date\": \"string\",\n          \"start_date\": \"string\"\n        }\n      ],\n      \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'\",\n      \"label_transforms\": [\n        {\n          \"type\": \"format\",\n          \"delimiter\": \"string\",\n          \"index\": 4210,\n          \"template\": \"string\"\n        },\n        {\n          \"type\": \"split\",\n          \"delimiter\": \"string\",\n          \"index\": 643,\n          \"template\": \"string\"\n        }\n      ],\n      \"percentages\": [\n        {\n          \"pct\": 50,\n          \"value\": \"cost-center-a\"\n        },\n        {\n          \"pct\": 50,\n          \"value\": \"cost-center-a\"\n        }\n      ],\n      \"name\": \"Informatics\",\n      \"business_metric_token\": \"bsnss_mtrc_abc123\",\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"string\"\n        },\n        \"filter\": \"string\"\n      },\n      \"display_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "479edc72-8190-43da-bc11-ea851eb9487a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f63a9de3-1ee8-496f-aeb9-b140df51f95f",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02b98dc5-cd4c-470a-b671-775a1cc551f4",
+          "name": "Get virtual tag config processing status",
+          "request": {
+            "name": "Get virtual tag config processing status",
+            "description": {
+              "content": "Return the processing status of a specific VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                ":token",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b735c245-d3b0-4bfe-b8f6-974a1f48b816",
+              "name": "Processing is complete",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"vtag_1234\",\n  \"processing\": true,\n  \"providers\": [\n    {\n      \"provider\": \"aws\",\n      \"status\": \"processing\"\n    },\n    {\n      \"provider\": \"gcp\",\n      \"status\": \"complete\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "377df835-a399-4b33-be5f-4068c35628ca",
+              "name": "Processing is still in progress",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"vtag_1234\",\n  \"processing\": true,\n  \"providers\": [\n    {\n      \"provider\": \"aws\",\n      \"status\": \"processing\"\n    },\n    {\n      \"provider\": \"gcp\",\n      \"status\": \"complete\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce28985c-2e44-49d9-abce-7ac7b0b135e9",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b5dee56-5b81-407f-9864-a88c048fdd5c",
+          "name": "Update virtual tag config asynchronously",
+          "request": {
+            "name": "Update virtual tag config asynchronously",
+            "description": {
+              "content": "Asynchronously updates an existing VirtualTagConfig.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                ":token",
+                "async"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab937fc3-07cb-4fd5-ab29-aeda927b1247",
+              "name": "Request accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"status_url\": \"/v2/virtual_tag_configs/async/550e8400-e29b-41d4-a716-446655440000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa49a1f9-898c-4a75-9740-02def8922228",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f633947f-909e-46b6-a02c-783eee7f6c6c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f2ae357-2232-49ba-81e8-368d14c36941",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecdb4aa7-dfdf-43b3-922e-3aac10643ea2",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    ":token",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"overridable\": \"<boolean>\",\n  \"backfill_until\": \"<date>\",\n  \"collapsed_tag_keys\": [\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"providers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"filter\": \"<string>\"\n    }\n  ],\n  \"values\": [\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"filter\": \"<string>\",\n      \"name\": \"<string>\",\n      \"business_metric_token\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"label_transforms\": [\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"delimiter\": \"<string>\",\n          \"index\": \"<integer>\",\n          \"template\": \"<string>\"\n        }\n      ],\n      \"cost_metric\": {\n        \"aggregation\": {\n          \"tag\": \"<string>\"\n        },\n        \"filter\": \"<string>\"\n      },\n      \"percentages\": [\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"pct\": \"<float>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"date_ranges\": [\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        },\n        {\n          \"start_date\": \"<string>\",\n          \"end_date\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "745f055a-7f50-4550-ac2e-4669b02a7461",
+          "name": "Get async virtual tag config update status",
+          "request": {
+            "name": "Get async virtual tag config update status",
+            "description": {
+              "content": "Check the status of an async VirtualTagConfig update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "virtual_tag_configs",
+                "async",
+                ":request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "request_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe3c8df8-0854-466c-9930-015cfc06a673",
+              "name": "Request completed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    "async",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "request_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a976d87-dada-4878-8370-500ce3b0df09",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual_tag_configs",
+                    "async",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "request_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "df64f607-3f03-42ce-aad9-f6fd0cc7b710",
+    "name": "Vantage AccessGrants VirtualTags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

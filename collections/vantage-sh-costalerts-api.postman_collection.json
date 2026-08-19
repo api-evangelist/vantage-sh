@@ -1,0 +1,830 @@
+{
+  "item": [
+    {
+      "id": "3401ce7d-4b6a-4e1f-9a14-7e67699c4d10",
+      "name": "CostAlerts",
+      "description": {
+        "content": "Operations about CostAlerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c8d161a9-25db-43f0-a064-d518997277a0",
+          "name": "Get all cost alerts",
+          "request": {
+            "name": "Get all cost alerts",
+            "description": {
+              "content": "List all Cost Alerts",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "92350108-77a0-4444-a592-5074dc7314d9",
+              "name": "List all Cost Alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/cost_alerts\",\n    \"first\": \"https://api.vantage.sh/v2/cost_alerts?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/cost_alerts?page=1\",\n    \"prev\": null\n  },\n  \"cost_alerts\": [\n    {\n      \"token\": \"cstm_alrt_rl_945f63c6c91cd824\",\n      \"title\": \"Default Alert Rule\",\n      \"email_recipients\": [],\n      \"slack_channels\": [],\n      \"teams_channels\": [],\n      \"created_at\": \"2024-04-21T15:19:49.673Z\",\n      \"updated_at\": \"2025-04-21T15:19:49.673Z\",\n      \"workspace_token\": \"wrkspc_7d5a18b7d02942da\",\n      \"interval\": \"day\",\n      \"threshold\": 1000,\n      \"unit_type\": \"currency\",\n      \"report_tokens\": [\n        \"rprt_a88be0a2af07fe10\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f14cbd8-d181-4906-b676-bfb4f53c4ea3",
+          "name": "Create cost alert",
+          "request": {
+            "name": "Create cost alert",
+            "description": {
+              "content": "Create a new Cost Alert",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<float>\",\n  \"title\": \"<string>\",\n  \"unit_type\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dfd62612-b1d9-429d-8358-5bfe3376249b",
+              "name": "Cost Alert created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interval\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<float>\",\n  \"title\": \"<string>\",\n  \"unit_type\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"cstm_alrt_rl_76efd4cd0f56149a\",\n  \"title\": \"New Alert\",\n  \"email_recipients\": [\n    \"burl_mosciski@hayes.info\"\n  ],\n  \"slack_channels\": [],\n  \"teams_channels\": [],\n  \"created_at\": \"2025-04-21T15:19:49.891Z\",\n  \"updated_at\": \"2025-04-21T15:19:49.891Z\",\n  \"workspace_token\": \"wrkspc_a5e36f631519f7d3\",\n  \"interval\": \"month\",\n  \"threshold\": 100,\n  \"unit_type\": \"currency\",\n  \"report_tokens\": [\n    \"rprt_ccf0092d336de56c\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9a05df3-73cb-44d9-a8bd-e8ba47cf0bf6",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interval\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"threshold\": \"<float>\",\n  \"title\": \"<string>\",\n  \"unit_type\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3de085e6-51ae-4e09-89ac-faa94af83327",
+          "name": "Get cost alert by token",
+          "request": {
+            "name": "Get cost alert by token",
+            "description": {
+              "content": "Get a Cost Alert",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_alert_token",
+                  "description": "(Required) The token of the Cost Alert."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "14f23cd0-83ff-42f4-8eee-43a4d10a2b54",
+              "name": "Get a Cost Alert",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"cstm_alrt_rl_db54d080e58bf82a\",\n  \"title\": \"Default Alert Rule\",\n  \"email_recipients\": [],\n  \"slack_channels\": [],\n  \"teams_channels\": [],\n  \"created_at\": \"2024-04-21T15:19:49.598Z\",\n  \"updated_at\": \"2025-04-21T15:19:49.598Z\",\n  \"workspace_token\": \"wrkspc_c94c58cd1f9a6314\",\n  \"interval\": \"day\",\n  \"threshold\": 1000,\n  \"unit_type\": \"currency\",\n  \"report_tokens\": [\n    \"rprt_7c787dfc49b17876\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8c28086-8526-4fdc-b298-3d96bb5b6c7c",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0b30b5d-1961-4e15-828b-ae648d742faa",
+          "name": "Update cost alert",
+          "request": {
+            "name": "Update cost alert",
+            "description": {
+              "content": "Update a Cost Alert",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_alert_token",
+                  "description": "(Required) The token of the Cost Alert."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"interval\": \"<string>\",\n  \"threshold\": \"<float>\",\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unit_type\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "335a8824-a2f3-44e9-808e-aea8f2417d46",
+              "name": "Cost Alert updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"interval\": \"<string>\",\n  \"threshold\": \"<float>\",\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unit_type\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"cstm_alrt_rl_65ff8613224f4469\",\n  \"title\": \"Default Alert Rule\",\n  \"email_recipients\": [\n    \"andy.kuvalis@stanton.com\",\n    \"ismael_bashirian@jenkins.biz\"\n  ],\n  \"slack_channels\": [],\n  \"teams_channels\": [],\n  \"created_at\": \"2024-04-21T15:19:48.503Z\",\n  \"updated_at\": \"2025-04-21T15:19:48.537Z\",\n  \"workspace_token\": \"wrkspc_643e0e66ee5a4611\",\n  \"interval\": \"day\",\n  \"threshold\": 500,\n  \"unit_type\": \"currency\",\n  \"report_tokens\": [\n    \"rprt_bc47a84e3ab8a5d5\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e989cfe-70dd-478d-9542-f9597357d57a",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"email_recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"interval\": \"<string>\",\n  \"threshold\": \"<float>\",\n  \"slack_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"teams_channels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unit_type\": \"<string>\",\n  \"report_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"minimum_threshold\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8358314-0b76-4ac4-8adf-7d431dcbb405",
+          "name": "Delete cost alert",
+          "request": {
+            "name": "Delete cost alert",
+            "description": {
+              "content": "Delete a Cost Alert",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cost_alerts",
+                ":cost_alert_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cost_alert_token",
+                  "description": "(Required) The token of the Cost Alert."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1ca1e62d-181e-4d60-bc46-01334c7e818e",
+              "name": "Cost Alert deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2023-10-01T12:00:00Z\",\n  \"email_recipients\": [\n    \"string\",\n    \"string\"\n  ],\n  \"interval\": \"string\",\n  \"minimum_threshold\": 8380.894827689275,\n  \"report_tokens\": [\n    \"string\",\n    \"string\"\n  ],\n  \"slack_channels\": [\n    \"string\",\n    \"string\"\n  ],\n  \"teams_channels\": [\n    \"string\",\n    \"string\"\n  ],\n  \"threshold\": 604.8873940038135,\n  \"title\": \"string\",\n  \"token\": \"string\",\n  \"unit_type\": \"string\",\n  \"updated_at\": \"2023-10-01T12:00:00Z\",\n  \"workspace_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46dbdefd-2a25-4d06-b1f6-e8f7f4345a76",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_alerts",
+                    ":cost_alert_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cost_alert_token",
+                      "description": "(Required) The token of the Cost Alert."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7f8eb55c-1851-43f4-855c-04187aa3e1a4",
+    "name": "Vantage AccessGrants CostAlerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

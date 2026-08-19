@@ -1,0 +1,975 @@
+{
+  "item": [
+    {
+      "id": "71764257-93df-4639-916d-9a8c95ab05f4",
+      "name": "Budgets",
+      "description": {
+        "content": "Operations about Budgets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a545ef5f-0333-477e-b0e2-b22417c89c95",
+          "name": "Get all budgets",
+          "request": {
+            "name": "Get all budgets",
+            "description": {
+              "content": "Return all Budgets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3af2c94-f0ef-4dc8-a110-9d5b7d66a952",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/budgets\",\n    \"first\": \"https://api.vantage.sh/v2/budgets?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/budgets?page=1\",\n    \"prev\": null\n  },\n  \"budgets\": [\n    {\n      \"token\": \"bdgt_0d825e79a0682cc2\",\n      \"name\": \"database\",\n      \"workspace_token\": \"wrkspc_226ab053bd01bb2b\",\n      \"user_token\": \"usr_8e44c17792242852\",\n      \"created_by_token\": \"usr_8e44c17792242852\",\n      \"cost_report_token\": \"rprt_92062240b4ffda91\",\n      \"created_at\": \"2024-07-11T20:22:49Z\",\n      \"budget_alert_tokens\": [],\n      \"periods\": [\n        {\n          \"start_at\": \"2024-07-01\",\n          \"end_at\": \"2024-09-30\",\n          \"amount\": \"10000.0\"\n        }\n      ],\n      \"performance\": [\n        {\n          \"date\": \"July, 2024\",\n          \"actual\": \"-100%\",\n          \"amount\": \"10000.0\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b672c25-74d3-407f-997d-4d30d237218f",
+          "name": "Create budget",
+          "request": {
+            "name": "Create budget",
+            "description": {
+              "content": "Create a Budget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0969d51f-5ad2-4e15-9722-39654a7dc759",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bdgt_ea1eaec89d553e34\",\n  \"name\": \"New Budget Name\",\n  \"workspace_token\": \"wrkspc_b83e21368ee5fd9d\",\n  \"user_token\": null,\n  \"created_by_token\": \"team_aea2488160e90528\",\n  \"cost_report_token\": null,\n  \"created_at\": \"2024-07-11T20:22:52Z\",\n  \"budget_alert_tokens\": [],\n  \"periods\": [\n    {\n      \"start_at\": \"2024-01-01\",\n      \"end_at\": \"2024-01-31\",\n      \"amount\": \"100.0\"\n    },\n    {\n      \"start_at\": \"2024-02-01\",\n      \"end_at\": \"2024-02-29\",\n      \"amount\": \"200.0\"\n    },\n    {\n      \"start_at\": \"2024-03-01\",\n      \"end_at\": \"2024-04-30\",\n      \"amount\": \"300.0\"\n    }\n  ],\n  \"performance\": [\n    {\n      \"date\": \"April, 2024\",\n      \"actual\": \"0%\",\n      \"amount\": \"300.0\"\n    },\n    {\n      \"date\": \"March, 2024\",\n      \"actual\": \"0%\",\n      \"amount\": \"300.0\"\n    },\n    {\n      \"date\": \"February, 2024\",\n      \"actual\": \"0%\",\n      \"amount\": \"200.0\"\n    },\n    {\n      \"date\": \"January, 2024\",\n      \"actual\": \"0%\",\n      \"amount\": \"100.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "899cf3f5-4fe7-4db6-adac-b4ad735f6348",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fef77e0-32bd-4fdb-93b7-23f62eef4bbd",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3700b1fa-541a-4658-997d-5e1cd43362d4",
+          "name": "Get budget by token",
+          "request": {
+            "name": "Get budget by token",
+            "description": {
+              "content": "Return a Budget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budgets",
+                ":budget_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_performance",
+                  "value": "<boolean>",
+                  "description": "Include performance data."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0035adae-6a8a-40cf-b4c5-58f53f20f881",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_performance",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bdgt_24068dbacaaad7fb\",\n  \"name\": \"Total\",\n  \"workspace_token\": \"wrkspc_545a937d68541448\",\n  \"user_token\": \"usr_470d15b368844366\",\n  \"created_by_token\": \"usr_470d15b368844366\",\n  \"cost_report_token\": \"rprt_9ee9f29893956951\",\n  \"created_at\": \"2024-07-11T20:22:41Z\",\n  \"budget_alert_tokens\": [],\n  \"periods\": [\n    {\n      \"start_at\": \"2024-07-01\",\n      \"end_at\": \"2024-09-30\",\n      \"amount\": \"10000.0\"\n    }\n  ],\n  \"performance\": [\n    {\n      \"date\": \"July, 2024\",\n      \"actual\": \"-100%\",\n      \"amount\": \"10000.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdeba129-9e7c-4f93-8ce7-de776f9c55f1",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_performance",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7759cb7-d112-42ed-98e1-64f1c239e85b",
+          "name": "Update budget",
+          "request": {
+            "name": "Update budget",
+            "description": {
+              "content": "Update a Budget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budgets",
+                ":budget_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f3f4dec-2657-49b4-8960-bd00998467d9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bdgt_39ce7f848dff6d54\",\n  \"name\": \"New Name New Budget Who Dis\",\n  \"workspace_token\": \"wrkspc_949771e4fb8d7bfe\",\n  \"user_token\": \"usr_9b375256090d0fda\",\n  \"created_by_token\": \"usr_9b375256090d0fda\",\n  \"cost_report_token\": \"rprt_07325bc3667263b7\",\n  \"created_at\": \"2024-07-11T20:22:48Z\",\n  \"budget_alert_tokens\": [],\n  \"periods\": [\n    {\n      \"start_at\": \"2023-01-01\",\n      \"end_at\": \"2023-01-31\",\n      \"amount\": \"234.0\"\n    },\n    {\n      \"start_at\": \"2024-01-01\",\n      \"end_at\": \"2024-01-31\",\n      \"amount\": \"123.0\"\n    },\n    {\n      \"start_at\": \"2024-07-01\",\n      \"end_at\": \"2024-09-30\",\n      \"amount\": \"10000.0\"\n    }\n  ],\n  \"performance\": [\n    {\n      \"date\": \"July, 2024\",\n      \"actual\": \"-100%\",\n      \"amount\": \"10000.0\"\n    },\n    null,\n    null,\n    null,\n    null,\n    null,\n    {\n      \"date\": \"January, 2024\",\n      \"actual\": \"-100%\",\n      \"amount\": \"123.0\"\n    },\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    null,\n    {\n      \"date\": \"January, 2023\",\n      \"actual\": \"1224%\",\n      \"amount\": \"234.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78e44da7-589a-4c0c-85b5-982d3a58f868",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fbcc6f8-2c58-4e99-b6ed-425a8a0b7be8",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"cost_report_token\": \"<string>\",\n  \"child_budget_tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periods\": [\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"start_at\": \"<date>\",\n      \"end_at\": \"<date>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e74bbe3-a14c-42c9-8a41-403e90e69406",
+          "name": "Delete budget",
+          "request": {
+            "name": "Delete budget",
+            "description": {
+              "content": "Delete a Budget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "budgets",
+                ":budget_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "budget_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3b3e0dc-f2ae-4864-a6cc-6af8398fc1aa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"budget_alert_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"child_budget_tokens\": [\n    \"\",\n    \"\"\n  ],\n  \"created_at\": \"2024-03-19T00:00:00Z\",\n  \"name\": \"Acme123 Budget\",\n  \"periods\": [\n    {\n      \"amount\": \"100.00\",\n      \"end_at\": \"2024-03-19T00:00:00Z\",\n      \"start_at\": \"2024-03-19T00:00:00Z\"\n    },\n    {\n      \"amount\": \"100.00\",\n      \"end_at\": \"2024-03-19T00:00:00Z\",\n      \"start_at\": \"2024-03-19T00:00:00Z\"\n    }\n  ],\n  \"token\": \"string\",\n  \"workspace_token\": \"string\",\n  \"user_token\": \"string\",\n  \"created_by_token\": \"string\",\n  \"cost_report_token\": \"string\",\n  \"performance\": [\n    {\n      \"actual\": \"2024-03-19T00:00:00Z\",\n      \"amount\": \"100.00\",\n      \"date\": \"2024-03-19T00:00:00Z\"\n    },\n    {\n      \"actual\": \"2024-03-19T00:00:00Z\",\n      \"amount\": \"100.00\",\n      \"date\": \"2024-03-19T00:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bfe89c7-4c49-4482-b16a-15380a4e722d",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budgets",
+                    ":budget_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "budget_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "003ac973-e4d8-42c0-b585-4c6ce7410df7",
+    "name": "Vantage AccessGrants Budgets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

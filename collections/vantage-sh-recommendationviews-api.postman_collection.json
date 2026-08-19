@@ -1,0 +1,1018 @@
+{
+  "item": [
+    {
+      "id": "5e9b4aeb-2a60-456a-8993-2a597404a196",
+      "name": "RecommendationViews",
+      "description": {
+        "content": "Operations about RecommendationViews",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a84b91e3-6eab-44ab-a928-cd376913177d",
+          "name": "Get all recommendation views",
+          "request": {
+            "name": "Get all recommendation views",
+            "description": {
+              "content": "Return all RecommendationViews.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendation_views"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "07bba232-6ded-4550-afd1-e6095638175f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/recommendation_views\",\n    \"first\": \"https://api.vantage.sh/v2/recommendation_views?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/recommendation_views?page=1\",\n    \"prev\": null\n  },\n  \"recommendation_views\": [\n    {\n      \"token\": \"rec_vw_3dffc0458f7a2487\",\n      \"title\": \"Production Recommendations\",\n      \"workspace_token\": \"wrkspc_914dcb0959497507\",\n      \"start_date\": \"2024-01-01\",\n      \"end_date\": \"2024-12-31\",\n      \"provider_ids\": [\n        \"aws\",\n        \"gcp\"\n      ],\n      \"billing_account_ids\": [],\n      \"account_ids\": [\n        \"123456789012\"\n      ],\n      \"regions\": [\n        \"us-east-1\",\n        \"us-west-2\"\n      ],\n      \"tag_key\": \"environment\",\n      \"tag_value\": \"production\",\n      \"created_at\": \"2024-07-15T16:08:53Z\",\n      \"created_by\": \"usr_95fac32734bdceab\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29d80a8f-512b-4907-aefe-eb4a401805da",
+          "name": "Create recommendation view",
+          "request": {
+            "name": "Create recommendation view",
+            "description": {
+              "content": "Create a RecommendationView.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendation_views"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e48fbbd2-b96e-44f6-9209-a6242e7c2f70",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rec_vw_a1b2c3d4e5f67890\",\n  \"title\": \"Staging Recommendations\",\n  \"workspace_token\": \"wrkspc_be6568a301b1d06c\",\n  \"start_date\": \"2024-01-01\",\n  \"end_date\": \"2024-06-30\",\n  \"provider_ids\": [\n    \"aws\"\n  ],\n  \"billing_account_ids\": [],\n  \"account_ids\": [],\n  \"regions\": [],\n  \"tag_key\": \"environment\",\n  \"tag_value\": \"staging\",\n  \"created_at\": \"2024-07-15T16:10:00Z\",\n  \"created_by\": \"usr_95fac32734bdceab\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df42497e-a37d-4eae-9162-8d80ccd50f9f",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f1d6f41-667e-4649-9fa0-ddf59121e8e2",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"workspace_token\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9eb2a76e-65df-4774-8c05-46749c56f09d",
+          "name": "Get recommendation view by token",
+          "request": {
+            "name": "Get recommendation view by token",
+            "description": {
+              "content": "Return a specific RecommendationView.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_view_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ce8db28-0296-41e0-baec-095a99055323",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rec_vw_be3f24eb1b5aabf6\",\n  \"title\": \"Production Recommendations\",\n  \"workspace_token\": \"wrkspc_be6568a301b1d06c\",\n  \"start_date\": \"2024-01-01\",\n  \"end_date\": \"2024-12-31\",\n  \"provider_ids\": [\n    \"aws\",\n    \"gcp\"\n  ],\n  \"billing_account_ids\": [],\n  \"account_ids\": [\n    \"123456789012\"\n  ],\n  \"regions\": [\n    \"us-east-1\",\n    \"us-west-2\"\n  ],\n  \"tag_key\": \"environment\",\n  \"tag_value\": \"production\",\n  \"created_at\": \"2024-07-15T16:08:54Z\",\n  \"created_by\": \"team_73f6001f98e9012b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bcc5c9e-2b52-44f0-986a-da02fc1bdfee",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8622999-5d6e-4444-b066-c88f17aadbe4",
+          "name": "Update recommendation view",
+          "request": {
+            "name": "Update recommendation view",
+            "description": {
+              "content": "Update a RecommendationView.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_view_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc73fa79-7d39-4182-8690-ded881bdc279",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"rec_vw_be3f24eb1b5aabf6\",\n  \"title\": \"Updated Recommendations View\",\n  \"workspace_token\": \"wrkspc_be6568a301b1d06c\",\n  \"start_date\": \"2024-01-01\",\n  \"end_date\": \"2024-12-31\",\n  \"provider_ids\": [\n    \"aws\",\n    \"gcp\",\n    \"azure\"\n  ],\n  \"billing_account_ids\": [],\n  \"account_ids\": [\n    \"123456789012\",\n    \"987654321098\"\n  ],\n  \"regions\": [\n    \"us-east-1\",\n    \"us-west-2\",\n    \"ap-northeast-2\"\n  ],\n  \"tag_key\": \"environment\",\n  \"tag_value\": \"production\",\n  \"created_at\": \"2024-07-15T16:08:54Z\",\n  \"created_by\": \"team_73f6001f98e9012b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e196afa9-7a69-45a6-8cc7-415f6aeebd5c",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56a37ea7-5846-4f81-aa24-60c21cf2628f",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "395ff0cf-c684-4ecd-9845-8cba1ce29c9d",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"provider_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"billing_account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"account_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tag_key\": \"<string>\",\n  \"tag_value\": \"<string>\",\n  \"start_date\": \"<string>\",\n  \"end_date\": \"<string>\",\n  \"min_savings\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e018d27b-ce20-4f5f-9de0-f20c0f7d99e5",
+          "name": "Delete recommendation view",
+          "request": {
+            "name": "Delete recommendation view",
+            "description": {
+              "content": "Delete a RecommendationView.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendation_views",
+                ":recommendation_view_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recommendation_view_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c96a0007-e599-4d6b-a686-2fe6c17b1917",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"title\": \"Production Recommendations\",\n  \"workspace_token\": \"string\",\n  \"start_date\": \"2024-01-01\",\n  \"end_date\": \"2024-12-31\",\n  \"provider_ids\": [\n    \"\",\n    \"\"\n  ],\n  \"billing_account_ids\": [\n    \"\",\n    \"\"\n  ],\n  \"account_ids\": [\n    \"\",\n    \"\"\n  ],\n  \"regions\": [\n    \"\",\n    \"\"\n  ],\n  \"types\": [\n    \"\",\n    \"\"\n  ],\n  \"tag_key\": \"environment\",\n  \"tag_value\": \"production\",\n  \"min_savings\": 100.5,\n  \"created_at\": \"2023-08-04T00:00:00Z\",\n  \"created_by\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5383a7b6-6756-4680-93d8-f6cd45c0e182",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendation_views",
+                    ":recommendation_view_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "recommendation_view_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cbed293c-7ea0-4699-96f9-a60af813eb06",
+    "name": "Vantage AccessGrants RecommendationViews API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

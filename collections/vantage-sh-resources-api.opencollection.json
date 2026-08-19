@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants Resources API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/resources",
+            "params": [
+              {
+                "name": "resource_report_token",
+                "value": "",
+                "type": "query",
+                "description": "The ResourceReport token."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "The filter query language to apply to the Resources. Additional documentation available at https://docs.vantage.sh/vql."
+              },
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "The Workspace in which the Resources are located."
+              },
+              {
+                "name": "include_cost",
+                "value": "",
+                "type": "query",
+                "description": "Include cost information in the response."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of resources to return per page."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return Resources contained in a ResourceReport"
+        },
+        {
+          "info": {
+            "name": "Get resource by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/resources/:resource_token",
+            "params": [
+              {
+                "name": "resource_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_cost",
+                "value": "",
+                "type": "query",
+                "description": "Include cost information in the response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return a single Resource"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

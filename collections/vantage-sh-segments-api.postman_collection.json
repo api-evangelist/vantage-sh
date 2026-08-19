@@ -1,0 +1,958 @@
+{
+  "item": [
+    {
+      "id": "bca429b6-906c-456c-a758-f5685255b6bc",
+      "name": "Segments",
+      "description": {
+        "content": "Operations about Segments",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5765d324-97b5-477e-95be-1606ebb167a9",
+          "name": "Get all segments",
+          "request": {
+            "name": "Get all segments",
+            "description": {
+              "content": "Return all Segments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ba3e1620-600c-40d4-9731-47c40985ac3c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"self\": \"https://api.vantage.sh/v2/segments\",\n    \"first\": \"https://api.vantage.sh/v2/segments?page=1\",\n    \"next\": null,\n    \"last\": \"https://api.vantage.sh/v2/segments?page=1\",\n    \"prev\": null\n  },\n  \"segments\": [\n    {\n      \"token\": \"fltr_sgmt_79b0b8ef658d6bba\",\n      \"title\": \"Business Units\",\n      \"parent_segment_token\": null,\n      \"description\": \"Segmented by business unit.\",\n      \"track_unallocated\": false,\n      \"report_settings\": {\n        \"include_credits\": false,\n        \"include_refunds\": false,\n        \"include_discounts\": true,\n        \"include_tax\": true,\n        \"amortize\": true\n      },\n      \"priority\": 100,\n      \"filter\": \"(costs.provider = 'aws')\",\n      \"created_at\": \"2024-05-14T14:34:22Z\",\n      \"workspace_token\": \"wrkspc_21f36c4ad272fb7b\",\n      \"report_token\": \"rprt_8dd4e1fe3b88c821\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47a96249-47c3-4e98-aeee-85b0b71fc870",
+          "name": "Create segment",
+          "request": {
+            "name": "Create segment",
+            "description": {
+              "content": "Create a Segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "segments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c65c13a2-d7b2-4793-af38-d3142e813da0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fltr_sgmt_a22e3e52e9a93a75\",\n  \"title\": \"New Segment\",\n  \"parent_segment_token\": \"fltr_sgmt_7f1af73e92e5e156\",\n  \"description\": \"I'm a Segment.\",\n  \"track_unallocated\": false,\n  \"priority\": 100,\n  \"filter\": \"costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'\",\n  \"created_at\": \"2024-05-14T14:34:24Z\",\n  \"workspace_token\": \"wrkspc_f75aec7671a72dd3\",\n  \"report_token\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c523f54-ea5b-4c80-a3e1-d4cf05cba5f3",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e7c1da-db21-4406-8cc0-3fe2b9c301a6",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"workspace_token\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04f357b4-763e-4c70-bf6d-c1e138b262a0",
+          "name": "Get segment by token",
+          "request": {
+            "name": "Get segment by token",
+            "description": {
+              "content": "Return a Segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "segments",
+                ":segment_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "segment_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "16e9f97a-2114-49e0-aeab-868e7205b482",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fltr_sgmt_e528df30fe4c9da4\",\n  \"title\": \"Function-based\",\n  \"parent_segment_token\": null,\n  \"description\": \"Segmented by function.\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": false,\n    \"include_refunds\": false,\n    \"include_discounts\": true,\n    \"include_tax\": true,\n    \"amortize\": true\n  },\n  \"priority\": 100,\n  \"filter\": \"(costs.provider = 'aws')\",\n  \"created_at\": \"2024-05-14T14:34:18Z\",\n  \"workspace_token\": \"wrkspc_eb7573db105407df\",\n  \"report_token\": \"rprt_f7828113036f5fce\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "129705a9-374c-4564-ab83-94eb6cc09600",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9db51d17-658d-49ba-8188-21d582c8931f",
+          "name": "Update segment",
+          "request": {
+            "name": "Update segment",
+            "description": {
+              "content": "Update a Segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "segments",
+                ":segment_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "segment_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c69aa62-42a6-48b6-ac93-bbbd3d7f8b2b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"fltr_sgmt_1550eb291314035c\",\n  \"title\": \"Updated Segment\",\n  \"parent_segment_token\": \"fltr_sgmt_a39cf865967ed4d8\",\n  \"description\": \"This segment is updated.\",\n  \"track_unallocated\": false,\n  \"priority\": 42,\n  \"filter\": \"costs.provider = 'azure'\",\n  \"created_at\": \"2024-05-14T14:34:23Z\",\n  \"workspace_token\": \"wrkspc_1be9d0445f94db0b\",\n  \"report_token\": \"rprt_3e460438ae115013\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa281f4a-3357-4c8f-8e73-4572cbbcc6bb",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5d0ea85-974b-43cf-90d2-5df79b069600",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"track_unallocated\": false,\n  \"report_settings\": {\n    \"include_credits\": \"<boolean>\",\n    \"include_refunds\": \"<boolean>\",\n    \"include_discounts\": \"<boolean>\",\n    \"include_tax\": \"<boolean>\",\n    \"amortize\": \"<boolean>\"\n  },\n  \"filter\": \"<string>\",\n  \"parent_segment_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4405c957-2a59-4908-b0a2-bd17d0e2d2d1",
+          "name": "Delete segment",
+          "request": {
+            "name": "Delete segment",
+            "description": {
+              "content": "Delete a Segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "segments",
+                ":segment_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "segment_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3278699e-17d4-47e8-8ebe-9dd08dd21279",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2021-07-09T00:00:00Z\",\n  \"description\": \"Operating expenses\",\n  \"filter\": \"string\",\n  \"parent_segment_token\": \"string\",\n  \"priority\": 100,\n  \"report_token\": \"string\",\n  \"title\": \"OPEX\",\n  \"token\": \"string\",\n  \"track_unallocated\": false,\n  \"workspace_token\": \"string\",\n  \"report_settings\": {\n    \"include_credits\": true,\n    \"include_refunds\": true,\n    \"include_discounts\": true,\n    \"include_tax\": false,\n    \"amortize\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02cd9d08-699b-4b0c-97c6-b507780e10cf",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "segments",
+                    ":segment_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "segment_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8b4e0b69-c3e7-4ba4-9e79-bd4d35c7448d",
+    "name": "Vantage AccessGrants Segments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}

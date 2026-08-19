@@ -1,0 +1,538 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vantage AccessGrants Costs API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://console.vantage.sh/account/profile",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Costs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all cost reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/cost_reports",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 1000."
+              },
+              {
+                "name": "folder_token",
+                "value": "",
+                "type": "query",
+                "description": "The token for the Folder you would like to fetch Reports from."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all CostReports."
+        },
+        {
+          "info": {
+            "name": "Create cost report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vantage.sh/v2/cost_reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a CostReport."
+        },
+        {
+          "info": {
+            "name": "Get cost report by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/cost_reports/:cost_report_token",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return a CostReport."
+        },
+        {
+          "info": {
+            "name": "Update cost report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vantage.sh/v2/cost_reports/:cost_report_token",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a CostReport."
+        },
+        {
+          "info": {
+            "name": "Delete cost report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vantage.sh/v2/cost_reports/:cost_report_token",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a CostReport."
+        },
+        {
+          "info": {
+            "name": "Get forecasted costs for a cost report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/cost_reports/:cost_report_token/forecasted_costs",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "First date you would like to filter forecasted costs from. ISO 8601 formatted."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Last date you would like to filter forecasted costs from. ISO 8601 formatted."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Limit the forecasted costs to a specific provider. 'all' is accepted to filter to overall forecast."
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Limit the forecasted costs to a specific service. 'all' is accepted to filter to overall forecast. e.g. 'Amazon ElastiCache'."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 1000."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all ForecastedCosts."
+        },
+        {
+          "info": {
+            "name": "Generate cost data export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vantage.sh/v2/costs/data_exports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Generate a DataExport of costs."
+        },
+        {
+          "info": {
+            "name": "Get costs for cost report or VQL filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/costs",
+            "params": [
+              {
+                "name": "cost_report_token",
+                "value": "",
+                "type": "query",
+                "description": "The CostReport token."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "The VQL filter to apply to the costs. If this is supplied you do not need cost_report_token."
+              },
+              {
+                "name": "workspace_token",
+                "value": "",
+                "type": "query",
+                "description": "The token of the Workspace to query costs from. Ignored if 'cost_report_token' is set. Required if the API token is associated with multiple Workspaces."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "First date you would like to filter costs from. ISO 8601 formatted."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Last date you would like to filter costs to. ISO 8601 formatted."
+              },
+              {
+                "name": "groupings",
+                "value": "",
+                "type": "query",
+                "description": "Group the results by specific field(s). Defaults to provider, service, account_id. Valid groupings: account_id, billing_account_id, charge_type, cost_category, cost_subcategory, provider, region, resource_id, service, tagged, tag:<tag_value>. If providing multiple groupings, join as comma separated values: groupings=provider,service,region"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Whether to order costs by date in an ascending or descending manner."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 5000."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "date_bin",
+                "value": "",
+                "type": "query",
+                "description": "The date bin of the costs. Defaults to the report's default or day."
+              },
+              {
+                "name": "settings[include_credits]",
+                "value": "",
+                "type": "query",
+                "description": "Results will include credits."
+              },
+              {
+                "name": "settings[include_refunds]",
+                "value": "",
+                "type": "query",
+                "description": "Results will include refunds."
+              },
+              {
+                "name": "settings[include_discounts]",
+                "value": "",
+                "type": "query",
+                "description": "Results will include discounts."
+              },
+              {
+                "name": "settings[include_tax]",
+                "value": "",
+                "type": "query",
+                "description": "Results will include tax."
+              },
+              {
+                "name": "settings[amortize]",
+                "value": "",
+                "type": "query",
+                "description": "Results will amortize."
+              },
+              {
+                "name": "settings[unallocated]",
+                "value": "",
+                "type": "query",
+                "description": "Results will show unallocated costs."
+              },
+              {
+                "name": "settings[aggregate_by]",
+                "value": "",
+                "type": "query",
+                "description": "Results will aggregate by cost or usage."
+              },
+              {
+                "name": "settings[show_previous_period]",
+                "value": "",
+                "type": "query",
+                "description": "Results will show previous period costs or usage comparison."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Costs for a CostReport or VQL filter."
+        },
+        {
+          "info": {
+            "name": "Get all dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/dashboards",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page of results to return."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The amount of results to return. The maximum is 1000."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return all Dashboards."
+        },
+        {
+          "info": {
+            "name": "Create dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vantage.sh/v2/dashboards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Dashboard."
+        },
+        {
+          "info": {
+            "name": "Get dashboard by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vantage.sh/v2/dashboards/:dashboard_token",
+            "params": [
+              {
+                "name": "dashboard_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Return a specific Dashboard."
+        },
+        {
+          "info": {
+            "name": "Update dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.vantage.sh/v2/dashboards/:dashboard_token",
+            "params": [
+              {
+                "name": "dashboard_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a Dashboard."
+        },
+        {
+          "info": {
+            "name": "Delete dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vantage.sh/v2/dashboards/:dashboard_token",
+            "params": [
+              {
+                "name": "dashboard_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://console.vantage.sh/account/profile",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Dashboard."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

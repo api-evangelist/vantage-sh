@@ -1,0 +1,2475 @@
+{
+  "item": [
+    {
+      "id": "bb6f2c62-0821-42be-a592-9fa32222402a",
+      "name": "BusinessMetrics",
+      "description": {
+        "content": "Operations about BusinessMetrics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5506dd57-015d-4a05-9ec7-f1ec6e626be2",
+          "name": "Get all business metrics",
+          "request": {
+            "name": "Get all business metrics",
+            "description": {
+              "content": "Return all BusinessMetrics that the current API token has access to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9864a963-74e1-42e7-ba3d-99a665dec49f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"business_metrics\": [\n    {\n      \"token\": \"bsnss_mtrc_124dc3483510ac35\",\n      \"title\": \"Business Metric\",\n      \"created_by_token\": \"usr_80447a58ff9821dd\",\n      \"cost_report_tokens_with_metadata\": [],\n      \"import_type\": \"csv\",\n      \"integration_token\": \"\"\n    },\n    {\n      \"token\": \"bsnss_mtrc_2534c89d90b714f7\",\n      \"title\": \"AWS Metric\",\n      \"created_by_token\": \"usr_752202a1bb7c9a70\",\n      \"cost_report_tokens_with_metadata\": [],\n      \"import_type\": \"cloudwatch\",\n      \"integration_token\": \"accss_crdntl_742fd1207f8b6816\",\n      \"cloudwatch_fields\": {\n        \"stat\": \"Maximum\",\n        \"region\": \"us-east-1\",\n        \"namespace\": \"AWS/EC2\",\n        \"metric_name\": \"CPUUtilization\",\n        \"dimensions\": [\n          {\n            \"name\": \"InstanceId\",\n            \"value\": \"i-06105d0faad66r97\"\n          }\n        ],\n        \"label_dimension\": null\n      }\n    },\n    {\n      \"token\": \"bsnss_mtrc_c11f0f8dea953e92\",\n      \"title\": \"Datadog Metric\",\n      \"created_by_token\": \"usr_604fcaa892a23fe9\",\n      \"cost_report_tokens_with_metadata\": [],\n      \"import_type\": \"datadog_metrics\",\n      \"integration_token\": \"accss_crdntl_e0e11192748e69bb\",\n      \"datadog_metric_fields\": {\n        \"query\": \"avg:system.cpu.user{*}.rollup(avg, daily)\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d69742be-74f7-4c72-ba40-06fb66a8fdd7",
+          "name": "Create business metric",
+          "request": {
+            "name": "Create business metric",
+            "description": {
+              "content": "Create a new BusinessMetric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "869abae9-6d38-4a6b-851e-1ecd2f444dff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bsnss_mtrc_e8d0a6f35c9f4e8c\",\n  \"title\": \"New Biz Metric\",\n  \"created_by_token\": \"usr_464e70f8e230fa62\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"rprt_67a1e1ac3bb7cefd\",\n      \"unit_scale\": \"per_thousand\",\n      \"label_filter\": [\n        \"Dev\",\n        \"Prod\",\n        \"Staging\",\n        \"\"\n      ]\n    }\n  ],\n  \"import_type\": \"csv\",\n  \"integration_token\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd161299-06ad-42fa-93b4-89c12418f347",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "575a2bd8-8d73-4d4a-816a-3e71717e2e95",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d845c324-f387-4009-bd24-adcf513a9c94",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6da5a845-53a2-4815-9204-69af19349bd5",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f376d72-c241-42d1-a242-0dc410f7d5e2",
+          "name": "Get business metric by token",
+          "request": {
+            "name": "Get business metric by token",
+            "description": {
+              "content": "Return a BusinessMetric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "574884c4-3d23-49c5-9158-fbadface836c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bsnss_mtrc_6d8f14830f9870ac\",\n  \"title\": \"Quo Lux\",\n  \"created_by_token\": \"usr_622d8870faf147bb\",\n  \"cost_report_tokens_with_metadata\": [],\n  \"import_type\": \"csv\",\n  \"integration_token\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bab81a81-0ce2-4afd-bfc8-5435106bcd1f",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "746b4eae-e1e1-4f4e-b0a2-77b9ff53ee9a",
+          "name": "Update business metric",
+          "request": {
+            "name": "Update business metric",
+            "description": {
+              "content": "Updates an existing BusinessMetric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "19f001d8-f3ff-4305-ab25-30cd65b1c39d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bsnss_mtrc_e3d9bf77f276d23b\",\n  \"title\": \"New Title\",\n  \"created_by_token\": \"usr_1e4b6318373f5c98\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"rprt_54aa7c0519d3f1e2\",\n      \"unit_scale\": \"per_thousand\",\n      \"label_filter\": [\n        \"Dev\",\n        \"Prod\",\n        \"Staging\",\n        \"\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"rprt_201403b36022766a\",\n      \"unit_scale\": \"per_million\"\n    }\n  ],\n  \"import_type\": \"csv\",\n  \"integration_token\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "263c5b71-8a60-4132-a723-d249607e4b35",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9e33f3c-ddee-466e-9c7f-a7a79b80087c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc1aa969-481f-4dd0-a1cc-e3f27cc5b763",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5ac8e09-2fd5-4d9b-b7d1-f9d9a0f44fd0",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"cost_report_token\": \"<string>\",\n      \"unit_scale\": \"per_unit\",\n      \"label_filter\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"forecasted_values\": [\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"date\": \"<dateTime>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"datadog_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"query\": \"<string>\"\n  },\n  \"cloudwatch_fields\": {\n    \"integration_token\": \"<string>\",\n    \"stat\": \"<string>\",\n    \"region\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"metric_name\": \"<string>\",\n    \"label_dimension\": \"<string>\",\n    \"dimensions\": [\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"snowflake_metric_fields\": {\n    \"integration_token\": \"<string>\",\n    \"sql_query\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b7bcdbd-b818-42b1-9d5e-d39d4fafd53e",
+          "name": "Delete business metric",
+          "request": {
+            "name": "Delete business metric",
+            "description": {
+              "content": "Deletes an existing BusinessMetric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a7157d1f-d30a-4263-8021-110149632b5d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cost_report_tokens_with_metadata\": [\n    {\n      \"calculation_type\": \"unit_cost\",\n      \"cost_report_token\": \"rprt_1234\",\n      \"unit_scale\": \"per_hundred\",\n      \"label_filter\": [\n        \"\",\n        \"\"\n      ]\n    },\n    {\n      \"calculation_type\": \"unit_cost\",\n      \"cost_report_token\": \"rprt_1234\",\n      \"unit_scale\": \"per_hundred\",\n      \"label_filter\": [\n        \"\",\n        \"\"\n      ]\n    }\n  ],\n  \"import_type\": \"datadog_metrics\",\n  \"integration_token\": \"string\",\n  \"title\": \"Total Revenue\",\n  \"token\": \"bsnss_mtrc_1234\",\n  \"created_by_token\": \"usr_1234\",\n  \"cloudwatch_fields\": {\n    \"dimensions\": [\n      {\n        \"name\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"label_dimension\": \"string\",\n    \"metric_name\": \"CPUUtilization\",\n    \"namespace\": \"AWS/EC2\",\n    \"region\": \"us-east-1\",\n    \"stat\": \"Average\"\n  },\n  \"datadog_metric_fields\": {\n    \"query\": \"sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)\"\n  },\n  \"snowflake_metric_fields\": {\n    \"sql_query\": \"SELECT date, value, label FROM my_metrics_table\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e744ba2-f7f3-4f87-8e2b-ae41106e4078",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8125c596-2406-479c-be25-b5414d9998de",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c68d5b2-8ac1-47c9-ab2a-a82def9b5549",
+          "name": "Get business metric values",
+          "request": {
+            "name": "Get business metric values",
+            "description": {
+              "content": "Return values of a BusinessMetric",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token",
+                "values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "Query BusinessMetrics by the first date you would like to filter from. ISO 8601 Formatted - 2021-07-15"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c907ce7a-03d0-4235-8db6-43514fb2acc2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"values\": [\n    {\n      \"date\": \"2024-01-03T00:00:00Z\",\n      \"amount\": \"300.0\"\n    },\n    {\n      \"date\": \"2024-01-02T00:00:00Z\",\n      \"amount\": \"200.0\"\n    },\n    {\n      \"date\": \"2024-01-01T00:00:00Z\",\n      \"amount\": \"100.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c698a11-a65d-4e33-a643-dfeed5e433ea",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3c6f680-0744-4818-a6c6-0b29f56fb004",
+          "name": "Delete business metric values",
+          "request": {
+            "name": "Delete business metric values",
+            "description": {
+              "content": "Deletes Business Metric values (historical or forecasted unit metrics).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token",
+                "values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Inclusive lower bound (ISO 8601 date or datetime, UTC). Date-only values start at 00:00:00 UTC that day."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "Inclusive upper bound (ISO 8601 date or datetime, UTC). Date-only values include the full calendar day through 23:59:59.999999999 UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "When present in the query string (including as an empty value), only unit metrics with this exact label are deleted. Omit the parameter to delete all labels in range."
+                },
+                {
+                  "disabled": false,
+                  "key": "forecasted",
+                  "value": "false",
+                  "description": "When true, deletes forecasted unit metrics instead of historical ones."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a3e0e4b7-b00f-4187-8aad-62c3cdfc170c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted_count\": 120\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1df277b2-066d-4e56-9ed6-8abc86d59153",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4304a116-ee78-4009-aa86-42d33756b386",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4938628-69ac-4ecf-a292-909b1fdb195b",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9496cad8-a444-43fd-baca-6884fa878915",
+          "name": "Get business metric forecasted values",
+          "request": {
+            "name": "Get business metric forecasted values",
+            "description": {
+              "content": "Return forecasted values of a BusinessMetric",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token",
+                "forecasted_values"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The amount of results to return. The maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "Query BusinessMetrics by the first date you would like to filter from. ISO 8601 Formatted - 2021-07-15"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c05ba506-7259-477a-8bb9-ad758db30dc3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "forecasted_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"values\": [\n    {\n      \"date\": \"2025-01-03T00:00:00Z\",\n      \"amount\": \"300.0\"\n    },\n    {\n      \"date\": \"2025-01-02T00:00:00Z\",\n      \"amount\": \"200.0\"\n    },\n    {\n      \"date\": \"2025-01-01T00:00:00Z\",\n      \"amount\": \"100.0\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f35b9a2b-0671-44c2-a122-42dab7647532",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "forecasted_values"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e9ff015-2aae-4d56-b8ef-614189782d7c",
+          "name": "Update business metric values from CSV",
+          "request": {
+            "name": "Update business metric values from CSV",
+            "description": {
+              "content": "Updates the values for an existing BusinessMetric from a CSV file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "business_metrics",
+                ":business_metric_token",
+                "values.csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_metric_token",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://console.vantage.sh/account/profile"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "csv",
+                  "value": "<binary>",
+                  "description": "(Required) CSV file containing BusinessMetric dates and amounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "forecasted",
+                  "value": "false",
+                  "description": "When true, imports values as forecasted metrics instead of historical metrics."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3e3f9b1-8ae9-4d48-8572-589a450bff74",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CSV file containing BusinessMetric dates and amounts",
+                        "type": "text/plain"
+                      },
+                      "key": "csv",
+                      "value": "<binary>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, imports values as forecasted metrics instead of historical metrics.",
+                        "type": "text/plain"
+                      },
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"bsnss_mtrc_6bb1021d8651923a\",\n  \"title\": \"Overhold\",\n  \"created_by_token\": \"usr_ad24de73bffb7791\",\n  \"cost_report_tokens_with_metadata\": [],\n  \"import_type\": \"csv\",\n  \"integration_token\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c65e33bc-c4e4-4770-8d31-9bfe2c6d5f57",
+              "name": "BadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CSV file containing BusinessMetric dates and amounts",
+                        "type": "text/plain"
+                      },
+                      "key": "csv",
+                      "value": "<binary>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, imports values as forecasted metrics instead of historical metrics.",
+                        "type": "text/plain"
+                      },
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d5c8062-d91b-461e-bd94-5b6bfed4f340",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CSV file containing BusinessMetric dates and amounts",
+                        "type": "text/plain"
+                      },
+                      "key": "csv",
+                      "value": "<binary>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, imports values as forecasted metrics instead of historical metrics.",
+                        "type": "text/plain"
+                      },
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00926ab6-a8e2-45aa-b04d-286b0ccc4b7e",
+              "name": "NotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CSV file containing BusinessMetric dates and amounts",
+                        "type": "text/plain"
+                      },
+                      "key": "csv",
+                      "value": "<binary>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, imports values as forecasted metrics instead of historical metrics.",
+                        "type": "text/plain"
+                      },
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ac817c8-b134-4c15-92a9-146afba1879d",
+              "name": "UnprocessableEntity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "business_metrics",
+                    ":business_metric_token",
+                    "values.csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_metric_token",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CSV file containing BusinessMetric dates and amounts",
+                        "type": "text/plain"
+                      },
+                      "key": "csv",
+                      "value": "<binary>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, imports values as forecasted metrics instead of historical metrics.",
+                        "type": "text/plain"
+                      },
+                      "key": "forecasted",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vantage.sh/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://console.vantage.sh/account/profile"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d04d4be6-eeda-431c-a798-b7df3aad56ce",
+    "name": "Vantage AccessGrants BusinessMetrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.\n\nContact Support:\n Name: Vantage Support\n Email: support@vantage.sh",
+      "type": "text/plain"
+    }
+  }
+}
