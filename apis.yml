@@ -43,6 +43,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Access Grants
+  tags_raw:
   - AccessGrants
   properties:
   - type: OpenAPI
@@ -59,6 +61,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Anomaly Alerts
+  tags_raw:
   - AnomalyAlerts
   properties:
   - type: OpenAPI
@@ -91,6 +95,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Audit Logs
+  tags_raw:
   - AuditLogs
   properties:
   - type: OpenAPI
@@ -107,6 +113,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Billing Profiles
+  tags_raw:
   - BillingProfiles
   properties:
   - type: OpenAPI
@@ -139,6 +147,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Budget Alerts
+  tags_raw:
   - BudgetAlerts
   properties:
   - type: OpenAPI
@@ -171,6 +181,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Business Metrics
+  tags_raw:
   - BusinessMetrics
   properties:
   - type: OpenAPI
@@ -315,6 +327,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Data Exports
+  tags_raw:
   - DataExports
   properties:
   - type: OpenAPI
@@ -331,6 +345,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Exchange Rates
+  tags_raw:
   - ExchangeRates
   properties:
   - type: OpenAPI
@@ -347,6 +363,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Financial Commitment Reports
+  tags_raw:
   - FinancialCommitmentReports
   properties:
   - type: OpenAPI
@@ -395,6 +413,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -443,6 +463,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Managed Accounts
+  tags_raw:
   - ManagedAccounts
   properties:
   - type: OpenAPI
@@ -475,6 +497,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Network Flow Reports
+  tags_raw:
   - NetworkFlowReports
   properties:
   - type: OpenAPI
@@ -571,6 +595,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Resource Reports
+  tags_raw:
   - ResourceReports
   properties:
   - type: OpenAPI
@@ -603,6 +629,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Saved Filters
+  tags_raw:
   - SavedFilters
   properties:
   - type: OpenAPI
@@ -651,6 +679,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -683,6 +713,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - User Feedback
+  tags_raw:
   - UserFeedback
   properties:
   - type: OpenAPI
@@ -699,6 +731,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -715,6 +749,8 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
+  - Virtual Tags
+  tags_raw:
   - VirtualTags
   properties:
   - type: OpenAPI
