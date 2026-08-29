@@ -11,6 +11,18 @@ description: Vantage is a cloud cost management and FinOps platform that gives e
   reporting, and wire cloud optimization into their own tooling. Vantage publishes a
   full OpenAPI specification and authenticates with OAuth2 (client-credentials bearer
   tokens) scoped for read and write.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -778,6 +790,9 @@ apis:
   - type: Documentation
     url: https://www.vantage.sh/blog/vantage-launches-api-resource-costs
 common:
+- type: CapabilityMap
+  url: capabilities/vantage-sh-capability-edges.yml
+  name: Vantage Business Capability Map
 - type: AgenticAccess
   url: agentic-access/vantage-sh-agentic-access.yml
 - type: DomainSecurity
