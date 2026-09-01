@@ -55,7 +55,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - AccessGrants
+  - Access Grants
   tags_raw:
   - AccessGrants
   properties:
@@ -73,7 +73,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - AnomalyAlerts
+  - Anomaly Alerts
   tags_raw:
   - AnomalyAlerts
   properties:
@@ -125,7 +125,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - BillingProfiles
+  - Billing Profiles
   tags_raw:
   - BillingProfiles
   properties:
@@ -159,7 +159,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - BudgetAlerts
+  - Budget Alerts
   tags_raw:
   - BudgetAlerts
   properties:
@@ -193,7 +193,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - BusinessMetrics
+  - Business Metrics
   tags_raw:
   - BusinessMetrics
   properties:
@@ -339,7 +339,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - DataExports
+  - Data Exports
   tags_raw:
   - DataExports
   properties:
@@ -375,7 +375,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - FinancialCommitmentReports
+  - Financial Commitment Reports
   tags_raw:
   - FinancialCommitmentReports
   properties:
@@ -475,7 +475,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - ManagedAccounts
+  - Managed Accounts
   tags_raw:
   - ManagedAccounts
   properties:
@@ -509,7 +509,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - NetworkFlowReports
+  - Network Flow Reports
   tags_raw:
   - NetworkFlowReports
   properties:
@@ -607,7 +607,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - ResourceReports
+  - Resource Reports
   tags_raw:
   - ResourceReports
   properties:
@@ -641,7 +641,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - SavedFilters
+  - Saved Filters
   tags_raw:
   - SavedFilters
   properties:
@@ -725,7 +725,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - UserFeedback
+  - User Feedback
   tags_raw:
   - UserFeedback
   properties:
@@ -761,7 +761,7 @@ apis:
   humanURL: https://docs.vantage.sh/api
   baseURL: https://api.vantage.sh/v2
   tags:
-  - VirtualTags
+  - Virtual Tags
   tags_raw:
   - VirtualTags
   properties:
