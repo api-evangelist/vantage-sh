@@ -1,0 +1,137 @@
+slug: vantage-sh
+provider: Vantage
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 12
+edges:
+- tag: Costs
+  spec_file: vantage-sh-costs-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.85
+  evidence: GET /costs "Get costs for cost report or VQL filter"; GET /cost_reports/{token}/forecasted_costs
+    "Get forecasted costs for a cost report"
+  reason: Core cloud cost reporting, forecasting and export — plainly IT spend visibility and cost optimisation
+    (IT Financial Management).
+- tag: AnomalyAlerts
+  spec_file: vantage-sh-anomalyalerts-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.82
+  evidence: GET /anomaly_alerts  getAnomalyAlerts  Get all anomaly alerts — 'governance and alerting (Budgets,
+    Budget Alerts, Cost Alerts, Anomaly Alerts...)' over cloud spend
+  reason: Cost-anomaly detection on cloud spend is IT financial management (cloud cost/FinOps), not financial-crime
+    or observability alerting; the vendor description explicitly frames these as cost governance alerts.
+- tag: Recommendations
+  spec_file: vantage-sh-recommendations-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.8
+  evidence: GET /recommendations/{recommendation_token}/resources  Get all resources for a recommendation;
+    schema RecommendationAction, ResourceCost
+  reason: Cloud cost-savings recommendations tied to resources and their costs — squarely IT spend/cost
+    optimisation, i.e. IT Financial Management.
+- tag: Budgets
+  spec_file: vantage-sh-budgets-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.75
+  evidence: POST /budgets createBudget; schemas "BudgetPerformance", "BudgetPeriod"; platform for "visibility
+    into and control over cloud spend"
+  reason: Budgets here are cloud-spend budgets with performance tracking — IT spend/chargeback and cost
+    optimisation. Not general enterprise budgeting, so BC-600.80 over BC-230.10.
+- tag: FinancialCommitmentReports
+  spec_file: vantage-sh-financialcommitmentreports-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.75
+  evidence: POST /financial_commitment_reports  createFinancialCommitmentReport  Create financial commitment
+    report
+  reason: Creates and manages reports on cloud financial commitments (reserved instances / savings plans)
+    within a cloud cost management and FinOps platform — i.e. analysis and reporting of IT/cloud spend,
+    which is IT Financial Management. Some residual ambiguity vs generic management reporting.
+- tag: FinancialCommitments
+  spec_file: vantage-sh-financialcommitments-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.75
+  evidence: GET /financial_commitments  getFinancialCommitments  Get all financial commitments
+  reason: Exposes the inventory of cloud financial commitments described in the spec as 'cost visibility
+    and optimization (Resources, Recommendations, Financial Commitments...)' — cloud/IT spend management,
+    i.e. IT Financial Management. Thin surface (one read operation) so not higher confidence.
+- tag: BillingRules
+  spec_file: vantage-sh-billingrules-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.72
+  evidence: '"billing (Billing Profiles, Billing Rules, Invoices)" within "the Vantage cloud cost management
+    and FinOps platform"; POST /billing_rules createBillingRule'
+  reason: Billing rules in Vantage adjust/allocate cloud cost data (chargeback/showback, cost adjustments)
+    rather than run customer billing; best fits IT Financial Management. Some ambiguity as it could be
+    read as invoicing, so moderate confidence.
+- tag: CostAlerts
+  spec_file: vantage-sh-costalerts-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.72
+  evidence: 'POST /cost_alerts createCostAlert; description: "governance and alerting (... Cost Alerts,
+    Anomaly Alerts and Notifications)"'
+  reason: Alerts triggered on cloud cost thresholds/anomalies — IT cost monitoring and optimisation, not
+    security or financial-crime alerting.
+- tag: BudgetAlerts
+  spec_file: vantage-sh-budgetalerts-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.7
+  evidence: 'GET /budget_alerts "Get all budget alerts"; description: "governance and alerting (Budgets,
+    Budget Alerts, Cost Alerts...)"'
+  reason: Alerts on cloud-spend budgets — IT spend monitoring/cost optimisation. Maps to IT Financial
+    Management; could arguably be budgeting but the object is cloud cost governance.
+- tag: KubernetesEfficiencyReports
+  spec_file: vantage-sh-kubernetesefficiencyreports-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.7
+  evidence: POST /kubernetes_efficiency_reports  createKubernetesEfficiencyReport  Create Kubernetes efficiency
+    report
+  reason: Creates and manages reports on Kubernetes cost efficiency ('Kubernetes efficiency' listed under
+    cost visibility and optimization) — cloud cost/IT spend optimisation reporting, i.e. IT Financial
+    Management.
+- tag: RecommendationViews
+  spec_file: vantage-sh-recommendationviews-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.7
+  evidence: POST /recommendation_views  createRecommendationView  Create recommendation view
+  reason: Views over cost-optimisation recommendations in a FinOps tool; the vendor description places
+    Recommendations under 'cost visibility and optimization'. Maps to IT Financial Management (IT cost
+    optimisation), though the tag itself is a saved-view construct.
+- tag: UnitCosts
+  spec_file: vantage-sh-unitcosts-api-openapi.yml
+  capability_id: BC-600.80
+  capability_id_l1: BC-600
+  capability_name: IT Financial Management
+  confidence: 0.7
+  evidence: GET /unit_costs  getUnitCosts  Get all unit costs for a cost report
+  reason: Unit economics of cloud spend derived from cost reports — IT spend measurement and cost optimisation,
+    i.e. IT Financial Management.
