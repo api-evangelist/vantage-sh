@@ -24,7 +24,8 @@ edges:
   reason: Core cloud cost reporting, forecasting and export — plainly IT spend visibility and cost optimisation
     (IT Financial Management).
 - tag: AnomalyAlerts
-  spec_file: vantage-sh-anomalyalerts-api-openapi.yml
+  spec_file: vantage-sh-anomaly-alerts-api-openapi.yml
+  reanchored_from: vantage-sh-anomalyalerts-api-openapi.yml
   capability_id: BC-600.80
   capability_id_l1: BC-600
   capability_name: IT Financial Management
@@ -54,7 +55,8 @@ edges:
   reason: Budgets here are cloud-spend budgets with performance tracking — IT spend/chargeback and cost
     optimisation. Not general enterprise budgeting, so BC-600.80 over BC-230.10.
 - tag: FinancialCommitmentReports
-  spec_file: vantage-sh-financialcommitmentreports-api-openapi.yml
+  spec_file: vantage-sh-financial-commitment-reports-api-openapi.yml
+  reanchored_from: vantage-sh-financialcommitmentreports-api-openapi.yml
   capability_id: BC-600.80
   capability_id_l1: BC-600
   capability_name: IT Financial Management
@@ -96,7 +98,8 @@ edges:
   reason: Alerts triggered on cloud cost thresholds/anomalies — IT cost monitoring and optimisation, not
     security or financial-crime alerting.
 - tag: BudgetAlerts
-  spec_file: vantage-sh-budgetalerts-api-openapi.yml
+  spec_file: vantage-sh-budget-alerts-api-openapi.yml
+  reanchored_from: vantage-sh-budgetalerts-api-openapi.yml
   capability_id: BC-600.80
   capability_id_l1: BC-600
   capability_name: IT Financial Management
