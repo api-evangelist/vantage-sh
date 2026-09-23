@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants CostProviderAccounts API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Cost Provider Accounts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -105,57 +105,6 @@ paths:
         - read
 components:
   schemas:
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    CostProviderAccount:
-      required:
-      - account_id
-      - provider
-      - provider_uuid
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The display name of the provider account.
-          nullable: false
-          example: Production Account
-        account_id:
-          type: string
-          description: The provider account identifier (e.g., AWS account ID, Azure subscription ID).
-          nullable: false
-          example: '123456789012'
-        provider_uuid:
-          type: string
-          description: The provider-specific unique identifier.
-          nullable: false
-          example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
-        provider:
-          type: string
-          description: The provider type (aws, azure, gcp, etc.).
-          nullable: false
-          example: aws
     CostProviderAccounts:
       required:
       - cost_provider_accounts
@@ -168,6 +117,58 @@ components:
           items:
             $ref: '#/components/schemas/CostProviderAccount'
       description: CostProviderAccounts model
+    CostProviderAccount:
+      required:
+      - account_id
+      - provider
+      - provider_uuid
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The display name of the provider account.
+          example: Production Account
+        account_id:
+          type: string
+          description: The provider account identifier (e.g., AWS account ID, Azure subscription ID).
+          example: '123456789012'
+        provider_uuid:
+          type: string
+          description: The provider-specific unique identifier.
+          example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
+        provider:
+          type: string
+          description: The provider type (aws, azure, gcp, etc.).
+          example: aws
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
   securitySchemes:
     oauth2:
       type: oauth2

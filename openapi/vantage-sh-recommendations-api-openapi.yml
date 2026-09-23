@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Recommendations API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Recommendations API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -451,19 +451,6 @@ paths:
         - read
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
     RecommendationProviderResources:
       required:
       - resources
@@ -476,35 +463,43 @@ components:
           items:
             $ref: '#/components/schemas/RecommendationProviderResource'
       description: RecommendationProviderResources model
-    RecommendationAction:
+    Recommendations:
       required:
-      - action
-      - description
-      - potential_savings
+      - recommendations
       type: object
       properties:
-        action:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recommendation'
+      description: Recommendations model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
           type: string
-          nullable: false
-        description:
-          type: string
-          nullable: false
-        potential_savings:
-          type: string
-          description: Potential savings in dollars
-          nullable: false
-          example: '100.00'
-        instance_type:
-          type: string
-          nullable: true
-        containers:
-          type: string
-          nullable: true
-        remediation_cli_command:
-          type: string
-          description: CLI command to remediate this recommendation
-          nullable: true
-          example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Recommendation:
       required:
       - category
@@ -523,67 +518,120 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         type:
           type: string
           description: The type of the Recommendation. This is analogous to category, but with a uniform format.
-          nullable: false
           example: aws:ec2:co-rightsizing
         category:
           type: string
           description: The category of the Recommendation.
-          nullable: false
           example: ec2_compute_optimizer_recommender
         workspace_token:
           type: string
           description: The token for the Workspace the Recommendation is a part of.
-          nullable: false
         provider:
           type: string
           description: The provider the Recommendation is for.
-          nullable: false
         provider_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The account ID of the provider. For Azure, this is the subscription ID.
-          nullable: true
         description:
           type: string
-          nullable: false
         documentation_url:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A URL to related documentation if available.
-          nullable: true
           example: https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering
         potential_savings:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The monthly potential savings of the Recommendation, converted to the organization's selected currency.
-          nullable: true
           example: '100.00'
         service:
           type: string
           description: The service the Recommendation is for.
-          nullable: false
           example: Amazon EC2
         created_at:
           type: string
           description: The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
-          nullable: false
         resources_affected_count:
           type: integer
           description: The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
           format: int32
-          nullable: false
         currency_code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The currency code used by the Workspace to which this Recommendation belongs.
-          nullable: true
           example: EUR
         currency_symbol:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The currency symbol used by the Workspace to which this Recommendation belongs.
-          nullable: true
           example: EUR
       description: Recommendation model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    RecommendationAction:
+      required:
+      - action
+      - description
+      - potential_savings
+      type: object
+      properties:
+        action:
+          type: string
+        description:
+          type: string
+        potential_savings:
+          type: string
+          description: Potential savings in dollars
+          example: '100.00'
+        instance_type:
+          type:
+          - string
+          - 'null'
+        containers:
+          type:
+          - string
+          - 'null'
+        remediation_cli_command:
+          type:
+          - string
+          - 'null'
+          description: CLI command to remediate this recommendation
+          example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
     RecommendationProviderResource:
       required:
       - account_id
@@ -602,42 +650,43 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         uuid:
           type: string
           description: The unique identifier for the resource.
-          nullable: false
           example: i-0a1b2c3d4e5f6g7h8
         type:
           type: string
           description: The kind of resource.
-          nullable: false
           example: aws_instance
         label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         metadata:
-          type: object
+          type:
+          - object
+          - 'null'
           properties: {}
           description: Type-specific attributes of the resource.
-          nullable: true
         account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The provider account where the resource is located.
-          nullable: true
         billing_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The provider billing account this resource is charged to.
-          nullable: true
         provider:
           type: string
           description: The provider of the resource.
-          nullable: false
           example: aws
         region:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The region where the resource is located. Region values are specific to each provider.
-          nullable: true
           example: us-west-2
         costs:
           type: array
@@ -647,16 +696,13 @@ components:
         created_at:
           type: string
           description: The date and time when Vantage first observed the resource.
-          nullable: false
         tags:
           type: object
           properties: {}
           description: Key-value pairs of tags associated with the resource.
-          nullable: false
         resource_id:
           type: string
           description: The unique identifier of the Active Resource.
-          nullable: false
           example: i-0a1b2c3d4e5f6g7h8
         recommendation_actions:
           type: array
@@ -664,56 +710,6 @@ components:
           items:
             $ref: '#/components/schemas/RecommendationAction'
       description: RecommendationProviderResource model
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-          nullable: false
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
-          nullable: false
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    Recommendations:
-      required:
-      - recommendations
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        recommendations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recommendation'
-      description: Recommendations model
   securitySchemes:
     oauth2:
       type: oauth2

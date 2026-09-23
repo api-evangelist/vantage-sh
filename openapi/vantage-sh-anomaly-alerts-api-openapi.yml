@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants AnomalyAlerts API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Anomaly Alerts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -14,13 +14,13 @@ security:
 - oauth2:
   - read
 tags:
-- name: AnomalyAlerts
+- name: Anomaly Alerts
   description: Operations about AnomalyAlerts
 paths:
   /anomaly_alerts:
     get:
       tags:
-      - AnomalyAlerts
+      - Anomaly Alerts
       summary: Get all anomaly alerts
       description: Return all Anomaly Alerts that the current API token has access to.
       operationId: getAnomalyAlerts
@@ -106,7 +106,7 @@ paths:
   /anomaly_alerts/{anomaly_alert_token}:
     get:
       tags:
-      - AnomalyAlerts
+      - Anomaly Alerts
       summary: Get anomaly alert by token
       description: Return an AnomalyAlert that the current API token has access to.
       operationId: getAnomalyAlert
@@ -151,7 +151,7 @@ paths:
         - read
     put:
       tags:
-      - AnomalyAlerts
+      - Anomaly Alerts
       summary: Update anomaly alert
       description: Update an AnomalyAlert.
       operationId: updateAnomalyAlert
@@ -217,19 +217,6 @@ paths:
       x-codegen-request-body-name: updateAnomalyAlert
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
     updateAnomalyAlert:
       required:
       - status
@@ -242,29 +229,58 @@ components:
           type: string
           description: Optional additional comments for why this alert is ignored.
       description: Update an AnomalyAlert.
+    AnomalyAlerts:
+      required:
+      - anomaly_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyAlert'
+      description: AnomalyAlerts model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Links:
       type: object
       properties:
         self:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the current page of results.
-          nullable: true
         first:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the first page of results.
-          nullable: true
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the next page of results, if one exists.
-          nullable: true
         last:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the last page of results, if one exists.
-          nullable: true
         prev:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the previous page of results, if one exists.
-          nullable: true
     AnomalyAlert:
       required:
       - amount
@@ -283,78 +299,58 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         created_at:
           type: string
           description: The date and time, in UTC, the AnomalyAlert was created. ISO 8601 Formatted.
-          nullable: false
           example: '2021-07-09T00:00:00Z'
         alerted_at:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The date and time, in UTC, the AnomalyAlert is sent. ISO 8601 Formatted.
-          nullable: true
           example: '2021-07-09T00:00:00Z'
         category:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The category of the AnomalyAlert.
-          nullable: true
         service:
           type: string
           description: The provider service causing the AnomalyAlert.
-          nullable: false
         provider:
           type: string
           description: The provider of the service causing the AnomalyAlert.
-          nullable: false
         amount:
           type: string
           description: The amount observed.
-          nullable: false
         previous_amount:
           type: string
           description: The previous amount observed.
-          nullable: false
         seven_day_average:
           type: string
           description: The seven day average of the amount observed.
-          nullable: false
         status:
           type: string
           description: The status of the AnomalyAlert.
-          nullable: false
         feedback:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The user-provided feedback of why alert was ignored/archived.
-          nullable: true
         resources:
           type: array
           description: The names of the resources the AnomalyAlert was attributed to.
-          nullable: false
           items:
             type: string
         resource_tokens:
           type: array
           description: The tokens of the Resources the AnomalyAlert was attributed to.
-          nullable: false
           items:
             type: string
         cost_report_token:
           type: string
           description: The token of the Report associated with the AnomalyAlert.
-          nullable: false
       description: AnomalyAlert model
-    AnomalyAlerts:
-      required:
-      - anomaly_alerts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        anomaly_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnomalyAlert'
-      description: AnomalyAlerts model
   securitySchemes:
     oauth2:
       type: oauth2

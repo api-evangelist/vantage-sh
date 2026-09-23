@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Teams API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Teams API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -423,6 +423,129 @@ paths:
         - write
 components:
   schemas:
+    Team:
+      required:
+      - default_dashboard_token
+      - description
+      - name
+      - token
+      - user_emails
+      - user_tokens
+      - workspace_tokens
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type: string
+          description: The name of the Team.
+          example: Cost Savers
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the Team.
+          example: The Team that saves costs
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the Team belongs to
+          items:
+            type: string
+            example: ''
+        user_emails:
+          type: array
+          description: The email addresses for Users that belong to the Team
+          items:
+            type: string
+            example: ''
+        user_tokens:
+          type: array
+          description: The tokens for Users that belong to the Team
+          items:
+            type: string
+            example: ''
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the default Dashboard for the Team.
+          example: dshbrd_abcd1234
+      description: Team model
+    updateTeam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Team.
+        description:
+          type: string
+          description: The description of the Team.
+        workspace_tokens:
+          type: array
+          description: The Workspace tokens to associate to the Team.
+          items:
+            type: string
+        user_tokens:
+          type: array
+          description: The User tokens to associate to the Team.
+          items:
+            type: string
+        user_emails:
+          type: array
+          description: The User emails to associate to the Team.
+          items:
+            type: string
+        role:
+          type: string
+          description: The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.
+          enum:
+          - owner
+          - editor
+          - viewer
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of a Dashboard to set as the Team default. Send null to clear.
+          x-omitempty: false
+      description: Update a Team.
+    TeamMember:
+      required:
+      - email
+      - name
+      - role
+      - user_token
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the team member.
+          example: John Doe
+        email:
+          type: string
+          description: The email address of the team member.
+          example: john@acme.com
+        user_token:
+          type: string
+          description: The token of the team member.
+          example: usr_abcd1234
+        role:
+          type: string
+          description: The role of the team member in the team.
+          example: editor
+      description: TeamMember model
+    Teams:
+      required:
+      - teams
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+      description: Teams model
     Errors:
       required:
       - errors
@@ -432,10 +555,68 @@ components:
           $ref: '#/components/schemas/Links'
         errors:
           type: array
-          nullable: false
           items:
             type: string
       description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    addTeamMember:
+      required:
+      - role
+      - user_email
+      type: object
+      properties:
+        user_email:
+          type: string
+          description: The email address of the user to add to the Team.
+        role:
+          type: string
+          description: The role to assign to the user. Defaults to 'editor'.
+          default: editor
+          enum:
+          - owner
+          - editor
+          - viewer
+          - integration_owner
+      description: Add a member to a Team.
+    TeamMembers:
+      required:
+      - members
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+      description: TeamMembers model
     createTeam:
       required:
       - name
@@ -470,194 +651,12 @@ components:
           - editor
           - viewer
         default_dashboard_token:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The token of a Dashboard to set as the Team default. Send null to clear.
-          nullable: true
           x-omitempty: false
       description: Create a new Team.
-    Teams:
-      required:
-      - teams
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-      description: Teams model
-    TeamMembers:
-      required:
-      - members
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-      description: TeamMembers model
-    updateTeam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the Team.
-        description:
-          type: string
-          description: The description of the Team.
-        workspace_tokens:
-          type: array
-          description: The Workspace tokens to associate to the Team.
-          items:
-            type: string
-        user_tokens:
-          type: array
-          description: The User tokens to associate to the Team.
-          items:
-            type: string
-        user_emails:
-          type: array
-          description: The User emails to associate to the Team.
-          items:
-            type: string
-        role:
-          type: string
-          description: The role to assign to the provided Users. Defaults to 'editor' which has editor permissions.
-          enum:
-          - owner
-          - editor
-          - viewer
-        default_dashboard_token:
-          type: string
-          description: The token of a Dashboard to set as the Team default. Send null to clear.
-          nullable: true
-          x-omitempty: false
-      description: Update a Team.
-    addTeamMember:
-      required:
-      - role
-      - user_email
-      type: object
-      properties:
-        user_email:
-          type: string
-          description: The email address of the user to add to the Team.
-        role:
-          type: string
-          description: The role to assign to the user. Defaults to 'editor'.
-          default: editor
-          enum:
-          - owner
-          - editor
-          - viewer
-          - integration_owner
-      description: Add a member to a Team.
-    Team:
-      required:
-      - default_dashboard_token
-      - description
-      - name
-      - token
-      - user_emails
-      - user_tokens
-      - workspace_tokens
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        name:
-          type: string
-          description: The name of the Team.
-          nullable: false
-          example: Cost Savers
-        description:
-          type: string
-          description: The description of the Team.
-          nullable: true
-          example: The Team that saves costs
-        workspace_tokens:
-          type: array
-          description: The tokens for any Workspaces that the Team belongs to
-          nullable: false
-          items:
-            type: string
-            example: ''
-        user_emails:
-          type: array
-          description: The email addresses for Users that belong to the Team
-          nullable: false
-          items:
-            type: string
-            example: ''
-        user_tokens:
-          type: array
-          description: The tokens for Users that belong to the Team
-          nullable: false
-          items:
-            type: string
-            example: ''
-        default_dashboard_token:
-          type: string
-          description: The token of the default Dashboard for the Team.
-          nullable: true
-          example: dshbrd_abcd1234
-      description: Team model
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    TeamMember:
-      required:
-      - email
-      - name
-      - role
-      - user_token
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the team member.
-          nullable: false
-          example: John Doe
-        email:
-          type: string
-          description: The email address of the team member.
-          nullable: false
-          example: john@acme.com
-        user_token:
-          type: string
-          description: The token of the team member.
-          nullable: false
-          example: usr_abcd1234
-        role:
-          type: string
-          description: The role of the team member in the team.
-          nullable: false
-          example: editor
-      description: TeamMember model
   securitySchemes:
     oauth2:
       type: oauth2

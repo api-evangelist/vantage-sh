@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants ReportNotifications API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Report Notifications API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -221,45 +221,6 @@ paths:
         - write
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
-    updateReportNotification:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the ReportNotification.
-        cost_report_token:
-          type: string
-          description: The CostReport token.
-        user_tokens:
-          type: array
-          description: The Users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The Slack or Microsoft Teams channels that receive the notification.
-          items:
-            type: string
-        frequency:
-          type: string
-          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
-        change:
-          type: string
-          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
-      description: Update a ReportNotification.
     ReportNotification:
       required:
       - change
@@ -273,35 +234,29 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         title:
           type: string
           description: The title of the ReportNotification.
-          nullable: false
           example: Acme Report Notification
         cost_report_token:
           type: string
           description: The token for a CostReport the ReportNotification is applied to.
-          nullable: false
           example: rprt_abcd1234
         user_tokens:
           type: array
           description: The Users that receive the notification.
-          nullable: false
           items:
             type: string
             example: ''
         recipient_channels:
           type: array
           description: The Slack or Microsoft Teams channels that receive the notification.
-          nullable: false
           items:
             type: string
             example: ''
         frequency:
           type: string
           description: The frequency the ReportNotification is sent.
-          nullable: false
           example: weekly
           enum:
           - daily
@@ -310,12 +265,51 @@ components:
         change:
           type: string
           description: The type of change the ReportNotification is tracking.
-          nullable: false
           example: percentage
           enum:
           - percentage
           - dollars
       description: ReportNotification model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     ReportNotifications:
       required:
       - report_notifications
@@ -362,29 +356,32 @@ components:
           type: string
           description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
       description: Create a ReportNotification.
-    Links:
+    updateReportNotification:
       type: object
       properties:
-        self:
+        title:
           type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
+          description: The title of the ReportNotification.
+        cost_report_token:
           type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
+          description: The CostReport token.
+        user_tokens:
+          type: array
+          description: The Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack or Microsoft Teams channels that receive the notification.
+          items:
+            type: string
+        frequency:
           type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
+          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
+        change:
           type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
+          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
+      description: Update a ReportNotification.
   securitySchemes:
     oauth2:
       type: oauth2

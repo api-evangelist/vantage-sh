@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Prices API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Prices API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -268,32 +268,26 @@ components:
       properties:
         id:
           type: string
-          nullable: false
         category:
           type: string
           description: The category of the cloud product
-          nullable: false
           example: compute
         name:
           type: string
           description: The common name of the product.
-          nullable: false
           example: EC2
         service_id:
           type: string
           description: A unique slug for the service the product belongs to.
-          nullable: false
           example: aws-ec2
         provider_id:
           type: string
           description: A unique slug for the provider the product belongs to.
-          nullable: false
           example: aws
         details:
           type: object
           properties: {}
           description: An object of metadata about the product.
-          nullable: false
           example:
             gpu: 0
             name: M5 General Purpose 16xlarge
@@ -303,53 +297,6 @@ components:
             physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
             network_performance_description: 20 Gigabit
       description: Product model
-    Prices:
-      required:
-      - prices
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-      description: Prices model
-    Products:
-      required:
-      - products
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-      description: Products model
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
     Price:
       required:
       - amount
@@ -363,41 +310,86 @@ components:
       properties:
         id:
           type: string
-          nullable: false
         unit:
           type: string
           description: The unit in which the amount is billed.
-          nullable: false
           example: hour
         region:
           type: string
           description: The region the price is specific to.
-          nullable: false
           example: us-east-1
         rate_type:
           type: string
           description: The part of the product the price applies to. (compute, transfer, etc..)
-          nullable: false
           example: compute
         currency:
           type: string
           description: The currency of the amount.
-          nullable: false
           example: USD
         amount:
           type: number
           description: The amount of money this specific product price costs.
-          nullable: false
           example: 1.324
         details:
           type: object
           properties: {}
           description: Service specific metadata.
-          nullable: false
           example:
             platform: linux-enterprise
             lifecycle: on-demand
       description: Price model
+    Prices:
+      required:
+      - prices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+      description: Prices model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Products:
+      required:
+      - products
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      description: Products model
   securitySchemes:
     oauth2:
       type: oauth2

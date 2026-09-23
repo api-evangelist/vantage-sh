@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants BillingProfiles API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Billing Profiles API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -14,13 +14,13 @@ security:
 - oauth2:
   - read
 tags:
-- name: BillingProfiles
+- name: Billing Profiles
   description: Operations about BillingProfiles
 paths:
   /billing_profiles:
     get:
       tags:
-      - BillingProfiles
+      - Billing Profiles
       summary: Get all billing profiles
       description: Returns a list of billing profiles (MSP invoicing required).
       operationId: getBillingProfiles
@@ -49,7 +49,7 @@ paths:
         - read
     post:
       tags:
-      - BillingProfiles
+      - Billing Profiles
       summary: Create billing profile
       description: Create a billing profile (MSP invoicing required).
       operationId: createBillingProfile
@@ -79,7 +79,7 @@ paths:
   /billing_profiles/{billing_profile_token}:
     get:
       tags:
-      - BillingProfiles
+      - Billing Profiles
       summary: Get billing profile by token
       description: Requires MSP invoicing to be enabled on the account.
       operationId: getBillingProfile
@@ -107,7 +107,7 @@ paths:
         - read
     put:
       tags:
-      - BillingProfiles
+      - Billing Profiles
       summary: Update billing profile
       description: Requires MSP invoicing to be enabled on the account.
       operationId: updateBillingProfile
@@ -148,7 +148,7 @@ paths:
       x-codegen-request-body-name: updateBillingProfile
     delete:
       tags:
-      - BillingProfiles
+      - Billing Profiles
       summary: Delete billing profile
       description: Requires MSP invoicing to be enabled on the account.
       operationId: deleteBillingProfile
@@ -176,88 +176,15 @@ paths:
         - write
 components:
   schemas:
-    Errors:
+    BusinessInformation:
       required:
-      - errors
+      - token
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
-    BusinessInformationCustomField:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
+        token:
           type: string
-          description: Custom field name
-          nullable: false
-        value:
-          type: string
-          description: Custom field value
-          nullable: true
-    BankingInformationSecureData:
-      required:
-      - account_number
-      - iban
-      - routing_number
-      - swift_bic
-      type: object
-      properties:
-        account_number:
-          type: string
-          description: Bank account number (US)
-          nullable: true
-        routing_number:
-          type: string
-          description: Bank routing number (US)
-          nullable: true
-        iban:
-          type: string
-          description: International Bank Account Number (EU)
-          nullable: true
-        swift_bic:
-          type: string
-          description: SWIFT/BIC code (EU)
-          nullable: true
-    AdjustmentItem:
-      required:
-      - adjustment_type
-      - amount
-      - calculation_type
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the adjustment (e.g., 'State Tax', 'Processing Fee')
-          nullable: false
-        adjustment_type:
-          type: string
-          description: Type of adjustment
-          nullable: false
-          enum:
-          - charge
-          - credit
-          - discount
-        calculation_type:
-          type: string
-          description: How the adjustment is calculated
-          nullable: false
-          enum:
-          - fixed
-          - percentage
-        amount:
-          type: string
-          description: Amount or percentage value for the adjustment
-          nullable: false
+        metadata:
+          $ref: '#/components/schemas/BusinessInformationMetadata'
     BillingProfiles:
       required:
       - billing_profiles
@@ -270,14 +197,88 @@ components:
           items:
             $ref: '#/components/schemas/BillingProfile'
       description: BillingProfiles model
-    BusinessInformationMetadata:
+    AdjustmentItem:
+      required:
+      - adjustment_type
+      - amount
+      - calculation_type
+      - name
       type: object
       properties:
-        custom_fields:
+        name:
+          type: string
+          description: Name of the adjustment (e.g., 'State Tax', 'Processing Fee')
+        adjustment_type:
+          type: string
+          description: Type of adjustment
+          enum:
+          - charge
+          - credit
+          - discount
+        calculation_type:
+          type: string
+          description: How the adjustment is calculated
+          enum:
+          - fixed
+          - percentage
+        amount:
+          type: string
+          description: Amount or percentage value for the adjustment
+    BankingInformationSecureData:
+      required:
+      - account_number
+      - iban
+      - routing_number
+      - swift_bic
+      type: object
+      properties:
+        account_number:
+          type:
+          - string
+          - 'null'
+          description: Bank account number (US)
+        routing_number:
+          type:
+          - string
+          - 'null'
+          description: Bank routing number (US)
+        iban:
+          type:
+          - string
+          - 'null'
+          description: International Bank Account Number (EU)
+        swift_bic:
+          type:
+          - string
+          - 'null'
+          description: SWIFT/BIC code (EU)
+    BusinessInformationCustomField:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name
+        value:
+          type:
+          - string
+          - 'null'
+          description: Custom field value
+    InvoiceAdjustment:
+      required:
+      - adjustment_items
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        adjustment_items:
           type: array
-          description: Array of custom field objects
+          description: Array of adjustment items (taxes, fees, etc.)
           items:
-            $ref: '#/components/schemas/BusinessInformationCustomField'
+            $ref: '#/components/schemas/AdjustmentItem'
     BillingProfile:
       required:
       - billing_information_attributes
@@ -292,20 +293,16 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         nickname:
           type: string
           description: Display name for the billing profile
-          nullable: false
         created_at:
           type: string
           description: The date and time, in UTC, the billing profile was created. ISO 8601 formatted.
-          nullable: false
           example: '2023-08-04T00:00:00Z'
         updated_at:
           type: string
           description: The date and time, in UTC, the billing profile was last updated. ISO 8601 formatted.
-          nullable: false
           example: '2023-08-04T00:00:00Z'
         billing_information_attributes:
           $ref: '#/components/schemas/BillingInformation'
@@ -318,41 +315,47 @@ components:
         managed_accounts_count:
           type: string
           description: Number of managed accounts using this billing profile
-          nullable: false
       description: BillingProfile model
-    BusinessInformation:
+    Errors:
       required:
-      - token
+      - errors
       type: object
       properties:
-        token:
-          type: string
-          nullable: false
-        metadata:
-          $ref: '#/components/schemas/BusinessInformationMetadata'
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Links:
       type: object
       properties:
         self:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the current page of results.
-          nullable: true
         first:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the first page of results.
-          nullable: true
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the next page of results, if one exists.
-          nullable: true
         last:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the last page of results, if one exists.
-          nullable: true
         prev:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the previous page of results, if one exists.
-          nullable: true
     updateBillingProfile:
       type: object
       properties:
@@ -482,6 +485,98 @@ components:
                     format: double
           description: Invoice adjustments (taxes, fees, etc.)
       description: Update a billing profile (MSP invoicing required).
+    BankingInformation:
+      required:
+      - bank_name
+      - beneficiary_name
+      - tax_id
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        bank_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the bank
+        beneficiary_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the account beneficiary
+        tax_id:
+          type:
+          - string
+          - 'null'
+          description: Tax identification number
+        secure_data:
+          $ref: '#/components/schemas/BankingInformationSecureData'
+    BusinessInformationMetadata:
+      type: object
+      properties:
+        custom_fields:
+          type: array
+          description: Array of custom field objects
+          items:
+            $ref: '#/components/schemas/BusinessInformationCustomField'
+    BillingInformation:
+      required:
+      - address_line_1
+      - address_line_2
+      - billing_email
+      - city
+      - company_name
+      - country_code
+      - postal_code
+      - state
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        company_name:
+          type:
+          - string
+          - 'null'
+          description: Company name for billing
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: ISO country code
+        address_line_1:
+          type:
+          - string
+          - 'null'
+          description: First line of billing address
+        address_line_2:
+          type:
+          - string
+          - 'null'
+          description: Second line of billing address
+        city:
+          type:
+          - string
+          - 'null'
+          description: City for billing address
+        state:
+          type:
+          - string
+          - 'null'
+          description: State or province for billing address
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: Postal or ZIP code
+        billing_email:
+          type:
+          - array
+          - 'null'
+          description: Array of billing email addresses
+          items:
+            type: string
     createBillingProfile:
       required:
       - nickname
@@ -613,95 +708,6 @@ components:
                     format: double
           description: Invoice adjustments (taxes, fees, etc.)
       description: Create a billing profile (MSP invoicing required).
-    BillingInformation:
-      required:
-      - address_line_1
-      - address_line_2
-      - billing_email
-      - city
-      - company_name
-      - country_code
-      - postal_code
-      - state
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        company_name:
-          type: string
-          description: Company name for billing
-          nullable: true
-        country_code:
-          type: string
-          description: ISO country code
-          nullable: true
-        address_line_1:
-          type: string
-          description: First line of billing address
-          nullable: true
-        address_line_2:
-          type: string
-          description: Second line of billing address
-          nullable: true
-        city:
-          type: string
-          description: City for billing address
-          nullable: true
-        state:
-          type: string
-          description: State or province for billing address
-          nullable: true
-        postal_code:
-          type: string
-          description: Postal or ZIP code
-          nullable: true
-        billing_email:
-          type: array
-          description: Array of billing email addresses
-          nullable: true
-          items:
-            type: string
-    BankingInformation:
-      required:
-      - bank_name
-      - beneficiary_name
-      - tax_id
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        bank_name:
-          type: string
-          description: Name of the bank
-          nullable: true
-        beneficiary_name:
-          type: string
-          description: Name of the account beneficiary
-          nullable: true
-        tax_id:
-          type: string
-          description: Tax identification number
-          nullable: true
-        secure_data:
-          $ref: '#/components/schemas/BankingInformationSecureData'
-    InvoiceAdjustment:
-      required:
-      - adjustment_items
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        adjustment_items:
-          type: array
-          description: Array of adjustment items (taxes, fees, etc.)
-          items:
-            $ref: '#/components/schemas/AdjustmentItem'
   securitySchemes:
     oauth2:
       type: oauth2

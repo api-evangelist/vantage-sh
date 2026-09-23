@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Segments API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Segments API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -245,67 +245,6 @@ paths:
         - write
 components:
   schemas:
-    updateSegment:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Segment.
-        description:
-          type: string
-          description: The description of the Segment.
-        priority:
-          type: integer
-          description: The priority of the Segment.
-          format: int32
-        track_unallocated:
-          type: boolean
-          description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          default: false
-        report_settings:
-          type: object
-          properties:
-            include_credits:
-              type: boolean
-              description: Reports created under this Segment will include credits.
-              nullable: true
-            include_refunds:
-              type: boolean
-              description: Reports created under this Segment will include refunds.
-              nullable: true
-            include_discounts:
-              type: boolean
-              description: Reports created under this Segment will include discounts.
-              nullable: true
-            include_tax:
-              type: boolean
-              description: Reports created under this Segment will include tax.
-              nullable: true
-            amortize:
-              type: boolean
-              description: Reports created under this Segment will amortize.
-              nullable: true
-          description: Report settings configurable on top-level Segments.
-        filter:
-          type: string
-          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-        parent_segment_token:
-          type: string
-          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
-      description: Update a Segment.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
     Segment:
       required:
       - created_at
@@ -322,104 +261,70 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         title:
           type: string
           description: The title of the Segment.
-          nullable: false
           example: OPEX
         parent_segment_token:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The token of the parent Segment of this Segment.
-          nullable: true
         description:
           type: string
           description: The description of the Segment.
-          nullable: false
           example: Operating expenses
         track_unallocated:
           type: boolean
           description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          nullable: false
           example: false
         report_settings:
           type: object
           properties:
             include_credits:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
             include_refunds:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
             include_discounts:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
             include_tax:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
             amortize:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
           description: Report settings configurable on top-level Segments.
         priority:
           type: integer
           description: Costs are assigned in priority order across all Segments with assigned filters.
           format: int32
-          nullable: false
           example: 100
         filter:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-          nullable: true
         created_at:
           type: string
           description: The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
-          nullable: false
           example: '2021-07-09T00:00:00Z'
         workspace_token:
           type: string
           description: The token for the Workspace the Segment is a part of.
-          nullable: false
         report_token:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The token for the Report the Segment has generated.
-          nullable: true
       description: Segment model
-    Segments:
-      required:
-      - segments
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Segment'
-      description: Segments model
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
     createSegment:
       required:
       - title
@@ -443,25 +348,30 @@ components:
           type: object
           properties:
             include_credits:
-              type: boolean
+              type:
+              - boolean
+              - 'null'
               description: Reports created under this Segment will include credits.
-              nullable: true
             include_refunds:
-              type: boolean
+              type:
+              - boolean
+              - 'null'
               description: Reports created under this Segment will include refunds.
-              nullable: true
             include_discounts:
-              type: boolean
+              type:
+              - boolean
+              - 'null'
               description: Reports created under this Segment will include discounts.
-              nullable: true
             include_tax:
-              type: boolean
+              type:
+              - boolean
+              - 'null'
               description: Reports created under this Segment will include tax.
-              nullable: true
             amortize:
-              type: boolean
+              type:
+              - boolean
+              - 'null'
               description: Reports created under this Segment will amortize.
-              nullable: true
           description: Report settings configurable on top-level Segments.
         workspace_token:
           type: string
@@ -473,6 +383,111 @@ components:
           type: string
           description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
       description: Create a Segment.
+    updateSegment:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Segment.
+        description:
+          type: string
+          description: The description of the Segment.
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          default: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include credits.
+            include_refunds:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include refunds.
+            include_discounts:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include discounts.
+            include_tax:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include tax.
+            amortize:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will amortize.
+          description: Report settings configurable on top-level Segments.
+        filter:
+          type: string
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Update a Segment.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Segments:
+      required:
+      - segments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment'
+      description: Segments model
   securitySchemes:
     oauth2:
       type: oauth2

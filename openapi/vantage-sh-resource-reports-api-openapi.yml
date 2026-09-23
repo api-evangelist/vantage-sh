@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants ResourceReports API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Resource Reports API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -14,13 +14,13 @@ security:
 - oauth2:
   - read
 tags:
-- name: ResourceReports
+- name: Resource Reports
   description: Operations about ResourceReports
 paths:
   /resource_reports/columns:
     get:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Get resource report columns
       description: List available columns for a resource type.
       operationId: getResourceReportColumns
@@ -101,7 +101,7 @@ paths:
   /resource_reports:
     get:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Get all resource reports
       description: Return all ResourceReports.
       operationId: getResourceReports
@@ -154,7 +154,7 @@ paths:
         - read
     post:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Create resource report
       description: Create a ResourceReport.
       operationId: createResourceReport
@@ -207,7 +207,7 @@ paths:
   /resource_reports/{resource_report_token}:
     get:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Get resource report by token
       description: Return a ResourceReport.
       operationId: getResourceReport
@@ -252,7 +252,7 @@ paths:
         - read
     put:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Update resource report
       description: Update a ResourceReport.
       operationId: updateResourceReport
@@ -316,7 +316,7 @@ paths:
       x-codegen-request-body-name: updateResourceReport
     delete:
       tags:
-      - ResourceReports
+      - Resource Reports
       summary: Delete resource report
       description: Delete a ResourceReport.
       operationId: deleteResourceReport
@@ -344,44 +344,58 @@ paths:
         - write
 components:
   schemas:
-    ResourceReportColumns:
+    ResourceReport:
       required:
       - columns
+      - created_at
+      - created_by_token
+      - filter
+      - title
+      - token
+      - user_token
+      - workspace_token
       type: object
       properties:
+        token:
+          type: string
+        title:
+          type: string
+          description: The title of the ResourceReport.
+          example: Acme123 Active Resources
+        filter:
+          type:
+          - string
+          - 'null'
+          description: The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the ResourceReport is a part of.
+        user_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the User who created this ResourceReport.
+        created_by_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the User or Team who created this ResourceReport.
+        folder_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the Folder the ResourceReport is a part of.
         columns:
           type: array
-          description: Array of available column names for the specified resource type.
-          nullable: false
+          description: Array of column names configured for the ResourceReport table display.
           items:
             type: string
             example: ''
-      description: ResourceReportColumns model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
-    ResourceReports:
-      required:
-      - resource_reports
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        resource_reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceReport'
-      description: ResourceReports model
+      description: ResourceReport model
     createResourceReport:
       required:
       - workspace_token
@@ -423,82 +437,70 @@ components:
           type: string
           description: The token of the Folder to move the ResourceReport to.
       description: Update a ResourceReport.
-    ResourceReport:
+    Errors:
       required:
-      - columns
-      - created_at
-      - created_by_token
-      - filter
-      - title
-      - token
-      - user_token
-      - workspace_token
+      - errors
       type: object
       properties:
-        token:
-          type: string
-          nullable: false
-        title:
-          type: string
-          description: The title of the ResourceReport.
-          nullable: false
-          example: Acme123 Active Resources
-        filter:
-          type: string
-          description: The filter applied to the ResourceReport. Additional documentation available at https://docs.vantage.sh/vql.
-          nullable: true
-        created_at:
-          type: string
-          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2024-03-19T00:00:00Z'
-        workspace_token:
-          type: string
-          description: The token for the Workspace the ResourceReport is a part of.
-          nullable: false
-        user_token:
-          type: string
-          description: The token for the User who created this ResourceReport.
-          nullable: true
-        created_by_token:
-          type: string
-          description: The token for the User or Team who created this ResourceReport.
-          nullable: true
-        folder_token:
-          type: string
-          description: The token for the Folder the ResourceReport is a part of.
-          nullable: true
-        columns:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
           type: array
-          description: Array of column names configured for the ResourceReport table display.
-          nullable: false
           items:
             type: string
-            example: ''
-      description: ResourceReport model
+      description: Errors model
     Links:
       type: object
       properties:
         self:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the current page of results.
-          nullable: true
         first:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the first page of results.
-          nullable: true
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the next page of results, if one exists.
-          nullable: true
         last:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the last page of results, if one exists.
-          nullable: true
         prev:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the previous page of results, if one exists.
-          nullable: true
+    ResourceReportColumns:
+      required:
+      - columns
+      type: object
+      properties:
+        columns:
+          type: array
+          description: Array of available column names for the specified resource type.
+          items:
+            type: string
+            example: ''
+      description: ResourceReportColumns model
+    ResourceReports:
+      required:
+      - resource_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resource_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceReport'
+      description: ResourceReports model
   securitySchemes:
     oauth2:
       type: oauth2

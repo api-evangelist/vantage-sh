@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Integrations API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Integrations API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -519,19 +519,23 @@ paths:
       x-codegen-request-body-name: createAzureIntegration
 components:
   schemas:
-    Errors:
+    createGCPIntegration:
       required:
-      - errors
+      - billing_account_id
+      - dataset_name
+      - project_id
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
+        billing_account_id:
+          type: string
+          description: GCP billing account ID.
+        project_id:
+          type: string
+          description: GCP project ID.
+        dataset_name:
+          type: string
+          description: BigQuery dataset name.
+      description: Create a GCP Integration
     createCustomProviderIntegration:
       required:
       - name
@@ -544,156 +548,6 @@ components:
           type: string
           description: Description of the Custom Provider Integration.
       description: Create a Custom Provider Integration
-    Integration:
-      required:
-      - account_identifier
-      - created_at
-      - managed_account_tokens
-      - provider
-      - status
-      - token
-      - workspace_tokens
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        provider:
-          type: string
-          description: The name of the Integration.
-          nullable: false
-          example: AWS
-        account_identifier:
-          type: string
-          description: The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
-          nullable: true
-          example: 011389-EF4C3E-3ED7AE
-        status:
-          type: string
-          description: The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
-          nullable: false
-          example: imported
-          enum:
-          - connected
-          - error
-          - pending
-          - importing
-          - imported
-          - disconnected
-        last_updated:
-          type: string
-          description: The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
-          nullable: true
-          example: '2023-08-04T00:00:00Z'
-        workspace_tokens:
-          type: array
-          description: The tokens for any Workspaces that the account belongs to.
-          nullable: false
-          items:
-            type: string
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2023-08-04T00:00:00Z'
-        managed_account_tokens:
-          type: array
-          description: The tokens for any Managed Accounts that are associated with the Integration.
-          nullable: false
-          items:
-            type: string
-      description: Integration model
-    UserCostsUploads:
-      required:
-      - user_costs_uploads
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        user_costs_uploads:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserCostsUpload'
-      description: UserCostsUploads model
-    updateIntegration:
-      type: object
-      properties:
-        workspace_tokens:
-          type: array
-          description: The Workspace tokens to associate to the Integration.
-          items:
-            type: string
-      description: Update an Integration.
-    createAzureIntegration:
-      required:
-      - app_id
-      - password
-      - tenant
-      type: object
-      properties:
-        tenant:
-          type: string
-          description: Azure AD Tenant ID.
-        app_id:
-          type: string
-          description: Service Principal Application ID.
-        password:
-          type: string
-          description: Service Principal Password.
-      description: Create an Azure Integration
-    UserCostsUpload:
-      required:
-      - amount
-      - created_at
-      - created_by_token
-      - end_date
-      - filename
-      - import_status
-      - start_date
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          description: The token of the UserCostsUpload.
-          nullable: false
-          example: usr_csts_upld_1234
-        filename:
-          type: string
-          description: The filename of the uploaded costs UserCostsUpload.
-          nullable: false
-          example: usr_csts_upld_1234.parquet
-        amount:
-          type: string
-          description: The total amount of the costs in the UserCostsUpload.
-          nullable: false
-          example: '1234.56'
-        start_date:
-          type: string
-          description: The start date of the costs in the UserCostsUpload.
-          nullable: false
-          example: '2021-01-01'
-        end_date:
-          type: string
-          description: The end date of the costs in the UserCostsUpload.
-          nullable: false
-          example: '2021-01-31'
-        import_status:
-          type: string
-          description: Import status of the UserCostsUpload.
-          nullable: false
-          example: processing
-        created_by_token:
-          type: string
-          description: The token of the Creator of the UserCostsUpload.
-          nullable: false
-          example: usr_1234
-        created_at:
-          type: string
-          description: When the UserCostsUpload was uploaded.
-          nullable: false
-          example: '2021-01-01T00:00:00Z'
-      description: UserCostsUpload model
     Cost:
       required:
       - accrued_at
@@ -706,27 +560,26 @@ components:
         accrued_at:
           type: string
           description: The date the cost was accrued. ISO 8601 Formatted.
-          nullable: false
           example: 2023-09-05+00:00
         amount:
           type: string
           description: The amount of the cost.
-          nullable: false
           example: '4.25'
         currency:
           type: string
           description: The currency of the cost.
-          nullable: false
           example: USD
         usage:
-          type: object
+          type:
+          - object
+          - 'null'
           properties: {}
           description: The usage amount and unit incurred by the cost.
-          nullable: true
         provider:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The cost provider which incurred the cost.
-          nullable: true
           example: aws
           enum:
           - aws
@@ -767,88 +620,88 @@ components:
           - cloudflare
           - fireworks_ai
         billing_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The cost provider's billing account id that incurred the cost.
-          nullable: true
           example: '9109237192'
         account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The cost provider's account id that incurred the cost.
-          nullable: true
           example: '9109237192'
         service:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The service which incurred the cost.
-          nullable: true
           example: Amazon Elastic Compute Cloud - Compute
         region:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The region which incurred the cost.
-          nullable: true
           example: us-east-1
         resource_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The resource id which incurred the cost.
-          nullable: true
           example: arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
         resource_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The human-readable resource name when Vantage can enrich the resource id.
-          nullable: true
           example: claude_code_key_name
         tag:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'The tag attached to the cost that was incurred.
 
             DEPRECATED: does not support multiple tags.'
-          nullable: true
           example: production
         tags:
-          type: array
+          type:
+          - array
+          - 'null'
           description: The tag pairs attached to the cost that was incurred.
-          nullable: true
           items:
             type: string
             example: ''
         cost_category:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The category for the cost.
-          nullable: true
           example: Data Transfer
         cost_subcategory:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The subcategory for the cost.
-          nullable: true
           example: DataTransfer-Regional-Bytes
         segment:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The segment name for segment report costs.
-          nullable: true
           example: Engineering
       description: Cost model
-    Links:
+    UserCostsUploads:
+      required:
+      - user_costs_uploads
       type: object
       properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
+        links:
+          $ref: '#/components/schemas/Links'
+        user_costs_uploads:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserCostsUpload'
+      description: UserCostsUploads model
     Integrations:
       required:
       - integrations
@@ -861,23 +714,172 @@ components:
           items:
             $ref: '#/components/schemas/Integration'
       description: Integrations model
-    createGCPIntegration:
+    Errors:
       required:
-      - billing_account_id
-      - dataset_name
-      - project_id
+      - errors
       type: object
       properties:
-        billing_account_id:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    createAzureIntegration:
+      required:
+      - app_id
+      - password
+      - tenant
+      type: object
+      properties:
+        tenant:
           type: string
-          description: GCP billing account ID.
-        project_id:
+          description: Azure AD Tenant ID.
+        app_id:
           type: string
-          description: GCP project ID.
-        dataset_name:
+          description: Service Principal Application ID.
+        password:
           type: string
-          description: BigQuery dataset name.
-      description: Create a GCP Integration
+          description: Service Principal Password.
+      description: Create an Azure Integration
+    UserCostsUpload:
+      required:
+      - amount
+      - created_at
+      - created_by_token
+      - end_date
+      - filename
+      - import_status
+      - start_date
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token of the UserCostsUpload.
+          example: usr_csts_upld_1234
+        filename:
+          type: string
+          description: The filename of the uploaded costs UserCostsUpload.
+          example: usr_csts_upld_1234.parquet
+        amount:
+          type: string
+          description: The total amount of the costs in the UserCostsUpload.
+          example: '1234.56'
+        start_date:
+          type: string
+          description: The start date of the costs in the UserCostsUpload.
+          example: '2021-01-01'
+        end_date:
+          type: string
+          description: The end date of the costs in the UserCostsUpload.
+          example: '2021-01-31'
+        import_status:
+          type: string
+          description: Import status of the UserCostsUpload.
+          example: processing
+        created_by_token:
+          type: string
+          description: The token of the Creator of the UserCostsUpload.
+          example: usr_1234
+        created_at:
+          type: string
+          description: When the UserCostsUpload was uploaded.
+          example: '2021-01-01T00:00:00Z'
+      description: UserCostsUpload model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Integration:
+      required:
+      - account_identifier
+      - created_at
+      - managed_account_tokens
+      - provider
+      - status
+      - token
+      - workspace_tokens
+      type: object
+      properties:
+        token:
+          type: string
+        provider:
+          type: string
+          description: The name of the Integration.
+          example: AWS
+        account_identifier:
+          type:
+          - string
+          - 'null'
+          description: The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
+          example: 011389-EF4C3E-3ED7AE
+        status:
+          type: string
+          description: The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
+          example: imported
+          enum:
+          - connected
+          - error
+          - pending
+          - importing
+          - imported
+          - disconnected
+        last_updated:
+          type:
+          - string
+          - 'null'
+          description: The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the account belongs to.
+          items:
+            type: string
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        managed_account_tokens:
+          type: array
+          description: The tokens for any Managed Accounts that are associated with the Integration.
+          items:
+            type: string
+      description: Integration model
+    updateIntegration:
+      type: object
+      properties:
+        workspace_tokens:
+          type: array
+          description: The Workspace tokens to associate to the Integration.
+          items:
+            type: string
+      description: Update an Integration.
   securitySchemes:
     oauth2:
       type: oauth2

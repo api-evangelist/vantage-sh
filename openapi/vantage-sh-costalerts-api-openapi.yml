@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants CostAlerts API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Cost Alerts API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -226,109 +226,6 @@ paths:
         - write
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
-    CostAlerts:
-      required:
-      - cost_alerts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostAlert'
-      description: CostAlerts model
-    CostAlert:
-      required:
-      - created_at
-      - email_recipients
-      - interval
-      - minimum_threshold
-      - report_tokens
-      - slack_channels
-      - teams_channels
-      - threshold
-      - title
-      - token
-      - unit_type
-      - updated_at
-      - workspace_token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        title:
-          type: string
-          nullable: false
-        email_recipients:
-          type: array
-          description: The email addresses that will receive the alert.
-          nullable: false
-          items:
-            type: string
-        slack_channels:
-          type: array
-          description: The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.
-          nullable: false
-          items:
-            type: string
-        teams_channels:
-          type: array
-          description: The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.
-          nullable: false
-          items:
-            type: string
-        created_at:
-          type: string
-          description: The date and time, in UTC, for when the alert was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2023-10-01T12:00:00Z'
-        updated_at:
-          type: string
-          description: The date and time, in UTC, for when the alert was last updated. ISO 8601 Formatted.
-          nullable: false
-          example: '2023-10-01T12:00:00Z'
-        workspace_token:
-          type: string
-          description: The ID of the organization that owns the CostAlert.
-          nullable: false
-        interval:
-          type: string
-          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
-          nullable: false
-        threshold:
-          type: number
-          description: The cost change threshold to alert on.
-          nullable: false
-        unit_type:
-          type: string
-          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
-          nullable: false
-        minimum_threshold:
-          type: number
-          description: The minimum monetary amount threshold for percentage-based alerts. When set, alerts will only trigger if the cost change meets this minimum, even if the percentage threshold is exceeded.
-          nullable: true
-        report_tokens:
-          type: array
-          description: The tokens of the reports to alert on.
-          nullable: false
-          items:
-            type: string
-      description: CostAlert model
     createCostAlert:
       required:
       - interval
@@ -380,29 +277,6 @@ components:
           description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
           format: float
       description: Create a new Cost Alert
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
     updateCostAlert:
       type: object
       properties:
@@ -444,6 +318,125 @@ components:
           description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
           format: float
       description: Update a Cost Alert
+    CostAlerts:
+      required:
+      - cost_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostAlert'
+      description: CostAlerts model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    CostAlert:
+      required:
+      - created_at
+      - email_recipients
+      - interval
+      - minimum_threshold
+      - report_tokens
+      - slack_channels
+      - teams_channels
+      - threshold
+      - title
+      - token
+      - unit_type
+      - updated_at
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+        title:
+          type: string
+        email_recipients:
+          type: array
+          description: The email addresses that will receive the alert.
+          items:
+            type: string
+        slack_channels:
+          type: array
+          description: The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.
+          items:
+            type: string
+        teams_channels:
+          type: array
+          description: The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.
+          items:
+            type: string
+        created_at:
+          type: string
+          description: The date and time, in UTC, for when the alert was created. ISO 8601 Formatted.
+          example: '2023-10-01T12:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, for when the alert was last updated. ISO 8601 Formatted.
+          example: '2023-10-01T12:00:00Z'
+        workspace_token:
+          type: string
+          description: The ID of the organization that owns the CostAlert.
+        interval:
+          type: string
+          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
+        threshold:
+          type: number
+          description: The cost change threshold to alert on.
+        unit_type:
+          type: string
+          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
+        minimum_threshold:
+          type:
+          - number
+          - 'null'
+          description: The minimum monetary amount threshold for percentage-based alerts. When set, alerts will only trigger if the cost change meets this minimum, even if the percentage threshold is exceeded.
+        report_tokens:
+          type: array
+          description: The tokens of the reports to alert on.
+          items:
+            type: string
+      description: CostAlert model
   securitySchemes:
     oauth2:
       type: oauth2

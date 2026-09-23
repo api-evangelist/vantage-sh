@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants UnitCosts API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Unit Costs API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -183,6 +183,28 @@ paths:
         - read
 components:
   schemas:
+    DataExportManifest:
+      required:
+      - completed_at
+      - files
+      - valid_until
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            example: ''
+        completed_at:
+          type:
+          - string
+          - 'null'
+          example: '2025-03-20T12:00:00Z'
+        valid_until:
+          type:
+          - string
+          - 'null'
+          example: '2025-03-20T12:00:00Z'
     Errors:
       required:
       - errors
@@ -192,10 +214,65 @@ components:
           $ref: '#/components/schemas/Links'
         errors:
           type: array
-          nullable: false
           items:
             type: string
       description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    DataExport:
+      required:
+      - attributes
+      - created_at
+      - export_type
+      - manifest
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          example: dta_xprt_abcd1234567890
+        status:
+          type: string
+          example: pending
+        created_at:
+          type: string
+          example: '2025-03-20T12:00:00Z'
+        export_type:
+          type: string
+          example: cost_report
+        manifest:
+          $ref: '#/components/schemas/DataExportManifest'
+        attributes:
+          type: object
+          properties: {}
+      description: DataExport model
     UnitCost:
       required:
       - business_metric_amount
@@ -211,17 +288,16 @@ components:
         business_metric_token:
           type: string
           description: The token of the BusinessMetric for which the unit cost was calculated.
-          nullable: false
           example: bsnss_mtrc_1234
         business_metric_title:
           type: string
           description: The title of the BusinessMetric for which the unit cost was calculated.
-          nullable: false
           example: Total Revenue
         calculation_type:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The calculation type applied to produce this result.
-          nullable: true
           example: unit_cost
           enum:
           - unit_cost
@@ -231,57 +307,32 @@ components:
         unit_cost_amount:
           type: string
           description: The amount of the unit cost. For raw_business_metric types, this equals the business_metric_amount.
-          nullable: false
           example: '4.25'
         business_metric_amount:
           type: string
           description: The amount of the business metric.
-          nullable: false
           example: '0.371'
         scale:
           type: number
           description: The scale of the BusinessMetric's values within a particular CostReport.
           format: float
-          nullable: false
           example: 1.0
         date:
           type: string
           description: The date for which the unit cost was calculated. ISO 8601 Formatted.
-          nullable: false
           example: 2023-09-05+00:00
-    DataExport:
+    UnitCosts:
       required:
-      - attributes
-      - created_at
-      - export_type
-      - manifest
-      - status
-      - token
+      - unit_costs
       type: object
       properties:
-        token:
-          type: string
-          nullable: false
-          example: dta_xprt_abcd1234567890
-        status:
-          type: string
-          nullable: false
-          example: pending
-        created_at:
-          type: string
-          nullable: false
-          example: '2025-03-20T12:00:00Z'
-        export_type:
-          type: string
-          nullable: false
-          example: cost_report
-        manifest:
-          $ref: '#/components/schemas/DataExportManifest'
-        attributes:
-          type: object
-          properties: {}
-          nullable: false
-      description: DataExport model
+        links:
+          $ref: '#/components/schemas/Links'
+        unit_costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnitCost'
+      description: UnitCosts model
     createUnitCostsExport:
       required:
       - cost_report_token
@@ -309,62 +360,6 @@ components:
           - quarter
           - hour
       description: Generate a DataExport of unit costs.
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    UnitCosts:
-      required:
-      - unit_costs
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        unit_costs:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnitCost'
-      description: UnitCosts model
-    DataExportManifest:
-      required:
-      - completed_at
-      - files
-      - valid_until
-      type: object
-      properties:
-        files:
-          type: array
-          nullable: false
-          items:
-            type: string
-            example: ''
-        completed_at:
-          type: string
-          nullable: true
-          example: '2025-03-20T12:00:00Z'
-        valid_until:
-          type: string
-          nullable: true
-          example: '2025-03-20T12:00:00Z'
   securitySchemes:
     oauth2:
       type: oauth2

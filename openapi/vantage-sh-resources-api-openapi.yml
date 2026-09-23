@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Resources API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Resources API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -227,19 +227,6 @@ paths:
         - read
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
     Resource:
       required:
       - account_id
@@ -257,42 +244,43 @@ components:
       properties:
         token:
           type: string
-          nullable: false
         uuid:
           type: string
           description: The unique identifier for the resource.
-          nullable: false
           example: i-0a1b2c3d4e5f6g7h8
         type:
           type: string
           description: The kind of resource.
-          nullable: false
           example: aws_instance
         label:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         metadata:
-          type: object
+          type:
+          - object
+          - 'null'
           properties: {}
           description: Type-specific attributes of the resource.
-          nullable: true
         account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The provider account where the resource is located.
-          nullable: true
         billing_account_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The provider billing account this resource is charged to.
-          nullable: true
         provider:
           type: string
           description: The provider of the resource.
-          nullable: false
           example: aws
         region:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The region where the resource is located. Region values are specific to each provider.
-          nullable: true
           example: us-west-2
         costs:
           type: array
@@ -302,13 +290,36 @@ components:
         created_at:
           type: string
           description: The date and time when Vantage first observed the resource.
-          nullable: false
         tags:
           type: object
           properties: {}
           description: Key-value pairs of tags associated with the resource.
-          nullable: false
       description: Resource model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Resources:
       required:
       - resources
@@ -321,44 +332,34 @@ components:
           items:
             $ref: '#/components/schemas/Resource'
       description: Resources model
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-          nullable: false
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
-          nullable: false
     Links:
       type: object
       properties:
         self:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the current page of results.
-          nullable: true
         first:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the first page of results.
-          nullable: true
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the next page of results, if one exists.
-          nullable: true
         last:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the last page of results, if one exists.
-          nullable: true
         prev:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the previous page of results, if one exists.
-          nullable: true
   securitySchemes:
     oauth2:
       type: oauth2

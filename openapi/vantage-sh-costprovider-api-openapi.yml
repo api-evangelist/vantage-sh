@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants CostProvider API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Cost Provider API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -46,41 +46,30 @@ components:
       type: object
       properties:
         self:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the current page of results.
-          nullable: true
         first:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the first page of results.
-          nullable: true
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the next page of results, if one exists.
-          nullable: true
         last:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the last page of results, if one exists.
-          nullable: true
         prev:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The URL of the previous page of results, if one exists.
-          nullable: true
-    CostProvider:
-      required:
-      - key
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the CostProvider.
-          nullable: false
-          example: AWS
-        key:
-          type: string
-          description: The key of the CostProvider, useful for filtering Costs.
-          nullable: false
-          example: aws
     CostProviders:
       required:
       - cost_providers
@@ -93,6 +82,20 @@ components:
           items:
             $ref: '#/components/schemas/CostProvider'
       description: CostProviders model
+    CostProvider:
+      required:
+      - key
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the CostProvider.
+          example: AWS
+        key:
+          type: string
+          description: The key of the CostProvider, useful for filtering Costs.
+          example: aws
   securitySchemes:
     oauth2:
       type: oauth2

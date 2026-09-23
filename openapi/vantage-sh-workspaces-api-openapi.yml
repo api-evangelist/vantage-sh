@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Workspaces API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Workspaces API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -217,19 +217,18 @@ paths:
         - write
 components:
   schemas:
-    Errors:
+    Workspaces:
       required:
-      - errors
+      - workspaces
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        errors:
+        workspaces:
           type: array
-          nullable: false
           items:
-            type: string
-      description: Errors model
+            $ref: '#/components/schemas/Workspace'
+      description: Workspaces model
     updateWorkspace:
       type: object
       properties:
@@ -419,18 +418,77 @@ components:
           - daily_rate
           - end_of_billing_period_rate
       description: Update a workspace
-    Workspaces:
+    Errors:
       required:
-      - workspaces
+      - errors
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        workspaces:
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/Workspace'
-      description: Workspaces model
+            type: string
+      description: Errors model
+    Workspace:
+      required:
+      - created_at
+      - currency
+      - enable_currency_conversion
+      - exchange_rate_date
+      - name
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type: string
+          description: The name of the Workspace.
+          example: Acme Corp.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        enable_currency_conversion:
+          type: boolean
+          description: Whether or not currency conversion is enabled for the Workspace.
+        currency:
+          type: string
+          description: The currency code for the Workspace that will be used for currency conversion.
+          example: USD
+        exchange_rate_date:
+          type: string
+          description: The exchange rate date that will be used to convert currency for your cost data.
+      description: Workspace model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     createWorkspace:
       required:
       - name
@@ -454,66 +512,6 @@ components:
           - daily_rate
           - end_of_billing_period_rate
       description: Create a workspace
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    Workspace:
-      required:
-      - created_at
-      - currency
-      - enable_currency_conversion
-      - exchange_rate_date
-      - name
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        name:
-          type: string
-          description: The name of the Workspace.
-          nullable: false
-          example: Acme Corp.
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2023-08-04T00:00:00Z'
-        enable_currency_conversion:
-          type: boolean
-          description: Whether or not currency conversion is enabled for the Workspace.
-          nullable: false
-        currency:
-          type: string
-          description: The currency code for the Workspace that will be used for currency conversion.
-          nullable: false
-          example: USD
-        exchange_rate_date:
-          type: string
-          description: The exchange rate date that will be used to convert currency for your cost data.
-          nullable: false
-      description: Workspace model
   securitySchemes:
     oauth2:
       type: oauth2

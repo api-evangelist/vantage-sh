@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vantage AccessGrants Budgets API
-  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform. It covers cost reporting and querying (Costs, Cost Reports, forecasts, unit costs), cost visibility and optimization (Resources, Recommendations, Financial Commitments, Kubernetes efficiency), governance and alerting (Budgets, Budget Alerts, Cost Alerts, Anomaly Alerts and Notifications), organization (Segments, Folders, Saved Filters, Dashboards, Workspaces, Teams), and billing (Billing Profiles, Billing Rules, Invoices). The API spans AWS, Azure, GCP, Kubernetes, Datadog, Snowflake, MongoDB, and other supported providers. Base URL https://api.vantage.sh/v2. Authentication is via OAuth2 (client credentials / bearer token) with read and write scopes.
+  title: Vantage Budgets API
+  description: The Vantage API provides programmatic access to the Vantage cloud cost management and FinOps platform.
   termsOfService: https://www.vantage.sh/terms-of-use
   contact:
     name: Vantage Support
@@ -305,56 +305,6 @@ paths:
         - write
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          nullable: false
-          items:
-            type: string
-      description: Errors model
-    updateBudget:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the Budget.
-        cost_report_token:
-          type: string
-          description: The CostReport token. Ignored for hierarchical Budgets.
-        child_budget_tokens:
-          type: array
-          description: The tokens of any child Budgets when creating a hierarchical Budget.
-          items:
-            type: string
-        periods:
-          type: array
-          description: The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
-          items:
-            required:
-            - amount
-            - start_at
-            type: object
-            properties:
-              start_at:
-                type: string
-                description: The start date of the period.
-                format: date
-              end_at:
-                type: string
-                description: The end date of the period.
-                format: date
-                nullable: true
-              amount:
-                type: number
-                description: The amount of the period.
-                format: double
-      description: Update a Budget.
     BudgetPeriod:
       required:
       - amount
@@ -365,140 +315,15 @@ components:
         start_at:
           type: string
           description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          nullable: false
           example: '2024-03-19T00:00:00Z'
         end_at:
           type: string
           description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          nullable: false
           example: '2024-03-19T00:00:00Z'
         amount:
           type: string
           description: The amount of the Budget Period as a string to ensure precision.
-          nullable: false
           example: '100.00'
-    Links:
-      type: object
-      properties:
-        self:
-          type: string
-          description: The URL of the current page of results.
-          nullable: true
-        first:
-          type: string
-          description: The URL of the first page of results.
-          nullable: true
-        next:
-          type: string
-          description: The URL of the next page of results, if one exists.
-          nullable: true
-        last:
-          type: string
-          description: The URL of the last page of results, if one exists.
-          nullable: true
-        prev:
-          type: string
-          description: The URL of the previous page of results, if one exists.
-          nullable: true
-    Budget:
-      required:
-      - budget_alert_tokens
-      - child_budget_tokens
-      - created_at
-      - name
-      - periods
-      - token
-      - workspace_token
-      type: object
-      properties:
-        token:
-          type: string
-          nullable: false
-        name:
-          type: string
-          description: The name of the Budget.
-          nullable: true
-          example: Acme123 Budget
-        workspace_token:
-          type: string
-          description: The token for the Workspace the Budget is a part of.
-          nullable: false
-        user_token:
-          type: string
-          description: The token for the User who created this Budget.
-          nullable: true
-        created_by_token:
-          type: string
-          description: The token of the Creator of the Budget.
-          nullable: true
-        cost_report_token:
-          type: string
-          description: The token of the Report associated with the Budget.
-          nullable: true
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2024-03-19T00:00:00Z'
-        budget_alert_tokens:
-          type: array
-          description: The tokens of the BudgetAlerts associated with the Budget.
-          nullable: false
-          items:
-            type: string
-            example: ''
-        child_budget_tokens:
-          type: array
-          description: The tokens of the child Budgets associated with the hierarchical Budget.
-          nullable: false
-          items:
-            type: string
-            example: ''
-        periods:
-          type: array
-          description: The budget periods associated with the Budget.
-          items:
-            $ref: '#/components/schemas/BudgetPeriod'
-        performance:
-          type: array
-          description: The historical performance of the Budget.
-          items:
-            $ref: '#/components/schemas/BudgetPerformance'
-      description: Budget model
-    BudgetPerformance:
-      required:
-      - actual
-      - amount
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2024-03-19T00:00:00Z'
-        actual:
-          type: string
-          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          nullable: false
-          example: '2024-03-19T00:00:00Z'
-        amount:
-          type: string
-          description: The amount of the Budget Period as a string to ensure precision.
-          nullable: false
-          example: '100.00'
-    Budgets:
-      required:
-      - budgets
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        budgets:
-          type: array
-          items:
-            $ref: '#/components/schemas/Budget'
-      description: Budgets model
     createBudget:
       required:
       - name
@@ -532,15 +357,189 @@ components:
                 description: The start date of the period.
                 format: date
               end_at:
-                type: string
+                type:
+                - string
+                - 'null'
                 description: The end date of the period.
                 format: date
-                nullable: true
               amount:
                 type: number
                 description: The amount of the period.
                 format: double
       description: Create a Budget.
+    Budget:
+      required:
+      - budget_alert_tokens
+      - child_budget_tokens
+      - created_at
+      - name
+      - periods
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the Budget.
+          example: Acme123 Budget
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Budget is a part of.
+        user_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the User who created this Budget.
+        created_by_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the Creator of the Budget.
+        cost_report_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the Report associated with the Budget.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        budget_alert_tokens:
+          type: array
+          description: The tokens of the BudgetAlerts associated with the Budget.
+          items:
+            type: string
+            example: ''
+        child_budget_tokens:
+          type: array
+          description: The tokens of the child Budgets associated with the hierarchical Budget.
+          items:
+            type: string
+            example: ''
+        periods:
+          type: array
+          description: The budget periods associated with the Budget.
+          items:
+            $ref: '#/components/schemas/BudgetPeriod'
+        performance:
+          type: array
+          description: The historical performance of the Budget.
+          items:
+            $ref: '#/components/schemas/BudgetPerformance'
+      description: Budget model
+    updateBudget:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Budget.
+        cost_report_token:
+          type: string
+          description: The CostReport token. Ignored for hierarchical Budgets.
+        child_budget_tokens:
+          type: array
+          description: The tokens of any child Budgets when creating a hierarchical Budget.
+          items:
+            type: string
+        periods:
+          type: array
+          description: The periods for the Budget. The start_at and end_at must be iso8601 formatted e.g. YYYY-MM-DD. Ignored for hierarchical Budgets.
+          items:
+            required:
+            - amount
+            - start_at
+            type: object
+            properties:
+              start_at:
+                type: string
+                description: The start date of the period.
+                format: date
+              end_at:
+                type:
+                - string
+                - 'null'
+                description: The end date of the period.
+                format: date
+              amount:
+                type: number
+                description: The amount of the period.
+                format: double
+      description: Update a Budget.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    BudgetPerformance:
+      required:
+      - actual
+      - amount
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        actual:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        amount:
+          type: string
+          description: The amount of the Budget Period as a string to ensure precision.
+          example: '100.00'
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Budgets:
+      required:
+      - budgets
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        budgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Budget'
+      description: Budgets model
   securitySchemes:
     oauth2:
       type: oauth2
