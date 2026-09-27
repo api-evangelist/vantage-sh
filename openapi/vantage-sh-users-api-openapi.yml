@@ -149,18 +149,6 @@ paths:
       x-codegen-request-body-name: updateUser
 components:
   schemas:
-    Users:
-      required:
-      - users
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-      description: Users model
     updateUser:
       type: object
       properties:
@@ -171,18 +159,6 @@ components:
           description: The token of a Dashboard to set as the User default. Send null to clear.
           x-omitempty: false
       description: Update a specific User.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -211,6 +187,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     User:
       required:
       - email
@@ -248,6 +236,18 @@ components:
           description: The last time the User logged in.
           example: '2024-01-01T00:00:00Z'
       description: User model
+    Users:
+      required:
+      - users
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      description: Users model
   securitySchemes:
     oauth2:
       type: oauth2

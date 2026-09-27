@@ -226,150 +226,6 @@ paths:
         - write
 components:
   schemas:
-    createCostAlert:
-      required:
-      - interval
-      - report_tokens
-      - threshold
-      - title
-      - unit_type
-      - workspace_token
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Cost Alert.
-        interval:
-          type: string
-          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
-        threshold:
-          type: number
-          description: The threshold value for the Cost Alert.
-          format: float
-        unit_type:
-          type: string
-          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to add the Cost Alert to.
-        report_tokens:
-          type: array
-          description: The tokens of the reports to alert on.
-          items:
-            type: string
-        email_recipients:
-          type: array
-          description: The email recipients for the Cost Alert.
-          items:
-            type: string
-        slack_channels:
-          type: array
-          description: The Slack channels that will receive the alert.
-          items:
-            type: string
-        teams_channels:
-          type: array
-          description: The Microsoft Teams channels that will receive the alert.
-          items:
-            type: string
-        minimum_threshold:
-          type: number
-          description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
-          format: float
-      description: Create a new Cost Alert
-    updateCostAlert:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Cost Alert.
-        email_recipients:
-          type: array
-          description: The email recipients for the Cost Alert.
-          items:
-            type: string
-        interval:
-          type: string
-          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
-        threshold:
-          type: number
-          description: The threshold value for the Cost Alert.
-          format: float
-        slack_channels:
-          type: array
-          description: The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.
-          items:
-            type: string
-        teams_channels:
-          type: array
-          description: The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.
-          items:
-            type: string
-        unit_type:
-          type: string
-          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
-        report_tokens:
-          type: array
-          description: The tokens of the reports to alert on.
-          items:
-            type: string
-        minimum_threshold:
-          type: number
-          description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
-          format: float
-      description: Update a Cost Alert
-    CostAlerts:
-      required:
-      - cost_alerts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostAlert'
-      description: CostAlerts model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
     CostAlert:
       required:
       - created_at
@@ -437,6 +293,150 @@ components:
           items:
             type: string
       description: CostAlert model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    updateCostAlert:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Cost Alert.
+        email_recipients:
+          type: array
+          description: The email recipients for the Cost Alert.
+          items:
+            type: string
+        interval:
+          type: string
+          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
+        threshold:
+          type: number
+          description: The threshold value for the Cost Alert.
+          format: float
+        slack_channels:
+          type: array
+          description: The Slack channels that will receive the alert. Make sure your slack integration is connected at https://console.vantage.sh/settings/slack.
+          items:
+            type: string
+        teams_channels:
+          type: array
+          description: The Microsoft Teams channels that will receive the alert. Make sure your teams integration is connected at https://console.vantage.sh/settings/microsoft_teams.
+          items:
+            type: string
+        unit_type:
+          type: string
+          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
+        report_tokens:
+          type: array
+          description: The tokens of the reports to alert on.
+          items:
+            type: string
+        minimum_threshold:
+          type: number
+          description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
+          format: float
+      description: Update a Cost Alert
+    createCostAlert:
+      required:
+      - interval
+      - report_tokens
+      - threshold
+      - title
+      - unit_type
+      - workspace_token
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Cost Alert.
+        interval:
+          type: string
+          description: The period of time used to compare costs. Options are 'day', 'week', 'month', 'quarter'.
+        threshold:
+          type: number
+          description: The threshold value for the Cost Alert.
+          format: float
+        unit_type:
+          type: string
+          description: The unit type used to compare costs. Options are 'currency' or 'percentage'.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Cost Alert to.
+        report_tokens:
+          type: array
+          description: The tokens of the reports to alert on.
+          items:
+            type: string
+        email_recipients:
+          type: array
+          description: The email recipients for the Cost Alert.
+          items:
+            type: string
+        slack_channels:
+          type: array
+          description: The Slack channels that will receive the alert.
+          items:
+            type: string
+        teams_channels:
+          type: array
+          description: The Microsoft Teams channels that will receive the alert.
+          items:
+            type: string
+        minimum_threshold:
+          type: number
+          description: The minimum monetary amount threshold for percentage-based alerts. Only applicable when unit_type is 'percentage'.
+          format: float
+      description: Create a new Cost Alert
+    CostAlerts:
+      required:
+      - cost_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostAlert'
+      description: CostAlerts model
   securitySchemes:
     oauth2:
       type: oauth2

@@ -217,16 +217,21 @@ paths:
         - write
 components:
   schemas:
-    updateAnomalyNotification:
+    createAnomalyNotification:
+      required:
+      - cost_report_token
       type: object
       properties:
+        cost_report_token:
+          type: string
+          description: The token of the Cost Report that has the notification.
         threshold:
           type: integer
           description: The threshold amount that must be met for the notification to fire.
           format: int32
         user_tokens:
           type: array
-          description: The tokens of the users that receive the notification.
+          description: The tokens of the Users that receive the notification.
           items:
             type: string
         recipient_channels:
@@ -234,19 +239,35 @@ components:
           description: The Slack/MS Teams channels that receive the notification.
           items:
             type: string
-      description: Update an Anomaly Notification.
-    AnomalyNotifications:
-      required:
-      - anomaly_notifications
+      description: Create an Anomaly Notification for a Cost Report.
+    Links:
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        anomaly_notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnomalyNotification'
-      description: AnomalyNotifications model
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     Errors:
       required:
       - errors
@@ -259,6 +280,18 @@ components:
           items:
             type: string
       description: Errors model
+    AnomalyNotifications:
+      required:
+      - anomaly_notifications
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyNotification'
+      description: AnomalyNotifications model
     AnomalyNotification:
       required:
       - cost_report_token
@@ -298,49 +331,16 @@ components:
           items:
             type: string
       description: AnomalyNotification model
-    Links:
+    updateAnomalyNotification:
       type: object
       properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    createAnomalyNotification:
-      required:
-      - cost_report_token
-      type: object
-      properties:
-        cost_report_token:
-          type: string
-          description: The token of the Cost Report that has the notification.
         threshold:
           type: integer
           description: The threshold amount that must be met for the notification to fire.
           format: int32
         user_tokens:
           type: array
-          description: The tokens of the Users that receive the notification.
+          description: The tokens of the users that receive the notification.
           items:
             type: string
         recipient_channels:
@@ -348,7 +348,7 @@ components:
           description: The Slack/MS Teams channels that receive the notification.
           items:
             type: string
-      description: Create an Anomaly Notification for a Cost Report.
+      description: Update an Anomaly Notification.
   securitySchemes:
     oauth2:
       type: oauth2

@@ -217,6 +217,37 @@ paths:
         - write
 components:
   schemas:
+    Workspace:
+      required:
+      - created_at
+      - currency
+      - enable_currency_conversion
+      - exchange_rate_date
+      - name
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type: string
+          description: The name of the Workspace.
+          example: Acme Corp.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        enable_currency_conversion:
+          type: boolean
+          description: Whether or not currency conversion is enabled for the Workspace.
+        currency:
+          type: string
+          description: The currency code for the Workspace that will be used for currency conversion.
+          example: USD
+        exchange_rate_date:
+          type: string
+          description: The exchange rate date that will be used to convert currency for your cost data.
+      description: Workspace model
     Workspaces:
       required:
       - workspaces
@@ -418,49 +449,6 @@ components:
           - daily_rate
           - end_of_billing_period_rate
       description: Update a workspace
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Workspace:
-      required:
-      - created_at
-      - currency
-      - enable_currency_conversion
-      - exchange_rate_date
-      - name
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-        name:
-          type: string
-          description: The name of the Workspace.
-          example: Acme Corp.
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        enable_currency_conversion:
-          type: boolean
-          description: Whether or not currency conversion is enabled for the Workspace.
-        currency:
-          type: string
-          description: The currency code for the Workspace that will be used for currency conversion.
-          example: USD
-        exchange_rate_date:
-          type: string
-          description: The exchange rate date that will be used to convert currency for your cost data.
-      description: Workspace model
     Links:
       type: object
       properties:
@@ -489,6 +477,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     createWorkspace:
       required:
       - name

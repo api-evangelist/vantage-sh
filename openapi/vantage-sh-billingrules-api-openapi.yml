@@ -217,72 +217,6 @@ paths:
         - write
 components:
   schemas:
-    BillingRules:
-      required:
-      - billing_rules
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        billing_rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingRule'
-      description: BillingRules model
-    createBillingRule:
-      required:
-      - title
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'The type of the BillingRule. Note: the values are case insensitive.'
-          enum:
-          - exclusion
-          - adjustment
-          - credit
-          - charge
-          - custom
-        title:
-          type: string
-          description: The title of the BillingRule.
-        start_period:
-          type: string
-          description: 'The start period of the BillingRule. DEPRECATED: use start_date instead.'
-        start_date:
-          type: string
-          description: The start date of the BillingRule. ISO 8601 formatted.
-        end_date:
-          type: string
-          description: The end date of the BillingRule. ISO 8601 formatted.
-        apply_to_all:
-          type: boolean
-          description: Determines if the BillingRule applies to all current and future managed accounts.
-        charge_type:
-          type: string
-          description: The charge type of the BillingRule. Required for Exclusion rules.
-        percentage:
-          type: number
-          description: 'The percentage of the cost shown. Required for Adjustment rules. Example value: 75.0'
-          format: double
-        service:
-          type: string
-          description: The service of the BillingRule. Required for Charge and Credit rules.
-        category:
-          type: string
-          description: The category of the BillingRule. Required for Charge and Credit rules.
-        sub_category:
-          type: string
-          description: The subcategory of the BillingRule. Required for Charge and Credit rules.
-        amount:
-          type: number
-          description: 'The amount for the BillingRule. Required for Charge and Credit rules. Example value: 300'
-          format: double
-        sql_query:
-          type: string
-          description: 'The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95'
-      description: Create a BillingRule.
     BillingRule:
       required:
       - apply_to_all
@@ -378,18 +312,6 @@ components:
           description: The SQL query for the BillingRule (Custom).
           example: UPDATE costs SET costs.amount = costs.amount * 0.95
       description: BillingRule model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -418,6 +340,84 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    createBillingRule:
+      required:
+      - title
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of the BillingRule. Note: the values are case insensitive.'
+          enum:
+          - exclusion
+          - adjustment
+          - credit
+          - charge
+          - custom
+        title:
+          type: string
+          description: The title of the BillingRule.
+        start_period:
+          type: string
+          description: 'The start period of the BillingRule. DEPRECATED: use start_date instead.'
+        start_date:
+          type: string
+          description: The start date of the BillingRule. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: The end date of the BillingRule. ISO 8601 formatted.
+        apply_to_all:
+          type: boolean
+          description: Determines if the BillingRule applies to all current and future managed accounts.
+        charge_type:
+          type: string
+          description: The charge type of the BillingRule. Required for Exclusion rules.
+        percentage:
+          type: number
+          description: 'The percentage of the cost shown. Required for Adjustment rules. Example value: 75.0'
+          format: double
+        service:
+          type: string
+          description: The service of the BillingRule. Required for Charge and Credit rules.
+        category:
+          type: string
+          description: The category of the BillingRule. Required for Charge and Credit rules.
+        sub_category:
+          type: string
+          description: The subcategory of the BillingRule. Required for Charge and Credit rules.
+        amount:
+          type: number
+          description: 'The amount for the BillingRule. Required for Charge and Credit rules. Example value: 300'
+          format: double
+        sql_query:
+          type: string
+          description: 'The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95'
+      description: Create a BillingRule.
+    BillingRules:
+      required:
+      - billing_rules
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        billing_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingRule'
+      description: BillingRules model
     updateBillingRule:
       type: object
       properties:

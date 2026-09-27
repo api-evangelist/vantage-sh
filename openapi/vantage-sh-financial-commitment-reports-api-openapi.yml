@@ -245,138 +245,6 @@ paths:
         - write
 components:
   schemas:
-    updateFinancialCommitmentReport:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the FinancialCommitmentReport.
-        filter:
-          type: string
-          description: The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
-        start_date:
-          type: string
-          description: The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-          example: '2024-03-01'
-        end_date:
-          type: string
-          description: The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-          example: '2024-03-01'
-        date_interval:
-          type: string
-          description: The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
-          enum:
-          - this_month
-          - last_7_days
-          - last_30_days
-          - last_month
-          - last_3_months
-          - last_6_months
-          - custom
-          - last_12_months
-          - last_24_months
-          - last_36_months
-          - year_to_date
-          - last_3_days
-          - last_14_days
-        date_bucket:
-          type: string
-          description: The date bucket of the FinancialCommitmentReport.
-          enum:
-          - hour
-          - day
-          - week
-          - month
-          - quarter
-        on_demand_costs_scope:
-          type: string
-          description: 'The scope for the costs. Possible values: discountable, all.'
-          enum:
-          - discountable
-          - all
-        groupings:
-          type: array
-          description: 'Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.'
-          items:
-            type: string
-      description: Update a FinancialCommitmentReport.
-    createFinancialCommitmentReport:
-      required:
-      - title
-      - workspace_token
-      type: object
-      properties:
-        workspace_token:
-          type: string
-          description: The Workspace in which the FinancialCommitmentReport will be created.
-        title:
-          type: string
-          description: The title of the FinancialCommitmentReport.
-        filter:
-          type: string
-          description: The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
-        start_date:
-          type: string
-          description: The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-          example: '2024-03-01'
-        end_date:
-          type: string
-          description: The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-          example: '2024-03-01'
-        date_interval:
-          type: string
-          description: The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
-          enum:
-          - this_month
-          - last_7_days
-          - last_30_days
-          - last_month
-          - last_3_months
-          - last_6_months
-          - custom
-          - last_12_months
-          - last_24_months
-          - last_36_months
-          - year_to_date
-          - last_3_days
-          - last_14_days
-        date_bucket:
-          type: string
-          description: The date bucket of the FinancialCommitmentReport.
-          enum:
-          - hour
-          - day
-          - week
-          - month
-          - quarter
-        on_demand_costs_scope:
-          type: string
-          description: 'The scope for the costs. Possible values: discountable, all.'
-          enum:
-          - discountable
-          - all
-        groupings:
-          type: array
-          description: 'Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.'
-          items:
-            type: string
-      description: Create a FinancialCommitmentReport.
-    FinancialCommitmentReports:
-      required:
-      - financial_commitment_reports
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        financial_commitment_reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/FinancialCommitmentReport'
-      description: FinancialCommitmentReports model
     FinancialCommitmentReport:
       required:
       - created_at
@@ -452,18 +320,18 @@ components:
           - 'null'
           description: The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
       description: FinancialCommitmentReport model
-    Errors:
+    FinancialCommitmentReports:
       required:
-      - errors
+      - financial_commitment_reports
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        errors:
+        financial_commitment_reports:
           type: array
           items:
-            type: string
-      description: Errors model
+            $ref: '#/components/schemas/FinancialCommitmentReport'
+      description: FinancialCommitmentReports model
     Links:
       type: object
       properties:
@@ -492,6 +360,138 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    createFinancialCommitmentReport:
+      required:
+      - title
+      - workspace_token
+      type: object
+      properties:
+        workspace_token:
+          type: string
+          description: The Workspace in which the FinancialCommitmentReport will be created.
+        title:
+          type: string
+          description: The title of the FinancialCommitmentReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+          example: '2024-03-01'
+        end_date:
+          type: string
+          description: The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+          example: '2024-03-01'
+        date_interval:
+          type: string
+          description: The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        date_bucket:
+          type: string
+          description: The date bucket of the FinancialCommitmentReport.
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+        on_demand_costs_scope:
+          type: string
+          description: 'The scope for the costs. Possible values: discountable, all.'
+          enum:
+          - discountable
+          - all
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.'
+          items:
+            type: string
+      description: Create a FinancialCommitmentReport.
+    updateFinancialCommitmentReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the FinancialCommitmentReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+          example: '2024-03-01'
+        end_date:
+          type: string
+          description: The end date of the FinancialCommitmentReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+          example: '2024-03-01'
+        date_interval:
+          type: string
+          description: The date interval of the FinancialCommitmentReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_3_months'.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        date_bucket:
+          type: string
+          description: The date bucket of the FinancialCommitmentReport.
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+        on_demand_costs_scope:
+          type: string
+          description: 'The scope for the costs. Possible values: discountable, all.'
+          enum:
+          - discountable
+          - all
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the FinancialCommitmentReport. Valid groupings: cost_type, commitment_type, commitment_id, service, resource_account_id, provider_account_id, region, cost_category, cost_sub_category, instance_type, tag, tag:<label_name>.'
+          items:
+            type: string
+      description: Update a FinancialCommitmentReport.
   securitySchemes:
     oauth2:
       type: oauth2

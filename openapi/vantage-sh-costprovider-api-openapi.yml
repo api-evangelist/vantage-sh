@@ -42,6 +42,18 @@ paths:
         - read
 components:
   schemas:
+    CostProviders:
+      required:
+      - cost_providers
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostProvider'
+      description: CostProviders model
     Links:
       type: object
       properties:
@@ -70,18 +82,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    CostProviders:
-      required:
-      - cost_providers
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostProvider'
-      description: CostProviders model
     CostProvider:
       required:
       - key

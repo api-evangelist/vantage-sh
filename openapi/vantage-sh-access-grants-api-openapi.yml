@@ -247,18 +247,6 @@ paths:
         - write
 components:
   schemas:
-    AccessGrants:
-      required:
-      - access_grants
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        access_grants:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGrant'
-      description: AccessGrants model
     updateAccessGrant:
       required:
       - access
@@ -290,18 +278,6 @@ components:
           - denied
           - allowed
       description: Create an Access Grant.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -330,6 +306,30 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    AccessGrants:
+      required:
+      - access_grants
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+      description: AccessGrants model
     AccessGrant:
       required:
       - access

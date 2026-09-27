@@ -312,21 +312,6 @@ paths:
         - read
 components:
   schemas:
-    updateTag:
-      required:
-      - hidden
-      type: object
-      properties:
-        tag_key:
-          type: string
-        tag_keys:
-          type: array
-          items:
-            type: string
-        hidden:
-          type: boolean
-          description: Whether the Tag is hidden from the Vantage UI.
-      description: Updates an existing Tag.
     TagValue:
       required:
       - providers
@@ -343,42 +328,6 @@ components:
           items:
             type: string
             example: ''
-    Tag:
-      required:
-      - hidden
-      - preferred
-      - providers
-      - tag_key
-      type: object
-      properties:
-        tag_key:
-          type: string
-          description: The Tag key.
-          example: aws:createdBy
-        hidden:
-          type: boolean
-          description: Whether the Tag has been hidden from the Vantage UI.
-        preferred:
-          type: boolean
-          description: Whether the Tag has been marked as preferred.
-        providers:
-          type: array
-          description: The unique providers that are covered by the Tag key.
-          items:
-            type: string
-            example: ''
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -407,18 +356,33 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    TagValues:
+    Errors:
       required:
-      - tag_values
+      - errors
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        tag_values:
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/TagValue'
-      description: TagValues model
+            type: string
+      description: Errors model
+    updateTag:
+      required:
+      - hidden
+      type: object
+      properties:
+        tag_key:
+          type: string
+        tag_keys:
+          type: array
+          items:
+            type: string
+        hidden:
+          type: boolean
+          description: Whether the Tag is hidden from the Vantage UI.
+      description: Updates an existing Tag.
     Tags:
       required:
       - tags
@@ -431,6 +395,42 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       description: Tags model
+    TagValues:
+      required:
+      - tag_values
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        tag_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagValue'
+      description: TagValues model
+    Tag:
+      required:
+      - hidden
+      - preferred
+      - providers
+      - tag_key
+      type: object
+      properties:
+        tag_key:
+          type: string
+          description: The Tag key.
+          example: aws:createdBy
+        hidden:
+          type: boolean
+          description: Whether the Tag has been hidden from the Vantage UI.
+        preferred:
+          type: boolean
+          description: Whether the Tag has been marked as preferred.
+        providers:
+          type: array
+          description: The unique providers that are covered by the Tag key.
+          items:
+            type: string
+            example: ''
   securitySchemes:
     oauth2:
       type: oauth2

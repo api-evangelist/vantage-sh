@@ -205,46 +205,45 @@ components:
           - string
           - 'null'
           example: '2025-03-20T12:00:00Z'
-    Errors:
+    UnitCosts:
       required:
-      - errors
+      - unit_costs
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        errors:
+        unit_costs:
           type: array
           items:
-            type: string
-      description: Errors model
-    Links:
+            $ref: '#/components/schemas/UnitCost'
+      description: UnitCosts model
+    createUnitCostsExport:
+      required:
+      - cost_report_token
       type: object
       properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.
+        start_date:
+          type: string
+          description: First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.
+        date_bin:
+          type: string
+          description: The date bin of the unit costs. Defaults to the report's default or day.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+          - hour
+      description: Generate a DataExport of unit costs.
     DataExport:
       required:
       - attributes
@@ -273,6 +272,46 @@ components:
           type: object
           properties: {}
       description: DataExport model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     UnitCost:
       required:
       - business_metric_amount
@@ -321,45 +360,6 @@ components:
           type: string
           description: The date for which the unit cost was calculated. ISO 8601 Formatted.
           example: 2023-09-05+00:00
-    UnitCosts:
-      required:
-      - unit_costs
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        unit_costs:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnitCost'
-      description: UnitCosts model
-    createUnitCostsExport:
-      required:
-      - cost_report_token
-      type: object
-      properties:
-        cost_report_token:
-          type: string
-          description: The CostReport token.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to query costs from. Required if the API token is associated with multiple Workspaces.
-        start_date:
-          type: string
-          description: First date you would like to filter unit costs from. Defaults to the report's default. ISO 8601 formatted.
-        end_date:
-          type: string
-          description: Last date you would like to filter unit costs to. Defaults to the report's default. ISO 8601 formatted.
-        date_bin:
-          type: string
-          description: The date bin of the unit costs. Defaults to the report's default or day.
-          enum:
-          - day
-          - week
-          - month
-          - quarter
-          - hour
-      description: Generate a DataExport of unit costs.
   securitySchemes:
     oauth2:
       type: oauth2

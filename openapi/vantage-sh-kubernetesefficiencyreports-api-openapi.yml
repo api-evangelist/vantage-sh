@@ -288,203 +288,6 @@ paths:
         - write
 components:
   schemas:
-    DataExportManifest:
-      required:
-      - completed_at
-      - files
-      - valid_until
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-            example: ''
-        completed_at:
-          type:
-          - string
-          - 'null'
-          example: '2025-03-20T12:00:00Z'
-        valid_until:
-          type:
-          - string
-          - 'null'
-          example: '2025-03-20T12:00:00Z'
-    KubernetesEfficiencyReports:
-      required:
-      - kubernetes_efficiency_reports
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        kubernetes_efficiency_reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/KubernetesEfficiencyReport'
-      description: KubernetesEfficiencyReports model
-    createKubernetesEfficiencyReportExport:
-      type: object
-      properties:
-        kubernetes_efficiency_report_token:
-          type: string
-          description: The KubernetesEfficiencyReport token. If not provided, the default report for the workspace will be used.
-        filter:
-          type: string
-          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to export data from. Ignored if 'kubernetes_efficiency_report_token' is set. Required if the API token is associated with multiple Workspaces.
-        start_date:
-          type: string
-          description: First date you would like to filter data from. ISO 8601 formatted.
-        end_date:
-          type: string
-          description: Last date you would like to filter data to. ISO 8601 formatted.
-        date_bin:
-          type: string
-          description: The date bin of the data. Defaults to the report's default or day.
-          enum:
-          - day
-          - week
-          - month
-          - quarter
-      description: Generate a DataExport of Kubernetes efficiency data.
-    createKubernetesEfficiencyReport:
-      required:
-      - title
-      - workspace_token
-      type: object
-      properties:
-        workspace_token:
-          type: string
-          description: The Workspace in which the KubernetesEfficiencyReport will be created.
-        title:
-          type: string
-          description: The title of the KubernetesEfficiencyReport.
-        filter:
-          type: string
-          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
-        start_date:
-          type: string
-          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        end_date:
-          type: string
-          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        date_interval:
-          type: string
-          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-          enum:
-          - this_month
-          - last_7_days
-          - last_30_days
-          - last_month
-          - last_3_months
-          - last_6_months
-          - custom
-          - last_12_months
-          - last_24_months
-          - last_36_months
-          - next_month
-          - next_3_months
-          - next_6_months
-          - next_12_months
-          - year_to_date
-          - last_3_days
-          - last_14_days
-        aggregated_by:
-          type: string
-          description: The column by which the costs are aggregated.
-          enum:
-          - idle_cost
-          - amount
-          - cost_efficiency
-        date_bucket:
-          type: string
-          description: The date bucket of the KubernetesEfficiencyReport.
-          enum:
-          - day
-          - week
-          - month
-          - quarter
-        groupings:
-          type: array
-          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
-          items:
-            type: string
-      description: Create a KubernetesEfficiencyReport.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    updateKubernetesEfficiencyReport:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the KubernetesEfficiencyReport.
-        filter:
-          type: string
-          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
-        start_date:
-          type: string
-          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        end_date:
-          type: string
-          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        date_interval:
-          type: string
-          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
-          enum:
-          - this_month
-          - last_7_days
-          - last_30_days
-          - last_month
-          - last_3_months
-          - last_6_months
-          - custom
-          - last_12_months
-          - last_24_months
-          - last_36_months
-          - next_month
-          - next_3_months
-          - next_6_months
-          - next_12_months
-          - year_to_date
-          - last_3_days
-          - last_14_days
-        aggregated_by:
-          type: string
-          description: The column by which the costs are aggregated.
-          enum:
-          - idle_cost
-          - amount
-          - cost_efficiency
-        date_bucket:
-          type: string
-          description: The date bucket of the KubernetesEfficiencyReport.
-          enum:
-          - day
-          - week
-          - month
-          - quarter
-        groupings:
-          type: array
-          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
-          items:
-            type: string
-      description: Update a KubernetesEfficiencyReport.
     KubernetesEfficiencyReport:
       required:
       - aggregated_by
@@ -559,6 +362,132 @@ components:
           - 'null'
           description: The filter applied to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
       description: KubernetesEfficiencyReport model
+    createKubernetesEfficiencyReport:
+      required:
+      - title
+      - workspace_token
+      type: object
+      properties:
+        workspace_token:
+          type: string
+          description: The Workspace in which the KubernetesEfficiencyReport will be created.
+        title:
+          type: string
+          description: The title of the KubernetesEfficiencyReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        aggregated_by:
+          type: string
+          description: The column by which the costs are aggregated.
+          enum:
+          - idle_cost
+          - amount
+          - cost_efficiency
+        date_bucket:
+          type: string
+          description: The date bucket of the KubernetesEfficiencyReport.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+          items:
+            type: string
+      description: Create a KubernetesEfficiencyReport.
+    DataExportManifest:
+      required:
+      - completed_at
+      - files
+      - valid_until
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            example: ''
+        completed_at:
+          type:
+          - string
+          - 'null'
+          example: '2025-03-20T12:00:00Z'
+        valid_until:
+          type:
+          - string
+          - 'null'
+          example: '2025-03-20T12:00:00Z'
+    createKubernetesEfficiencyReportExport:
+      type: object
+      properties:
+        kubernetes_efficiency_report_token:
+          type: string
+          description: The KubernetesEfficiencyReport token. If not provided, the default report for the workspace will be used.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to export data from. Ignored if 'kubernetes_efficiency_report_token' is set. Required if the API token is associated with multiple Workspaces.
+        start_date:
+          type: string
+          description: First date you would like to filter data from. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: Last date you would like to filter data to. ISO 8601 formatted.
+        date_bin:
+          type: string
+          description: The date bin of the data. Defaults to the report's default or day.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+      description: Generate a DataExport of Kubernetes efficiency data.
+    KubernetesEfficiencyReports:
+      required:
+      - kubernetes_efficiency_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        kubernetes_efficiency_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/KubernetesEfficiencyReport'
+      description: KubernetesEfficiencyReports model
     Links:
       type: object
       properties:
@@ -615,6 +544,77 @@ components:
           type: object
           properties: {}
       description: DataExport model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    updateKubernetesEfficiencyReport:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the KubernetesEfficiencyReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the KubernetesEfficiencyReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the KubernetesEfficiencyReport. ISO 8601 Formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the KubernetesEfficiencyReport. Incompatible with 'start_date' and 'end_date' parameters. Defaults to 'this_month' if start_date and end_date are not provided.
+          enum:
+          - this_month
+          - last_7_days
+          - last_30_days
+          - last_month
+          - last_3_months
+          - last_6_months
+          - custom
+          - last_12_months
+          - last_24_months
+          - last_36_months
+          - next_month
+          - next_3_months
+          - next_6_months
+          - next_12_months
+          - year_to_date
+          - last_3_days
+          - last_14_days
+        aggregated_by:
+          type: string
+          description: The column by which the costs are aggregated.
+          enum:
+          - idle_cost
+          - amount
+          - cost_efficiency
+        date_bucket:
+          type: string
+          description: The date bucket of the KubernetesEfficiencyReport.
+          enum:
+          - day
+          - week
+          - month
+          - quarter
+        groupings:
+          type: array
+          description: 'Grouping values for aggregating costs on the KubernetesEfficiencyReport. Valid groupings: cluster_id, namespace, region, labeled, category, pod, label, label:<label_name>.'
+          items:
+            type: string
+      description: Update a KubernetesEfficiencyReport.
   securitySchemes:
     oauth2:
       type: oauth2

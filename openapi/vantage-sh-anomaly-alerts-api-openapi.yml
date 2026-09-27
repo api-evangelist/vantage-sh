@@ -217,42 +217,6 @@ paths:
       x-codegen-request-body-name: updateAnomalyAlert
 components:
   schemas:
-    updateAnomalyAlert:
-      required:
-      - status
-      type: object
-      properties:
-        status:
-          type: string
-          description: The status of the Anomaly Alert.
-        feedback:
-          type: string
-          description: Optional additional comments for why this alert is ignored.
-      description: Update an AnomalyAlert.
-    AnomalyAlerts:
-      required:
-      - anomaly_alerts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        anomaly_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnomalyAlert'
-      description: AnomalyAlerts model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -281,6 +245,30 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    AnomalyAlerts:
+      required:
+      - anomaly_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyAlert'
+      description: AnomalyAlerts model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     AnomalyAlert:
       required:
       - amount
@@ -351,6 +339,18 @@ components:
           type: string
           description: The token of the Report associated with the AnomalyAlert.
       description: AnomalyAlert model
+    updateAnomalyAlert:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the Anomaly Alert.
+        feedback:
+          type: string
+          description: Optional additional comments for why this alert is ignored.
+      description: Update an AnomalyAlert.
   securitySchemes:
     oauth2:
       type: oauth2

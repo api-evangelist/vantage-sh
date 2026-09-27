@@ -170,6 +170,18 @@ paths:
         - write
 components:
   schemas:
+    BudgetAlerts:
+      required:
+      - budget_alerts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        budget_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BudgetAlert'
+      description: BudgetAlerts model
     BudgetAlert:
       required:
       - budget_tokens
@@ -243,58 +255,6 @@ components:
             type: string
             example: ''
       description: BudgetAlert model
-    BudgetAlerts:
-      required:
-      - budget_alerts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        budget_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BudgetAlert'
-      description: BudgetAlerts model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
     updateBudgetAlert:
       type: object
       properties:
@@ -324,6 +284,46 @@ components:
           items:
             type: string
       description: Updates an existing BudgetAlert.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     createBudgetAlert:
       required:
       - budget_tokens

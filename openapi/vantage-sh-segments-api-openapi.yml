@@ -245,6 +245,157 @@ paths:
         - write
 components:
   schemas:
+    updateSegment:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Segment.
+        description:
+          type: string
+          description: The description of the Segment.
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          default: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include credits.
+            include_refunds:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include refunds.
+            include_discounts:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include discounts.
+            include_tax:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include tax.
+            amortize:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will amortize.
+          description: Report settings configurable on top-level Segments.
+        filter:
+          type: string
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Update a Segment.
+    createSegment:
+      required:
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Segment.
+        description:
+          type: string
+          description: The description of the Segment.
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
+        track_unallocated:
+          type: boolean
+          description: Track Unallocated Costs which are not assigned to any of the created Segments.
+          default: false
+        report_settings:
+          type: object
+          properties:
+            include_credits:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include credits.
+            include_refunds:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include refunds.
+            include_discounts:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include discounts.
+            include_tax:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will include tax.
+            amortize:
+              type:
+              - boolean
+              - 'null'
+              description: Reports created under this Segment will amortize.
+          description: Report settings configurable on top-level Segments.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces.
+        filter:
+          type: string
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
+          type: string
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Create a Segment.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Segment:
       required:
       - created_at
@@ -325,157 +476,6 @@ components:
           - 'null'
           description: The token for the Report the Segment has generated.
       description: Segment model
-    createSegment:
-      required:
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Segment.
-        description:
-          type: string
-          description: The description of the Segment.
-        priority:
-          type: integer
-          description: The priority of the Segment.
-          format: int32
-        track_unallocated:
-          type: boolean
-          description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          default: false
-        report_settings:
-          type: object
-          properties:
-            include_credits:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include credits.
-            include_refunds:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include refunds.
-            include_discounts:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include discounts.
-            include_tax:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include tax.
-            amortize:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will amortize.
-          description: Report settings configurable on top-level Segments.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to add the Segment to. Ignored if 'segment_token' is set. Required if the API token is associated with multiple Workspaces.
-        filter:
-          type: string
-          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-        parent_segment_token:
-          type: string
-          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
-      description: Create a Segment.
-    updateSegment:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Segment.
-        description:
-          type: string
-          description: The description of the Segment.
-        priority:
-          type: integer
-          description: The priority of the Segment.
-          format: int32
-        track_unallocated:
-          type: boolean
-          description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          default: false
-        report_settings:
-          type: object
-          properties:
-            include_credits:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include credits.
-            include_refunds:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include refunds.
-            include_discounts:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include discounts.
-            include_tax:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will include tax.
-            amortize:
-              type:
-              - boolean
-              - 'null'
-              description: Reports created under this Segment will amortize.
-          description: Report settings configurable on top-level Segments.
-        filter:
-          type: string
-          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-        parent_segment_token:
-          type: string
-          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
-      description: Update a Segment.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
     Segments:
       required:
       - segments

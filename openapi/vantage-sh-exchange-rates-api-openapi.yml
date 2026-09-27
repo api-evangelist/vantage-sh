@@ -111,6 +111,18 @@ paths:
         - write
 components:
   schemas:
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     ExchangeRates:
       required:
       - exchange_rates
@@ -170,18 +182,6 @@ components:
           type: string
         updated_at:
           type: string
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
   securitySchemes:
     oauth2:
       type: oauth2

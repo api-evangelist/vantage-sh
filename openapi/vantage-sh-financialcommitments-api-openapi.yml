@@ -71,6 +71,46 @@ paths:
         - read
 components:
   schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    FinancialCommitments:
+      required:
+      - financial_commitments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        financial_commitments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancialCommitment'
+      description: FinancialCommitments model
     FinancialCommitment:
       required:
       - account
@@ -155,46 +195,6 @@ components:
         workspace_token:
           type: string
           description: The token for the Workspace the FinancialCommitment is a part of.
-    FinancialCommitments:
-      required:
-      - financial_commitments
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        financial_commitments:
-          type: array
-          items:
-            $ref: '#/components/schemas/FinancialCommitment'
-      description: FinancialCommitments model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
   securitySchemes:
     oauth2:
       type: oauth2

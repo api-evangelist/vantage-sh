@@ -227,6 +227,59 @@ paths:
         - read
 components:
   schemas:
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Resource:
       required:
       - account_id
@@ -295,31 +348,6 @@ components:
           properties: {}
           description: Key-value pairs of tags associated with the resource.
       description: Resource model
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Resources:
       required:
       - resources
@@ -332,34 +360,6 @@ components:
           items:
             $ref: '#/components/schemas/Resource'
       description: Resources model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
   securitySchemes:
     oauth2:
       type: oauth2

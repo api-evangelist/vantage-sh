@@ -133,6 +133,45 @@ paths:
         - read
 components:
   schemas:
+    CostAlertEvent:
+      required:
+      - alert_token
+      - alert_type
+      - created_at
+      - description
+      - metadata
+      - report_token
+      - token
+      - triggered_at
+      type: object
+      properties:
+        token:
+          type: string
+        created_at:
+          type: string
+          description: The date and time, in UTC, the CostAlertEvent was created. ISO 8601 Formatted.
+          example: '2021-07-09T00:00:00Z'
+        triggered_at:
+          type: string
+          description: The date and time, in UTC, the CostAlertEvent is sent. ISO 8601 Formatted.
+          example: '2021-07-09T00:00:00Z'
+        description:
+          type: string
+          description: The description of the CostAlertEvent.
+        alert_type:
+          type: string
+          description: The type of the CostAlertEvent.
+        metadata:
+          type: object
+          properties: {}
+          description: The metadata of the CostAlertEvent.
+        report_token:
+          type: string
+          description: The token of the report associated with the CostAlertEvent.
+        alert_token:
+          type: string
+          description: The token of the alert associated with the CostAlertEvent.
+      description: CostAlertEvent model
     Links:
       type: object
       properties:
@@ -173,45 +212,6 @@ components:
           items:
             $ref: '#/components/schemas/CostAlertEvent'
       description: CostAlertEvents model
-    CostAlertEvent:
-      required:
-      - alert_token
-      - alert_type
-      - created_at
-      - description
-      - metadata
-      - report_token
-      - token
-      - triggered_at
-      type: object
-      properties:
-        token:
-          type: string
-        created_at:
-          type: string
-          description: The date and time, in UTC, the CostAlertEvent was created. ISO 8601 Formatted.
-          example: '2021-07-09T00:00:00Z'
-        triggered_at:
-          type: string
-          description: The date and time, in UTC, the CostAlertEvent is sent. ISO 8601 Formatted.
-          example: '2021-07-09T00:00:00Z'
-        description:
-          type: string
-          description: The description of the CostAlertEvent.
-        alert_type:
-          type: string
-          description: The type of the CostAlertEvent.
-        metadata:
-          type: object
-          properties: {}
-          description: The metadata of the CostAlertEvent.
-        report_token:
-          type: string
-          description: The token of the report associated with the CostAlertEvent.
-        alert_token:
-          type: string
-          description: The token of the alert associated with the CostAlertEvent.
-      description: CostAlertEvent model
   securitySchemes:
     oauth2:
       type: oauth2

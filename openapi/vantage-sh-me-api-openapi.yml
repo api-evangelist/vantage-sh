@@ -65,69 +65,6 @@ paths:
       x-codegen-request-body-name: updateMe
 components:
   schemas:
-    Me:
-      required:
-      - bearer_token
-      - default_workspace_token
-      - workspaces
-      type: object
-      properties:
-        default_workspace_token:
-          type:
-          - string
-          - 'null'
-        default_dashboard_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the default Dashboard for the User.
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-        bearer_token:
-          $ref: '#/components/schemas/BearerToken'
-      description: Me model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
     Workspace:
       required:
       - created_at
@@ -159,16 +96,57 @@ components:
           type: string
           description: The exchange rate date that will be used to convert currency for your cost data.
       description: Workspace model
-    updateMe:
+    Me:
+      required:
+      - bearer_token
+      - default_workspace_token
+      - workspaces
       type: object
       properties:
+        default_workspace_token:
+          type:
+          - string
+          - 'null'
         default_dashboard_token:
           type:
           - string
           - 'null'
-          description: The token of a Dashboard to set as the User default. Send null to clear.
-          x-omitempty: false
-      description: Update the authenticated User.
+          description: The token of the default Dashboard for the User.
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+        bearer_token:
+          $ref: '#/components/schemas/BearerToken'
+      description: Me model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     BearerToken:
       required:
       - created_at
@@ -188,6 +166,28 @@ components:
           description: The scopes applied to the BearerToken used to authenticate this request.
           items:
             type: string
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    updateMe:
+      type: object
+      properties:
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of a Dashboard to set as the User default. Send null to clear.
+          x-omitempty: false
+      description: Update the authenticated User.
   securitySchemes:
     oauth2:
       type: oauth2

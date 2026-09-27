@@ -42,6 +42,18 @@ paths:
         - read
 components:
   schemas:
+    CostServices:
+      required:
+      - cost_services
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_services:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostService'
+      description: CostServices model
     Links:
       type: object
       properties:
@@ -70,18 +82,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    CostServices:
-      required:
-      - cost_services
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_services:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostService'
-      description: CostServices model
     CostService:
       required:
       - name

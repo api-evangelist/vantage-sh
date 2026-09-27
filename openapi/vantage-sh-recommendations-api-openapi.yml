@@ -451,55 +451,6 @@ paths:
         - read
 components:
   schemas:
-    RecommendationProviderResources:
-      required:
-      - resources
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendationProviderResource'
-      description: RecommendationProviderResources model
-    Recommendations:
-      required:
-      - recommendations
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        recommendations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recommendation'
-      description: Recommendations model
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Recommendation:
       required:
       - category
@@ -575,34 +526,18 @@ components:
           description: The currency symbol used by the Workspace to which this Recommendation belongs.
           example: EUR
       description: Recommendation model
-    Links:
+    RecommendationProviderResources:
+      required:
+      - resources
       type: object
       properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationProviderResource'
+      description: RecommendationProviderResources model
     RecommendationAction:
       required:
       - action
@@ -710,6 +645,71 @@ components:
           items:
             $ref: '#/components/schemas/RecommendationAction'
       description: RecommendationProviderResource model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Recommendations:
+      required:
+      - recommendations
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recommendation'
+      description: Recommendations model
   securitySchemes:
     oauth2:
       type: oauth2

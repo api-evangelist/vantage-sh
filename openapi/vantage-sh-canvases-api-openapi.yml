@@ -176,6 +176,80 @@ paths:
         - write
 components:
   schemas:
+    CanvasTable:
+      type: object
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    CanvasData:
+      type: object
+      properties:
+        table:
+          $ref: '#/components/schemas/CanvasTable'
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the refresh workflow failed. Read-only.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Canvases:
+      required:
+      - canvases
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        canvases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Canvas'
+      description: Canvases model
+    updateCanvas:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Canvas.
+        prompt:
+          type: string
+          description: The prompt used to generate the Canvas.
+      description: Update a Canvas.
     Canvas:
       required:
       - created_at
@@ -211,16 +285,6 @@ components:
           description: The date and time, in UTC, the Canvas was last updated. ISO 8601 Formatted.
           example: '2024-01-01T00:00:00Z'
       description: Canvas model
-    CanvasData:
-      type: object
-      properties:
-        table:
-          $ref: '#/components/schemas/CanvasTable'
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the refresh workflow failed. Read-only.
     createCanvas:
       required:
       - prompt
@@ -237,70 +301,6 @@ components:
           type: string
           description: The token of the Workspace to add the Canvas to. Required if the API token is associated with multiple Workspaces.
       description: Create a Canvas.
-    Canvases:
-      required:
-      - canvases
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        canvases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Canvas'
-      description: Canvases model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    CanvasTable:
-      type: object
-    updateCanvas:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Canvas.
-        prompt:
-          type: string
-          description: The prompt used to generate the Canvas.
-      description: Update a Canvas.
   securitySchemes:
     oauth2:
       type: oauth2

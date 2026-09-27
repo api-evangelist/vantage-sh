@@ -256,47 +256,6 @@ paths:
         - read
 components:
   schemas:
-    Product:
-      required:
-      - category
-      - details
-      - id
-      - name
-      - provider_id
-      - service_id
-      type: object
-      properties:
-        id:
-          type: string
-        category:
-          type: string
-          description: The category of the cloud product
-          example: compute
-        name:
-          type: string
-          description: The common name of the product.
-          example: EC2
-        service_id:
-          type: string
-          description: A unique slug for the service the product belongs to.
-          example: aws-ec2
-        provider_id:
-          type: string
-          description: A unique slug for the provider the product belongs to.
-          example: aws
-        details:
-          type: object
-          properties: {}
-          description: An object of metadata about the product.
-          example:
-            gpu: 0
-            name: M5 General Purpose 16xlarge
-            vcpu: 64
-            memory: 256
-            clock_speed_ghz: 3.1
-            physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
-            network_performance_description: 20 Gigabit
-      description: Product model
     Price:
       required:
       - amount
@@ -338,18 +297,6 @@ components:
             platform: linux-enterprise
             lifecycle: on-demand
       description: Price model
-    Prices:
-      required:
-      - prices
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-      description: Prices model
     Links:
       type: object
       properties:
@@ -378,6 +325,59 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Product:
+      required:
+      - category
+      - details
+      - id
+      - name
+      - provider_id
+      - service_id
+      type: object
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+          description: The category of the cloud product
+          example: compute
+        name:
+          type: string
+          description: The common name of the product.
+          example: EC2
+        service_id:
+          type: string
+          description: A unique slug for the service the product belongs to.
+          example: aws-ec2
+        provider_id:
+          type: string
+          description: A unique slug for the provider the product belongs to.
+          example: aws
+        details:
+          type: object
+          properties: {}
+          description: An object of metadata about the product.
+          example:
+            gpu: 0
+            name: M5 General Purpose 16xlarge
+            vcpu: 64
+            memory: 256
+            clock_speed_ghz: 3.1
+            physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
+            network_performance_description: 20 Gigabit
+      description: Product model
+    Prices:
+      required:
+      - prices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+      description: Prices model
     Products:
       required:
       - products

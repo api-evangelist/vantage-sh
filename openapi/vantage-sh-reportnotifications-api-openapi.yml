@@ -270,18 +270,44 @@ components:
           - percentage
           - dollars
       description: ReportNotification model
-    Errors:
+    updateReportNotification:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the ReportNotification.
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        user_tokens:
+          type: array
+          description: The Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack or Microsoft Teams channels that receive the notification.
+          items:
+            type: string
+        frequency:
+          type: string
+          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
+        change:
+          type: string
+          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
+      description: Update a ReportNotification.
+    ReportNotifications:
       required:
-      - errors
+      - report_notifications
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        errors:
+        report_notifications:
           type: array
           items:
-            type: string
-      description: Errors model
+            $ref: '#/components/schemas/ReportNotification'
+      description: ReportNotifications model
     Links:
       type: object
       properties:
@@ -310,18 +336,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    ReportNotifications:
+    Errors:
       required:
-      - report_notifications
+      - errors
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        report_notifications:
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/ReportNotification'
-      description: ReportNotifications model
+            type: string
+      description: Errors model
     createReportNotification:
       required:
       - change
@@ -356,32 +382,6 @@ components:
           type: string
           description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
       description: Create a ReportNotification.
-    updateReportNotification:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the ReportNotification.
-        cost_report_token:
-          type: string
-          description: The CostReport token.
-        user_tokens:
-          type: array
-          description: The Users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The Slack or Microsoft Teams channels that receive the notification.
-          items:
-            type: string
-        frequency:
-          type: string
-          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
-        change:
-          type: string
-          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
-      description: Update a ReportNotification.
   securitySchemes:
     oauth2:
       type: oauth2
