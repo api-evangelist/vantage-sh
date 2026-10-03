@@ -245,18 +245,78 @@ paths:
         - write
 components:
   schemas:
-    NetworkFlowReports:
+    createNetworkFlowReport:
       required:
-      - network_flow_reports
+      - title
+      - workspace_token
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        network_flow_reports:
+        workspace_token:
+          type: string
+          description: The Workspace in which the NetworkFlowReport will be created.
+        title:
+          type: string
+          description: The title of the NetworkFlowReport.
+        filter:
+          type: string
+          description: The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
+        start_date:
+          type: string
+          description: The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        end_date:
+          type: string
+          description: The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
+          format: date
+        date_interval:
+          type: string
+          description: The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
+          enum:
+          - last_3_days
+          - last_7_days
+          - custom
+        groupings:
           type: array
+          description: 'Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.'
           items:
-            $ref: '#/components/schemas/NetworkFlowReport'
-      description: NetworkFlowReports model
+            type: string
+            enum:
+            - account_id
+            - az_id
+            - dstaddr
+            - dsthostname
+            - flow_direction
+            - interface_id
+            - instance_id
+            - peer_resource_uuid
+            - peer_account_id
+            - peer_vpc_id
+            - peer_region
+            - peer_az_id
+            - peer_subnet_id
+            - peer_interface_id
+            - peer_instance_id
+            - region
+            - resource_uuid
+            - srcaddr
+            - srchostname
+            - subnet_id
+            - traffic_category
+            - traffic_path
+            - vpc_id
+        flow_direction:
+          type: string
+          description: The flow direction of the NetworkFlowReport.
+          enum:
+          - ingress
+          - egress
+        flow_weight:
+          type: string
+          description: The dimension by which the logs in the report are sorted. Defaults to costs.
+          enum:
+          - costs
+          - bytes
+      description: Create a NetworkFlowReport.
     Links:
       type: object
       properties:
@@ -285,6 +345,30 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    NetworkFlowReports:
+      required:
+      - network_flow_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        network_flow_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkFlowReport'
+      description: NetworkFlowReports model
     NetworkFlowReport:
       required:
       - created_at
@@ -362,90 +446,6 @@ components:
           - 'null'
           description: The filter applied to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
       description: NetworkFlowReport model
-    createNetworkFlowReport:
-      required:
-      - title
-      - workspace_token
-      type: object
-      properties:
-        workspace_token:
-          type: string
-          description: The Workspace in which the NetworkFlowReport will be created.
-        title:
-          type: string
-          description: The title of the NetworkFlowReport.
-        filter:
-          type: string
-          description: The filter query language to apply to the NetworkFlowReport. Additional documentation available at https://docs.vantage.sh/vql.
-        start_date:
-          type: string
-          description: The start date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        end_date:
-          type: string
-          description: The end date of the NetworkFlowReport. YYYY-MM-DD formatted. Incompatible with 'date_interval' parameter.
-          format: date
-        date_interval:
-          type: string
-          description: The date interval of the NetworkFlowReport. Unless 'custom' is used, this is incompatible with 'start_date' and 'end_date' parameters. Defaults to 'last_7_days'.
-          enum:
-          - last_3_days
-          - last_7_days
-          - custom
-        groupings:
-          type: array
-          description: 'Grouping values for aggregating data on the NetworkFlowReport. Valid groupings: account_id, az_id, dstaddr, dsthostname, flow_direction, interface_id, instance_id, peer_resource_uuid, peer_account_id, peer_vpc_id, peer_region, peer_az_id, peer_subnet_id, peer_interface_id, peer_instance_id, region, resource_uuid, srcaddr, srchostname, subnet_id, traffic_category, traffic_path, vpc_id.'
-          items:
-            type: string
-            enum:
-            - account_id
-            - az_id
-            - dstaddr
-            - dsthostname
-            - flow_direction
-            - interface_id
-            - instance_id
-            - peer_resource_uuid
-            - peer_account_id
-            - peer_vpc_id
-            - peer_region
-            - peer_az_id
-            - peer_subnet_id
-            - peer_interface_id
-            - peer_instance_id
-            - region
-            - resource_uuid
-            - srcaddr
-            - srchostname
-            - subnet_id
-            - traffic_category
-            - traffic_path
-            - vpc_id
-        flow_direction:
-          type: string
-          description: The flow direction of the NetworkFlowReport.
-          enum:
-          - ingress
-          - egress
-        flow_weight:
-          type: string
-          description: The dimension by which the logs in the report are sorted. Defaults to costs.
-          enum:
-          - costs
-          - bytes
-      description: Create a NetworkFlowReport.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     updateNetworkFlowReport:
       type: object
       properties:

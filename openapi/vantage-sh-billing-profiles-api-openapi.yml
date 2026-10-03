@@ -189,34 +189,52 @@ components:
           description: Array of adjustment items (taxes, fees, etc.)
           items:
             $ref: '#/components/schemas/AdjustmentItem'
-    BankingInformationSecureData:
+    BillingProfile:
       required:
-      - account_number
-      - iban
-      - routing_number
-      - swift_bic
+      - billing_information_attributes
+      - business_information_attributes
+      - created_at
+      - invoice_adjustment_attributes
+      - managed_accounts_count
+      - nickname
+      - token
+      - updated_at
       type: object
       properties:
-        account_number:
-          type:
-          - string
-          - 'null'
-          description: Bank account number (US)
-        routing_number:
-          type:
-          - string
-          - 'null'
-          description: Bank routing number (US)
-        iban:
-          type:
-          - string
-          - 'null'
-          description: International Bank Account Number (EU)
-        swift_bic:
-          type:
-          - string
-          - 'null'
-          description: SWIFT/BIC code (EU)
+        token:
+          type: string
+        nickname:
+          type: string
+          description: Display name for the billing profile
+        created_at:
+          type: string
+          description: The date and time, in UTC, the billing profile was created. ISO 8601 formatted.
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the billing profile was last updated. ISO 8601 formatted.
+          example: '2023-08-04T00:00:00Z'
+        billing_information_attributes:
+          $ref: '#/components/schemas/BillingInformation'
+        business_information_attributes:
+          $ref: '#/components/schemas/BusinessInformation'
+        banking_information_attributes:
+          $ref: '#/components/schemas/BankingInformation'
+        invoice_adjustment_attributes:
+          $ref: '#/components/schemas/InvoiceAdjustment'
+        managed_accounts_count:
+          type: string
+          description: Number of managed accounts using this billing profile
+      description: BillingProfile model
+    BusinessInformation:
+      required:
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/BusinessInformationMetadata'
     BillingInformation:
       required:
       - address_line_1
@@ -274,6 +292,34 @@ components:
           description: Array of billing email addresses
           items:
             type: string
+    BankingInformationSecureData:
+      required:
+      - account_number
+      - iban
+      - routing_number
+      - swift_bic
+      type: object
+      properties:
+        account_number:
+          type:
+          - string
+          - 'null'
+          description: Bank account number (US)
+        routing_number:
+          type:
+          - string
+          - 'null'
+          description: Bank routing number (US)
+        iban:
+          type:
+          - string
+          - 'null'
+          description: International Bank Account Number (EU)
+        swift_bic:
+          type:
+          - string
+          - 'null'
+          description: SWIFT/BIC code (EU)
     Links:
       type: object
       properties:
@@ -302,6 +348,235 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    BusinessInformationMetadata:
+      type: object
+      properties:
+        custom_fields:
+          type: array
+          description: Array of custom field objects
+          items:
+            $ref: '#/components/schemas/BusinessInformationCustomField'
+    BusinessInformationCustomField:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name
+        value:
+          type:
+          - string
+          - 'null'
+          description: Custom field value
+    AdjustmentItem:
+      required:
+      - adjustment_type
+      - amount
+      - calculation_type
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the adjustment (e.g., 'State Tax', 'Processing Fee')
+        adjustment_type:
+          type: string
+          description: Type of adjustment
+          enum:
+          - charge
+          - credit
+          - discount
+        calculation_type:
+          type: string
+          description: How the adjustment is calculated
+          enum:
+          - fixed
+          - percentage
+        amount:
+          type: string
+          description: Amount or percentage value for the adjustment
+    BillingProfiles:
+      required:
+      - billing_profiles
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        billing_profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingProfile'
+      description: BillingProfiles model
+    BankingInformation:
+      required:
+      - bank_name
+      - beneficiary_name
+      - tax_id
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        bank_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the bank
+        beneficiary_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the account beneficiary
+        tax_id:
+          type:
+          - string
+          - 'null'
+          description: Tax identification number
+        secure_data:
+          $ref: '#/components/schemas/BankingInformationSecureData'
+    updateBillingProfile:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: Display name for the billing profile
+        billing_information_attributes:
+          type: object
+          properties:
+            token:
+              type: string
+            company_name:
+              type: string
+              description: Company name for billing
+            country_code:
+              type: string
+              description: ISO country code
+            address_line_1:
+              type: string
+              description: First line of billing address
+            address_line_2:
+              type: string
+              description: Second line of billing address
+            city:
+              type: string
+              description: City for billing address
+            state:
+              type: string
+              description: State or province for billing address
+            postal_code:
+              type: string
+              description: Postal or ZIP code
+            billing_email:
+              type: array
+              description: Array of billing email addresses
+              items:
+                type: string
+          description: Billing address and contact information
+        business_information_attributes:
+          type: object
+          properties:
+            token:
+              type: string
+            metadata:
+              type: object
+              properties:
+                custom_fields:
+                  type: array
+                  description: Array of custom field objects
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Custom field name
+                      value:
+                        type: string
+                        description: Custom field value
+              description: Business metadata including custom fields
+          description: Business information and custom fields
+        banking_information_attributes:
+          type: object
+          properties:
+            token:
+              type: string
+            bank_name:
+              type: string
+              description: Name of the bank
+            beneficiary_name:
+              type: string
+              description: Name of the account beneficiary
+            tax_id:
+              type: string
+              description: Tax identification number
+            secure_data:
+              type: object
+              properties:
+                account_number:
+                  type: string
+                  description: Bank account number (US)
+                routing_number:
+                  type: string
+                  description: Bank routing number (US)
+                iban:
+                  type: string
+                  description: International Bank Account Number (EU)
+                swift_bic:
+                  type: string
+                  description: SWIFT/BIC code (EU)
+              description: Encrypted banking details
+          description: Banking details (MSP accounts only)
+        invoice_adjustment_attributes:
+          type: object
+          properties:
+            token:
+              type: string
+            adjustment_items:
+              type: array
+              description: Array of adjustment items
+              items:
+                required:
+                - amount
+                - calculation_type
+                - name
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the adjustment
+                  adjustment_type:
+                    type: string
+                    description: Type of adjustment
+                    default: charge
+                    enum:
+                    - charge
+                    - credit
+                    - discount
+                  calculation_type:
+                    type: string
+                    description: How the adjustment is calculated
+                    enum:
+                    - fixed
+                    - percentage
+                  amount:
+                    type: number
+                    description: Amount or percentage value
+                    format: double
+          description: Invoice adjustments (taxes, fees, etc.)
+      description: Update a billing profile (MSP invoicing required).
     createBillingProfile:
       required:
       - nickname
@@ -433,281 +708,6 @@ components:
                     format: double
           description: Invoice adjustments (taxes, fees, etc.)
       description: Create a billing profile (MSP invoicing required).
-    BillingProfile:
-      required:
-      - billing_information_attributes
-      - business_information_attributes
-      - created_at
-      - invoice_adjustment_attributes
-      - managed_accounts_count
-      - nickname
-      - token
-      - updated_at
-      type: object
-      properties:
-        token:
-          type: string
-        nickname:
-          type: string
-          description: Display name for the billing profile
-        created_at:
-          type: string
-          description: The date and time, in UTC, the billing profile was created. ISO 8601 formatted.
-          example: '2023-08-04T00:00:00Z'
-        updated_at:
-          type: string
-          description: The date and time, in UTC, the billing profile was last updated. ISO 8601 formatted.
-          example: '2023-08-04T00:00:00Z'
-        billing_information_attributes:
-          $ref: '#/components/schemas/BillingInformation'
-        business_information_attributes:
-          $ref: '#/components/schemas/BusinessInformation'
-        banking_information_attributes:
-          $ref: '#/components/schemas/BankingInformation'
-        invoice_adjustment_attributes:
-          $ref: '#/components/schemas/InvoiceAdjustment'
-        managed_accounts_count:
-          type: string
-          description: Number of managed accounts using this billing profile
-      description: BillingProfile model
-    BusinessInformation:
-      required:
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/BusinessInformationMetadata'
-    BusinessInformationMetadata:
-      type: object
-      properties:
-        custom_fields:
-          type: array
-          description: Array of custom field objects
-          items:
-            $ref: '#/components/schemas/BusinessInformationCustomField'
-    updateBillingProfile:
-      type: object
-      properties:
-        nickname:
-          type: string
-          description: Display name for the billing profile
-        billing_information_attributes:
-          type: object
-          properties:
-            token:
-              type: string
-            company_name:
-              type: string
-              description: Company name for billing
-            country_code:
-              type: string
-              description: ISO country code
-            address_line_1:
-              type: string
-              description: First line of billing address
-            address_line_2:
-              type: string
-              description: Second line of billing address
-            city:
-              type: string
-              description: City for billing address
-            state:
-              type: string
-              description: State or province for billing address
-            postal_code:
-              type: string
-              description: Postal or ZIP code
-            billing_email:
-              type: array
-              description: Array of billing email addresses
-              items:
-                type: string
-          description: Billing address and contact information
-        business_information_attributes:
-          type: object
-          properties:
-            token:
-              type: string
-            metadata:
-              type: object
-              properties:
-                custom_fields:
-                  type: array
-                  description: Array of custom field objects
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        description: Custom field name
-                      value:
-                        type: string
-                        description: Custom field value
-              description: Business metadata including custom fields
-          description: Business information and custom fields
-        banking_information_attributes:
-          type: object
-          properties:
-            token:
-              type: string
-            bank_name:
-              type: string
-              description: Name of the bank
-            beneficiary_name:
-              type: string
-              description: Name of the account beneficiary
-            tax_id:
-              type: string
-              description: Tax identification number
-            secure_data:
-              type: object
-              properties:
-                account_number:
-                  type: string
-                  description: Bank account number (US)
-                routing_number:
-                  type: string
-                  description: Bank routing number (US)
-                iban:
-                  type: string
-                  description: International Bank Account Number (EU)
-                swift_bic:
-                  type: string
-                  description: SWIFT/BIC code (EU)
-              description: Encrypted banking details
-          description: Banking details (MSP accounts only)
-        invoice_adjustment_attributes:
-          type: object
-          properties:
-            token:
-              type: string
-            adjustment_items:
-              type: array
-              description: Array of adjustment items
-              items:
-                required:
-                - amount
-                - calculation_type
-                - name
-                type: object
-                properties:
-                  name:
-                    type: string
-                    description: Name of the adjustment
-                  adjustment_type:
-                    type: string
-                    description: Type of adjustment
-                    default: charge
-                    enum:
-                    - charge
-                    - credit
-                    - discount
-                  calculation_type:
-                    type: string
-                    description: How the adjustment is calculated
-                    enum:
-                    - fixed
-                    - percentage
-                  amount:
-                    type: number
-                    description: Amount or percentage value
-                    format: double
-          description: Invoice adjustments (taxes, fees, etc.)
-      description: Update a billing profile (MSP invoicing required).
-    BankingInformation:
-      required:
-      - bank_name
-      - beneficiary_name
-      - tax_id
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-        bank_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the bank
-        beneficiary_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the account beneficiary
-        tax_id:
-          type:
-          - string
-          - 'null'
-          description: Tax identification number
-        secure_data:
-          $ref: '#/components/schemas/BankingInformationSecureData'
-    BusinessInformationCustomField:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          type: string
-          description: Custom field name
-        value:
-          type:
-          - string
-          - 'null'
-          description: Custom field value
-    AdjustmentItem:
-      required:
-      - adjustment_type
-      - amount
-      - calculation_type
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the adjustment (e.g., 'State Tax', 'Processing Fee')
-        adjustment_type:
-          type: string
-          description: Type of adjustment
-          enum:
-          - charge
-          - credit
-          - discount
-        calculation_type:
-          type: string
-          description: How the adjustment is calculated
-          enum:
-          - fixed
-          - percentage
-        amount:
-          type: string
-          description: Amount or percentage value for the adjustment
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    BillingProfiles:
-      required:
-      - billing_profiles
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        billing_profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingProfile'
-      description: BillingProfiles model
   securitySchemes:
     oauth2:
       type: oauth2

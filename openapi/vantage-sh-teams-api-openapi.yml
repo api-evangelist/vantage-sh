@@ -463,6 +463,70 @@ components:
           description: The token of a Dashboard to set as the Team default. Send null to clear.
           x-omitempty: false
       description: Create a new Team.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    TeamMembers:
+      required:
+      - members
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+      description: TeamMembers model
+    Teams:
+      required:
+      - teams
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+      description: Teams model
     Team:
       required:
       - default_dashboard_token
@@ -511,34 +575,31 @@ components:
           description: The token of the default Dashboard for the Team.
           example: dshbrd_abcd1234
       description: Team model
-    Links:
+    TeamMember:
+      required:
+      - email
+      - name
+      - role
+      - user_token
       type: object
       properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
+        name:
+          type: string
+          description: The name of the team member.
+          example: John Doe
+        email:
+          type: string
+          description: The email address of the team member.
+          example: john@acme.com
+        user_token:
+          type: string
+          description: The token of the team member.
+          example: usr_abcd1234
+        role:
+          type: string
+          description: The role of the team member in the team.
+          example: editor
+      description: TeamMember model
     updateTeam:
       type: object
       properties:
@@ -596,67 +657,6 @@ components:
           - viewer
           - integration_owner
       description: Add a member to a Team.
-    TeamMember:
-      required:
-      - email
-      - name
-      - role
-      - user_token
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the team member.
-          example: John Doe
-        email:
-          type: string
-          description: The email address of the team member.
-          example: john@acme.com
-        user_token:
-          type: string
-          description: The token of the team member.
-          example: usr_abcd1234
-        role:
-          type: string
-          description: The role of the team member in the team.
-          example: editor
-      description: TeamMember model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Teams:
-      required:
-      - teams
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-      description: Teams model
-    TeamMembers:
-      required:
-      - members
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-      description: TeamMembers model
   securitySchemes:
     oauth2:
       type: oauth2

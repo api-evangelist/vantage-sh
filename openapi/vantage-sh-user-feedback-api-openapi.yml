@@ -55,18 +55,6 @@ paths:
       x-codegen-request-body-name: createUserFeedback
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     Links:
       type: object
       properties:
@@ -95,15 +83,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    createUserFeedback:
+    Errors:
       required:
-      - message
+      - errors
       type: object
       properties:
-        message:
-          type: string
-          description: UserFeedback message
-      description: Provide UserFeedback for our product and features.
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     UserFeedback:
       required:
       - created_at
@@ -127,6 +118,15 @@ components:
           description: Feedback creation timestamp
           example: '2023-01-01T00:00:00Z'
       description: UserFeedback model
+    createUserFeedback:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: UserFeedback message
+      description: Provide UserFeedback for our product and features.
   securitySchemes:
     oauth2:
       type: oauth2

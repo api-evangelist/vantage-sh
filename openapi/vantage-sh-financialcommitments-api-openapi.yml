@@ -99,18 +99,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    FinancialCommitments:
-      required:
-      - financial_commitments
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        financial_commitments:
-          type: array
-          items:
-            $ref: '#/components/schemas/FinancialCommitment'
-      description: FinancialCommitments model
     FinancialCommitment:
       required:
       - account
@@ -195,6 +183,18 @@ components:
         workspace_token:
           type: string
           description: The token for the Workspace the FinancialCommitment is a part of.
+    FinancialCommitments:
+      required:
+      - financial_commitments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        financial_commitments:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancialCommitment'
+      description: FinancialCommitments model
   securitySchemes:
     oauth2:
       type: oauth2

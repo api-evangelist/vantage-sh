@@ -276,6 +276,30 @@ paths:
         - write
 components:
   schemas:
+    downloadInvoice:
+      required:
+      - file_type
+      type: object
+      properties:
+        file_type:
+          type: string
+          description: Type of file to download (pdf or csv)
+          enum:
+          - pdf
+          - csv
+      description: Download invoice file (PDF or CSV).
+    Invoices:
+      required:
+      - invoices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+      description: Invoices model
     createInvoice:
       required:
       - account_token
@@ -293,41 +317,6 @@ components:
           type: string
           description: Token of the managed account to invoice
       description: Create an invoice (MSP accounts only).
-    Invoices:
-      required:
-      - invoices
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-      description: Invoices model
-    SendInvoice:
-      required:
-      - recipients
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-            example: ''
-      description: SendInvoice model
-    downloadInvoice:
-      required:
-      - file_type
-      type: object
-      properties:
-        file_type:
-          type: string
-          description: Type of file to download (pdf or csv)
-          enum:
-          - pdf
-          - csv
-      description: Download invoice file (PDF or CSV).
     Links:
       type: object
       properties:
@@ -378,16 +367,17 @@ components:
           description: The URL to download the invoice file.
           example: https://example.com/invoice.pdf
       description: DownloadInvoice model
-    CostReportUrl:
+    SendInvoice:
       required:
-      - cost_report_url
+      - recipients
       type: object
       properties:
-        cost_report_url:
-          type: string
-          description: The URL of the cost report.
-          example: https://example.com/cost_report.pdf
-      description: CostReportUrl model
+        recipients:
+          type: array
+          items:
+            type: string
+            example: ''
+      description: SendInvoice model
     Invoice:
       required:
       - account_name
@@ -438,6 +428,16 @@ components:
           type: string
           description: Token of the MSP account that owns this invoice
       description: Invoice model
+    CostReportUrl:
+      required:
+      - cost_report_url
+      type: object
+      properties:
+        cost_report_url:
+          type: string
+          description: The URL of the cost report.
+          example: https://example.com/cost_report.pdf
+      description: CostReportUrl model
   securitySchemes:
     oauth2:
       type: oauth2

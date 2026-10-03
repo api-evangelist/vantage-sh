@@ -217,6 +217,101 @@ paths:
         - write
 components:
   schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    BillingRules:
+      required:
+      - billing_rules
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        billing_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingRule'
+      description: BillingRules model
+    updateBillingRule:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the BillingRule.
+        charge_type:
+          type: string
+          description: The charge type of the BillingRule.
+        percentage:
+          type: number
+          description: 'The percentage of the cost shown. Example value: 75.0'
+          format: double
+        service:
+          type: string
+          description: The service of the BillingRule.
+        category:
+          type: string
+          description: The category of the BillingRule.
+        sub_category:
+          type: string
+          description: The subcategory of the BillingRule.
+        start_period:
+          type: string
+          description: The start period of the BillingRule.
+        amount:
+          type: number
+          description: 'The credit amount for the BillingRule. Example value: 300'
+          format: double
+        start_date:
+          type: string
+          description: The start date of the BillingRule. ISO 8601 formatted.
+        end_date:
+          type: string
+          description: The end date of the BillingRule. ISO 8601 formatted.
+        apply_to_all:
+          type: boolean
+          description: Determines if the BillingRule applies to all current and future managed accounts.
+          x-omitempty: false
+        sql_query:
+          type: string
+          description: The SQL query of the BillingRule.
+      description: Update a BillingRule.
     BillingRule:
       required:
       - apply_to_all
@@ -312,46 +407,6 @@ components:
           description: The SQL query for the BillingRule (Custom).
           example: UPDATE costs SET costs.amount = costs.amount * 0.95
       description: BillingRule model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     createBillingRule:
       required:
       - title
@@ -406,61 +461,6 @@ components:
           type: string
           description: 'The SQL query for the BillingRule. Required for Custom rules. Example value: UPDATE costs SET costs.amount = costs.amount * 0.95'
       description: Create a BillingRule.
-    BillingRules:
-      required:
-      - billing_rules
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        billing_rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingRule'
-      description: BillingRules model
-    updateBillingRule:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the BillingRule.
-        charge_type:
-          type: string
-          description: The charge type of the BillingRule.
-        percentage:
-          type: number
-          description: 'The percentage of the cost shown. Example value: 75.0'
-          format: double
-        service:
-          type: string
-          description: The service of the BillingRule.
-        category:
-          type: string
-          description: The category of the BillingRule.
-        sub_category:
-          type: string
-          description: The subcategory of the BillingRule.
-        start_period:
-          type: string
-          description: The start period of the BillingRule.
-        amount:
-          type: number
-          description: 'The credit amount for the BillingRule. Example value: 300'
-          format: double
-        start_date:
-          type: string
-          description: The start date of the BillingRule. ISO 8601 formatted.
-        end_date:
-          type: string
-          description: The end date of the BillingRule. ISO 8601 formatted.
-        apply_to_all:
-          type: boolean
-          description: Determines if the BillingRule applies to all current and future managed accounts.
-          x-omitempty: false
-        sql_query:
-          type: string
-          description: The SQL query of the BillingRule.
-      description: Update a BillingRule.
   securitySchemes:
     oauth2:
       type: oauth2

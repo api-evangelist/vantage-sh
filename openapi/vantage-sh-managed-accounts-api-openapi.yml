@@ -334,61 +334,27 @@ paths:
         - write
 components:
   schemas:
-    ManagedAccount:
+    ManagedAccounts:
       required:
-      - access_credential_tokens
-      - billing_rule_tokens
-      - contact_email
-      - name
-      - parent_account_token
+      - managed_accounts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        managed_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManagedAccount'
+      description: ManagedAccounts model
+    BusinessInformation:
+      required:
       - token
       type: object
       properties:
         token:
           type: string
-        name:
-          type: string
-        contact_email:
-          type: string
-        parent_account_token:
-          type: string
-          description: The token for the parent Account.
-        access_credential_tokens:
-          type: array
-          description: The tokens for the Access Credentials assigned to the Managed Account.
-          items:
-            type: string
-        billing_rule_tokens:
-          type: array
-          description: The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data.
-          items:
-            type: string
-        email_domain:
-          type:
-          - string
-          - 'null'
-          description: Email domain associated with this Managed Account for SSO.
-        msp_billing_profile_token:
-          type:
-          - string
-          - 'null'
-          description: Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
-        payment_terms_days:
-          type:
-          - integer
-          - 'null'
-          description: Number of days until payment is due after invoice date (MSP invoicing accounts only)
-          format: int32
-        include_managed_account_integrations:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only)
-        billing_information_attributes:
-          $ref: '#/components/schemas/BillingInformation'
-        business_information_attributes:
-          $ref: '#/components/schemas/BusinessInformation'
-      description: ManagedAccount model
+        metadata:
+          $ref: '#/components/schemas/BusinessInformationMetadata'
     BillingInformation:
       required:
       - address_line_1
@@ -446,6 +412,85 @@ components:
           description: Array of billing email addresses
           items:
             type: string
+    ManagedAccount:
+      required:
+      - access_credential_tokens
+      - billing_rule_tokens
+      - contact_email
+      - name
+      - parent_account_token
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type: string
+        contact_email:
+          type: string
+        parent_account_token:
+          type: string
+          description: The token for the parent Account.
+        access_credential_tokens:
+          type: array
+          description: The tokens for the Access Credentials assigned to the Managed Account.
+          items:
+            type: string
+        billing_rule_tokens:
+          type: array
+          description: The tokens for the Billing Rules assigned to the Managed Account, in the order they will execute against this account's cost data.
+          items:
+            type: string
+        email_domain:
+          type:
+          - string
+          - 'null'
+          description: Email domain associated with this Managed Account for SSO.
+        msp_billing_profile_token:
+          type:
+          - string
+          - 'null'
+          description: Token of the MSP billing profile used for this managed account (MSP invoicing accounts only)
+        payment_terms_days:
+          type:
+          - integer
+          - 'null'
+          description: Number of days until payment is due after invoice date (MSP invoicing accounts only)
+          format: int32
+        include_managed_account_integrations:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to include managed account's own integrations in invoice cost calculations (MSP invoicing accounts only)
+        billing_information_attributes:
+          $ref: '#/components/schemas/BillingInformation'
+        business_information_attributes:
+          $ref: '#/components/schemas/BusinessInformation'
+      description: ManagedAccount model
+    updateSsoConnectionForManagedAccount:
+      type: object
+      properties:
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider.
+        additional_domains:
+          type: array
+          description: Additional email domains to associate with this SSO configuration. Replaces existing additional domains. The account's SSO domain is always preserved.
+          items:
+            type: string
+      description: Update SSO configuration for a Managed Account.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     Links:
       type: object
       properties:
@@ -474,27 +519,33 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
+    createSsoConnectionForManagedAccount:
       required:
-      - errors
+      - type
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
+        type:
+          type: string
+          description: 'The type of SSO connection. Currently supported: saml.'
+          enum:
+          - saml
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider. Required when type is saml.
+        additional_domains:
           type: array
+          description: Additional email domains to associate with this SSO configuration. The account's SSO domain is always included.
           items:
             type: string
-      description: Errors model
-    BusinessInformation:
-      required:
-      - token
+      description: Configure SSO for a Managed Account.
+    BusinessInformationMetadata:
       type: object
       properties:
-        token:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/BusinessInformationMetadata'
+        custom_fields:
+          type: array
+          description: Array of custom field objects
+          items:
+            $ref: '#/components/schemas/BusinessInformationCustomField'
     createManagedAccount:
       required:
       - contact_email
@@ -521,18 +572,6 @@ components:
           type: string
           description: Email domain to associate with this Managed Account for SSO.
       description: Create a Managed Account.
-    ManagedAccounts:
-      required:
-      - managed_accounts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        managed_accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ManagedAccount'
-      description: ManagedAccounts model
     BusinessInformationCustomField:
       required:
       - name
@@ -547,45 +586,6 @@ components:
           - string
           - 'null'
           description: Custom field value
-    BusinessInformationMetadata:
-      type: object
-      properties:
-        custom_fields:
-          type: array
-          description: Array of custom field objects
-          items:
-            $ref: '#/components/schemas/BusinessInformationCustomField'
-    createSsoConnectionForManagedAccount:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'The type of SSO connection. Currently supported: saml.'
-          enum:
-          - saml
-        saml_metadata_url:
-          type: string
-          description: The SAML metadata URL for the identity provider. Required when type is saml.
-        additional_domains:
-          type: array
-          description: Additional email domains to associate with this SSO configuration. The account's SSO domain is always included.
-          items:
-            type: string
-      description: Configure SSO for a Managed Account.
-    updateSsoConnectionForManagedAccount:
-      type: object
-      properties:
-        saml_metadata_url:
-          type: string
-          description: The SAML metadata URL for the identity provider.
-        additional_domains:
-          type: array
-          description: Additional email domains to associate with this SSO configuration. Replaces existing additional domains. The account's SSO domain is always preserved.
-          items:
-            type: string
-      description: Update SSO configuration for a Managed Account.
     updateManagedAccount:
       type: object
       properties:

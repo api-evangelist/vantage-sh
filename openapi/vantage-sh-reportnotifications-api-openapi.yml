@@ -221,6 +221,118 @@ paths:
         - write
 components:
   schemas:
+    ReportNotifications:
+      required:
+      - report_notifications
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        report_notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportNotification'
+      description: ReportNotifications model
+    createReportNotification:
+      required:
+      - change
+      - cost_report_token
+      - frequency
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the ReportNotification.
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the ReportNotification to. Required if the API token is associated with multiple Workspaces.
+        user_tokens:
+          type: array
+          description: The Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack or Microsoft Teams channels that receive the notification.
+          items:
+            type: string
+        frequency:
+          type: string
+          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
+        change:
+          type: string
+          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
+      description: Create a ReportNotification.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    updateReportNotification:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the ReportNotification.
+        cost_report_token:
+          type: string
+          description: The CostReport token.
+        user_tokens:
+          type: array
+          description: The Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack or Microsoft Teams channels that receive the notification.
+          items:
+            type: string
+        frequency:
+          type: string
+          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
+        change:
+          type: string
+          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
+      description: Update a ReportNotification.
     ReportNotification:
       required:
       - change
@@ -270,118 +382,6 @@ components:
           - percentage
           - dollars
       description: ReportNotification model
-    updateReportNotification:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the ReportNotification.
-        cost_report_token:
-          type: string
-          description: The CostReport token.
-        user_tokens:
-          type: array
-          description: The Users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The Slack or Microsoft Teams channels that receive the notification.
-          items:
-            type: string
-        frequency:
-          type: string
-          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
-        change:
-          type: string
-          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
-      description: Update a ReportNotification.
-    ReportNotifications:
-      required:
-      - report_notifications
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        report_notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportNotification'
-      description: ReportNotifications model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    createReportNotification:
-      required:
-      - change
-      - cost_report_token
-      - frequency
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the ReportNotification.
-        cost_report_token:
-          type: string
-          description: The CostReport token.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to add the ReportNotification to. Required if the API token is associated with multiple Workspaces.
-        user_tokens:
-          type: array
-          description: The Users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The Slack or Microsoft Teams channels that receive the notification.
-          items:
-            type: string
-        frequency:
-          type: string
-          description: 'The frequency the ReportNotification is sent. Possible values: daily, weekly, monthly.'
-        change:
-          type: string
-          description: 'The type of change the ReportNotification is tracking. Possible values: percentage, dollars.'
-      description: Create a ReportNotification.
   securitySchemes:
     oauth2:
       type: oauth2

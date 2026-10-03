@@ -247,18 +247,18 @@ paths:
         - write
 components:
   schemas:
-    updateAccessGrant:
+    AccessGrants:
       required:
-      - access
+      - access_grants
       type: object
       properties:
-        access:
-          type: string
-          description: Allowed or denied access to resource.
-          enum:
-          - denied
-          - allowed
-      description: Update an AccessGrant.
+        links:
+          $ref: '#/components/schemas/Links'
+        access_grants:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGrant'
+      description: AccessGrants model
     createAccessGrant:
       required:
       - resource_token
@@ -318,18 +318,18 @@ components:
           items:
             type: string
       description: Errors model
-    AccessGrants:
+    updateAccessGrant:
       required:
-      - access_grants
+      - access
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        access_grants:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGrant'
-      description: AccessGrants model
+        access:
+          type: string
+          description: Allowed or denied access to resource.
+          enum:
+          - denied
+          - allowed
+      description: Update an AccessGrant.
     AccessGrant:
       required:
       - access

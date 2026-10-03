@@ -65,6 +65,75 @@ paths:
       x-codegen-request-body-name: updateMe
 components:
   schemas:
+    updateMe:
+      type: object
+      properties:
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of a Dashboard to set as the User default. Send null to clear.
+          x-omitempty: false
+      description: Update the authenticated User.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    BearerToken:
+      required:
+      - created_at
+      - description
+      - scope
+      type: object
+      properties:
+        description:
+          type: string
+          description: The user supplied description of this BearerToken
+        created_at:
+          type: string
+          description: The date and time, in UTC, the BearerToken was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        scope:
+          type: array
+          description: The scopes applied to the BearerToken used to authenticate this request.
+          items:
+            type: string
     Workspace:
       required:
       - created_at
@@ -119,75 +188,6 @@ components:
         bearer_token:
           $ref: '#/components/schemas/BearerToken'
       description: Me model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    BearerToken:
-      required:
-      - created_at
-      - description
-      - scope
-      type: object
-      properties:
-        description:
-          type: string
-          description: The user supplied description of this BearerToken
-        created_at:
-          type: string
-          description: The date and time, in UTC, the BearerToken was created. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        scope:
-          type: array
-          description: The scopes applied to the BearerToken used to authenticate this request.
-          items:
-            type: string
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    updateMe:
-      type: object
-      properties:
-        default_dashboard_token:
-          type:
-          - string
-          - 'null'
-          description: The token of a Dashboard to set as the User default. Send null to clear.
-          x-omitempty: false
-      description: Update the authenticated User.
   securitySchemes:
     oauth2:
       type: oauth2

@@ -456,20 +456,6 @@ paths:
         - read
 components:
   schemas:
-    VirtualTagConfigValuePercentage:
-      required:
-      - pct
-      - value
-      type: object
-      properties:
-        value:
-          type: string
-          description: The tag value associated with a percentage of matched costs.
-          example: cost-center-a
-        pct:
-          type: number
-          description: The percentage of matched costs associated with the value.
-          example: 50.0
     VirtualTagConfigValueLabelTransform:
       required:
       - type
@@ -497,60 +483,6 @@ components:
           - string
           - 'null'
           description: Template used by format transforms.
-    VirtualTagConfigs:
-      required:
-      - virtual_tag_configs
-      type: object
-      properties:
-        virtual_tag_configs:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualTagConfig'
-      description: VirtualTagConfigs model
-    AsyncVirtualTagConfigUpdate:
-      required:
-      - request_id
-      - status_url
-      type: object
-      properties:
-        request_id:
-          type: string
-          description: The request ID of the async virtual tag config update.
-          example: 550e8400-e29b-41d4-a716-446655440000
-        status_url:
-          type: string
-          description: The status path of the async virtual tag config update.
-          example: /v2/virtual_tag_configs/async/550e8400-e29b-41d4-a716-446655440000
-      description: AsyncVirtualTagConfigUpdate model
-    VirtualTagConfigValueDateRange:
-      required:
-      - end_date
-      - start_date
-      type: object
-      properties:
-        start_date:
-          type:
-          - string
-          - 'null'
-          description: The start date of the range (inclusive), or null for unbounded.
-        end_date:
-          type:
-          - string
-          - 'null'
-          description: The end date of the range (inclusive), or null for unbounded.
-    VirtualTagConfigValueCostMetric:
-      required:
-      - aggregation
-      - filter
-      type: object
-      properties:
-        filter:
-          type:
-          - string
-          - 'null'
-          description: The filter VQL for the cost metric.
-        aggregation:
-          $ref: '#/components/schemas/VirtualTagConfigValueCostMetricAggregation'
     VirtualTagConfigProviderStatus:
       required:
       - provider
@@ -565,6 +497,115 @@ components:
           type: string
           description: 'The processing status for this provider. Possible values: queued, processing, complete, failed.'
           example: processing
+    VirtualTagConfigValueCostMetricAggregation:
+      type: object
+      properties:
+        tag:
+          type:
+          - string
+          - 'null'
+          description: The tag to aggregate on.
+    VirtualTagConfigValueCostMetric:
+      required:
+      - aggregation
+      - filter
+      type: object
+      properties:
+        filter:
+          type:
+          - string
+          - 'null'
+          description: The filter VQL for the cost metric.
+        aggregation:
+          $ref: '#/components/schemas/VirtualTagConfigValueCostMetricAggregation'
+    VirtualTagConfigValue:
+      required:
+      - date_ranges
+      - filter
+      - label_transforms
+      - percentages
+      type: object
+      properties:
+        filter:
+          type:
+          - string
+          - 'null'
+          description: The filter VQL for the Value.
+          example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the Value.
+          example: Informatics
+        business_metric_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the associated BusinessMetric.
+          example: bsnss_mtrc_abc123
+        cost_metric:
+          $ref: '#/components/schemas/VirtualTagConfigValueCostMetric'
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: The display name for this allocation value.
+        label_transforms:
+          type: array
+          description: Label transforms applied to business metric labels.
+          items:
+            $ref: '#/components/schemas/VirtualTagConfigValueLabelTransform'
+        percentages:
+          type: array
+          description: Labeled percentage allocations for matching costs.
+          items:
+            $ref: '#/components/schemas/VirtualTagConfigValuePercentage'
+        date_ranges:
+          type: array
+          description: Date ranges restricting when this value applies.
+          items:
+            $ref: '#/components/schemas/VirtualTagConfigValueDateRange'
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     VirtualTagConfig:
       required:
       - backfill_until
@@ -608,66 +649,6 @@ components:
           items:
             $ref: '#/components/schemas/VirtualTagConfigValue'
       description: VirtualTagConfig model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    VirtualTagConfigStatus:
-      required:
-      - processing
-      - providers
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          description: The token of the VirtualTagConfig.
-          example: vtag_1234
-        processing:
-          type: boolean
-          description: Whether the VirtualTagConfig is currently processing. True if any provider has not completed processing.
-        providers:
-          type: array
-          description: Processing status broken down by provider.
-          items:
-            $ref: '#/components/schemas/VirtualTagConfigProviderStatus'
-      description: VirtualTagConfigStatus model
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     updateAsyncVirtualTagConfig:
       type: object
       properties:
@@ -790,29 +771,151 @@ components:
                       description: Inclusive end date (YYYY-MM-DD), or null for unbounded.
                 x-omitempty: true
       description: Asynchronously updates an existing VirtualTagConfig.
-    VirtualTagConfigCollapsedTagKey:
+    createVirtualTagConfig:
       required:
-      - filter
       - key
-      - providers
+      - overridable
       type: object
       properties:
         key:
           type: string
-          description: The tag key to collapse values for.
-          example: team
-        providers:
+          description: The key of the VirtualTagConfig.
+        overridable:
+          type: boolean
+          description: Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.
+        backfill_until:
+          type: string
+          description: The earliest month the VirtualTagConfig should be backfilled to.
+          format: date
+        collapsed_tag_keys:
           type: array
-          description: The providers this collapsed tag key applies to. Empty when it applies to all providers.
+          description: Tag keys to collapse values for.
           items:
-            type: string
-            example: ''
-        filter:
-          type:
-          - string
-          - 'null'
-          description: The VQL filter this collapsed tag key applies to. Null when the key is provider-scoped or unset.
-          example: (costs.provider = 'aws') OR (costs.provider = 'gcp')
+            required:
+            - key
+            type: object
+            properties:
+              key:
+                type: string
+                description: The tag key to collapse values for.
+              providers:
+                type: array
+                description: Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.
+                items:
+                  type: string
+              filter:
+                type: string
+                description: The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter.
+        values:
+          type: array
+          description: Values for the VirtualTagConfig, with match precedence determined by order in the list.
+          items:
+            required:
+            - filter
+            type: object
+            properties:
+              filter:
+                type: string
+                description: The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
+              name:
+                type: string
+                description: The name of the value.
+              business_metric_token:
+                type: string
+                description: The token of an associated business metric.
+              display_name:
+                type: string
+                description: The display name for an allocation value (cost_metric or percentages). Invalid when name is set.
+              label_transforms:
+                type: array
+                items:
+                  required:
+                  - type
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    delimiter:
+                      type:
+                      - string
+                      - 'null'
+                    index:
+                      type:
+                      - integer
+                      - 'null'
+                      format: int32
+                    template:
+                      type:
+                      - string
+                      - 'null'
+                x-omitempty: true
+              cost_metric:
+                required:
+                - aggregation
+                - filter
+                type: object
+                properties:
+                  filter:
+                    type: string
+                  aggregation:
+                    required:
+                    - tag
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+              percentages:
+                type: array
+                items:
+                  required:
+                  - pct
+                  - value
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                    pct:
+                      type: number
+                      format: float
+                x-omitempty: true
+              date_ranges:
+                type: array
+                description: Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).
+                items:
+                  type: object
+                  properties:
+                    start_date:
+                      type: string
+                      description: Inclusive start date (YYYY-MM-DD), or null for unbounded.
+                    end_date:
+                      type: string
+                      description: Inclusive end date (YYYY-MM-DD), or null for unbounded.
+                x-omitempty: true
+      description: Create a new VirtualTagConfig.
+    VirtualTagConfigs:
+      required:
+      - virtual_tag_configs
+      type: object
+      properties:
+        virtual_tag_configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualTagConfig'
+      description: VirtualTagConfigs model
+    VirtualTagConfigValuePercentage:
+      required:
+      - pct
+      - value
+      type: object
+      properties:
+        value:
+          type: string
+          description: The tag value associated with a percentage of matched costs.
+          example: cost-center-a
+        pct:
+          type: number
+          description: The percentage of matched costs associated with the value.
+          example: 50.0
     updateVirtualTagConfig:
       type: object
       properties:
@@ -935,183 +1038,80 @@ components:
                       description: Inclusive end date (YYYY-MM-DD), or null for unbounded.
                 x-omitempty: true
       description: Updates an existing VirtualTagConfig.
-    createVirtualTagConfig:
+    VirtualTagConfigStatus:
       required:
+      - processing
+      - providers
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token of the VirtualTagConfig.
+          example: vtag_1234
+        processing:
+          type: boolean
+          description: Whether the VirtualTagConfig is currently processing. True if any provider has not completed processing.
+        providers:
+          type: array
+          description: Processing status broken down by provider.
+          items:
+            $ref: '#/components/schemas/VirtualTagConfigProviderStatus'
+      description: VirtualTagConfigStatus model
+    VirtualTagConfigCollapsedTagKey:
+      required:
+      - filter
       - key
-      - overridable
+      - providers
       type: object
       properties:
         key:
           type: string
-          description: The key of the VirtualTagConfig.
-        overridable:
-          type: boolean
-          description: Whether the VirtualTagConfig can override a provider-supplied tag on a matching Cost.
-        backfill_until:
-          type: string
-          description: The earliest month the VirtualTagConfig should be backfilled to.
-          format: date
-        collapsed_tag_keys:
+          description: The tag key to collapse values for.
+          example: team
+        providers:
           type: array
-          description: Tag keys to collapse values for.
+          description: The providers this collapsed tag key applies to. Empty when it applies to all providers.
           items:
-            required:
-            - key
-            type: object
-            properties:
-              key:
-                type: string
-                description: The tag key to collapse values for.
-              providers:
-                type: array
-                description: Provider-only scope for this collapsed tag key. Invalid when filter is set; include provider restrictions in filter instead. Defaults to all providers.
-                items:
-                  type: string
-              filter:
-                type: string
-                description: The VQL filter this collapsed tag key applies to. When set, do not also set providers; include any provider restrictions directly in filter.
-        values:
-          type: array
-          description: Values for the VirtualTagConfig, with match precedence determined by order in the list.
-          items:
-            required:
-            - filter
-            type: object
-            properties:
-              filter:
-                type: string
-                description: The filter query language to apply to the value. Additional documentation available at https://docs.vantage.sh/vql.
-              name:
-                type: string
-                description: The name of the value.
-              business_metric_token:
-                type: string
-                description: The token of an associated business metric.
-              display_name:
-                type: string
-                description: The display name for an allocation value (cost_metric or percentages). Invalid when name is set.
-              label_transforms:
-                type: array
-                items:
-                  required:
-                  - type
-                  type: object
-                  properties:
-                    type:
-                      type: string
-                    delimiter:
-                      type:
-                      - string
-                      - 'null'
-                    index:
-                      type:
-                      - integer
-                      - 'null'
-                      format: int32
-                    template:
-                      type:
-                      - string
-                      - 'null'
-                x-omitempty: true
-              cost_metric:
-                required:
-                - aggregation
-                - filter
-                type: object
-                properties:
-                  filter:
-                    type: string
-                  aggregation:
-                    required:
-                    - tag
-                    type: object
-                    properties:
-                      tag:
-                        type: string
-              percentages:
-                type: array
-                items:
-                  required:
-                  - pct
-                  - value
-                  type: object
-                  properties:
-                    value:
-                      type: string
-                    pct:
-                      type: number
-                      format: float
-                x-omitempty: true
-              date_ranges:
-                type: array
-                description: Date ranges restricting when this value applies. Each range has optional start_date and end_date (inclusive, YYYY-MM-DD).
-                items:
-                  type: object
-                  properties:
-                    start_date:
-                      type: string
-                      description: Inclusive start date (YYYY-MM-DD), or null for unbounded.
-                    end_date:
-                      type: string
-                      description: Inclusive end date (YYYY-MM-DD), or null for unbounded.
-                x-omitempty: true
-      description: Create a new VirtualTagConfig.
-    VirtualTagConfigValueCostMetricAggregation:
-      type: object
-      properties:
-        tag:
-          type:
-          - string
-          - 'null'
-          description: The tag to aggregate on.
-    VirtualTagConfigValue:
-      required:
-      - date_ranges
-      - filter
-      - label_transforms
-      - percentages
-      type: object
-      properties:
+            type: string
+            example: ''
         filter:
           type:
           - string
           - 'null'
-          description: The filter VQL for the Value.
-          example: costs.provider = 'aws' AND costs.service = 'Amazon Simple Storage Service'
-        name:
+          description: The VQL filter this collapsed tag key applies to. Null when the key is provider-scoped or unset.
+          example: (costs.provider = 'aws') OR (costs.provider = 'gcp')
+    AsyncVirtualTagConfigUpdate:
+      required:
+      - request_id
+      - status_url
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: The request ID of the async virtual tag config update.
+          example: 550e8400-e29b-41d4-a716-446655440000
+        status_url:
+          type: string
+          description: The status path of the async virtual tag config update.
+          example: /v2/virtual_tag_configs/async/550e8400-e29b-41d4-a716-446655440000
+      description: AsyncVirtualTagConfigUpdate model
+    VirtualTagConfigValueDateRange:
+      required:
+      - end_date
+      - start_date
+      type: object
+      properties:
+        start_date:
           type:
           - string
           - 'null'
-          description: The name of the Value.
-          example: Informatics
-        business_metric_token:
+          description: The start date of the range (inclusive), or null for unbounded.
+        end_date:
           type:
           - string
           - 'null'
-          description: The token of the associated BusinessMetric.
-          example: bsnss_mtrc_abc123
-        cost_metric:
-          $ref: '#/components/schemas/VirtualTagConfigValueCostMetric'
-        display_name:
-          type:
-          - string
-          - 'null'
-          description: The display name for this allocation value.
-        label_transforms:
-          type: array
-          description: Label transforms applied to business metric labels.
-          items:
-            $ref: '#/components/schemas/VirtualTagConfigValueLabelTransform'
-        percentages:
-          type: array
-          description: Labeled percentage allocations for matching costs.
-          items:
-            $ref: '#/components/schemas/VirtualTagConfigValuePercentage'
-        date_ranges:
-          type: array
-          description: Date ranges restricting when this value applies.
-          items:
-            $ref: '#/components/schemas/VirtualTagConfigValueDateRange'
+          description: The end date of the range (inclusive), or null for unbounded.
   securitySchemes:
     oauth2:
       type: oauth2

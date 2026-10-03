@@ -42,18 +42,6 @@ paths:
         - read
 components:
   schemas:
-    CostServices:
-      required:
-      - cost_services
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_services:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostService'
-      description: CostServices model
     Links:
       type: object
       properties:
@@ -96,6 +84,18 @@ components:
           type: string
           description: The key value of the CostProvider.
           example: aws
+    CostServices:
+      required:
+      - cost_services
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_services:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostService'
+      description: CostServices model
   securitySchemes:
     oauth2:
       type: oauth2

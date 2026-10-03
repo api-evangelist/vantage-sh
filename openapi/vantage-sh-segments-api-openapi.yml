@@ -245,23 +245,39 @@ paths:
         - write
 components:
   schemas:
-    updateSegment:
+    Segment:
+      required:
+      - created_at
+      - description
+      - filter
+      - parent_segment_token
+      - priority
+      - report_token
+      - title
+      - token
+      - track_unallocated
+      - workspace_token
       type: object
       properties:
+        token:
+          type: string
         title:
           type: string
           description: The title of the Segment.
+          example: OPEX
+        parent_segment_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the parent Segment of this Segment.
         description:
           type: string
           description: The description of the Segment.
-        priority:
-          type: integer
-          description: The priority of the Segment.
-          format: int32
+          example: Operating expenses
         track_unallocated:
           type: boolean
           description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          default: false
+          example: false
         report_settings:
           type: object
           properties:
@@ -269,35 +285,58 @@ components:
               type:
               - boolean
               - 'null'
-              description: Reports created under this Segment will include credits.
             include_refunds:
               type:
               - boolean
               - 'null'
-              description: Reports created under this Segment will include refunds.
             include_discounts:
               type:
               - boolean
               - 'null'
-              description: Reports created under this Segment will include discounts.
             include_tax:
               type:
               - boolean
               - 'null'
-              description: Reports created under this Segment will include tax.
             amortize:
               type:
               - boolean
               - 'null'
-              description: Reports created under this Segment will amortize.
           description: Report settings configurable on top-level Segments.
+        priority:
+          type: integer
+          description: Costs are assigned in priority order across all Segments with assigned filters.
+          format: int32
+          example: 100
         filter:
+          type:
+          - string
+          - 'null'
+          description: The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        created_at:
           type: string
-          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-        parent_segment_token:
+          description: The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
+          example: '2021-07-09T00:00:00Z'
+        workspace_token:
           type: string
-          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
-      description: Update a Segment.
+          description: The token for the Workspace the Segment is a part of.
+        report_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the Report the Segment has generated.
+      description: Segment model
+    Segments:
+      required:
+      - segments
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment'
+      description: Segments model
     createSegment:
       required:
       - title
@@ -396,39 +435,23 @@ components:
           items:
             type: string
       description: Errors model
-    Segment:
-      required:
-      - created_at
-      - description
-      - filter
-      - parent_segment_token
-      - priority
-      - report_token
-      - title
-      - token
-      - track_unallocated
-      - workspace_token
+    updateSegment:
       type: object
       properties:
-        token:
-          type: string
         title:
           type: string
           description: The title of the Segment.
-          example: OPEX
-        parent_segment_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the parent Segment of this Segment.
         description:
           type: string
           description: The description of the Segment.
-          example: Operating expenses
+        priority:
+          type: integer
+          description: The priority of the Segment.
+          format: int32
         track_unallocated:
           type: boolean
           description: Track Unallocated Costs which are not assigned to any of the created Segments.
-          example: false
+          default: false
         report_settings:
           type: object
           properties:
@@ -436,58 +459,35 @@ components:
               type:
               - boolean
               - 'null'
+              description: Reports created under this Segment will include credits.
             include_refunds:
               type:
               - boolean
               - 'null'
+              description: Reports created under this Segment will include refunds.
             include_discounts:
               type:
               - boolean
               - 'null'
+              description: Reports created under this Segment will include discounts.
             include_tax:
               type:
               - boolean
               - 'null'
+              description: Reports created under this Segment will include tax.
             amortize:
               type:
               - boolean
               - 'null'
+              description: Reports created under this Segment will amortize.
           description: Report settings configurable on top-level Segments.
-        priority:
-          type: integer
-          description: Costs are assigned in priority order across all Segments with assigned filters.
-          format: int32
-          example: 100
         filter:
-          type:
-          - string
-          - 'null'
-          description: The filter applied to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
-        created_at:
           type: string
-          description: The date and time, in UTC, the Segment was created. ISO 8601 Formatted.
-          example: '2021-07-09T00:00:00Z'
-        workspace_token:
+          description: The filter query language to apply to the Segment. Additional documentation available at https://docs.vantage.sh/vql.
+        parent_segment_token:
           type: string
-          description: The token for the Workspace the Segment is a part of.
-        report_token:
-          type:
-          - string
-          - 'null'
-          description: The token for the Report the Segment has generated.
-      description: Segment model
-    Segments:
-      required:
-      - segments
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        segments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Segment'
-      description: Segments model
+          description: The token of the parent Segment this new Segment belongs to. Determines the Workspace the segment is assigned to.
+      description: Update a Segment.
   securitySchemes:
     oauth2:
       type: oauth2

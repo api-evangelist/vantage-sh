@@ -227,19 +227,6 @@ paths:
         - read
 components:
   schemas:
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
     Links:
       type: object
       properties:
@@ -280,6 +267,18 @@ components:
           items:
             type: string
       description: Errors model
+    Resources:
+      required:
+      - resources
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+      description: Resources model
     Resource:
       required:
       - account_id
@@ -348,18 +347,19 @@ components:
           properties: {}
           description: Key-value pairs of tags associated with the resource.
       description: Resource model
-    Resources:
+    ResourceCost:
       required:
-      - resources
+      - amount
+      - category
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-      description: Resources model
+        category:
+          type: string
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
   securitySchemes:
     oauth2:
       type: oauth2

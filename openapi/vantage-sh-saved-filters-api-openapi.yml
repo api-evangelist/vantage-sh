@@ -229,61 +229,6 @@ paths:
         - write
 components:
   schemas:
-    createSavedFilter:
-      required:
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the SavedFilter.
-        workspace_token:
-          type: string
-          description: The Workspace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces.
-        filter:
-          type: string
-          description: The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
-      description: Create a SavedFilter for CostReports.
-    SavedFilters:
-      required:
-      - saved_filters
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        saved_filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/SavedFilter'
-      description: SavedFilters model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
     SavedFilter:
       required:
       - cost_report_tokens
@@ -326,6 +271,44 @@ components:
           type: string
           description: The token for the Workspace the SavedFilter is a part of.
       description: SavedFilter model
+    updateSavedFilter:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the SavedFilter.
+        filter:
+          type: string
+          description: The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
+      description: Update a SavedFilter for CostReports.
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     Errors:
       required:
       - errors
@@ -338,16 +321,33 @@ components:
           items:
             type: string
       description: Errors model
-    updateSavedFilter:
+    createSavedFilter:
+      required:
+      - title
       type: object
       properties:
         title:
           type: string
           description: The title of the SavedFilter.
+        workspace_token:
+          type: string
+          description: The Workspace to associate the SavedFilter with. Required if the API token is associated with multiple Workspaces.
         filter:
           type: string
           description: The filter query language to apply to the SavedFilter, which subsequently gets applied to a CostReport. Additional documentation available at https://docs.vantage.sh/vql.
-      description: Update a SavedFilter for CostReports.
+      description: Create a SavedFilter for CostReports.
+    SavedFilters:
+      required:
+      - saved_filters
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        saved_filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedFilter'
+      description: SavedFilters model
   securitySchemes:
     oauth2:
       type: oauth2

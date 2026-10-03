@@ -111,30 +111,6 @@ paths:
         - write
 components:
   schemas:
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    ExchangeRates:
-      required:
-      - exchange_rates
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        exchange_rates:
-          type: array
-          items:
-            $ref: '#/components/schemas/exchange_rate'
-      description: ExchangeRates model
     Links:
       type: object
       properties:
@@ -163,6 +139,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     exchange_rate:
       required:
       - base_currency_code
@@ -182,6 +170,18 @@ components:
           type: string
         updated_at:
           type: string
+    ExchangeRates:
+      required:
+      - exchange_rates
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        exchange_rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/exchange_rate'
+      description: ExchangeRates model
   securitySchemes:
     oauth2:
       type: oauth2

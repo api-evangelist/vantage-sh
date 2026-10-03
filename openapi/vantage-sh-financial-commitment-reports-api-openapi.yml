@@ -245,93 +245,6 @@ paths:
         - write
 components:
   schemas:
-    FinancialCommitmentReport:
-      required:
-      - created_at
-      - date_bucket
-      - date_interval
-      - default
-      - end_date
-      - filter
-      - groupings
-      - on_demand_costs_scope
-      - start_date
-      - title
-      - token
-      - workspace_token
-      type: object
-      properties:
-        token:
-          type: string
-        title:
-          type: string
-          description: The title of the FinancialCommitmentReport.
-          example: Acme123 Financial Commitment Report
-        default:
-          type: boolean
-          description: Indicates whether the FinancialCommitmentReport is the default report.
-        created_at:
-          type: string
-          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
-          example: '2024-03-19T00:00:00Z'
-        workspace_token:
-          type: string
-          description: The token for the Workspace the FinancialCommitmentReport is a part of.
-        user_token:
-          type:
-          - string
-          - 'null'
-          description: The token for the User who created this FinancialCommitmentReport.
-        start_date:
-          type:
-          - string
-          - 'null'
-          description: The start date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
-          example: '2024-03-01'
-        end_date:
-          type:
-          - string
-          - 'null'
-          description: The end date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
-          example: '2024-03-20'
-        date_interval:
-          type:
-          - string
-          - 'null'
-          description: The date range for the FinancialCommitmentReport. Only present if a custom date range is not specified.
-          example: last_month
-        date_bucket:
-          type: string
-          description: 'How costs are grouped and displayed in the FinancialCommitmentReport. Possible values: day, week, month.'
-          example: month
-        groupings:
-          type:
-          - string
-          - 'null'
-          description: The grouping aggregations applied to the filtered data.
-          example: cost_type, tag:account
-        on_demand_costs_scope:
-          type: string
-          description: 'The scope for the costs. Possible values: discountable, all.'
-          example: discountable
-        filter:
-          type:
-          - string
-          - 'null'
-          description: The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
-      description: FinancialCommitmentReport model
-    FinancialCommitmentReports:
-      required:
-      - financial_commitment_reports
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        financial_commitment_reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/FinancialCommitmentReport'
-      description: FinancialCommitmentReports model
     Links:
       type: object
       properties:
@@ -372,6 +285,18 @@ components:
           items:
             type: string
       description: Errors model
+    FinancialCommitmentReports:
+      required:
+      - financial_commitment_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        financial_commitment_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/FinancialCommitmentReport'
+      description: FinancialCommitmentReports model
     createFinancialCommitmentReport:
       required:
       - title
@@ -492,6 +417,81 @@ components:
           items:
             type: string
       description: Update a FinancialCommitmentReport.
+    FinancialCommitmentReport:
+      required:
+      - created_at
+      - date_bucket
+      - date_interval
+      - default
+      - end_date
+      - filter
+      - groupings
+      - on_demand_costs_scope
+      - start_date
+      - title
+      - token
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+        title:
+          type: string
+          description: The title of the FinancialCommitmentReport.
+          example: Acme123 Financial Commitment Report
+        default:
+          type: boolean
+          description: Indicates whether the FinancialCommitmentReport is the default report.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the report was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        workspace_token:
+          type: string
+          description: The token for the Workspace the FinancialCommitmentReport is a part of.
+        user_token:
+          type:
+          - string
+          - 'null'
+          description: The token for the User who created this FinancialCommitmentReport.
+        start_date:
+          type:
+          - string
+          - 'null'
+          description: The start date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
+          example: '2024-03-01'
+        end_date:
+          type:
+          - string
+          - 'null'
+          description: The end date for the FinancialCommitmentReport. Only set for custom date ranges. ISO 8601 Formatted.
+          example: '2024-03-20'
+        date_interval:
+          type:
+          - string
+          - 'null'
+          description: The date range for the FinancialCommitmentReport. Only present if a custom date range is not specified.
+          example: last_month
+        date_bucket:
+          type: string
+          description: 'How costs are grouped and displayed in the FinancialCommitmentReport. Possible values: day, week, month.'
+          example: month
+        groupings:
+          type:
+          - string
+          - 'null'
+          description: The grouping aggregations applied to the filtered data.
+          example: cost_type, tag:account
+        on_demand_costs_scope:
+          type: string
+          description: 'The scope for the costs. Possible values: discountable, all.'
+          example: discountable
+        filter:
+          type:
+          - string
+          - 'null'
+          description: The filter applied to the FinancialCommitmentReport. Additional documentation available at https://docs.vantage.sh/vql.
+      description: FinancialCommitmentReport model
   securitySchemes:
     oauth2:
       type: oauth2

@@ -312,22 +312,6 @@ paths:
         - read
 components:
   schemas:
-    TagValue:
-      required:
-      - providers
-      - tag_value
-      type: object
-      properties:
-        tag_value:
-          type: string
-          description: The TagValue.
-          example: vantage
-        providers:
-          type: array
-          description: The unique providers that are covered by the TagValue.
-          items:
-            type: string
-            example: ''
     Links:
       type: object
       properties:
@@ -395,18 +379,6 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       description: Tags model
-    TagValues:
-      required:
-      - tag_values
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        tag_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagValue'
-      description: TagValues model
     Tag:
       required:
       - hidden
@@ -428,6 +400,34 @@ components:
         providers:
           type: array
           description: The unique providers that are covered by the Tag key.
+          items:
+            type: string
+            example: ''
+    TagValues:
+      required:
+      - tag_values
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        tag_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagValue'
+      description: TagValues model
+    TagValue:
+      required:
+      - providers
+      - tag_value
+      type: object
+      properties:
+        tag_value:
+          type: string
+          description: The TagValue.
+          example: vantage
+        providers:
+          type: array
+          description: The unique providers that are covered by the TagValue.
           items:
             type: string
             example: ''
