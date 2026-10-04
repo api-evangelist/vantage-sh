@@ -225,18 +225,21 @@ paths:
         - write
 components:
   schemas:
-    Folders:
-      required:
-      - folders
+    updateFolder:
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        folders:
+        title:
+          type: string
+          description: The title of the Folder.
+        parent_folder_token:
+          type: string
+          description: The token of the parent Folder.
+        saved_filter_tokens:
           type: array
+          description: The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
           items:
-            $ref: '#/components/schemas/Folder'
-      description: Folders model
+            type: string
+      description: Update a Folder for CostReports.
     Links:
       type: object
       properties:
@@ -277,33 +280,6 @@ components:
           items:
             type: string
       description: Errors model
-    createFolder:
-      required:
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Folder.
-        parent_folder_token:
-          type: string
-          description: The token of the parent Folder.
-        saved_filter_tokens:
-          type: array
-          description: The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
-          items:
-            type: string
-        workspace_token:
-          type: string
-          description: The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
-        type:
-          type: string
-          description: The type of the Folder.
-          default: CostFolder
-          enum:
-          - CostFolder
-          - ProviderResourceFolder
-      description: Create a Folder for CostReports.
     Folder:
       required:
       - created_at
@@ -348,7 +324,21 @@ components:
           type: string
           description: The token for the Workspace the Folder is a part of.
       description: Folder model
-    updateFolder:
+    Folders:
+      required:
+      - folders
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Folder'
+      description: Folders model
+    createFolder:
+      required:
+      - title
       type: object
       properties:
         title:
@@ -362,7 +352,17 @@ components:
           description: The tokens of the SavedFilters to apply to any Cost Report contained within the Folder.
           items:
             type: string
-      description: Update a Folder for CostReports.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Folder to. Ignored if 'parent_folder_token' is set. Required if the API token is associated with multiple Workspaces.
+        type:
+          type: string
+          description: The type of the Folder.
+          default: CostFolder
+          enum:
+          - CostFolder
+          - ProviderResourceFolder
+      description: Create a Folder for CostReports.
   securitySchemes:
     oauth2:
       type: oauth2

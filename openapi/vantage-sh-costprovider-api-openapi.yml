@@ -70,18 +70,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    CostProviders:
-      required:
-      - cost_providers
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostProvider'
-      description: CostProviders model
     CostProvider:
       required:
       - key
@@ -96,6 +84,18 @@ components:
           type: string
           description: The key of the CostProvider, useful for filtering Costs.
           example: aws
+    CostProviders:
+      required:
+      - cost_providers
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostProvider'
+      description: CostProviders model
   securitySchemes:
     oauth2:
       type: oauth2

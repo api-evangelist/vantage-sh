@@ -217,29 +217,6 @@ paths:
         - write
 components:
   schemas:
-    createAnomalyNotification:
-      required:
-      - cost_report_token
-      type: object
-      properties:
-        cost_report_token:
-          type: string
-          description: The token of the Cost Report that has the notification.
-        threshold:
-          type: integer
-          description: The threshold amount that must be met for the notification to fire.
-          format: int32
-        user_tokens:
-          type: array
-          description: The tokens of the Users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The Slack/MS Teams channels that receive the notification.
-          items:
-            type: string
-      description: Create an Anomaly Notification for a Cost Report.
     Links:
       type: object
       properties:
@@ -268,6 +245,68 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    AnomalyNotification:
+      required:
+      - cost_report_token
+      - created_at
+      - recipient_channels
+      - threshold
+      - token
+      - updated_at
+      - user_tokens
+      type: object
+      properties:
+        token:
+          type: string
+        cost_report_token:
+          type: string
+          description: The token for the CostReport the AnomalyNotification is associated with.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyNotification was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        updated_at:
+          type: string
+          description: The date and time, in UTC, the AnomalyNotification was last updated at. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the notification to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The channels that the notification is sent to.
+          items:
+            type: string
+      description: AnomalyNotification model
+    createAnomalyNotification:
+      required:
+      - cost_report_token
+      type: object
+      properties:
+        cost_report_token:
+          type: string
+          description: The token of the Cost Report that has the notification.
+        threshold:
+          type: integer
+          description: The threshold amount that must be met for the notification to fire.
+          format: int32
+        user_tokens:
+          type: array
+          description: The tokens of the Users that receive the notification.
+          items:
+            type: string
+        recipient_channels:
+          type: array
+          description: The Slack/MS Teams channels that receive the notification.
+          items:
+            type: string
+      description: Create an Anomaly Notification for a Cost Report.
     Errors:
       required:
       - errors
@@ -310,45 +349,6 @@ components:
           items:
             type: string
       description: Update an Anomaly Notification.
-    AnomalyNotification:
-      required:
-      - cost_report_token
-      - created_at
-      - recipient_channels
-      - threshold
-      - token
-      - updated_at
-      - user_tokens
-      type: object
-      properties:
-        token:
-          type: string
-        cost_report_token:
-          type: string
-          description: The token for the CostReport the AnomalyNotification is associated with.
-        created_at:
-          type: string
-          description: The date and time, in UTC, the AnomalyNotification was created. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        updated_at:
-          type: string
-          description: The date and time, in UTC, the AnomalyNotification was last updated at. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        threshold:
-          type: integer
-          description: The threshold amount that must be met for the notification to fire.
-          format: int32
-        user_tokens:
-          type: array
-          description: The tokens of the users that receive the notification.
-          items:
-            type: string
-        recipient_channels:
-          type: array
-          description: The channels that the notification is sent to.
-          items:
-            type: string
-      description: AnomalyNotification model
   securitySchemes:
     oauth2:
       type: oauth2

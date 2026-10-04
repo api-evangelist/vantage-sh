@@ -340,6 +340,30 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    Tag:
+      required:
+      - hidden
+      - preferred
+      - providers
+      - tag_key
+      type: object
+      properties:
+        tag_key:
+          type: string
+          description: The Tag key.
+          example: aws:createdBy
+        hidden:
+          type: boolean
+          description: Whether the Tag has been hidden from the Vantage UI.
+        preferred:
+          type: boolean
+          description: Whether the Tag has been marked as preferred.
+        providers:
+          type: array
+          description: The unique providers that are covered by the Tag key.
+          items:
+            type: string
+            example: ''
     Errors:
       required:
       - errors
@@ -379,30 +403,6 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       description: Tags model
-    Tag:
-      required:
-      - hidden
-      - preferred
-      - providers
-      - tag_key
-      type: object
-      properties:
-        tag_key:
-          type: string
-          description: The Tag key.
-          example: aws:createdBy
-        hidden:
-          type: boolean
-          description: Whether the Tag has been hidden from the Vantage UI.
-        preferred:
-          type: boolean
-          description: Whether the Tag has been marked as preferred.
-        providers:
-          type: array
-          description: The unique providers that are covered by the Tag key.
-          items:
-            type: string
-            example: ''
     TagValues:
       required:
       - tag_values

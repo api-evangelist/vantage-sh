@@ -105,6 +105,42 @@ paths:
         - read
 components:
   schemas:
+    CostProviderAccount:
+      required:
+      - account_id
+      - provider
+      - provider_uuid
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The display name of the provider account.
+          example: Production Account
+        account_id:
+          type: string
+          description: The provider account identifier (e.g., AWS account ID, Azure subscription ID).
+          example: '123456789012'
+        provider_uuid:
+          type: string
+          description: The provider-specific unique identifier.
+          example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
+        provider:
+          type: string
+          description: The provider type (aws, azure, gcp, etc.).
+          example: aws
+    CostProviderAccounts:
+      required:
+      - cost_provider_accounts
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_provider_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostProviderAccount'
+      description: CostProviderAccounts model
     Links:
       type: object
       properties:
@@ -133,42 +169,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    CostProviderAccounts:
-      required:
-      - cost_provider_accounts
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_provider_accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostProviderAccount'
-      description: CostProviderAccounts model
-    CostProviderAccount:
-      required:
-      - account_id
-      - provider
-      - provider_uuid
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The display name of the provider account.
-          example: Production Account
-        account_id:
-          type: string
-          description: The provider account identifier (e.g., AWS account ID, Azure subscription ID).
-          example: '123456789012'
-        provider_uuid:
-          type: string
-          description: The provider-specific unique identifier.
-          example: arn:aws:organizations::123456789012:account/o-example12345/123456789012
-        provider:
-          type: string
-          description: The provider type (aws, azure, gcp, etc.).
-          example: aws
   securitySchemes:
     oauth2:
       type: oauth2

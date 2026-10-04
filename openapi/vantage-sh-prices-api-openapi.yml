@@ -256,6 +256,58 @@ paths:
         - read
 components:
   schemas:
+    Prices:
+      required:
+      - prices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+      description: Prices model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Products:
+      required:
+      - products
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      description: Products model
     Price:
       required:
       - amount
@@ -297,18 +349,6 @@ components:
             platform: linux-enterprise
             lifecycle: on-demand
       description: Price model
-    Prices:
-      required:
-      - prices
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-      description: Prices model
     Product:
       required:
       - category
@@ -350,46 +390,6 @@ components:
             physical_processor_description: Intel Xeon Platinum 8175 (Skylake)
             network_performance_description: 20 Gigabit
       description: Product model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Products:
-      required:
-      - products
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-      description: Products model
   securitySchemes:
     oauth2:
       type: oauth2

@@ -334,6 +334,48 @@ paths:
         - write
 components:
   schemas:
+    BusinessInformationCustomField:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Custom field name
+        value:
+          type:
+          - string
+          - 'null'
+          description: Custom field value
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     ManagedAccounts:
       required:
       - managed_accounts
@@ -346,72 +388,18 @@ components:
           items:
             $ref: '#/components/schemas/ManagedAccount'
       description: ManagedAccounts model
-    BusinessInformation:
+    Errors:
       required:
-      - token
+      - errors
       type: object
       properties:
-        token:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/BusinessInformationMetadata'
-    BillingInformation:
-      required:
-      - address_line_1
-      - address_line_2
-      - billing_email
-      - city
-      - company_name
-      - country_code
-      - postal_code
-      - state
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-        company_name:
-          type:
-          - string
-          - 'null'
-          description: Company name for billing
-        country_code:
-          type:
-          - string
-          - 'null'
-          description: ISO country code
-        address_line_1:
-          type:
-          - string
-          - 'null'
-          description: First line of billing address
-        address_line_2:
-          type:
-          - string
-          - 'null'
-          description: Second line of billing address
-        city:
-          type:
-          - string
-          - 'null'
-          description: City for billing address
-        state:
-          type:
-          - string
-          - 'null'
-          description: State or province for billing address
-        postal_code:
-          type:
-          - string
-          - 'null'
-          description: Postal or ZIP code
-        billing_email:
-          type:
-          - array
-          - 'null'
-          description: Array of billing email addresses
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
           items:
             type: string
+      description: Errors model
     ManagedAccount:
       required:
       - access_credential_tokens
@@ -467,77 +455,6 @@ components:
         business_information_attributes:
           $ref: '#/components/schemas/BusinessInformation'
       description: ManagedAccount model
-    updateSsoConnectionForManagedAccount:
-      type: object
-      properties:
-        saml_metadata_url:
-          type: string
-          description: The SAML metadata URL for the identity provider.
-        additional_domains:
-          type: array
-          description: Additional email domains to associate with this SSO configuration. Replaces existing additional domains. The account's SSO domain is always preserved.
-          items:
-            type: string
-      description: Update SSO configuration for a Managed Account.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    createSsoConnectionForManagedAccount:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'The type of SSO connection. Currently supported: saml.'
-          enum:
-          - saml
-        saml_metadata_url:
-          type: string
-          description: The SAML metadata URL for the identity provider. Required when type is saml.
-        additional_domains:
-          type: array
-          description: Additional email domains to associate with this SSO configuration. The account's SSO domain is always included.
-          items:
-            type: string
-      description: Configure SSO for a Managed Account.
     BusinessInformationMetadata:
       type: object
       properties:
@@ -546,46 +463,6 @@ components:
           description: Array of custom field objects
           items:
             $ref: '#/components/schemas/BusinessInformationCustomField'
-    createManagedAccount:
-      required:
-      - contact_email
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the Managed Account.
-        contact_email:
-          type: string
-          description: The contact email address for the Managed Account.
-        access_credential_tokens:
-          type: array
-          description: Access Credential (aka Integrations) tokens to assign to the Managed Account.
-          items:
-            type: string
-        billing_rule_tokens:
-          type: array
-          description: 'Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.'
-          items:
-            type: string
-        email_domain:
-          type: string
-          description: Email domain to associate with this Managed Account for SSO.
-      description: Create a Managed Account.
-    BusinessInformationCustomField:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          type: string
-          description: Custom field name
-        value:
-          type:
-          - string
-          - 'null'
-          description: Custom field value
     updateManagedAccount:
       type: object
       properties:
@@ -679,6 +556,129 @@ components:
               description: Business metadata including custom fields
           description: Business information and custom fields (MSP invoicing accounts only)
       description: Update a Managed Account.
+    BillingInformation:
+      required:
+      - address_line_1
+      - address_line_2
+      - billing_email
+      - city
+      - company_name
+      - country_code
+      - postal_code
+      - state
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        company_name:
+          type:
+          - string
+          - 'null'
+          description: Company name for billing
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: ISO country code
+        address_line_1:
+          type:
+          - string
+          - 'null'
+          description: First line of billing address
+        address_line_2:
+          type:
+          - string
+          - 'null'
+          description: Second line of billing address
+        city:
+          type:
+          - string
+          - 'null'
+          description: City for billing address
+        state:
+          type:
+          - string
+          - 'null'
+          description: State or province for billing address
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: Postal or ZIP code
+        billing_email:
+          type:
+          - array
+          - 'null'
+          description: Array of billing email addresses
+          items:
+            type: string
+    createSsoConnectionForManagedAccount:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of SSO connection. Currently supported: saml.'
+          enum:
+          - saml
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider. Required when type is saml.
+        additional_domains:
+          type: array
+          description: Additional email domains to associate with this SSO configuration. The account's SSO domain is always included.
+          items:
+            type: string
+      description: Configure SSO for a Managed Account.
+    BusinessInformation:
+      required:
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/BusinessInformationMetadata'
+    updateSsoConnectionForManagedAccount:
+      type: object
+      properties:
+        saml_metadata_url:
+          type: string
+          description: The SAML metadata URL for the identity provider.
+        additional_domains:
+          type: array
+          description: Additional email domains to associate with this SSO configuration. Replaces existing additional domains. The account's SSO domain is always preserved.
+          items:
+            type: string
+      description: Update SSO configuration for a Managed Account.
+    createManagedAccount:
+      required:
+      - contact_email
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Managed Account.
+        contact_email:
+          type: string
+          description: The contact email address for the Managed Account.
+        access_credential_tokens:
+          type: array
+          description: Access Credential (aka Integrations) tokens to assign to the Managed Account.
+          items:
+            type: string
+        billing_rule_tokens:
+          type: array
+          description: 'Billing Rule tokens to assign to the Managed Account, in their desired execution order. Tokens must be ordered by execution group: AWS transforms, then COST inserts, then COST transforms, then monthly post-transform inserts. Within a group any order is accepted and persisted as-is. Submitting a list whose cross-group ordering does not match the pipeline returns a 400.Existing rules with apply_to_all enabled will be added implicity to the end of their execution group.'
+          items:
+            type: string
+        email_domain:
+          type: string
+          description: Email domain to associate with this Managed Account for SSO.
+      description: Create a Managed Account.
   securitySchemes:
     oauth2:
       type: oauth2

@@ -133,6 +133,18 @@ paths:
         - read
 components:
   schemas:
+    CostAlertEvents:
+      required:
+      - cost_alert_events
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        cost_alert_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostAlertEvent'
+      description: CostAlertEvents model
     Links:
       type: object
       properties:
@@ -200,18 +212,6 @@ components:
           type: string
           description: The token of the alert associated with the CostAlertEvent.
       description: CostAlertEvent model
-    CostAlertEvents:
-      required:
-      - cost_alert_events
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        cost_alert_events:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostAlertEvent'
-      description: CostAlertEvents model
   securitySchemes:
     oauth2:
       type: oauth2

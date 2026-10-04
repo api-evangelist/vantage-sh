@@ -423,6 +423,89 @@ paths:
         - write
 components:
   schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    TeamMembers:
+      required:
+      - members
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+      description: TeamMembers model
+    addTeamMember:
+      required:
+      - role
+      - user_email
+      type: object
+      properties:
+        user_email:
+          type: string
+          description: The email address of the user to add to the Team.
+        role:
+          type: string
+          description: The role to assign to the user. Defaults to 'editor'.
+          default: editor
+          enum:
+          - owner
+          - editor
+          - viewer
+          - integration_owner
+      description: Add a member to a Team.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Teams:
+      required:
+      - teams
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+      description: Teams model
     createTeam:
       required:
       - name
@@ -463,118 +546,6 @@ components:
           description: The token of a Dashboard to set as the Team default. Send null to clear.
           x-omitempty: false
       description: Create a new Team.
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    TeamMembers:
-      required:
-      - members
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-      description: TeamMembers model
-    Teams:
-      required:
-      - teams
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-      description: Teams model
-    Team:
-      required:
-      - default_dashboard_token
-      - description
-      - name
-      - token
-      - user_emails
-      - user_tokens
-      - workspace_tokens
-      type: object
-      properties:
-        token:
-          type: string
-        name:
-          type: string
-          description: The name of the Team.
-          example: Cost Savers
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of the Team.
-          example: The Team that saves costs
-        workspace_tokens:
-          type: array
-          description: The tokens for any Workspaces that the Team belongs to
-          items:
-            type: string
-            example: ''
-        user_emails:
-          type: array
-          description: The email addresses for Users that belong to the Team
-          items:
-            type: string
-            example: ''
-        user_tokens:
-          type: array
-          description: The tokens for Users that belong to the Team
-          items:
-            type: string
-            example: ''
-        default_dashboard_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the default Dashboard for the Team.
-          example: dshbrd_abcd1234
-      description: Team model
     TeamMember:
       required:
       - email
@@ -638,25 +609,54 @@ components:
           description: The token of a Dashboard to set as the Team default. Send null to clear.
           x-omitempty: false
       description: Update a Team.
-    addTeamMember:
+    Team:
       required:
-      - role
-      - user_email
+      - default_dashboard_token
+      - description
+      - name
+      - token
+      - user_emails
+      - user_tokens
+      - workspace_tokens
       type: object
       properties:
-        user_email:
+        token:
           type: string
-          description: The email address of the user to add to the Team.
-        role:
+        name:
           type: string
-          description: The role to assign to the user. Defaults to 'editor'.
-          default: editor
-          enum:
-          - owner
-          - editor
-          - viewer
-          - integration_owner
-      description: Add a member to a Team.
+          description: The name of the Team.
+          example: Cost Savers
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of the Team.
+          example: The Team that saves costs
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the Team belongs to
+          items:
+            type: string
+            example: ''
+        user_emails:
+          type: array
+          description: The email addresses for Users that belong to the Team
+          items:
+            type: string
+            example: ''
+        user_tokens:
+          type: array
+          description: The tokens for Users that belong to the Team
+          items:
+            type: string
+            example: ''
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the default Dashboard for the Team.
+          example: dshbrd_abcd1234
+      description: Team model
   securitySchemes:
     oauth2:
       type: oauth2

@@ -451,81 +451,35 @@ paths:
         - read
 components:
   schemas:
-    Recommendation:
+    RecommendationAction:
       required:
-      - category
-      - created_at
+      - action
       - description
-      - documentation_url
       - potential_savings
-      - provider
-      - provider_account_id
-      - resources_affected_count
-      - service
-      - token
-      - type
-      - workspace_token
       type: object
       properties:
-        token:
+        action:
           type: string
-        type:
-          type: string
-          description: The type of the Recommendation. This is analogous to category, but with a uniform format.
-          example: aws:ec2:co-rightsizing
-        category:
-          type: string
-          description: The category of the Recommendation.
-          example: ec2_compute_optimizer_recommender
-        workspace_token:
-          type: string
-          description: The token for the Workspace the Recommendation is a part of.
-        provider:
-          type: string
-          description: The provider the Recommendation is for.
-        provider_account_id:
-          type:
-          - string
-          - 'null'
-          description: The account ID of the provider. For Azure, this is the subscription ID.
         description:
           type: string
-        documentation_url:
-          type:
-          - string
-          - 'null'
-          description: A URL to related documentation if available.
-          example: https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering
         potential_savings:
-          type:
-          - string
-          - 'null'
-          description: The monthly potential savings of the Recommendation, converted to the organization's selected currency.
+          type: string
+          description: Potential savings in dollars
           example: '100.00'
-        service:
-          type: string
-          description: The service the Recommendation is for.
-          example: Amazon EC2
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
-        resources_affected_count:
-          type: integer
-          description: The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
-          format: int32
-        currency_code:
+        instance_type:
           type:
           - string
           - 'null'
-          description: The currency code used by the Workspace to which this Recommendation belongs.
-          example: EUR
-        currency_symbol:
+        containers:
           type:
           - string
           - 'null'
-          description: The currency symbol used by the Workspace to which this Recommendation belongs.
-          example: EUR
-      description: Recommendation model
+        remediation_cli_command:
+          type:
+          - string
+          - 'null'
+          description: CLI command to remediate this recommendation
+          example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
     Links:
       type: object
       properties:
@@ -566,72 +520,6 @@ components:
           items:
             type: string
       description: Errors model
-    Recommendations:
-      required:
-      - recommendations
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        recommendations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recommendation'
-      description: Recommendations model
-    RecommendationProviderResources:
-      required:
-      - resources
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendationProviderResource'
-      description: RecommendationProviderResources model
-    RecommendationAction:
-      required:
-      - action
-      - description
-      - potential_savings
-      type: object
-      properties:
-        action:
-          type: string
-        description:
-          type: string
-        potential_savings:
-          type: string
-          description: Potential savings in dollars
-          example: '100.00'
-        instance_type:
-          type:
-          - string
-          - 'null'
-        containers:
-          type:
-          - string
-          - 'null'
-        remediation_cli_command:
-          type:
-          - string
-          - 'null'
-          description: CLI command to remediate this recommendation
-          example: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
-    ResourceCost:
-      required:
-      - amount
-      - category
-      type: object
-      properties:
-        category:
-          type: string
-          description: The category of the cost.
-        amount:
-          type: number
-          description: The cost amount.
-          format: float
     RecommendationProviderResource:
       required:
       - account_id
@@ -710,6 +598,118 @@ components:
           items:
             $ref: '#/components/schemas/RecommendationAction'
       description: RecommendationProviderResource model
+    RecommendationProviderResources:
+      required:
+      - resources
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationProviderResource'
+      description: RecommendationProviderResources model
+    Recommendation:
+      required:
+      - category
+      - created_at
+      - description
+      - documentation_url
+      - potential_savings
+      - provider
+      - provider_account_id
+      - resources_affected_count
+      - service
+      - token
+      - type
+      - workspace_token
+      type: object
+      properties:
+        token:
+          type: string
+        type:
+          type: string
+          description: The type of the Recommendation. This is analogous to category, but with a uniform format.
+          example: aws:ec2:co-rightsizing
+        category:
+          type: string
+          description: The category of the Recommendation.
+          example: ec2_compute_optimizer_recommender
+        workspace_token:
+          type: string
+          description: The token for the Workspace the Recommendation is a part of.
+        provider:
+          type: string
+          description: The provider the Recommendation is for.
+        provider_account_id:
+          type:
+          - string
+          - 'null'
+          description: The account ID of the provider. For Azure, this is the subscription ID.
+        description:
+          type: string
+        documentation_url:
+          type:
+          - string
+          - 'null'
+          description: A URL to related documentation if available.
+          example: https://handbook.vantage.sh/aws/services/s3-pricing/#intelligent-tiering
+        potential_savings:
+          type:
+          - string
+          - 'null'
+          description: The monthly potential savings of the Recommendation, converted to the organization's selected currency.
+          example: '100.00'
+        service:
+          type: string
+          description: The service the Recommendation is for.
+          example: Amazon EC2
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Recommendation was created. ISO 8601 Formatted.
+        resources_affected_count:
+          type: integer
+          description: The number of ProviderResources related to the Recommendation. Use the `recommendations/:token/resources` endpoint to get the full list of resources.
+          format: int32
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The currency code used by the Workspace to which this Recommendation belongs.
+          example: EUR
+        currency_symbol:
+          type:
+          - string
+          - 'null'
+          description: The currency symbol used by the Workspace to which this Recommendation belongs.
+          example: EUR
+      description: Recommendation model
+    ResourceCost:
+      required:
+      - amount
+      - category
+      type: object
+      properties:
+        category:
+          type: string
+          description: The category of the cost.
+        amount:
+          type: number
+          description: The cost amount.
+          format: float
+    Recommendations:
+      required:
+      - recommendations
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recommendation'
+      description: Recommendations model
   securitySchemes:
     oauth2:
       type: oauth2

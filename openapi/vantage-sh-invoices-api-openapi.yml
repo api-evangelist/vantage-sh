@@ -276,108 +276,6 @@ paths:
         - write
 components:
   schemas:
-    downloadInvoice:
-      required:
-      - file_type
-      type: object
-      properties:
-        file_type:
-          type: string
-          description: Type of file to download (pdf or csv)
-          enum:
-          - pdf
-          - csv
-      description: Download invoice file (PDF or CSV).
-    Invoices:
-      required:
-      - invoices
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-      description: Invoices model
-    createInvoice:
-      required:
-      - account_token
-      - billing_period_end
-      - billing_period_start
-      type: object
-      properties:
-        billing_period_start:
-          type: string
-          description: Start date of billing period (YYYY-MM-DD)
-        billing_period_end:
-          type: string
-          description: End date of billing period (YYYY-MM-DD)
-        account_token:
-          type: string
-          description: Token of the managed account to invoice
-      description: Create an invoice (MSP accounts only).
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    DownloadInvoice:
-      required:
-      - download_url
-      type: object
-      properties:
-        download_url:
-          type: string
-          description: The URL to download the invoice file.
-          example: https://example.com/invoice.pdf
-      description: DownloadInvoice model
-    SendInvoice:
-      required:
-      - recipients
-      type: object
-      properties:
-        recipients:
-          type: array
-          items:
-            type: string
-            example: ''
-      description: SendInvoice model
     Invoice:
       required:
       - account_name
@@ -428,6 +326,91 @@ components:
           type: string
           description: Token of the MSP account that owns this invoice
       description: Invoice model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Invoices:
+      required:
+      - invoices
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+      description: Invoices model
+    downloadInvoice:
+      required:
+      - file_type
+      type: object
+      properties:
+        file_type:
+          type: string
+          description: Type of file to download (pdf or csv)
+          enum:
+          - pdf
+          - csv
+      description: Download invoice file (PDF or CSV).
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    DownloadInvoice:
+      required:
+      - download_url
+      type: object
+      properties:
+        download_url:
+          type: string
+          description: The URL to download the invoice file.
+          example: https://example.com/invoice.pdf
+      description: DownloadInvoice model
+    SendInvoice:
+      required:
+      - recipients
+      type: object
+      properties:
+        recipients:
+          type: array
+          items:
+            type: string
+            example: ''
+      description: SendInvoice model
     CostReportUrl:
       required:
       - cost_report_url
@@ -438,6 +421,23 @@ components:
           description: The URL of the cost report.
           example: https://example.com/cost_report.pdf
       description: CostReportUrl model
+    createInvoice:
+      required:
+      - account_token
+      - billing_period_end
+      - billing_period_start
+      type: object
+      properties:
+        billing_period_start:
+          type: string
+          description: Start date of billing period (YYYY-MM-DD)
+        billing_period_end:
+          type: string
+          description: End date of billing period (YYYY-MM-DD)
+        account_token:
+          type: string
+          description: Token of the managed account to invoice
+      description: Create an invoice (MSP accounts only).
   securitySchemes:
     oauth2:
       type: oauth2

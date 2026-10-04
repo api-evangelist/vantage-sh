@@ -176,44 +176,6 @@ paths:
         - write
 components:
   schemas:
-    Canvases:
-      required:
-      - canvases
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        canvases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Canvas'
-      description: Canvases model
-    updateCanvas:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Canvas.
-        prompt:
-          type: string
-          description: The prompt used to generate the Canvas.
-      description: Update a Canvas.
-    createCanvas:
-      required:
-      - prompt
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the Canvas.
-        prompt:
-          type: string
-          description: The prompt used to generate the Canvas.
-        workspace_token:
-          type: string
-          description: The token of the Workspace to add the Canvas to. Required if the API token is associated with multiple Workspaces.
-      description: Create a Canvas.
     Links:
       type: object
       properties:
@@ -242,28 +204,8 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
+    CanvasTable:
       type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    CanvasData:
-      type: object
-      properties:
-        table:
-          $ref: '#/components/schemas/CanvasTable'
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the refresh workflow failed. Read-only.
     Canvas:
       required:
       - created_at
@@ -299,8 +241,66 @@ components:
           description: The date and time, in UTC, the Canvas was last updated. ISO 8601 Formatted.
           example: '2024-01-01T00:00:00Z'
       description: Canvas model
-    CanvasTable:
+    updateCanvas:
       type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Canvas.
+        prompt:
+          type: string
+          description: The prompt used to generate the Canvas.
+      description: Update a Canvas.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    CanvasData:
+      type: object
+      properties:
+        table:
+          $ref: '#/components/schemas/CanvasTable'
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the refresh workflow failed. Read-only.
+    Canvases:
+      required:
+      - canvases
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        canvases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Canvas'
+      description: Canvases model
+    createCanvas:
+      required:
+      - prompt
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the Canvas.
+        prompt:
+          type: string
+          description: The prompt used to generate the Canvas.
+        workspace_token:
+          type: string
+          description: The token of the Workspace to add the Canvas to. Required if the API token is associated with multiple Workspaces.
+      description: Create a Canvas.
   securitySchemes:
     oauth2:
       type: oauth2

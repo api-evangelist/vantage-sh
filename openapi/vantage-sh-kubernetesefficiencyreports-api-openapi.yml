@@ -288,6 +288,18 @@ paths:
         - write
 components:
   schemas:
+    KubernetesEfficiencyReports:
+      required:
+      - kubernetes_efficiency_reports
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        kubernetes_efficiency_reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/KubernetesEfficiencyReport'
+      description: KubernetesEfficiencyReports model
     Links:
       type: object
       properties:
@@ -316,18 +328,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
     createKubernetesEfficiencyReportExport:
       type: object
       properties:
@@ -355,18 +355,6 @@ components:
           - month
           - quarter
       description: Generate a DataExport of Kubernetes efficiency data.
-    KubernetesEfficiencyReports:
-      required:
-      - kubernetes_efficiency_reports
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        kubernetes_efficiency_reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/KubernetesEfficiencyReport'
-      description: KubernetesEfficiencyReports model
     KubernetesEfficiencyReport:
       required:
       - aggregated_by
@@ -463,6 +451,18 @@ components:
           - string
           - 'null'
           example: '2025-03-20T12:00:00Z'
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     updateKubernetesEfficiencyReport:
       type: object
       properties:
@@ -522,34 +522,6 @@ components:
           items:
             type: string
       description: Update a KubernetesEfficiencyReport.
-    DataExport:
-      required:
-      - attributes
-      - created_at
-      - export_type
-      - manifest
-      - status
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          example: dta_xprt_abcd1234567890
-        status:
-          type: string
-          example: pending
-        created_at:
-          type: string
-          example: '2025-03-20T12:00:00Z'
-        export_type:
-          type: string
-          example: cost_report
-        manifest:
-          $ref: '#/components/schemas/DataExportManifest'
-        attributes:
-          type: object
-          properties: {}
-      description: DataExport model
     createKubernetesEfficiencyReport:
       required:
       - title
@@ -615,6 +587,34 @@ components:
           items:
             type: string
       description: Create a KubernetesEfficiencyReport.
+    DataExport:
+      required:
+      - attributes
+      - created_at
+      - export_type
+      - manifest
+      - status
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          example: dta_xprt_abcd1234567890
+        status:
+          type: string
+          example: pending
+        created_at:
+          type: string
+          example: '2025-03-20T12:00:00Z'
+        export_type:
+          type: string
+          example: cost_report
+        manifest:
+          $ref: '#/components/schemas/DataExportManifest'
+        attributes:
+          type: object
+          properties: {}
+      description: DataExport model
   securitySchemes:
     oauth2:
       type: oauth2

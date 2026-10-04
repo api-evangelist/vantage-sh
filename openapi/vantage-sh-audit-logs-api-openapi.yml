@@ -245,58 +245,6 @@ paths:
         - read
 components:
   schemas:
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    AuditLogs:
-      required:
-      - audit_logs
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        audit_logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
-      description: AuditLogs model
     AuditLog:
       required:
       - changed_values
@@ -367,6 +315,58 @@ components:
           properties: {}
           description: The unchanged values of the object.
       description: AuditLog model
+    AuditLogs:
+      required:
+      - audit_logs
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        audit_logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+      description: AuditLogs model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
   securitySchemes:
     oauth2:
       type: oauth2

@@ -217,18 +217,18 @@ paths:
       x-codegen-request-body-name: updateAnomalyAlert
 components:
   schemas:
-    updateAnomalyAlert:
+    AnomalyAlerts:
       required:
-      - status
+      - anomaly_alerts
       type: object
       properties:
-        status:
-          type: string
-          description: The status of the Anomaly Alert.
-        feedback:
-          type: string
-          description: Optional additional comments for why this alert is ignored.
-      description: Update an AnomalyAlert.
+        links:
+          $ref: '#/components/schemas/Links'
+        anomaly_alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnomalyAlert'
+      description: AnomalyAlerts model
     Links:
       type: object
       properties:
@@ -339,18 +339,18 @@ components:
           type: string
           description: The token of the Report associated with the AnomalyAlert.
       description: AnomalyAlert model
-    AnomalyAlerts:
+    updateAnomalyAlert:
       required:
-      - anomaly_alerts
+      - status
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        anomaly_alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnomalyAlert'
-      description: AnomalyAlerts model
+        status:
+          type: string
+          description: The status of the Anomaly Alert.
+        feedback:
+          type: string
+          description: Optional additional comments for why this alert is ignored.
+      description: Update an AnomalyAlert.
   securitySchemes:
     oauth2:
       type: oauth2

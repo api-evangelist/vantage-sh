@@ -259,25 +259,6 @@ components:
           items:
             $ref: '#/components/schemas/AccessGrant'
       description: AccessGrants model
-    createAccessGrant:
-      required:
-      - resource_token
-      - team_token
-      type: object
-      properties:
-        resource_token:
-          type: string
-          description: The token of the resource for which you are granting access.
-        team_token:
-          type: string
-          description: The token of the Team you want to grant access to.
-        access:
-          type: string
-          description: The access level you want to grant. Defaults to 'allowed'.
-          enum:
-          - denied
-          - allowed
-      description: Create an Access Grant.
     Links:
       type: object
       properties:
@@ -306,30 +287,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    updateAccessGrant:
-      required:
-      - access
-      type: object
-      properties:
-        access:
-          type: string
-          description: Allowed or denied access to resource.
-          enum:
-          - denied
-          - allowed
-      description: Update an AccessGrant.
     AccessGrant:
       required:
       - access
@@ -364,6 +321,49 @@ components:
           - 'null'
           description: The token for the User who created the AccessGrant.
       description: AccessGrant model
+    createAccessGrant:
+      required:
+      - resource_token
+      - team_token
+      type: object
+      properties:
+        resource_token:
+          type: string
+          description: The token of the resource for which you are granting access.
+        team_token:
+          type: string
+          description: The token of the Team you want to grant access to.
+        access:
+          type: string
+          description: The access level you want to grant. Defaults to 'allowed'.
+          enum:
+          - denied
+          - allowed
+      description: Create an Access Grant.
+    updateAccessGrant:
+      required:
+      - access
+      type: object
+      properties:
+        access:
+          type: string
+          description: Allowed or denied access to resource.
+          enum:
+          - denied
+          - allowed
+      description: Update an AccessGrant.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
   securitySchemes:
     oauth2:
       type: oauth2

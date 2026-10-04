@@ -305,6 +305,34 @@ paths:
         - write
 components:
   schemas:
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
     Budget:
       required:
       - budget_alert_tokens
@@ -369,77 +397,6 @@ components:
           items:
             $ref: '#/components/schemas/BudgetPerformance'
       description: Budget model
-    BudgetPerformance:
-      required:
-      - actual
-      - amount
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          example: '2024-03-19T00:00:00Z'
-        actual:
-          type: string
-          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
-          example: '2024-03-19T00:00:00Z'
-        amount:
-          type: string
-          description: The amount of the Budget Period as a string to ensure precision.
-          example: '100.00'
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Budgets:
-      required:
-      - budgets
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        budgets:
-          type: array
-          items:
-            $ref: '#/components/schemas/Budget'
-      description: Budgets model
     createBudget:
       required:
       - name
@@ -483,18 +440,18 @@ components:
                 description: The amount of the period.
                 format: double
       description: Create a Budget.
-    BudgetPeriod:
+    BudgetPerformance:
       required:
+      - actual
       - amount
-      - end_at
-      - start_at
+      - date
       type: object
       properties:
-        start_at:
+        date:
           type: string
           description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
           example: '2024-03-19T00:00:00Z'
-        end_at:
+        actual:
           type: string
           description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
           example: '2024-03-19T00:00:00Z'
@@ -502,6 +459,18 @@ components:
           type: string
           description: The amount of the Budget Period as a string to ensure precision.
           example: '100.00'
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
     updateBudget:
       type: object
       properties:
@@ -540,6 +509,37 @@ components:
                 description: The amount of the period.
                 format: double
       description: Update a Budget.
+    Budgets:
+      required:
+      - budgets
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        budgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Budget'
+      description: Budgets model
+    BudgetPeriod:
+      required:
+      - amount
+      - end_at
+      - start_at
+      type: object
+      properties:
+        start_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        end_at:
+          type: string
+          description: The date and time, in UTC, the Budget was created. ISO 8601 Formatted.
+          example: '2024-03-19T00:00:00Z'
+        amount:
+          type: string
+          description: The amount of the Budget Period as a string to ensure precision.
+          example: '100.00'
   securitySchemes:
     oauth2:
       type: oauth2

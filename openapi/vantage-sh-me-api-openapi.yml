@@ -65,16 +65,6 @@ paths:
       x-codegen-request-body-name: updateMe
 components:
   schemas:
-    updateMe:
-      type: object
-      properties:
-        default_dashboard_token:
-          type:
-          - string
-          - 'null'
-          description: The token of a Dashboard to set as the User default. Send null to clear.
-          x-omitempty: false
-      description: Update the authenticated User.
     Links:
       type: object
       properties:
@@ -103,6 +93,16 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
+    updateMe:
+      type: object
+      properties:
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of a Dashboard to set as the User default. Send null to clear.
+          x-omitempty: false
+      description: Update the authenticated User.
     Errors:
       required:
       - errors
@@ -115,6 +115,29 @@ components:
           items:
             type: string
       description: Errors model
+    Me:
+      required:
+      - bearer_token
+      - default_workspace_token
+      - workspaces
+      type: object
+      properties:
+        default_workspace_token:
+          type:
+          - string
+          - 'null'
+        default_dashboard_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the default Dashboard for the User.
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+        bearer_token:
+          $ref: '#/components/schemas/BearerToken'
+      description: Me model
     BearerToken:
       required:
       - created_at
@@ -165,29 +188,6 @@ components:
           type: string
           description: The exchange rate date that will be used to convert currency for your cost data.
       description: Workspace model
-    Me:
-      required:
-      - bearer_token
-      - default_workspace_token
-      - workspaces
-      type: object
-      properties:
-        default_workspace_token:
-          type:
-          - string
-          - 'null'
-        default_dashboard_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the default Dashboard for the User.
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-        bearer_token:
-          $ref: '#/components/schemas/BearerToken'
-      description: Me model
   securitySchemes:
     oauth2:
       type: oauth2

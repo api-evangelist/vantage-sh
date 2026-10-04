@@ -217,41 +217,6 @@ paths:
         - write
 components:
   schemas:
-    Workspaces:
-      required:
-      - workspaces
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-      description: Workspaces model
-    createWorkspace:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the workspace.
-        enable_currency_conversion:
-          type: boolean
-          description: Enable currency conversion for the workspace.
-          default: true
-        currency:
-          type: string
-          description: Currency code for the workspace.
-        exchange_rate_date:
-          type: string
-          description: The date to use for currency conversion.
-          default: daily_rate
-          enum:
-          - daily_rate
-          - end_of_billing_period_rate
-      description: Create a workspace
     Links:
       type: object
       properties:
@@ -292,6 +257,72 @@ components:
           items:
             type: string
       description: Errors model
+    Workspaces:
+      required:
+      - workspaces
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+      description: Workspaces model
+    createWorkspace:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the workspace.
+        enable_currency_conversion:
+          type: boolean
+          description: Enable currency conversion for the workspace.
+          default: true
+        currency:
+          type: string
+          description: Currency code for the workspace.
+        exchange_rate_date:
+          type: string
+          description: The date to use for currency conversion.
+          default: daily_rate
+          enum:
+          - daily_rate
+          - end_of_billing_period_rate
+      description: Create a workspace
+    Workspace:
+      required:
+      - created_at
+      - currency
+      - enable_currency_conversion
+      - exchange_rate_date
+      - name
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+        name:
+          type: string
+          description: The name of the Workspace.
+          example: Acme Corp.
+        created_at:
+          type: string
+          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        enable_currency_conversion:
+          type: boolean
+          description: Whether or not currency conversion is enabled for the Workspace.
+        currency:
+          type: string
+          description: The currency code for the Workspace that will be used for currency conversion.
+          example: USD
+        exchange_rate_date:
+          type: string
+          description: The exchange rate date that will be used to convert currency for your cost data.
+      description: Workspace model
     updateWorkspace:
       type: object
       properties:
@@ -481,37 +512,6 @@ components:
           - daily_rate
           - end_of_billing_period_rate
       description: Update a workspace
-    Workspace:
-      required:
-      - created_at
-      - currency
-      - enable_currency_conversion
-      - exchange_rate_date
-      - name
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-        name:
-          type: string
-          description: The name of the Workspace.
-          example: Acme Corp.
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Workspace was created. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        enable_currency_conversion:
-          type: boolean
-          description: Whether or not currency conversion is enabled for the Workspace.
-        currency:
-          type: string
-          description: The currency code for the Workspace that will be used for currency conversion.
-          example: USD
-        exchange_rate_date:
-          type: string
-          description: The exchange rate date that will be used to convert currency for your cost data.
-      description: Workspace model
   securitySchemes:
     oauth2:
       type: oauth2

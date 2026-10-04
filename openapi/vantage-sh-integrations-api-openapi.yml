@@ -519,51 +519,78 @@ paths:
       x-codegen-request-body-name: createAzureIntegration
 components:
   schemas:
-    UserCostsUpload:
+    createAzureIntegration:
       required:
-      - amount
+      - app_id
+      - password
+      - tenant
+      type: object
+      properties:
+        tenant:
+          type: string
+          description: Azure AD Tenant ID.
+        app_id:
+          type: string
+          description: Service Principal Application ID.
+        password:
+          type: string
+          description: Service Principal Password.
+      description: Create an Azure Integration
+    Integration:
+      required:
+      - account_identifier
       - created_at
-      - created_by_token
-      - end_date
-      - filename
-      - import_status
-      - start_date
+      - managed_account_tokens
+      - provider
+      - status
       - token
+      - workspace_tokens
       type: object
       properties:
         token:
           type: string
-          description: The token of the UserCostsUpload.
-          example: usr_csts_upld_1234
-        filename:
+        provider:
           type: string
-          description: The filename of the uploaded costs UserCostsUpload.
-          example: usr_csts_upld_1234.parquet
-        amount:
+          description: The name of the Integration.
+          example: AWS
+        account_identifier:
+          type:
+          - string
+          - 'null'
+          description: The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
+          example: 011389-EF4C3E-3ED7AE
+        status:
           type: string
-          description: The total amount of the costs in the UserCostsUpload.
-          example: '1234.56'
-        start_date:
-          type: string
-          description: The start date of the costs in the UserCostsUpload.
-          example: '2021-01-01'
-        end_date:
-          type: string
-          description: The end date of the costs in the UserCostsUpload.
-          example: '2021-01-31'
-        import_status:
-          type: string
-          description: Import status of the UserCostsUpload.
-          example: processing
-        created_by_token:
-          type: string
-          description: The token of the Creator of the UserCostsUpload.
-          example: usr_1234
+          description: The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
+          example: imported
+          enum:
+          - connected
+          - error
+          - pending
+          - importing
+          - imported
+          - disconnected
+        last_updated:
+          type:
+          - string
+          - 'null'
+          description: The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        workspace_tokens:
+          type: array
+          description: The tokens for any Workspaces that the account belongs to.
+          items:
+            type: string
         created_at:
           type: string
-          description: When the UserCostsUpload was uploaded.
-          example: '2021-01-01T00:00:00Z'
-      description: UserCostsUpload model
+          description: The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
+          example: '2023-08-04T00:00:00Z'
+        managed_account_tokens:
+          type: array
+          description: The tokens for any Managed Accounts that are associated with the Integration.
+          items:
+            type: string
+      description: Integration model
     Links:
       type: object
       properties:
@@ -592,30 +619,18 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
+    UserCostsUploads:
       required:
-      - errors
+      - user_costs_uploads
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        errors:
+        user_costs_uploads:
           type: array
           items:
-            type: string
-      description: Errors model
-    createCustomProviderIntegration:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the Custom Provider Integration.
-        description:
-          type: string
-          description: Description of the Custom Provider Integration.
-      description: Create a Custom Provider Integration
+            $ref: '#/components/schemas/UserCostsUpload'
+      description: UserCostsUploads model
     Cost:
       required:
       - accrued_at
@@ -758,27 +773,75 @@ components:
           description: The segment name for segment report costs.
           example: Engineering
       description: Cost model
-    updateIntegration:
+    createCustomProviderIntegration:
+      required:
+      - name
       type: object
       properties:
-        workspace_tokens:
-          type: array
-          description: The Workspace tokens to associate to the Integration.
-          items:
-            type: string
-      description: Update an Integration.
-    Integrations:
+        name:
+          type: string
+          description: Name of the Custom Provider Integration.
+        description:
+          type: string
+          description: Description of the Custom Provider Integration.
+      description: Create a Custom Provider Integration
+    Errors:
       required:
-      - integrations
+      - errors
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        integrations:
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/Integration'
-      description: Integrations model
+            type: string
+      description: Errors model
+    UserCostsUpload:
+      required:
+      - amount
+      - created_at
+      - created_by_token
+      - end_date
+      - filename
+      - import_status
+      - start_date
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token of the UserCostsUpload.
+          example: usr_csts_upld_1234
+        filename:
+          type: string
+          description: The filename of the uploaded costs UserCostsUpload.
+          example: usr_csts_upld_1234.parquet
+        amount:
+          type: string
+          description: The total amount of the costs in the UserCostsUpload.
+          example: '1234.56'
+        start_date:
+          type: string
+          description: The start date of the costs in the UserCostsUpload.
+          example: '2021-01-01'
+        end_date:
+          type: string
+          description: The end date of the costs in the UserCostsUpload.
+          example: '2021-01-31'
+        import_status:
+          type: string
+          description: Import status of the UserCostsUpload.
+          example: processing
+        created_by_token:
+          type: string
+          description: The token of the Creator of the UserCostsUpload.
+          example: usr_1234
+        created_at:
+          type: string
+          description: When the UserCostsUpload was uploaded.
+          example: '2021-01-01T00:00:00Z'
+      description: UserCostsUpload model
     createGCPIntegration:
       required:
       - billing_account_id
@@ -796,90 +859,27 @@ components:
           type: string
           description: BigQuery dataset name.
       description: Create a GCP Integration
-    UserCostsUploads:
+    Integrations:
       required:
-      - user_costs_uploads
+      - integrations
       type: object
       properties:
         links:
           $ref: '#/components/schemas/Links'
-        user_costs_uploads:
+        integrations:
           type: array
           items:
-            $ref: '#/components/schemas/UserCostsUpload'
-      description: UserCostsUploads model
-    Integration:
-      required:
-      - account_identifier
-      - created_at
-      - managed_account_tokens
-      - provider
-      - status
-      - token
-      - workspace_tokens
+            $ref: '#/components/schemas/Integration'
+      description: Integrations model
+    updateIntegration:
       type: object
       properties:
-        token:
-          type: string
-        provider:
-          type: string
-          description: The name of the Integration.
-          example: AWS
-        account_identifier:
-          type:
-          - string
-          - 'null'
-          description: The account identifier. For GCP this is the billing Account ID, for Azure this is the account ID
-          example: 011389-EF4C3E-3ED7AE
-        status:
-          type: string
-          description: The status of the Integration. Can be 'connected', 'error', 'pending', 'importing', 'imported', or 'disconnected'.
-          example: imported
-          enum:
-          - connected
-          - error
-          - pending
-          - importing
-          - imported
-          - disconnected
-        last_updated:
-          type:
-          - string
-          - 'null'
-          description: The date and time, in UTC, when the Integration was last updated. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
         workspace_tokens:
           type: array
-          description: The tokens for any Workspaces that the account belongs to.
+          description: The Workspace tokens to associate to the Integration.
           items:
             type: string
-        created_at:
-          type: string
-          description: The date and time, in UTC, the Integration was created. ISO 8601 Formatted.
-          example: '2023-08-04T00:00:00Z'
-        managed_account_tokens:
-          type: array
-          description: The tokens for any Managed Accounts that are associated with the Integration.
-          items:
-            type: string
-      description: Integration model
-    createAzureIntegration:
-      required:
-      - app_id
-      - password
-      - tenant
-      type: object
-      properties:
-        tenant:
-          type: string
-          description: Azure AD Tenant ID.
-        app_id:
-          type: string
-          description: Service Principal Application ID.
-        password:
-          type: string
-          description: Service Principal Password.
-      description: Create an Azure Integration
+      description: Update an Integration.
   securitySchemes:
     oauth2:
       type: oauth2

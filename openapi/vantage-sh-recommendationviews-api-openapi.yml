@@ -270,68 +270,12 @@ paths:
         - write
 components:
   schemas:
-    RecommendationViews:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        recommendation_views:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecommendationView'
-      description: RecommendationViews model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    createRecommendationView:
-      required:
-      - title
-      - workspace_token
+    updateRecommendationView:
       type: object
       properties:
         title:
           type: string
           description: The title of the RecommendationView.
-        workspace_token:
-          type: string
-          description: The Workspace to associate the RecommendationView with.
         provider_ids:
           type: array
           description: Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
@@ -373,7 +317,7 @@ components:
           type: number
           description: Filter recommendations with at least this amount of potential savings.
           format: float
-      description: Create a RecommendationView.
+      description: Update a RecommendationView.
     RecommendationView:
       type: object
       properties:
@@ -475,12 +419,58 @@ components:
           - 'null'
           description: The token for the Creator of this RecommendationView.
       description: RecommendationView model
-    updateRecommendationView:
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    createRecommendationView:
+      required:
+      - title
+      - workspace_token
       type: object
       properties:
         title:
           type: string
           description: The title of the RecommendationView.
+        workspace_token:
+          type: string
+          description: The Workspace to associate the RecommendationView with.
         provider_ids:
           type: array
           description: Filter by one or more providers (e.g. aws, gcp, azure, kubernetes, datadog).
@@ -522,7 +512,17 @@ components:
           type: number
           description: Filter recommendations with at least this amount of potential savings.
           format: float
-      description: Update a RecommendationView.
+      description: Create a RecommendationView.
+    RecommendationViews:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        recommendation_views:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecommendationView'
+      description: RecommendationViews model
   securitySchemes:
     oauth2:
       type: oauth2

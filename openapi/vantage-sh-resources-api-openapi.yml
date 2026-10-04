@@ -255,30 +255,6 @@ components:
           - string
           - 'null'
           description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    Resources:
-      required:
-      - resources
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-      description: Resources model
     Resource:
       required:
       - account_id
@@ -347,6 +323,30 @@ components:
           properties: {}
           description: Key-value pairs of tags associated with the resource.
       description: Resource model
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    Resources:
+      required:
+      - resources
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+      description: Resources model
     ResourceCost:
       required:
       - amount

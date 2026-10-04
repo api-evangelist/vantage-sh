@@ -538,369 +538,6 @@ paths:
         - write
 components:
   schemas:
-    CloudwatchFields:
-      required:
-      - dimensions
-      - label_dimension
-      - metric_name
-      - namespace
-      - region
-      - stat
-      type: object
-      properties:
-        stat:
-          type: string
-          description: The time aggregation function used to import Cloudwatch metrics.
-          example: Average
-          enum:
-          - Sum
-          - Average
-          - Minimum
-          - Maximum
-        region:
-          type: string
-          description: The region used to import Cloudwatch metrics.
-          example: us-east-1
-        namespace:
-          type: string
-          description: The namespace used to import Cloudwatch metrics.
-          example: AWS/EC2
-        metric_name:
-          type: string
-          description: The metric name used to import Cloudwatch metrics.
-          example: CPUUtilization
-        dimensions:
-          type: array
-          description: The dimensions used to pull specific statistical data for Cloudwatch metrics.
-          items:
-            $ref: '#/components/schemas/CloudwatchDimension'
-        label_dimension:
-          type:
-          - string
-          - 'null'
-          description: The dimension used to aggregate the Cloudwatch metrics.
-    BusinessMetricValues:
-      required:
-      - values
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/BusinessMetricValue'
-      description: BusinessMetricValues model
-    Links:
-      type: object
-      properties:
-        self:
-          type:
-          - string
-          - 'null'
-          description: The URL of the current page of results.
-        first:
-          type:
-          - string
-          - 'null'
-          description: The URL of the first page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: The URL of the next page of results, if one exists.
-        last:
-          type:
-          - string
-          - 'null'
-          description: The URL of the last page of results, if one exists.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: The URL of the previous page of results, if one exists.
-    Errors:
-      required:
-      - errors
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        errors:
-          type: array
-          items:
-            type: string
-      description: Errors model
-    updateBusinessMetric:
-      type: object
-      properties:
-        title:
-          type: string
-          description: The title of the BusinessMetric.
-        cost_report_tokens_with_metadata:
-          type: array
-          description: The tokens for any CostReports that use the BusinessMetric, and the unit scale.
-          items:
-            required:
-            - cost_report_token
-            type: object
-            properties:
-              cost_report_token:
-                type: string
-                description: The token of the CostReport the BusinessMetric is attached to.
-              unit_scale:
-                type: string
-                description: Determines the scale of the BusinessMetric's values within the CostReport.
-                default: per_unit
-                enum:
-                - per_unit
-                - per_hundred
-                - per_thousand
-                - per_million
-                - per_billion
-              label_filter:
-                type: array
-                description: Include only values with these labels in the CostReport.
-                items:
-                  type: string
-        values:
-          type: array
-          description: The dates, amounts, and (optional) labels for the BusinessMetric.
-          items:
-            required:
-            - amount
-            - date
-            type: object
-            properties:
-              date:
-                type: string
-                format: date-time
-              amount:
-                type: number
-                format: double
-              label:
-                type:
-                - string
-                - 'null'
-          x-omitempty: true
-        forecasted_values:
-          type: array
-          description: The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
-          items:
-            required:
-            - amount
-            - date
-            type: object
-            properties:
-              date:
-                type: string
-                format: date-time
-              amount:
-                type: number
-                format: double
-              label:
-                type:
-                - string
-                - 'null'
-          x-omitempty: true
-        datadog_metric_fields:
-          type: object
-          properties:
-            integration_token:
-              type: string
-              description: Integration token for the account from which you would like to fetch metrics.
-            query:
-              type: string
-              description: Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
-          description: Datadog metric configuration fields
-        cloudwatch_fields:
-          type: object
-          properties:
-            integration_token:
-              type: string
-              description: Integration token for the account from which you would like to fetch metrics.
-            stat:
-              type: string
-            region:
-              type: string
-            namespace:
-              type: string
-            metric_name:
-              type: string
-            label_dimension:
-              type: string
-              x-omitempty: false
-            dimensions:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  value:
-                    type: string
-          description: Cloudwatch configuration fields.
-        snowflake_metric_fields:
-          type: object
-          properties:
-            integration_token:
-              type: string
-              description: Integration token for the Snowflake integration from which you would like to fetch metrics.
-            sql_query:
-              type: string
-              description: Snowflake SQL query returning date, value, and optional label columns.
-          description: Snowflake metric configuration fields.
-      description: Updates an existing BusinessMetric.
-    CloudwatchDimension:
-      required:
-      - name
-      - value
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    BusinessMetric:
-      required:
-      - cost_report_tokens_with_metadata
-      - import_type
-      - integration_token
-      - title
-      - token
-      type: object
-      properties:
-        token:
-          type: string
-          description: The token of the BusinessMetric.
-          example: bsnss_mtrc_1234
-        title:
-          type: string
-          description: The title of the BusinessMetric.
-          example: Total Revenue
-        created_by_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the Creator of the BusinessMetric.
-          example: usr_1234
-        cost_report_tokens_with_metadata:
-          type: array
-          description: The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
-          items:
-            $ref: '#/components/schemas/AttachedCostReportForBusinessMetric'
-        import_type:
-          type:
-          - string
-          - 'null'
-          description: The type of import for the BusinessMetric.
-          example: datadog_metrics
-          enum:
-          - datadog_metrics
-          - cloudwatch
-          - snowflake_metrics
-          - metronome_metrics
-          - csv
-        integration_token:
-          type:
-          - string
-          - 'null'
-          description: The Integration token used to import the BusinessMetric.
-        cloudwatch_fields:
-          $ref: '#/components/schemas/CloudwatchFields'
-        datadog_metric_fields:
-          $ref: '#/components/schemas/DatadogMetricFields'
-        snowflake_metric_fields:
-          $ref: '#/components/schemas/SnowflakeMetricFields'
-      description: BusinessMetric model
-    BusinessMetricValuesDeleteResponse:
-      required:
-      - deleted_count
-      type: object
-      properties:
-        deleted_count:
-          type: integer
-          description: Number of unit metric rows removed.
-          format: int32
-          example: 120
-      description: BusinessMetricValuesDeleteResponse model
-    AttachedCostReportForBusinessMetric:
-      required:
-      - calculation_type
-      - cost_report_token
-      - unit_scale
-      type: object
-      properties:
-        cost_report_token:
-          type:
-          - string
-          - 'null'
-          description: The token of the CostReport the BusinessMetric is attached to.
-          example: rprt_1234
-        unit_scale:
-          type: string
-          description: Determines the scale of the BusinessMetric's values within a particular CostReport.
-          example: per_hundred
-          enum:
-          - per_unit
-          - per_hundred
-          - per_thousand
-          - per_million
-          - per_billion
-        calculation_type:
-          type: string
-          description: The calculation type applied when this BusinessMetric is used in the CostReport.
-          example: unit_cost
-          enum:
-          - unit_cost
-          - gross_margin
-          - usage_unit_cost
-          - raw_business_metric
-        label_filter:
-          type:
-          - array
-          - 'null'
-          description: The labels that the BusinessMetric is filtered by within a particular CostReport.
-          items:
-            type: string
-            example: ''
-          x-omitempty: true
-    SnowflakeMetricFields:
-      required:
-      - sql_query
-      type: object
-      properties:
-        sql_query:
-          type: string
-          description: The SQL query used to import Snowflake metrics.
-          example: SELECT date, value, label FROM my_metrics_table
-    BusinessMetricValue:
-      required:
-      - amount
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date of the Business Metric Value. ISO 8601 formatted.
-          example: 2024-03-01+00:00
-        amount:
-          type: string
-          description: The amount of the Business Metric Value as a string to ensure precision.
-          example: '100.00'
-        label:
-          type:
-          - string
-          - 'null'
-          description: The label of the Business Metric Value.
-          example: Cost Center A
-    DatadogMetricFields:
-      required:
-      - query
-      type: object
-      properties:
-        query:
-          type: string
-          description: The query used to import Datadog metrics.
-          example: sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
     createBusinessMetric:
       required:
       - title
@@ -1022,6 +659,308 @@ components:
               description: Snowflake SQL query returning date, value, and optional label columns.
           description: Snowflake metric configuration fields.
       description: Create a new BusinessMetric.
+    AttachedCostReportForBusinessMetric:
+      required:
+      - calculation_type
+      - cost_report_token
+      - unit_scale
+      type: object
+      properties:
+        cost_report_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the CostReport the BusinessMetric is attached to.
+          example: rprt_1234
+        unit_scale:
+          type: string
+          description: Determines the scale of the BusinessMetric's values within a particular CostReport.
+          example: per_hundred
+          enum:
+          - per_unit
+          - per_hundred
+          - per_thousand
+          - per_million
+          - per_billion
+        calculation_type:
+          type: string
+          description: The calculation type applied when this BusinessMetric is used in the CostReport.
+          example: unit_cost
+          enum:
+          - unit_cost
+          - gross_margin
+          - usage_unit_cost
+          - raw_business_metric
+        label_filter:
+          type:
+          - array
+          - 'null'
+          description: The labels that the BusinessMetric is filtered by within a particular CostReport.
+          items:
+            type: string
+            example: ''
+          x-omitempty: true
+    Links:
+      type: object
+      properties:
+        self:
+          type:
+          - string
+          - 'null'
+          description: The URL of the current page of results.
+        first:
+          type:
+          - string
+          - 'null'
+          description: The URL of the first page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: The URL of the next page of results, if one exists.
+        last:
+          type:
+          - string
+          - 'null'
+          description: The URL of the last page of results, if one exists.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: The URL of the previous page of results, if one exists.
+    BusinessMetric:
+      required:
+      - cost_report_tokens_with_metadata
+      - import_type
+      - integration_token
+      - title
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token of the BusinessMetric.
+          example: bsnss_mtrc_1234
+        title:
+          type: string
+          description: The title of the BusinessMetric.
+          example: Total Revenue
+        created_by_token:
+          type:
+          - string
+          - 'null'
+          description: The token of the Creator of the BusinessMetric.
+          example: usr_1234
+        cost_report_tokens_with_metadata:
+          type: array
+          description: The tokens for any CostReports that use the BusinessMetric, the unit scale, and label filter.
+          items:
+            $ref: '#/components/schemas/AttachedCostReportForBusinessMetric'
+        import_type:
+          type:
+          - string
+          - 'null'
+          description: The type of import for the BusinessMetric.
+          example: datadog_metrics
+          enum:
+          - datadog_metrics
+          - cloudwatch
+          - snowflake_metrics
+          - metronome_metrics
+          - csv
+        integration_token:
+          type:
+          - string
+          - 'null'
+          description: The Integration token used to import the BusinessMetric.
+        cloudwatch_fields:
+          $ref: '#/components/schemas/CloudwatchFields'
+        datadog_metric_fields:
+          $ref: '#/components/schemas/DatadogMetricFields'
+        snowflake_metric_fields:
+          $ref: '#/components/schemas/SnowflakeMetricFields'
+      description: BusinessMetric model
+    DatadogMetricFields:
+      required:
+      - query
+      type: object
+      properties:
+        query:
+          type: string
+          description: The query used to import Datadog metrics.
+          example: sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
+    Errors:
+      required:
+      - errors
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        errors:
+          type: array
+          items:
+            type: string
+      description: Errors model
+    BusinessMetricValuesDeleteResponse:
+      required:
+      - deleted_count
+      type: object
+      properties:
+        deleted_count:
+          type: integer
+          description: Number of unit metric rows removed.
+          format: int32
+          example: 120
+      description: BusinessMetricValuesDeleteResponse model
+    CloudwatchDimension:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    BusinessMetricValues:
+      required:
+      - values
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessMetricValue'
+      description: BusinessMetricValues model
+    SnowflakeMetricFields:
+      required:
+      - sql_query
+      type: object
+      properties:
+        sql_query:
+          type: string
+          description: The SQL query used to import Snowflake metrics.
+          example: SELECT date, value, label FROM my_metrics_table
+    updateBusinessMetric:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the BusinessMetric.
+        cost_report_tokens_with_metadata:
+          type: array
+          description: The tokens for any CostReports that use the BusinessMetric, and the unit scale.
+          items:
+            required:
+            - cost_report_token
+            type: object
+            properties:
+              cost_report_token:
+                type: string
+                description: The token of the CostReport the BusinessMetric is attached to.
+              unit_scale:
+                type: string
+                description: Determines the scale of the BusinessMetric's values within the CostReport.
+                default: per_unit
+                enum:
+                - per_unit
+                - per_hundred
+                - per_thousand
+                - per_million
+                - per_billion
+              label_filter:
+                type: array
+                description: Include only values with these labels in the CostReport.
+                items:
+                  type: string
+        values:
+          type: array
+          description: The dates, amounts, and (optional) labels for the BusinessMetric.
+          items:
+            required:
+            - amount
+            - date
+            type: object
+            properties:
+              date:
+                type: string
+                format: date-time
+              amount:
+                type: number
+                format: double
+              label:
+                type:
+                - string
+                - 'null'
+          x-omitempty: true
+        forecasted_values:
+          type: array
+          description: The dates, amounts, and (optional) labels for forecasted BusinessMetric values.
+          items:
+            required:
+            - amount
+            - date
+            type: object
+            properties:
+              date:
+                type: string
+                format: date-time
+              amount:
+                type: number
+                format: double
+              label:
+                type:
+                - string
+                - 'null'
+          x-omitempty: true
+        datadog_metric_fields:
+          type: object
+          properties:
+            integration_token:
+              type: string
+              description: Integration token for the account from which you would like to fetch metrics.
+            query:
+              type: string
+              description: Datadog metrics query string. e.g. sum:aws.applicationelb.request_count{region:us-east-1}.rollup(avg,daily)
+          description: Datadog metric configuration fields
+        cloudwatch_fields:
+          type: object
+          properties:
+            integration_token:
+              type: string
+              description: Integration token for the account from which you would like to fetch metrics.
+            stat:
+              type: string
+            region:
+              type: string
+            namespace:
+              type: string
+            metric_name:
+              type: string
+            label_dimension:
+              type: string
+              x-omitempty: false
+            dimensions:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: string
+          description: Cloudwatch configuration fields.
+        snowflake_metric_fields:
+          type: object
+          properties:
+            integration_token:
+              type: string
+              description: Integration token for the Snowflake integration from which you would like to fetch metrics.
+            sql_query:
+              type: string
+              description: Snowflake SQL query returning date, value, and optional label columns.
+          description: Snowflake metric configuration fields.
+      description: Updates an existing BusinessMetric.
     BusinessMetrics:
       required:
       - business_metrics
@@ -1032,6 +971,67 @@ components:
           items:
             $ref: '#/components/schemas/BusinessMetric'
       description: BusinessMetrics model
+    BusinessMetricValue:
+      required:
+      - amount
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date of the Business Metric Value. ISO 8601 formatted.
+          example: 2024-03-01+00:00
+        amount:
+          type: string
+          description: The amount of the Business Metric Value as a string to ensure precision.
+          example: '100.00'
+        label:
+          type:
+          - string
+          - 'null'
+          description: The label of the Business Metric Value.
+          example: Cost Center A
+    CloudwatchFields:
+      required:
+      - dimensions
+      - label_dimension
+      - metric_name
+      - namespace
+      - region
+      - stat
+      type: object
+      properties:
+        stat:
+          type: string
+          description: The time aggregation function used to import Cloudwatch metrics.
+          example: Average
+          enum:
+          - Sum
+          - Average
+          - Minimum
+          - Maximum
+        region:
+          type: string
+          description: The region used to import Cloudwatch metrics.
+          example: us-east-1
+        namespace:
+          type: string
+          description: The namespace used to import Cloudwatch metrics.
+          example: AWS/EC2
+        metric_name:
+          type: string
+          description: The metric name used to import Cloudwatch metrics.
+          example: CPUUtilization
+        dimensions:
+          type: array
+          description: The dimensions used to pull specific statistical data for Cloudwatch metrics.
+          items:
+            $ref: '#/components/schemas/CloudwatchDimension'
+        label_dimension:
+          type:
+          - string
+          - 'null'
+          description: The dimension used to aggregate the Cloudwatch metrics.
   securitySchemes:
     oauth2:
       type: oauth2
