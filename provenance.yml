@@ -13,17 +13,17 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   collections/vantage-sh-accessgrants-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-accessgrants-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-accessgrants-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-accessgrants-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-anomalyalerts-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-anomalyalerts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-anomalyalerts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-anomalyalerts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-anomalynotifications-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-anomalynotifications-api
@@ -31,17 +31,17 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-anomalynotifications-api
   collections/vantage-sh-auditlogs-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-auditlogs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-auditlogs-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-auditlogs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-billingprofiles-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-billingprofiles-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-billingprofiles-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-billingprofiles-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-billingrules-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-billingrules-api
@@ -49,11 +49,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-billingrules-api
   collections/vantage-sh-budgetalerts-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-budgetalerts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-budgetalerts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-budgetalerts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-budgets-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-budgets-api
@@ -61,11 +61,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-budgets-api
   collections/vantage-sh-businessmetrics-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-businessmetrics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-businessmetrics-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-businessmetrics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-canvases-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-canvases-api
@@ -115,23 +115,23 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-dashboards-api
   collections/vantage-sh-dataexports-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-dataexports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-dataexports-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-dataexports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-exchangerates-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-exchangerates-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-exchangerates-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-exchangerates-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-financialcommitmentreports-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-financialcommitmentreports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-financialcommitmentreports-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-financialcommitmentreports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-financialcommitments-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-financialcommitments-api
@@ -163,11 +163,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-kubernetesefficiencyreports-api
   collections/vantage-sh-managedaccounts-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-managedaccounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-managedaccounts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-managedaccounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-me-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-me-api
@@ -175,11 +175,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-me-api
   collections/vantage-sh-networkflowreports-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-networkflowreports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-networkflowreports-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-networkflowreports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-ping-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-ping-api
@@ -211,11 +211,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-reportnotifications-api
   collections/vantage-sh-resourcereports-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-resourcereports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-resourcereports-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-resourcereports-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-resources-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-resources-api
@@ -223,11 +223,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-resources-api
   collections/vantage-sh-savedfilters-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-savedfilters-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-savedfilters-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-savedfilters-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-segments-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-segments-api
@@ -253,11 +253,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-unitcosts-api
   collections/vantage-sh-userfeedback-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-userfeedback-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-userfeedback-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-userfeedback-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-users-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-users-api
@@ -265,11 +265,11 @@ artifacts:
     method: derived
     evidence: openapi/vantage-sh-users-api
   collections/vantage-sh-virtualtags-api.opencollection.json:
-    method: derived
-    evidence: openapi/vantage-sh-virtualtags-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-virtualtags-api.postman_collection.json:
-    method: derived
-    evidence: openapi/vantage-sh-virtualtags-api
+    method: unknown
+    evidence: no authorship recorded
   collections/vantage-sh-workspaces-api.opencollection.json:
     method: derived
     evidence: openapi/vantage-sh-workspaces-api
@@ -285,55 +285,10 @@ artifacts:
   finops/vantage-sh-finops.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T080027.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T082702.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T114122.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T165047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T191845.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T205517.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-21T110057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T064859.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T171257.yml:
+  front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-25T125852.yml:
@@ -420,34 +375,155 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T205255.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T231945.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T165737.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T193153.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T205903.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T232958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T211425.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T233935.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-22T213221.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-23T000603.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T064009.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T090406.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  mcp/vantage-sh-mcp.yml:
+    method: unknown
+    evidence: no authorship recorded
   openapi/_original/vantage-sh-openapi.yml:
     method: harvested
-    evidence: fetched from the provider as-is; byte-identical to the source
-  openapi/vantage-sh-accessgrants-api-openapi.yml:
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/vantage-sh-access-grants-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-anomalyalerts-api-openapi.yml:
+  openapi/vantage-sh-anomaly-alerts-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-anomalynotifications-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-auditlogs-api-openapi.yml:
+  openapi/vantage-sh-audit-logs-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-billingprofiles-api-openapi.yml:
+  openapi/vantage-sh-billing-profiles-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-billingrules-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-budgetalerts-api-openapi.yml:
+  openapi/vantage-sh-budget-alerts-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-budgets-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-businessmetrics-api-openapi.yml:
+  openapi/vantage-sh-business-metrics-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-canvases-api-openapi.yml:
@@ -474,13 +550,13 @@ artifacts:
   openapi/vantage-sh-dashboards-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-dataexports-api-openapi.yml:
+  openapi/vantage-sh-data-exports-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-exchangerates-api-openapi.yml:
+  openapi/vantage-sh-exchange-rates-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-financialcommitmentreports-api-openapi.yml:
+  openapi/vantage-sh-financial-commitment-reports-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-financialcommitments-api-openapi.yml:
@@ -498,13 +574,13 @@ artifacts:
   openapi/vantage-sh-kubernetesefficiencyreports-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-managedaccounts-api-openapi.yml:
+  openapi/vantage-sh-managed-accounts-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-me-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-networkflowreports-api-openapi.yml:
+  openapi/vantage-sh-network-flow-reports-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-ping-api-openapi.yml:
@@ -522,13 +598,13 @@ artifacts:
   openapi/vantage-sh-reportnotifications-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-resourcereports-api-openapi.yml:
+  openapi/vantage-sh-resource-reports-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-resources-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-savedfilters-api-openapi.yml:
+  openapi/vantage-sh-saved-filters-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-segments-api-openapi.yml:
@@ -543,13 +619,13 @@ artifacts:
   openapi/vantage-sh-unitcosts-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-userfeedback-api-openapi.yml:
+  openapi/vantage-sh-user-feedback-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-users-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/vantage-sh-virtualtags-api-openapi.yml:
+  openapi/vantage-sh-virtual-tags-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/vantage-sh-workspaces-api-openapi.yml:
