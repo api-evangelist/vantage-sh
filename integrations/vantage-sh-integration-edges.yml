@@ -1,6 +1,7 @@
 generated: '2026-10-13'
 method: searched
 checked:
+- datadog/integrations/datadog-integration-edges.yml
 - https://aws.amazon.com/marketplace/
 marketplace_apps: []
 edges:
@@ -20,3 +21,22 @@ edges:
   seller_name: Vantage
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Datadog (own)
+  partner: datadog
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://github.com/DataDog/integrations-extras/tree/master/vantage
+  mirror_of: datadog/integrations/datadog-integration-edges.yml
+  apps:
+  - Vantage
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Cost Management
+source:
+- datadog/integrations/datadog-integration-edges.yml
